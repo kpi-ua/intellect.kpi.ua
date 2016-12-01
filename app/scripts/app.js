@@ -15,7 +15,8 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'angular-carousel'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -24,13 +25,13 @@ angular
         controller: 'MainCtrl',
         controllerAs: 'main'
       })
-      .when('/about', {
+      .when('/page/about', {
         templateUrl: 'views/about.html',
-        controller: 'AboutCtrl',
+        controller: 'PageCtrl',
         controllerAs: 'about'
       })
-      .when('/page', {
-        templateUrl: 'views/page.html',
+      .when('/page/contacts', {
+        templateUrl: 'views/contacts.html',
         controller: 'PageCtrl',
         controllerAs: 'page'
       })
