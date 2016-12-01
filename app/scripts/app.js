@@ -29,6 +29,21 @@ angular
         controller: 'AboutCtrl',
         controllerAs: 'about'
       })
+      .when('/page', {
+        templateUrl: 'views/page.html',
+        controller: 'PageCtrl',
+        controllerAs: 'page'
+      })
+      .when('/search', {
+        templateUrl: 'views/search.html',
+        controller: 'SearchCtrl',
+        controllerAs: 'search'
+      })
+      .when('/profile', {
+        templateUrl: 'views/profile.html',
+        controller: 'ProfileCtrl',
+        controllerAs: 'profile'
+      })
       .otherwise({
         redirectTo: '/'
       });
