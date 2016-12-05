@@ -1,0 +1,22 @@
+@model Campus.Common.Record
+
+@if (!String.IsNullOrEmpty(Model.Value))
+{
+<tr>
+  <td>
+    <strong>@Model.Name</strong>
+  </td>
+  <td>
+    @if (Model.Value.Contains("http://"))
+    {
+    var text = Model.Value.Replace("http://", "");
+    <a href="@Model.Value">@text</a>
+    }
+    else
+    {
+    @Model.Value
+    }
+  </td>
+  <td>
+</tr>
+}
