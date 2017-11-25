@@ -55,11 +55,11 @@ a {
     margin-top: 0;
     height: 35px;
     width: 191px;
-    background-image: url(/Images/logo.png);
+    background-image: url(/images/logo.png);
 }
 
     .logo:hover {
-        background-image: url(/Images/logo_yellow1.png);
+        background-image: url(/images/logo_yellow1.png);
         transition: 0.3s;
     }
 
@@ -259,7 +259,6 @@ footer {
 }
 
 .jumbotron {
-    background-image: url(/Images/jumbotron.jpg);
     background-color: #fff;
     color: #fff;
     margin-bottom: 0;
@@ -541,7 +540,7 @@ ymaps {
     display: block;
     width: 38px;
     height: 38px;
-    background: url("/Images/up_arrow.jpg") center center;
+    background: url("/images/up_arrow.jpg") center center;
     position: fixed;
     right: -100px;
     cursor: pointer;
