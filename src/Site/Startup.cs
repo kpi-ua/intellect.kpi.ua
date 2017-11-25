@@ -20,8 +20,6 @@ namespace Site
             services.AddMvc();
 
             services.AddMemoryCache();
-
-            //services.AddSingleton<IHostingEnvironment>(env);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

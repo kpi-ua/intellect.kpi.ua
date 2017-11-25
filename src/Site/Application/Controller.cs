@@ -16,8 +16,14 @@ namespace Site
 
         protected string MapPath(string path)
         {
+            var root = _env.WebRootPath;
+            if (string.IsNullOrWhiteSpace(root))
+            {
+                root = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+            }
+
             path = path.Replace("~", "");
-            return _env.WebRootPath + path;
+            return root + path;
         }
 
 #if DEBUG
