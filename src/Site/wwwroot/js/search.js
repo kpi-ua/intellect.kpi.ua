@@ -33,7 +33,7 @@ function find(value) {
         return;
     }
 
-    var html = '<img src="/Images/loading.gif" class="loading" />';
+    var html = '<img src="/images/loading.gif" class="loading" />';
     var pageNumber = URI.parseQuery(window.location.search)["page"];
 
     $("#search-result").html(html);
