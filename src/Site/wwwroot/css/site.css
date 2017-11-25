@@ -811,11 +811,6 @@ ymaps {
     height: 1px;
 }
 
-.yandex_counter {
-    position: absolute;
-    left: -9999px;
-}
-
 #science_news_content img {
     border: 1px solid #DDD;
     padding: 1px;
