@@ -1,37 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+using System.Web.Mvc;
 using Site.Models;
 
 namespace Site.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        [OutputCache(Duration = OutputCacheDuration, VaryByParam = "*")]
+        public ActionResult Index()
+        {
+            var model = new HomeViewModel
+            {
+                Publication = Client.GetLastPublication(),
+                Slides = GetSlides()
+            };
+
+            return View(model);
+        }
+
+        private IEnumerable<string> GetSlides()
+        {
+            var path = Server.MapPath("~/static/slides");
+            var files = Directory.GetFiles(path);
+            return files.Select(o => "/static/slides/" + Path.GetFileName(o)).ToList();
+        }
+
+        public ActionResult Search()
         {
             return View();
         }
 
-        public IActionResult About()
+        [OutputCache(Duration = OutputCacheDuration, VaryByParam = "*")]
+        public ActionResult NotFound()
         {
-            ViewData["Message"] = "Your application description page.";
-
             return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
