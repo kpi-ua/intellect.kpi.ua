@@ -2,15 +2,14 @@
 using System;
 using System.IO;
 using System.Linq;
-using System.Web.Mvc;
 using Site.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Site.Controllers
 {
-    public class ProfileController : Controller
+    public class ProfileController : Site.Controller
     {
-        [OutputCache(Duration = OutputCacheDuration, VaryByParam = "*")]
-        public ActionResult Index(string userIdentifier)
+        public IActionResult Index(string userIdentifier)
         {
             var profile = Client.GetUserProfile(userIdentifier);
 
@@ -48,32 +47,32 @@ namespace Site.Controllers
         }
 
         [OutputCache(Duration = OutputCacheDuration, VaryByParam = "*")]
-        public ActionResult Conference(string userIdentifier)
+        public IActionResult Conference(string userIdentifier)
         {
             return SubpageTemplate(userIdentifier);
         }
 
         [OutputCache(Duration = OutputCacheDuration, VaryByParam = "*")]
-        public ActionResult Execution(string userIdentifier)
+        public IActionResult Execution(string userIdentifier)
         {
             return SubpageTemplate(userIdentifier);
         }
 
         [OutputCache(Duration = OutputCacheDuration, VaryByParam = "*")]
-        public ActionResult Publications(string userIdentifier)
+        public IActionResult Publications(string userIdentifier)
         {
             return SubpageTemplate(userIdentifier);
         }
 
         [OutputCache(Duration = OutputCacheDuration, VaryByParam = "*")]
-        public ActionResult Results(string userIdentifier)
+        public IActionResult Results(string userIdentifier)
         {
             return SubpageTemplate(userIdentifier);
         }
 
         #region Internal logic
 
-        private ActionResult SubpageTemplate(string userIdentifier)
+        private IActionResult SubpageTemplate(string userIdentifier)
         {
             var profile = Client.GetUserProfile(userIdentifier);
 

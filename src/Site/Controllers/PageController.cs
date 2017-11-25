@@ -1,18 +1,18 @@
 ﻿using System;
-using System.Web.Mvc;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Site.Controllers
 {
-    public class PageController : Controller
+    public class PageController : Site.Controller
     {
         [OutputCache(Duration = OutputCacheDuration, VaryByParam = "*")]
-        public ActionResult Index(string name)
+        public IActionResult Index(string name)
         {
             var html = LoadPage(name);
 
             if (String.IsNullOrEmpty(html))
             {
-                return HttpNotFound();
+                return NotFound()();
             }
 
             return View((Object)html);

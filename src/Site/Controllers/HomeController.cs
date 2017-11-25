@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Web.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Site.Models;
 
 namespace Site.Controllers
 {
-    public class HomeController : Controller
-    {
+    public class HomeController : Site.Controller
+    {        
         [OutputCache(Duration = OutputCacheDuration, VaryByParam = "*")]
-        public ActionResult Index()
+        public IActionResult Index()
         {
             var model = new HomeViewModel
             {
@@ -27,13 +27,12 @@ namespace Site.Controllers
             return files.Select(o => "/static/slides/" + Path.GetFileName(o)).ToList();
         }
 
-        public ActionResult Search()
+        public IActionResult Search()
         {
             return View();
         }
 
-        [OutputCache(Duration = OutputCacheDuration, VaryByParam = "*")]
-        public ActionResult NotFound()
+        public IActionResult NotFound()
         {
             return View();
         }

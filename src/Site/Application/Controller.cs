@@ -1,6 +1,6 @@
 ﻿namespace Site
 {
-    public class Controller : System.Web.Mvc.Controller
+    public class Controller : Microsoft.AspNetCore.Mvc.Controller
     {
         protected readonly CampusClient Client = new CampusClient();
 
