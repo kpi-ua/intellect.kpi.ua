@@ -1,4 +1,0 @@
-﻿User-agent: *
-Allow: /
-
-Host: directory.kpi.ua
