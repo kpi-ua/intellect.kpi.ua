@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using Microsoft.AspNetCore.Http;
 
 namespace Site
 {
@@ -38,61 +39,9 @@ namespace Site
 
             return profile;
         }
-
-        private static String _secureApiEndpoint;
-        private static String _apiEndpoint;
-
-        public static String SecureApiEndpoint
-        {
-            get
-            {
-                if (String.IsNullOrEmpty(_secureApiEndpoint))
-                {
-                    _secureApiEndpoint = WebConfigurationManager.AppSettings["secure-campus-api-endpoint"];
-                }
-
-                return _secureApiEndpoint;
-            }
-        }
-
-        public static String ApiEndpoint
-        {
-            get
-            {
-                if (String.IsNullOrEmpty(_apiEndpoint))
-                {
-                    _apiEndpoint = WebConfigurationManager.AppSettings["campus-api-endpoint"];
-                }
-
-                return _apiEndpoint;
-            }
-        }
-
-        public Publication GetLastPublication()
-        {
-            var files = Directory.GetFiles(HttpContext.Current.Server.MapPath("~/static/"));
-
-            var list = new List<Publication>();
-
-            foreach (var file in files)
-            {
-                try
-                {
-                    list.Add(new Publication
-                    {
-                        Date = DateTime.Parse(Path.GetFileNameWithoutExtension(file)),
-                        Content = System.IO.File.ReadAllText(file),
-                    });
-                }
-                catch { }
-            }
-
-
-            var publication = list.OrderByDescending(o => o.Date).FirstOrDefault();
-
-            return publication;
-        }
-
+        
+        public static String ApiEndpoint => "https://api.campus.kpi.ua/";
+        
         public static Position GetUserPrimaryPosition(PublicProfile profile)
         {
             var position = profile.Positions.FirstOrDefault(o => o.Employment == Employment.FullTime);

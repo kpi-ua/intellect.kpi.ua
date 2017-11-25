@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using Microsoft.AspNetCore.Hosting;
 using Site.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,6 +10,11 @@ namespace Site.Controllers
 {
     public class ProfileController : Site.Controller
     {
+        public ProfileController(IHostingEnvironment env)
+            : base(env)
+        {
+        }
+
         public IActionResult Index(string userIdentifier)
         {
             var profile = Client.GetUserProfile(userIdentifier);
@@ -19,8 +25,8 @@ namespace Site.Controllers
             }
 
             var url = CampusClient.GetProfileCanonicalUrl(profile);
-
-            if (Request?.Url?.Host != url.Host && Request?.Url?.Host != "localhost")
+            
+            if (Request?.Host.Host != url.Host && Request?.Host.Host != "localhost")
             {
                 return RedirectPermanent(url.ToString());
             }
@@ -83,7 +89,7 @@ namespace Site.Controllers
 
             var url = CampusClient.GetProfileCanonicalUrl(profile);
 
-            if (Request.Url.Host != url.Host && Request.Url.Host != "localhost")
+            if (Request.Host.Host != url.Host && Request.Host.Host != "localhost")
             {
                 return RedirectPermanent(url.ToString());
             }
@@ -111,16 +117,16 @@ namespace Site.Controllers
                 };
             }
         }
-        
+
         private void SetPageHeaderBackground()
         {
             var path = "~/static/headers";
-            var files = Directory.GetFiles(Server.MapPath(path));
+            var files = Directory.GetFiles(MapPath(path));
             var file = files.OrderBy(o => Guid.NewGuid()).Select(Path.GetFileName).FirstOrDefault();
 
             ViewBag.Header = "/static/headers/" + file;
         }
-        
+
         #endregion
     }
 }
