@@ -15,7 +15,7 @@ namespace Site.Controllers
         {
         }
 
-        public Publication GetLastPublication()
+        private Publication GetLastPublication()
         {
             var files = Directory.GetFiles(MapPath("~/static/"));
 
@@ -59,18 +59,16 @@ namespace Site.Controllers
             return files.Select(o => "/static/slides/" + Path.GetFileName(o)).ToList();
         }
 
-
-
+        [Route("search")]
         public IActionResult Search()
         {
             return View();
         }
 
+        [Route("NotFound")]
         public IActionResult NotFound()
         {
             return View();
         }
-
-
     }
 }

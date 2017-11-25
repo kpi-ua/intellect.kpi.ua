@@ -11,6 +11,7 @@ namespace Site.Controllers
         {
         }
 
+        [Route("Page/{name}")]
         [OutputCache(Duration = OutputCacheDuration, VaryByParam = "*")]
         public IActionResult Index(string name)
         {
