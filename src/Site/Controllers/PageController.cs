@@ -12,7 +12,6 @@ namespace Site.Controllers
         }
 
         [Route("Page/{name}")]
-        [OutputCache(Duration = OutputCacheDuration, VaryByParam = "*")]
         public IActionResult Index(string name)
         {
             var html = LoadPage(name);
@@ -30,6 +29,5 @@ namespace Site.Controllers
             var path = MapPath($"~/static/{name}.html");
             return System.IO.File.ReadAllText(path);
         }
-
     }
 }

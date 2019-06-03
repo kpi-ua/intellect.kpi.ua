@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Site.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Site.Models;
 
 namespace Site.Controllers
 {
@@ -40,7 +40,6 @@ namespace Site.Controllers
             return publication;
         }
 
-        [OutputCache(Duration = OutputCacheDuration, VaryByParam = "*")]
         public IActionResult Index()
         {
             var model = new HomeViewModel

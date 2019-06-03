@@ -54,28 +54,24 @@ namespace Site.Controllers
         }
 
         [Route("Profile/{userIdentifier}/Conference")]
-        [OutputCache(Duration = OutputCacheDuration, VaryByParam = "*")]
         public IActionResult Conference(string userIdentifier)
         {
             return SubpageTemplate(userIdentifier);
         }
 
         [Route("Profile/{userIdentifier}/Execution")]
-        [OutputCache(Duration = OutputCacheDuration, VaryByParam = "*")]
         public IActionResult Execution(string userIdentifier)
         {
             return SubpageTemplate(userIdentifier);
         }
 
         [Route("Profile/{userIdentifier}/Publications")]
-        [OutputCache(Duration = OutputCacheDuration, VaryByParam = "*")]
         public IActionResult Publications(string userIdentifier)
         {
             return SubpageTemplate(userIdentifier);
         }
 
         [Route("Profile/{userIdentifier}/Results")]
-        [OutputCache(Duration = OutputCacheDuration, VaryByParam = "*")]
         public IActionResult Results(string userIdentifier)
         {
             return SubpageTemplate(userIdentifier);

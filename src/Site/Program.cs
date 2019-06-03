@@ -1,5 +1,4 @@
-﻿using System.IO;
-using Microsoft.AspNetCore;
+﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 
@@ -14,8 +13,6 @@ namespace Site
 
         public static IWebHost BuildWebHost(string[] args)
         {
-
-
             var config = new ConfigurationBuilder()
                 .AddCommandLine(args)
                 .Build();
@@ -25,7 +22,6 @@ namespace Site
                 .UseConfiguration(config)
                 .UseStartup<Startup>()
                 .Build();
-
         }
     }
 }
