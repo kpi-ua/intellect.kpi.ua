@@ -1,0 +1,52 @@
+﻿@using Campus.Common
+@using Campus.Common.Base
+@model PublicProfile
+
+<div class="row profile">
+    <div class="col-md-3">
+        <a href="@CampusClient.GetProfileCanonicalUrl(Model)" title="Перейти на сторінку викладача" class="thumbnail profile-image">
+            <img class="img-thumbnail" src="@Model.Photo" alt="@Model.FullName">
+        </a>
+        @if (!String.IsNullOrEmpty(Model.Credo))
+        {
+            <h5 class="credo">@Model.Credo</h5>
+        }
+    </div>
+
+    <div class="col-md-9">
+        <div class="panel panel-default">
+            <h2><a href="@CampusClient.GetProfileCanonicalUrl(Model)" title="Перейти на сторінку викладача">@Model.FullName</a></h2>
+            <div class="panel-heading">
+                <h3 class="panel-title">Загальна інформація</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table table-responsive table-hover table-striped common_info">
+                    @Html.Partial("RecordPartialView", new Record("Науковий ступень", Model.AcademicDegree))
+                    @Html.Partial("RecordPartialView", new Record("Наукові інтереси", Model.GetField("ScientificInterest")))
+                    @Html.Partial("RecordPartialView", new Record("Вчене звання", Model.AcademicStatus))
+                </table>
+
+                <table class="table table-responsive table-hover table-striped workplace">
+                    @{
+                        string content = "Дані за місцем роботи ";
+
+                        foreach (var position in Model.Positions)
+                        {
+                            <tr>
+                                <td>@content</td>
+                                <td>
+                                    <a href="@position.Subdivision.Url">@position.Subdivision.Name</a>
+                                </td>
+                                <td>
+                                    @position.Name
+                                </td>
+                            </tr>
+
+                            content = "";
+                        }
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
