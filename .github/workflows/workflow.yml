@@ -48,7 +48,7 @@ jobs:
     - name: Push Docker images (Dockerhub packages)
       run: |
         docker tag ${{ env.project }}:${{ env.tag }} ${{ env.dockerhub-organization }}${{ env.project }}:${{ env.tag }}
-        docker tag ${{ env.project }}:${{ env.tag-latest }} ${{ env.dockerhub-organizationl }}${{ env.project }}:${{ env.tag-latest }}
+        docker tag ${{ env.project }}:${{ env.tag-latest }} ${{ env.dockerhub-organization }}${{ env.project }}:${{ env.tag-latest }}
         docker push ${{ env.dockerhub-organization }}${{ env.project }}:${{ env.tag }}
         docker push ${{ env.dockerhub-organization }}${{ env.project }}:${{ env.tag-latest }}        
       
