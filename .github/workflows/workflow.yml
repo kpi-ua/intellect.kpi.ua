@@ -1,9 +1,15 @@
 name: .Build intellect.kpi.ua project
 
-
 inputs:
-  project: intellect-kpi-ua
-  tag:  $(date +%s)
+  project:
+    description: 'Project name'
+    required: true
+    default: 'intellect-kpi-ua'
+  tag:
+    description: 'Docker image tag'
+    required: true
+    default: $(date +%s)
+
 
 on: [push]
 
