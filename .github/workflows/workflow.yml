@@ -7,7 +7,7 @@ env:
 on: [push]
 
 jobs:
-  build:
+  build-and-deploy:
 
     runs-on: ubuntu-latest
 
@@ -35,9 +35,9 @@ jobs:
       run: docker login -u ${{ secrets.GH_USERNAME }} -p ${{ secrets.GH_TOKEN }} docker.pkg.github.com
 
     - name: Push the Docker image (release tag)
-      run: docker push docker.pkg.github.com/kpi-ua/devdigest.today/${{ env.project }}:${{ env.tag }}
+      run: docker push docker.pkg.github.com/kpi-ua/intellect.kpi.ua/${{ env.project }}:${{ env.tag }}
 
     - name: Push the Docker image (latest tag)
-      run: docker push docker.pkg.github.com/kpi-ua/devdigest.today/${{ env.project }}:latest
+      run: docker push docker.pkg.github.com/kpi-ua/intellect.kpi.ua/${{ env.project }}:latest
       
     
