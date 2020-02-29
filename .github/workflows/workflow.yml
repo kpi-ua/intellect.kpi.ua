@@ -1,5 +1,10 @@
 name: .Build intellect.kpi.ua project
 
+
+variables:
+  project: intellect-kpi-ua
+  release-docker-tag:  $(date +%s)
+
 on: [push]
 
 jobs:
@@ -9,16 +14,31 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.101
+
     - name: Build with dotnet
       run: dotnet build --configuration Release      
+
     - name: Publish Web App
       run: dotnet publish ./src/Site/Site.csproj --configuration Release -o ./docker/out    
+      
     - name: Build the Docker image (release tag)
-      run: docker build ./docker --file ./docker/Dockerfile --tag intellect-kpi-ua:$(date +%s)
+      run: docker build ./docker --file ./docker/Dockerfile --tag ${{ variables.project }}:${{ inputs.release-docker-tag }}
+
     - name: Build the Docker image (latest tag)
-      run: docker build ./docker --file ./docker/Dockerfile --tag intellect-kpi-ua:latest
+      run: docker build ./docker --file ./docker/Dockerfile --tag ${{ variables.project }}:latest
+    
+    - name: Docker Auth
+      run: docker login -u ${{ secrets.GH_USERNAME }} -p ${{ secrets.GH_TOKEN }} docker.pkg.github.com
+
+    - name: Push the Docker image (release tag)
+      run: docker push docker.pkg.github.com/kpi-ua/devdigest.today/${{ variables.project }}:${{ variables.release-docker-tag }}
+
+    - name: Push the Docker image (latest tag)
+      run: docker push docker.pkg.github.com/kpi-ua/devdigest.today/${{ variables.project }}:latest
+      
     
