@@ -6,7 +6,7 @@ namespace Site.Controllers
 {
     public class PageController : Site.Controller
     {
-        public PageController(IHostingEnvironment env) 
+        public PageController(IWebHostEnvironment env) 
             : base(env)
         {
         }
@@ -26,8 +26,7 @@ namespace Site.Controllers
 
         private string LoadPage(string name)
         {
-            var path = MapPath($"~/static/{name}.html");
-            return System.IO.File.ReadAllText(path);
+            return System.IO.File.ReadAllText(MapPath($"~/static/{name}.html"));
         }
     }
 }

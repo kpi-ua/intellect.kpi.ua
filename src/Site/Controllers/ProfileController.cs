@@ -10,7 +10,7 @@ namespace Site.Controllers
 {
     public class ProfileController : Site.Controller
     {
-        public ProfileController(IHostingEnvironment env)
+        public ProfileController(IWebHostEnvironment env)
             : base(env)
         {
         }
@@ -26,7 +26,7 @@ namespace Site.Controllers
             }
 
             var url = CampusClient.GetProfileCanonicalUrl(profile);
-            
+
             if (Request?.Host.Host != url.Host && Request?.Host.Host != "localhost")
             {
                 return RedirectPermanent(url.ToString());
@@ -35,18 +35,7 @@ namespace Site.Controllers
             SetPageHeaderBackground();
 
             ViewBag.ProfileName = userIdentifier;
-
-            var position = CampusClient.GetUserPrimaryPosition(profile);
-
-            if (!String.IsNullOrEmpty(position?.Subdivision.Url))
-            {
-                try
-                {
-                    var uri = new Uri(position.Subdivision.Url);
-                    ViewBag.Link = $"http://intellect.{uri.Host}/profile/{profile.UserIdentifier}";
-                }
-                catch { }
-            }
+            ViewBag.Link = url.ToString();
 
             SetOpenGraphMetadata(profile);
 
@@ -111,7 +100,9 @@ namespace Site.Controllers
                 ViewBag.Og = new OpenGraphMetadata
                 {
                     Title = profile.FullName,
-                    Description = $"Науковий ступень: {profile.AcademicDegree}. Наукові інтереси: {profile.GetField("ScientificInterest")}. Вчене звання: {profile.AcademicStatus}",
+                    Description = $"Науковий ступень: {profile.AcademicDegree}. " +
+                                  $"Наукові інтереси: {profile.GetField("ScientificInterest")}. " +
+                                  $"Вчене звання: {profile.AcademicStatus}",
                     Image = profile.Photo,
                     SiteName = "Intellect - КПІ ім. Ігоря Сікорського",
                     Url = CampusClient.GetProfileCanonicalUrl(profile).ToString()

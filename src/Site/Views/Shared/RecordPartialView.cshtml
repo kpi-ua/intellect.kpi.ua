@@ -7,9 +7,12 @@
             @Model.Name
         </td>
         <td>
-            @if (Model.Value.Contains("http://"))
+            @if (Model.Value.StartsWith("http://") || Model.Value.StartsWith("https://"))
             {
-                var text = Model.Value.Replace("http://", "");
+                var text = Model.Value
+                    .Replace("http://", string.Empty)
+                    .Replace("https://", string.Empty);
+                
                 <a href="@Model.Value">@text</a>
             }
             else

@@ -13,7 +13,7 @@ namespace Site
         {
             var url = $"{ApiEndpoint}Account/Public/{userIdentifier}";
 
-            var json = String.Empty;
+            var json = string.Empty;
 
             try
             {
@@ -36,26 +36,22 @@ namespace Site
             return profile;
         }
         
-        public static String ApiEndpoint => "https://api.campus.kpi.ua/";
-        
-        public static Position GetUserPrimaryPosition(PublicProfile profile)
-        {
-            var position = profile.Positions.FirstOrDefault(o => o.Employment == Employment.FullTime);
-            return position ?? profile.Positions.FirstOrDefault();
-        }
+        public static string ApiEndpoint => "https://api.campus.kpi.ua/";
 
         public static Uri GetProfileCanonicalUrl(PublicProfile profile)
         {
-            var position = GetUserPrimaryPosition(profile);
 
+            var primaryPosition = profile.Positions.FirstOrDefault(o => o.Employment == Employment.FullTime) ??
+                                  profile.Positions.FirstOrDefault();
+            
             var canonicalHost = "kpi.ua";
             var schema = "https://";
 
-            if (!String.IsNullOrEmpty(position?.Subdivision?.Url))
+            if (!string.IsNullOrEmpty(primaryPosition?.Subdivision?.Url))
             {
                 try
                 {
-                    var uri = new Uri(position.Subdivision.Url);
+                    var uri = new Uri(primaryPosition.Subdivision.Url);
                     canonicalHost = uri.Host.ToLower();
                     schema = "http://";
                 }

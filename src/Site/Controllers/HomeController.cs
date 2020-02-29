@@ -10,7 +10,7 @@ namespace Site.Controllers
 {
     public class HomeController : Site.Controller
     {
-        public HomeController(IHostingEnvironment env)
+        public HomeController(IWebHostEnvironment env)
             : base(env)
         {
         }
@@ -51,7 +51,7 @@ namespace Site.Controllers
             return View(model);
         }
 
-        private IEnumerable<string> GetSlides()
+        private IReadOnlyCollection<string> GetSlides()
         {
             var path = MapPath("~/static/slides");
             var files = Directory.GetFiles(path);
@@ -59,15 +59,9 @@ namespace Site.Controllers
         }
 
         [Route("search")]
-        public IActionResult Search()
-        {
-            return View();
-        }
+        public IActionResult Search() => View();
 
         [Route("NotFound")]
-        public IActionResult NotFound()
-        {
-            return View();
-        }
+        public IActionResult NotFound() => View();
     }
 }

@@ -1,22 +1,20 @@
-﻿using System;
-
-namespace Site.Models
+﻿namespace Site.Models
 {
     public class OpenGraphMetadata
     {
-        public String Description { get; set; }
-        public String SiteName { get; set; }
-        public String AppId { get; set; }
-        public String Title { get; set; }
-        public String Type { get; set; }
-        public String Url { get; set; }
-        public String Image { get; set; }
+        public string Description { get; set; }
+        public string SiteName { get; set; }
+        public string AppId { get; set; }
+        public string Title { get; set; }
+        public string Type { get; set; }
+        public string Url { get; set; }
+        public string Image { get; set; }
 
-        public bool Empty => String.IsNullOrEmpty(Description) &&
-                             String.IsNullOrEmpty(SiteName) &&
-                             String.IsNullOrEmpty(AppId) &&
-                             String.IsNullOrEmpty(Title) &&
-                             String.IsNullOrEmpty(Url) &&
-                             String.IsNullOrEmpty(Image);
+        public bool Empty => string.IsNullOrEmpty(Description) &&
+                             string.IsNullOrEmpty(SiteName) &&
+                             string.IsNullOrEmpty(AppId) &&
+                             string.IsNullOrEmpty(Title) &&
+                             string.IsNullOrEmpty(Url) &&
+                             string.IsNullOrEmpty(Image);
     }
 }

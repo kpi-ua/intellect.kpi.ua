@@ -7,9 +7,9 @@ namespace Site
     {
         protected readonly CampusClient Client = new CampusClient();
 
-        private readonly IHostingEnvironment _env;
+        private readonly IWebHostEnvironment _env;
 
-        public Controller(IHostingEnvironment env)
+        public Controller(IWebHostEnvironment env)
         {
             _env = env;
         }

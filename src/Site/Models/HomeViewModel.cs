@@ -6,6 +6,6 @@ namespace Site.Models
     {
         public Publication Publication { get; set; }
 
-        public IEnumerable<string> Slides { get; set; }
+        public IReadOnlyCollection<string> Slides { get; set; }
     }
 }
