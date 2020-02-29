@@ -1,9 +1,9 @@
 name: .Build intellect.kpi.ua project
 
 
-variables:
+inputs:
   project: intellect-kpi-ua
-  release-docker-tag:  $(date +%s)
+  tag:  $(date +%s)
 
 on: [push]
 
@@ -27,18 +27,18 @@ jobs:
       run: dotnet publish ./src/Site/Site.csproj --configuration Release -o ./docker/out    
       
     - name: Build the Docker image (release tag)
-      run: docker build ./docker --file ./docker/Dockerfile --tag ${{ variables.project }}:${{ inputs.release-docker-tag }}
+      run: docker build ./docker --file ./docker/Dockerfile --tag ${{ inputs.project }}:${{ inputs.tag }}
 
     - name: Build the Docker image (latest tag)
-      run: docker build ./docker --file ./docker/Dockerfile --tag ${{ variables.project }}:latest
+      run: docker build ./docker --file ./docker/Dockerfile --tag ${{ inputs.project }}:latest
     
     - name: Docker Auth
       run: docker login -u ${{ secrets.GH_USERNAME }} -p ${{ secrets.GH_TOKEN }} docker.pkg.github.com
 
     - name: Push the Docker image (release tag)
-      run: docker push docker.pkg.github.com/kpi-ua/devdigest.today/${{ variables.project }}:${{ variables.release-docker-tag }}
+      run: docker push docker.pkg.github.com/kpi-ua/devdigest.today/${{ inputs.project }}:${{ inputs.tag }}
 
     - name: Push the Docker image (latest tag)
-      run: docker push docker.pkg.github.com/kpi-ua/devdigest.today/${{ variables.project }}:latest
+      run: docker push docker.pkg.github.com/kpi-ua/devdigest.today/${{ inputs.project }}:latest
       
     
