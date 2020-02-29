@@ -43,7 +43,7 @@ jobs:
 
     - name: Push the Docker image (latest tag)
       run: |
-        docker tag ${{ env.project }}:${{ env.tag-latest }} ${{ env.docker-registry-url }}${{ env.project }}:${{ env.tag }}
+        docker tag ${{ env.project }}:${{ env.tag-latest }} ${{ env.docker-registry-url }}${{ env.project }}:${{ env.tag-latest }}
         docker push ${{ env.docker-registry-url }}${{ env.project }}:${{ env.tag-latest }}
       
     
