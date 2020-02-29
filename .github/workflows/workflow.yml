@@ -19,6 +19,8 @@ jobs:
       run: cd ./src/Site
     - name: Publish Web App
       run: dotnet publish --configuration Release -o ../../docker/out
+    - name: Return to home directory
+      run: cd ./../../
     - name: Build the Docker image (release tag)
       run: docker build ./docker --file Dockerfile --tag intellect-kpi-ua:$(date +%s)
     - name: Build the Docker image (latest tag)
