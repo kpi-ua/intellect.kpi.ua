@@ -1,0 +1,25 @@
+name: .Build intellect.kpi.ua project
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.101
+    - name: Build with dotnet
+      run: dotnet build --configuration Release
+    - name: Move to Web App directory
+    - name: cd ./src/Site
+      run: dotnet publish --configuration Release -o ../../docker/out
+    - name: Build the Docker image (release tag)
+      run: docker build ./docker --file Dockerfile --tag intellect-kpi-ua:$(date +%s)
+    - name: Build the Docker image (latest tag)
+      run: docker build ./docker --file Dockerfile --tag intellect-kpi-ua:latest
+    
