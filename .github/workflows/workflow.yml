@@ -21,29 +21,24 @@ jobs:
       with:
         dotnet-version: 3.1.101
 
-    - name: Build with dotnet
-      run: dotnet build --configuration Release      
-
-    - name: Publish Web App
-      run: dotnet publish ./src/Site/Site.csproj --configuration Release -o ./docker/out    
+    - name: Build and publish Web App
+      run: |
+        dotnet build --configuration Release
+        dotnet publish ./src/Site/Site.csproj --configuration Release -o ./docker/out
       
-    - name: Build the Docker image (release tag)
-      run: docker build ./docker --file ./docker/Dockerfile --tag ${{ env.project }}:${{ env.tag }}
-
-    - name: Build the Docker image (latest tag)
-      run: docker build ./docker --file ./docker/Dockerfile --tag ${{ env.project }}:${{ env.tag-latest }}
+    - name: Build Docker images
+      run: |
+        docker build ./docker --file ./docker/Dockerfile --tag ${{ env.project }}:${{ env.tag }}
+        docker build ./docker --file ./docker/Dockerfile --tag ${{ env.project }}:${{ env.tag-latest }}
     
     - name: Docker Auth
       run: docker login -u ${{ secrets.GH_USERNAME }} -p ${{ secrets.GITHUB_TOKEN }} docker.pkg.github.com
 
-    - name: Push the Docker image (release tag)
+    - name: Push Docker images
       run: |
         docker tag ${{ env.project }}:${{ env.tag }} ${{ env.docker-registry-url }}${{ env.project }}:${{ env.tag }}
-        docker push ${{ env.docker-registry-url }}${{ env.project }}:${{ env.tag }}
-
-    - name: Push the Docker image (latest tag)
-      run: |
         docker tag ${{ env.project }}:${{ env.tag-latest }} ${{ env.docker-registry-url }}${{ env.project }}:${{ env.tag-latest }}
+        docker push ${{ env.docker-registry-url }}${{ env.project }}:${{ env.tag }}
         docker push ${{ env.docker-registry-url }}${{ env.project }}:${{ env.tag-latest }}
       
     
