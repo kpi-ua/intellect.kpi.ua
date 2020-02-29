@@ -3,6 +3,8 @@ name: .Build intellect.kpi.ua project
 env:
   project: 'intellect-kpi-ua'
   tag: ${{ github.sha }}
+  tag-latest: 'ltatest'
+  docker-registry-url: 'docker.pkg.github.com/kpi-ua/intellect.kpi.ua/'
 
 on: [push]
 
@@ -29,15 +31,19 @@ jobs:
       run: docker build ./docker --file ./docker/Dockerfile --tag ${{ env.project }}:${{ env.tag }}
 
     - name: Build the Docker image (latest tag)
-      run: docker build ./docker --file ./docker/Dockerfile --tag ${{ env.project }}:latest
+      run: docker build ./docker --file ./docker/Dockerfile --tag ${{ env.project }}:${{ env.tag-latest }}
     
     - name: Docker Auth
       run: docker login -u ${{ secrets.GH_USERNAME }} -p ${{ secrets.GH_TOKEN }} docker.pkg.github.com
 
     - name: Push the Docker image (release tag)
-      run: docker push docker.pkg.github.com/kpi-ua/intellect.kpi.ua/${{ env.project }}:${{ env.tag }}
+      run: |
+        docker tag ${{ env.project }}:${{ env.tag }} ${{ env.docker-registry-url }}${{ env.project }}:${{ env.tag }}
+        docker push ${{ env.docker-registry-url }}${{ env.project }}:${{ env.tag }}
 
     - name: Push the Docker image (latest tag)
-      run: docker push docker.pkg.github.com/kpi-ua/intellect.kpi.ua/${{ env.project }}:latest
+      run: |
+        docker tag ${{ env.project }}:${{ env.tag-latest }} ${{ env.docker-registry-url }}${{ env.project }}:${{ env.tag }}
+        docker push ${{ env.docker-registry-url }}${{ env.project }}:${{ env.tag-latest }}
       
     
