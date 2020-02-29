@@ -2,7 +2,7 @@ name: .Build intellect.kpi.ua project
 
 env:
   project: 'intellect-kpi-ua'
-  tag: $(date +%s)
+  tag: ${{ $(date +%s) }}
 
 on: [push]
 
