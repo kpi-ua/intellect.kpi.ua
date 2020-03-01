@@ -1,10 +1,4 @@
-name: .Build intellect.kpi.ua project
-
-env:
-  project: 'intellect-kpi-ua'
-  tag: ${{ github.sha }}
-  tag-latest: 'latest'
-  docker-registry-url: 'docker.pkg.github.com/kpi-ua/intellect.kpi.ua/'
+name: Build intellect.kpi.ua
 
 on: [push]
 
@@ -21,29 +15,7 @@ jobs:
       with:
         dotnet-version: 3.1.101
 
-    - name: Build with dotnet
-      run: dotnet build --configuration Release      
-
-    - name: Publish Web App
-      run: dotnet publish ./src/Site/Site.csproj --configuration Release -o ./docker/out    
-      
-    - name: Build the Docker image (release tag)
-      run: docker build ./docker --file ./docker/Dockerfile --tag ${{ env.project }}:${{ env.tag }}
-
-    - name: Build the Docker image (latest tag)
-      run: docker build ./docker --file ./docker/Dockerfile --tag ${{ env.project }}:${{ env.tag-latest }}
-    
-    - name: Docker Auth
-      run: docker login -u ${{ secrets.GH_USERNAME }} -p ${{ secrets.GITHUB_TOKEN }} docker.pkg.github.com
-
-    - name: Push the Docker image (release tag)
+    - name: Build and Publish
       run: |
-        docker tag ${{ env.project }}:${{ env.tag }} ${{ env.docker-registry-url }}${{ env.project }}:${{ env.tag }}
-        docker push ${{ env.docker-registry-url }}${{ env.project }}:${{ env.tag }}
-
-    - name: Push the Docker image (latest tag)
-      run: |
-        docker tag ${{ env.project }}:${{ env.tag-latest }} ${{ env.docker-registry-url }}${{ env.project }}:${{ env.tag-latest }}
-        docker push ${{ env.docker-registry-url }}${{ env.project }}:${{ env.tag-latest }}
-      
-    
+        chmod +x ./docker/build.sh
+        ./docker/build.sh ${{ secrets.GH_USERNAME }} ${{ secrets.GITHUB_TOKEN }} ${{ secrets.DOCKER_HUB_USERNAME }} ${{ secrets.DOCKER_HUB_TOKEN }}
