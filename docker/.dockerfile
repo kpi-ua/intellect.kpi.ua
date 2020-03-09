@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1.1-buster-slim
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1.2-alpine
 
 WORKDIR /app
 COPY ./out/ ./
