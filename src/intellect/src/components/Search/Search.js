@@ -18,7 +18,9 @@ class Search extends Component {
 
   render() {
     return (
-      <div></div>
+      <div>
+        Search
+      </div>
     );
   }
 }

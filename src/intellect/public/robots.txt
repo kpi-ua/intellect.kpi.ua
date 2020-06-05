@@ -1,3 +1,4 @@
-# https://www.robotstxt.org/robotstxt.html
-User-agent: *
-Disallow:
+﻿User-agent: *
+Allow: /
+
+Host: intellect.kpi.ua

@@ -18,7 +18,15 @@ class Contacts extends Component {
 
   render() {
     return (
-      <div></div>
+      <div>
+        <h1>Контакти</h1>
+
+        <strong>Інформаційна підтримка</strong><br/>
+        тел.: +38 (044) 454 98 45<br/>
+        факс: +38 (044) 454 98 45<br/>
+        e-mail: <a href="mailto:ecampus@kpi.ua">ecampus@kpi.ua</a><br/>
+        <br/>
+      </div>
     );
   }
 }
