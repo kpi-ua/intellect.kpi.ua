@@ -1,6 +1,5 @@
-import logo from './logo.svg';
-import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 import React from 'react'
 import {
   BrowserRouter as Router,
@@ -29,30 +28,52 @@ function App() {
             </div>
           </header>
 
-          <nav className="navbar navbar-default navigation">
+          <nav className="navbar navbar-light bg-light">
             <div className="container">
-              <div className="navbar-header">
-                <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                  <span className="sr-only">Toggle navigation</span>
-                  <span className="icon-bar"/>
-                  <span className="icon-bar"/>
-                  <span className="icon-bar"/>
-                </button>
-                <a className="navbar-brand" href="/">
-                  <div className="logo"/>
-                </a>
-              </div>
-              <div id="navbar" className="collapse navbar-collapse">
-                <ul className="nav navbar-nav navbar-right">
+              <a className="navbar-brand" href="/">
+                <div className="logo"/>
+              </a>
+              <ul className="nav nav-pills">
+                <li className="nav-item"><Link className="nav-link" to="/">Головна</Link></li>
+                <li className="nav-item"><Link className="nav-link" to="/Search">Пошук</Link></li>
+                <li className="nav-item"><Link className="nav-link" to="/page/about">Про проект</Link></li>
+                <li className="nav-item"><Link className="nav-link" to="/page/contacts">Контакти</Link></li>
 
-                  <li><Link to="/">Головна</Link></li>
-                  <li><Link to="/Search">Пошук</Link></li>
-                  <li><Link to="/page/about">Про проект</Link></li>
-                  <li><Link to="/page/contacts">Контакти</Link></li>
-                </ul>
-              </div>
+                {/*<li className="nav-item">*/}
+                {/*  <a className="nav-link" href="#fat">@fat</a>*/}
+                {/*</li>*/}
+                {/*<li className="nav-item">*/}
+                {/*  <a className="nav-link" href="#mdo">@mdo</a>*/}
+                {/*</li>              */}
+              </ul>
             </div>
           </nav>
+
+
+          {/*<nav className="navbar navbar-default navigation">*/}
+          {/*  <div className="container">*/}
+          {/*    <div className="navbar-header">*/}
+          {/*      <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">*/}
+          {/*        <span className="sr-only">Toggle navigation</span>*/}
+          {/*        <span className="icon-bar"/>*/}
+          {/*        <span className="icon-bar"/>*/}
+          {/*        <span className="icon-bar"/>*/}
+          {/*      </button>*/}
+          {/*      <a className="navbar-brand" href="/">*/}
+          {/*        <div className="logo"/>*/}
+          {/*      </a>*/}
+          {/*    </div>*/}
+          {/*    <div id="navbar" className="collapse navbar-collapse">*/}
+          {/*      <ul className="nav navbar-nav navbar-right">*/}
+
+          {/*        <li><Link to="/">Головна</Link></li>*/}
+          {/*        <li><Link to="/Search">Пошук</Link></li>*/}
+          {/*        <li><Link to="/page/about">Про проект</Link></li>*/}
+          {/*        <li><Link to="/page/contacts">Контакти</Link></li>*/}
+          {/*      </ul>*/}
+          {/*    </div>*/}
+          {/*  </div>*/}
+          {/*</nav>*/}
 
 
           <div className="container">
@@ -85,10 +106,10 @@ function App() {
           <div className="container">
             <div className="row">
               <div className="col-md-2 col-sm-2 small-logo">
-                <a href="/"><img className="img-responsive" alt="КПІ ім. Ігоря Сікорського" src="/images/logo_footer.png" /></a>
+                <a href="/"><img className="img-fluid" alt="КПІ ім. Ігоря Сікорського" src="/images/logo_footer.png" /></a>
               </div>
               <div className="col-md-5 col-sm-5">
-                Національний технічний університет України "<a href="http://kpi.ua">Київський політехнічний інститут імені Ігоря Сікорського</a>", 1998-@DateTime.Now.Year &copy;<br />
+                Національний технічний університет України "<a href="http://kpi.ua">Київський політехнічний інститут імені Ігоря Сікорського</a>", 1998-{(new Date().getFullYear())} &copy;<br />
                 Адреса: Україна, 03056 м.Київ-56, проспект Перемоги, 37<br />
               </div>
               <div className="col-md-5  col-sm-5">
