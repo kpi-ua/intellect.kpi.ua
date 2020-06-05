@@ -1,19 +1,4 @@
-html,
-body {
-  font-size: 11pt;
-  font-family: 'Roboto Condensed', sans-serif;
-  height: 100%;
-}
 
-h1,
-h2,
-h3,
-h4,
-h5 {
-  font-family: 'Roboto Condensed', sans-serif;
-  font-weight: lighter;
-  color: #0277bd;
-}
 
 h1 {
   font-size: 30pt;
@@ -150,7 +135,7 @@ button,
 }
 
 .carousel {
-  margin-top: -85px;
+
 }
 
 .carousel .carousel-caption {

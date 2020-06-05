@@ -17,17 +17,15 @@ function App() {
   return (
       <Router>
 
-        <div id="main_container">
-          <header>
-            <div className="container">
-              <div className="row">
-                <div className="col-md-12 text-right">
-                  Національний технічний університет України «Київський політехнічний інститут імені Ігоря Сікорського»
-                </div>
+
+        <header>
+          <div className="container">
+            <div className="row">
+              <div className="col-md-12 text-right">
+                Національний технічний університет України «Київський політехнічний інститут імені Ігоря Сікорського»
               </div>
             </div>
-          </header>
-
+          </div>
           <nav className="navbar navbar-light bg-light">
             <div className="container">
               <a className="navbar-brand" href="/">
@@ -48,35 +46,38 @@ function App() {
               </ul>
             </div>
           </nav>
+        </header>
 
 
-          {/*<nav className="navbar navbar-default navigation">*/}
-          {/*  <div className="container">*/}
-          {/*    <div className="navbar-header">*/}
-          {/*      <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">*/}
-          {/*        <span className="sr-only">Toggle navigation</span>*/}
-          {/*        <span className="icon-bar"/>*/}
-          {/*        <span className="icon-bar"/>*/}
-          {/*        <span className="icon-bar"/>*/}
-          {/*      </button>*/}
-          {/*      <a className="navbar-brand" href="/">*/}
-          {/*        <div className="logo"/>*/}
-          {/*      </a>*/}
-          {/*    </div>*/}
-          {/*    <div id="navbar" className="collapse navbar-collapse">*/}
-          {/*      <ul className="nav navbar-nav navbar-right">*/}
-
-          {/*        <li><Link to="/">Головна</Link></li>*/}
-          {/*        <li><Link to="/Search">Пошук</Link></li>*/}
-          {/*        <li><Link to="/page/about">Про проект</Link></li>*/}
-          {/*        <li><Link to="/page/contacts">Контакти</Link></li>*/}
-          {/*      </ul>*/}
-          {/*    </div>*/}
-          {/*  </div>*/}
-          {/*</nav>*/}
 
 
-          <div className="container">
+        {/*<nav className="navbar navbar-default navigation">*/}
+        {/*  <div className="container">*/}
+        {/*    <div className="navbar-header">*/}
+        {/*      <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">*/}
+        {/*        <span className="sr-only">Toggle navigation</span>*/}
+        {/*        <span className="icon-bar"/>*/}
+        {/*        <span className="icon-bar"/>*/}
+        {/*        <span className="icon-bar"/>*/}
+        {/*      </button>*/}
+        {/*      <a className="navbar-brand" href="/">*/}
+        {/*        <div className="logo"/>*/}
+        {/*      </a>*/}
+        {/*    </div>*/}
+        {/*    <div id="navbar" className="collapse navbar-collapse">*/}
+        {/*      <ul className="nav navbar-nav navbar-right">*/}
+
+        {/*        <li><Link to="/">Головна</Link></li>*/}
+        {/*        <li><Link to="/Search">Пошук</Link></li>*/}
+        {/*        <li><Link to="/page/about">Про проект</Link></li>*/}
+        {/*        <li><Link to="/page/contacts">Контакти</Link></li>*/}
+        {/*      </ul>*/}
+        {/*    </div>*/}
+        {/*  </div>*/}
+        {/*</nav>*/}
+
+
+        <div className="container">
             <section className="row">
               <div className="col-md-12 content">
                 {/* A <Switch> looks through its children <Route>s and renders the first one that matches the current URL. */}
@@ -100,7 +101,7 @@ function App() {
               </div>
             </section>
           </div>
-        </div>
+
 
         <footer>
           <div className="container">

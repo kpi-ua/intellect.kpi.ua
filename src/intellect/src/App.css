@@ -12,3 +12,27 @@
   color: #0277bd;
   text-decoration: none;
 }
+
+html,
+body {
+  font-size: 11pt;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: lighter !important;
+  color: #0277bd;
+}
+
+h1 {
+  padding-top: 20px;
+}
+
+.content {
+  min-height: 700px;
+}
