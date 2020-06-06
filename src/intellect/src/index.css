@@ -1,17 +1,5 @@
 
 
-h1 {
-  font-size: 30pt;
-}
-
-h2 {
-  font-size: 27pt;
-}
-
-h3 {
-  font-size: 20pt;
-}
-
 .height-x {
   height: 83px;
   overflow: hidden;
@@ -27,14 +15,7 @@ h3 {
   text-transform: uppercase;
 }
 
-a {
-  color: #01677D;
-}
 
-a:hover,
-a:focus {
-  text-decoration: underline;
-}
 
 .logo {
   margin-top: 0;
@@ -54,20 +35,18 @@ a:focus {
 
 header {
   background-color: transparent;
-  color: #fff;
   font-size: 9pt;
   min-height: 35px;
   letter-spacing: 1px;
   padding-top: 8px;
   text-transform: uppercase;
-  font-family: 'Roboto Condensed', sans-serif;
+  font-family: 'Ubuntu', sans-serif;
   width: 100%;
   position: relative;
   z-index: 1000;
 }
 
 .profile-image {
-  /*float: left;*/
   margin-right: 10px;
   margin-bottom: 10px;
 }
@@ -100,11 +79,6 @@ button,
 
 .tt-dropdown-menu {
   border-radius: 0;
-  font-weight: lighter;
-}
-
-.tt-dropdown-menu .tt-suggestion p {
-  font-weight: lighter;
 }
 
 .search-panel img {
@@ -134,9 +108,6 @@ button,
   width: 100%;
 }
 
-.carousel {
-
-}
 
 .carousel .carousel-caption {
   background-color: #0277bd;
@@ -183,26 +154,14 @@ button,
   height: 80px;
 }
 
-html,
-body,
-header,
-footer,
-.nav,
-.profile .panel-body {
-  font-weight: lighter;
-}
-
 footer {
   min-height: 100px;
   overflow: hidden;
   color: #fff;
   font-size: 10pt;
-  font-weight: lighter;
-  padding: 0;
   text-align: left;
   background: #0277BD;
-  padding-bottom: 20px;
-  background: #0277bd;
+  padding: 0 0 20px;
 }
 
 footer .small-logo {
@@ -296,7 +255,7 @@ footer a:hover {
   color: #777;
   text-transform: uppercase;
   padding-top: 5px;
-  font-family: 'Roboto Condensed', sans-serif;
+  font-family: 'Ubuntu', sans-serif;
 }
 
 .navigation a:hover {
@@ -741,7 +700,6 @@ ymaps {
 .alphabet a {
   padding-right: 15px;
   font-size: 18pt;
-  font-weight: lighter;
 }
 
 .alphabet a:first-of-type {
@@ -801,35 +759,7 @@ ymaps {
   padding: 1px;
 }
 
-.search-panel a span {
-  float: right;html,
-               body {
-                 font-size: 11pt;
-                 font-family: 'Roboto Condensed', sans-serif;
-                 height: 100%;
-               }
 
-h1,
-h2,
-h3,
-h4,
-h5 {
-  font-family: 'Roboto Condensed', sans-serif;
-  font-weight: lighter;
-  color: #0277bd;
-}
-
-h1 {
-  font-size: 30pt;
-}
-
-h2 {
-  font-size: 27pt;
-}
-
-h3 {
-  font-size: 20pt;
-}
 
 .height-x {
   height: 83px;
@@ -871,19 +801,6 @@ a:focus {
   transition: 0.5s;
 }
 
-header {
-  background-color: transparent;
-  color: #fff;
-  font-size: 9pt;
-  min-height: 35px;
-  letter-spacing: 1px;
-  padding-top: 8px;
-  text-transform: uppercase;
-  font-family: 'Roboto Condensed', sans-serif;
-  width: 100%;
-  position: relative;
-  z-index: 1000;
-}
 
 .profile-image {
   /*float: left;*/
@@ -919,11 +836,6 @@ button,
 
 .tt-dropdown-menu {
   border-radius: 0;
-  font-weight: lighter;
-}
-
-.tt-dropdown-menu .tt-suggestion p {
-  font-weight: lighter;
 }
 
 .search-panel img {
@@ -951,10 +863,6 @@ button,
 
 .search .btn-default {
   width: 100%;
-}
-
-.carousel {
-  margin-top: -85px;
 }
 
 .carousel .carousel-caption {
@@ -1000,28 +908,6 @@ button,
 
 #main_container::after {
   height: 80px;
-}
-
-html,
-body,
-header,
-footer,
-.nav,
-.profile .panel-body {
-  font-weight: lighter;
-}
-
-footer {
-  min-height: 100px;
-  overflow: hidden;
-  color: #fff;
-  font-size: 10pt;
-  font-weight: lighter;
-  padding: 0;
-  text-align: left;
-  background: #0277BD;
-  padding-bottom: 20px;
-  background: #0277bd;
 }
 
 footer .small-logo {
@@ -1378,14 +1264,6 @@ ymaps {
   color: #333;
   background: #ffffff;
   text-decoration: none;
-  /*width: 560px;
-  height: 190px;
-  margin-left: 0px !important;
-  margin-top: -10px !important;
-  -moz-box-shadow: 0px 1px 12px 1px #66ccff, 0px 1px 12px 1px #ffffcc;
-  -webkit-box-shadow: 0px 1px 12px 1px #66ccff, 0px 1px 12px 1px #ffffcc;
-  box-shadow: 0px 1px 8px 1px #a7dcfb, 0px 1px 12px 1px #ffffff;
-  transition: all 0.2s linear;*/
 }
 
 .s_one_result:focus {
@@ -1547,7 +1425,6 @@ ymaps {
 .alphabet a {
   padding-right: 15px;
   font-size: 18pt;
-  font-weight: lighter;
 }
 
 .alphabet a:first-of-type {
@@ -1620,12 +1497,6 @@ ymaps {
   display: block;
   margin: auto;
   width: 200px;
-}
-
-margin-top: 25px;
-  padding-left: 5px;
-  width: 70%;
-  vertical-align: middle;
 }
 
 .loading {

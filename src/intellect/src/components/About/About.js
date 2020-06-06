@@ -19,9 +19,6 @@ class About extends Component {
   render() {
     return (
       <div>
-        <div className="left_float_picture">
-          <img src="/images/about_us.png" width="300" title="Про нас" alt="Про нас"/>
-        </div>
         <h1>Про проект</h1>
         <div>
           Об′єднує вчених, викладачів, інженерів та аспірантів університету, які займаються інтелектуальною творчою

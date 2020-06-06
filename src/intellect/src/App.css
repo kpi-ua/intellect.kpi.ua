@@ -5,7 +5,7 @@
   color: #777;
   text-transform: uppercase;
   padding-top: 5px;
-  font-family: 'Roboto Condensed', sans-serif;
+  font-family: 'Ubuntu', sans-serif;
 }
 
 .nav-item a:hover {
@@ -16,7 +16,7 @@
 html,
 body {
   font-size: 11pt;
-  font-family: 'Roboto Condensed', sans-serif;
+  font-family: 'Ubuntu', sans-serif;
 }
 
 h1,
@@ -24,15 +24,33 @@ h2,
 h3,
 h4,
 h5 {
-  font-family: 'Roboto Condensed', sans-serif;
-  font-weight: lighter !important;
+  font-family: 'Ubuntu', sans-serif;
   color: #0277bd;
 }
 
 h1 {
   padding-top: 20px;
+  font-size: 30pt;
+}
+
+h2 {
+  font-size: 27pt;
+}
+
+h3 {
+  font-size: 20pt;
 }
 
 .content {
   min-height: 700px;
+}
+
+a {
+  color: #777 !important;
+}
+
+a:hover,
+a:focus {
+  color: #0277bd !important;
+  text-decoration: underline;
 }

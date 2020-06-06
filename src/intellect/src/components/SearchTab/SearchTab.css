@@ -5,3 +5,33 @@
 .SearchTab {
     /* propertys here */
 }
+
+.search-tab-icon {
+
+}
+
+.search-panel {
+    margin-top: 10px;
+    margin-bottom: 25px;
+
+}
+.search-panel .col-md-3 {
+    text-align: center;
+    cursor: pointer;
+}
+
+.search-panel svg {
+    display: block;
+    margin: auto;
+}
+.search-panel .col-md-3,
+.search-panel .col-md-3 svg{
+    color: #777;
+}
+
+.search-panel .col-md-3:hover ,
+.search-panel .col-md-3.selected ,
+.search-panel .col-md-3:hover svg,
+.search-panel .col-md-3.selected svg{
+    color: #0277bd;
+}
