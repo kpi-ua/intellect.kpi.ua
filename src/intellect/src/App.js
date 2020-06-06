@@ -94,6 +94,10 @@ function App() {
                   <Route path="/page/about">
                     <About />
                   </Route>
+                  <Route path="/profile/:profileId">
+                    <Profile />
+                  </Route>
+
                   <Route path="/">
                     <Home />
                   </Route>

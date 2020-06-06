@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Carousel from 'react-bootstrap/Carousel'
 import './Home.css';
 import {Jumbotron} from "react-bootstrap";
+import Alphabet from "../Alphabet";
+import SearchTab from "../SearchTab";
 
 class Home extends Component {
   // constructor(props){
@@ -75,94 +77,7 @@ class Home extends Component {
         </Carousel>
 
 
-        <div>
-          <div className="row search-panel">
-            <div className="col-md-3 height-x">
-              <a href="#search-form-position" onClick="return showSearchTab('#search-default')">
-                <img className="img-circle" src="/images/search-default.png" alt="Пошук спiвробiтникiв" />
-                  <span>Загальний пошук спiвробiтникiв</span>
-              </a>
-            </div>
-            <div className="col-md-3 height-x">
-              <a href="#search-form-position" onClick="return showSearchTab('#search-subdivision')">
-                <img className="img-circle" src="/images/search-subdivision.png" alt="Пошук за кафедрами та факультетами" />
-                  <span>Пошук за кафедрами<br/> та факультетами</span>
-              </a>
-            </div>
-            <div className="col-md-3 height-x">
-              <a href="#search-form-position" onClick="return showSearchTab('#search-alphabet')" title="">
-                <img className="img-circle" src="/images/search-alphabet.png" alt="Алфавітний покажчик" />
-                  <span>Алфавітний покажчик</span>
-              </a>
-            </div>
-            <div className="col-md-3 height-x">
-              <a href="#search-form-position" onClick="return showSearchTab('#search-interests')">
-                <img className="img-circle" src="/images/search-interests.png" alt="Пошук за інтеpeсами" />
-                  <span>Пошук за інтеpeсами</span>
-              </a>
-            </div>
-          </div>
-
-          <div className="row" id="science_news">
-            <div className="col-md-12">
-              <h1 title="Показати/приховати новини">Наукові новини</h1>
-              <div id="science_news_content">
-                {/*@Html.Raw(Model.Publication.Content)*/}
-              </div>
-              {/*<script>*/}
-              {/*  $(function () {*/}
-              {/*  $("#science_news h1").click(function () {*/}
-              {/*    $("#science_news_content").toggle();*/}
-              {/*  });*/}
-              {/*});*/}
-              {/*</script>*/}
-              <div className="clear"/>
-            </div>
-          </div>
-
-
-          <a name="search-form-position"/>
-          <form className="row search hidden" id="search-default" action="/search" role="search">
-            <div className="col-md-12">
-              <h2>Загальний пошук спiвробiтникiв</h2>
-              <div className="line"/>
-              <input type="search" name="q" id="search-default-input" className="form-control typeahead"
-                     placeholder="Введiть ПІБ особи... (наприклад: ПЕТРОВ ПЕТРО ПЕТРОВИЧ)" />
-                <div className="line"/>
-                <input type="submit" className="search_btn_hidden" />
-            </div>
-          </form>
-
-          <div className="row search hidden" id="search-alphabet">
-            <div className="col-md-12 alphabet">
-              @Html.Partial("AlphabetPartialView")
-            </div>
-          </div>
-
-          <form className="row search hidden" id="search-subdivision" action="/search" role="search"
-                onSubmit="setPrefix('subdivision-search-input', 'subdivision')">
-            <div className="col-md-12">
-              <h2>Пошук за кафедрами та факультетами</h2>
-              <div className="line"/>
-              <input type="search" name="q" id="subdivision-search-input" className="form-control typeahead"
-                     placeholder="Введiть назву пiдроздiлу... (наприклад: Кафедра технiчної кiбернетики ФІОТ)" />
-                <div className="line"/>
-                <input type="submit" className="search_btn_hidden"/>
-            </div>
-          </form>
-
-          <form className="row search hidden" id="search-interests" action="/search" role="search"
-                onSubmit="setPrefix('interests-serch-input', 'interests')">
-          <div className="col-md-12">
-            <h2>Пошук за інтеpeсами</h2>
-            <div className="line"/>
-            <input type="search" name="q" className="form-control typeahead"
-                   placeholder="Введiть інтереси для пошуку..." id="interests-serch-input" />
-              <div className="line"/>
-              <input type="submit" className="search_btn_hidden"/>
-          </div>
-        </form>
-        </div>
+        <SearchTab />
 
         <div id="science_news_content">
           <h4>Університет MIT виклав безкоштовно лекції в Мережу</h4>
