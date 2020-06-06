@@ -491,65 +491,6 @@ ymaps {
   z-index: 2;
   border: none !important;
 }
-/* ********************************** */
-/* New styles for Search Results Page */
-/* ********************************** */
-#search-result {
-  margin-top: 10px;
-}
-
-#search-result .s_img {
-  display: block;
-  float: left;
-  text-align: center;
-  width: 150px;
-  height: 150px;
-  background: #ffffff;
-  margin: 0 10px 10px 0;
-}
-
-#search-result img {
-  height: 150px;
-  max-width: 150px;
-}
-
-.s_one_result {
-  display: block;
-  float: left;
-  width: 545px;
-  height: 180px;
-  border: 1px solid #8db6cd;
-  margin: 0 10px 20px;
-  padding: 10px;
-  background: #ffffff;
-  color: #333;
-  text-decoration: none;
-  transition: all 0.2s linear;
-}
-
-.s_one_result:hover {
-  color: #333;
-  background: #ffffff;
-  text-decoration: none;
-  /*width: 560px;
-  height: 190px;
-  margin-left: 0px !important;
-  margin-top: -10px !important;
-  -moz-box-shadow: 0px 1px 12px 1px #66ccff, 0px 1px 12px 1px #ffffcc;
-  -webkit-box-shadow: 0px 1px 12px 1px #66ccff, 0px 1px 12px 1px #ffffcc;
-  box-shadow: 0px 1px 8px 1px #a7dcfb, 0px 1px 12px 1px #ffffff;
-  transition: all 0.2s linear;*/
-}
-
-.s_one_result:focus {
-  color: #333;
-  text-decoration: none;
-}
-
-.search-container {
-  padding-right: 20px;
-  padding-left: 11px;
-}
 
 @media screen and (max-width: 767px) {
   .table-responsive {
@@ -746,20 +687,6 @@ ymaps {
 .search.row h2 {
   font-size: 20pt;
 }
-
-.search_btn_hidden {
-  position: absolute;
-  left: -9999px;
-  width: 1px;
-  height: 1px;
-}
-
-#science_news_content img {
-  border: 1px solid #DDD;
-  padding: 1px;
-}
-
-
 
 .height-x {
   height: 83px;
@@ -1224,57 +1151,6 @@ ymaps {
   z-index: 2;
   border: none !important;
 }
-/* ********************************** */
-/* New styles for Search Results Page */
-/* ********************************** */
-#search-result {
-  margin-top: 10px;
-}
-
-#search-result .s_img {
-  display: block;
-  float: left;
-  text-align: center;
-  width: 150px;
-  height: 150px;
-  background: #ffffff;
-  margin: 0 10px 10px 0;
-}
-
-#search-result img {
-  height: 150px;
-  max-width: 150px;
-}
-
-.s_one_result {
-  display: block;
-  float: left;
-  width: 545px;
-  height: 180px;
-  border: 1px solid #8db6cd;
-  margin: 0 10px 20px;
-  padding: 10px;
-  background: #ffffff;
-  color: #333;
-  text-decoration: none;
-  transition: all 0.2s linear;
-}
-
-.s_one_result:hover {
-  color: #333;
-  background: #ffffff;
-  text-decoration: none;
-}
-
-.s_one_result:focus {
-  color: #333;
-  text-decoration: none;
-}
-
-.search-container {
-  padding-right: 20px;
-  padding-left: 11px;
-}
 
 @media screen and (max-width: 767px) {
   .table-responsive {
@@ -1470,18 +1346,6 @@ ymaps {
 /* Заголовки різних пошуків на головній */
 .search.row h2 {
   font-size: 20pt;
-}
-
-.search_btn_hidden {
-  position: absolute;
-  left: -9999px;
-  width: 1px;
-  height: 1px;
-}
-
-#science_news_content img {
-  border: 1px solid #DDD;
-  padding: 1px;
 }
 
 .search-panel a span {
