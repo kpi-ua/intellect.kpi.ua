@@ -16,27 +16,46 @@ class Search extends Component {
         q: ''
     };
 
-    this.setQuery = this.setQuery.bind(this);
+    this.updateSearchQuery = this.updateSearchQuery.bind(this);
+    this.selectLetter = this.selectLetter.bind(this);
+    this.search = this.search.bind(this);
   }
 
-  setQuery = (q) => this.setState({q});
-  handleChange = (e) => this.setState({q: e.target.value});
+  /**
+   * When user click on alphabet
+   * @param q
+   */
+  selectLetter = (letter) => this.search(letter);
+
+  /**
+   * When user type in search box
+   * @param e
+   */
+  updateSearchQuery = (e) => this.search(e.target.value);
+
+  /**
+   * Search public profile
+   * @param query
+   */
+  search(query) {
+    this.setState({q: query});
+    console.log(query);
+  }
 
   async componentDidMount() {
     let params = new URLSearchParams(this.props.location.search);
-    let q = params.get('q');
-    this.setState({q});
+    this.search(params.get('q'));
   }
 
   render() {
 
     return (
       <div>
-        <h1>Пошук {this.state.q}</h1>
-
+        <h1>Пошук</h1>
+        <br />
         <div className="row">
           <div className="col-md-12 alphabet">
-            <Alphabet onSelectLetter={this.setQuery} />
+            <Alphabet onSelectLetter={this.selectLetter} />
           </div>
         </div>
 
@@ -44,7 +63,7 @@ class Search extends Component {
         <div className="row search">
           <div className="col-md-12">
             <div className="input-group search-container">
-              <input type="search" id="input" value={this.state.q} onChange={this.handleChange} className="form-control" />
+              <input type="search" id="input" value={this.state.q} onChange={this.updateSearchQuery} className="form-control" />
               <span className="input-group-btn">
                   <button id="search" className="btn btn-default" value="Search">
                     <span className="glyphicon glyphicon-search"/></button>

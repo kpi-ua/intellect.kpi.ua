@@ -6,26 +6,32 @@ class Alphabet extends Component {
   constructor(props){
     super(props);
 
-    this.state = {};
+    this.state = {
+      letter: ''
+    };
 
     this.onLetterClick = this.onLetterClick.bind(this);
   }
 
-
-  onLetterClick(letter){
-    debugger
-
+  onLetterClick(letter) {
+    this.setState({letter});
     if (!!this.props.onSelectLetter){
-      this.props.onSelectLetter(letter);
+      this.props.onSelectLetter('startwith:' + letter);
     }
   }
 
   render() {
     const alphabet = "А Б В Г Д Е Є Ж З И І Ї Й К Л М Н О П Р С Т У Ф Х Ц Ч Ш Щ Ю Я".split(' ');
-    // vxar selectedLetter = Convert.ToString(Context.Request.Query["q"] as Object).Replace("startwith:", "").ToUpper();
 
     const letters = alphabet.map((item, key) =>
-        <Link to={"/search?q=startwith:" + item} onClick={() => this.onLetterClick(item)}>{item}</Link>
+        <Link
+          key={item}
+          className={ item===this.state.letter ? 'selected': '' }
+          to={"/search?q=startwith:" + item}
+          onClick={() => this.onLetterClick(item)}
+        >
+          {item}
+        </Link>
     );
 
     return (
