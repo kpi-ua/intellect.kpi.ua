@@ -7,7 +7,6 @@ import {
 import api from "../../services/api";
 import ProfileAvatar from "../ProfileAvatar";
 import ProfileData from "../ProfileData";
-import {Button} from "react-bootstrap";
 
 class ProfileExecutions extends Component {
 

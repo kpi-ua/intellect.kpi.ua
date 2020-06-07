@@ -5,8 +5,6 @@ import {
   matchPath
 } from "react-router-dom";
 import api from "../../services/api";
-import {Button} from "react-bootstrap";
-import * as Icon from 'react-bootstrap-icons';
 import ProfileAvatar from "../ProfileAvatar";
 import ProfileData from "../ProfileData";
 
