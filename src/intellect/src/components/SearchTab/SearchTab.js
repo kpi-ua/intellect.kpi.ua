@@ -66,7 +66,7 @@ class SearchTab extends Component {
         { this.state.tab === 1 &&
           <div className="row search">
             <div className="col-md-12">
-              <h2>Загальний пошук спiвробiтникiв</h2>
+              <h3>Загальний пошук спiвробiтникiв</h3>
               <div className="line"/>
               <input type="search"
                      className="form-control typeahead"
@@ -80,7 +80,7 @@ class SearchTab extends Component {
         { this.state.tab === 2 &&
           <div className="row search">
             <div className="col-md-12">
-              <h2>Пошук за кафедрами та факультетами</h2>
+              <h3>Пошук за кафедрами та факультетами</h3>
               <div className="line"/>
               <input type="search"
                      className="form-control typeahead"
@@ -102,7 +102,7 @@ class SearchTab extends Component {
         { this.state.tab === 4 &&
           <div className="row search">
             <div className="col-md-12">
-              <h2>Пошук за інтеpeсами</h2>
+              <h3>Пошук за інтеpeсами</h3>
               <div className="line"/>
               <input
                 type="search"

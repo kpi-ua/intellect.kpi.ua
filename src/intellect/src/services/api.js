@@ -45,9 +45,52 @@ class API {
     }
   }
 
+  /**
+   *
+   * @param userIdentifier
+   * @returns {Promise<*[]|*>}
+   */
   async getProfileExecutions(userIdentifier) {
     const axios = require('axios');
     const url = this.ApiEndpoint + 'Intellect/KRExecutions?userIdentifier=' + userIdentifier;
+
+    try {
+      const response = await axios.get(url);
+      return response.data.Data;
+    } catch (error) {
+      console.error(error);
+      debugger
+      return [];
+    }
+  }
+
+  /**
+   *
+   * @param userIdentifier
+   * @returns {Promise<*[]|*>}
+   */
+  async getProfileResults(userIdentifier) {
+    const axios = require('axios');
+    const url = this.ApiEndpoint + 'Intellect/KRResults?userIdentifier=' + userIdentifier;
+
+    try {
+      const response = await axios.get(url);
+      return response.data.Data;
+    } catch (error) {
+      console.error(error);
+      debugger
+      return [];
+    }
+  }
+
+  /**
+   *
+   * @param userIdentifier
+   * @returns {Promise<*[]|*>}
+   */
+  async getProfileConferences(userIdentifier) {
+    const axios = require('axios');
+    const url = this.ApiEndpoint + 'Intellect/conferences?userIdentifier=' + userIdentifier;
 
     try {
       const response = await axios.get(url);

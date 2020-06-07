@@ -52,7 +52,7 @@ class ProfileExecutions extends Component {
         <div className="col-md-9">
           <div className="panel panel-default">
             <h1>{this.state.profile.fullName}</h1>
-            <h2>Публікації</h2>
+            <h2>Науково-дослідні та дослідно-конструкторські роботи</h2>
             <div className="panel-body">
               <ProfileData profile={this.state.profile} records={this.state.executions} />
             </div>

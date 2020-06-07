@@ -131,146 +131,8 @@ button,
   margin-bottom: 25px;
 }
 
-.clear {
-  clear: both;
-}
-
-.clear_fix {
-  width: 100%;
-  clear: both;
-}
-
-#main_container {
-  min-height: 100%;
-  margin-bottom: -80px;
-}
-
-#main_container::after {
-  content: "";
-  display: block;
-}
-
-#main_container::after {
-  height: 80px;
-}
-
-
-
-.slogan {
-  padding: 10px;
-  border: 3px solid #EEE;
-  margin-top: 15px;
-}
-
-.jumbotron {
-  background-color: #fff;
-  color: #fff;
-  margin-bottom: 0;
-  padding-top: 15px;
-}
-
-.jumbotron .col-md-8 {
-  color: #FFF;
-  padding-bottom: 5px;
-  padding-top: 10px;
-  margin-left: 15px;
-  margin-right: 15px;
-  font-size: 12pt;
-  background-color: rgba(0, 0, 0, 0.3);
-}
-
 .panel-heading {
   cursor: pointer;
-}
-
-.thumbnail {
-  border: none;
-  padding: 0;
-  background-color: transparent;
-  border-radius: 0;
-  /*border-left: 5px solid #078dba;*/
-}
-
-@media (max-width: 767px) {
-  .search .col-md-6 {
-    padding-right: 15px;
-  }
-
-  .search .col-md-2 {
-    padding-left: 15px;
-  }
-
-  .search .btn-default {
-    width: 100%;
-  }
-}
-
-
-
-ymaps {
-  margin-bottom: 20px;
-}
-
-.tt-query,
-.tt-hint {
-  width: 396px;
-  height: 30px;
-  padding: 8px 12px;
-  font-size: 12pt;
-  line-height: 30px;
-  border: 1px solid #ccc;
-  outline: none;
-}
-
-.twitter-typeahead {
-  width: 100%;
-}
-
-.typeahead {
-  background-color: #fff;
-  width: 100%;
-}
-
-.typeahead:focus {
-  border: 1px solid #0097cf;
-}
-
-.tt-query {
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-}
-
-.tt-hint {
-  padding-top: 10px;
-  color: red;
-}
-
-.tt-dropdown-menu {
-  width: 80%;
-  margin-top: 12px;
-  padding: 8px 0;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-}
-
-.tt-suggestion {
-  padding: 3px 20px;
-  font-size: 18px;
-  line-height: 18pt;
-}
-
-.tt-suggestion.tt-cursor {
-  color: #fff;
-  background-color: #0097cf;
-}
-
-.tt-suggestion p {
-  margin: 0;
 }
 
 .gist {
@@ -302,30 +164,8 @@ ymaps {
   padding-top: 10px;
 }
 
-.profile .table,
-.profile td,
-.profile .table > thead > tr > th,
-.profile .table > tbody > tr > th,
-.profile .table > tfoot > tr > th,
-.profile .table > thead > tr > td,
-.profile .table > tbody > tr > td,
-.profile .table > tfoot > tr > td {
-  border: none;
-}
-
-.profile .table {
-  margin-top: 0;
-}
-
 .profile .panel-body {
   padding: 0;
-}
-
-.news-illustration {
-  float: left;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  width: 300px;
 }
 
 .part-header {
@@ -335,67 +175,27 @@ ymaps {
   margin-top: -85px;
 }
 
-@media (min-width: 768px) {
-  .navigation #navbar {
-    padding: 0;
-  }
-}
-
 @media (max-width: 768px) {
   .carousel {
     display: none;
   }
 }
 
-.search-panel a {
-  display: block;
-  text-align: center;
-}
 /* *************************** */
 /* New styles for Profile page */
 /* *************************** */
 .panel-default > .panel-heading {
   background: none;
   border: none;
-  /* Заголовки розділів (загальна інформація, контактна інформація і т.д.) */
 }
 
-.panel-default > .panel-heading .panel-title {
-  font-size: 18pt;
-  border-bottom: 1px solid #0277bd;
-  color: #0277bd;
-}
-/* Основний текст на сторінці профілю (не заголовки, а простий текст) */
-.profile {
-  font-size: 12pt;
-}
-/* Ширина першого стовпчика таблиці "Загальна інформація" */
-.common_info tr td:first-child {
-  width: 320px;
-}
-/* Ширина першого стовпчика таблиці "Дані за місцем роботи" */
-.workplace tr td:first-child {
-  width: 320px;
-}
-
-.contact_info {
-  overflow: hidden;
-  max-width: 100%;
-}
-/* Ширина першого стовпчика таблиці "Контактна інформація" */
-.contact_info tr td:first-child {
-  width: 320px;
-}
 /* Кредо викладача - під фото */
 .credo {
   color: #333;
   font-size: 12pt;
   text-align: left;
 }
-/* Назви вкладок в розділі "Наукова діяльність" (Публікації, Конференції, виставки і т.д.) */
-.scientific_activities a {
-  font-size: 12pt;
-}
+
 /* Кнопка "Вгору" */
 #goTop {
   display: block;
@@ -415,100 +215,6 @@ ymaps {
   }
 }
 
-@media (max-width: 1199px) {
-  .s_one_result,
-  .s_one_result:hover {
-    width: 100% !important;
-    margin: 0 0 10px !important;
-  }
-
-  .anim_bl {
-    width: 100% !important;
-  }
-
-  .anim_bl.right_anim_bl.animated {
-    margin-left: 0 !important;
-  }
-}
-
-@media (min-width: 320px) and (max-width: 767px) {
-  #search-result .s_img {
-    display: block !important;
-    width: 120px;
-    height: 120px;
-  }
-
-  #search-result img {
-    height: 120px;
-    max-width: 120px;
-  }
-}
-/* animation blocks before animation */
-.anim_bl {
-  float: left;
-  width: 49%;
-  opacity: 0;
-  -webkit-transition: all 0.5s linear;
-  -moz-transition: all 0.5s linear;
-  transition: all 0.5s linear;
-}
-
-.anim_bl.animated {
-  opacity: 1;
-}
-/* animation styles */
-/* left lecturer block */
-.anim_bl.left_anim_bl {
-  margin-top: 25px;
-  margin-left: -15px;
-}
-
-.anim_bl.left_anim_bl.animated {
-  margin-top: 0;
-  margin-left: 0px;
-}
-/* right lecturer block */
-.anim_bl.right_anim_bl {
-  margin-top: 25px;
-  margin-left: 35px;
-}
-
-.anim_bl.right_anim_bl.animated {
-  margin-top: 0;
-  margin-left: 6px;
-}
-/* ПІБ викладача в блоці пошуку */
-.s_lecturer_name {
-  display: block;
-  float: none;
-  color: #0277bd;
-  font-size: 17pt;
-  text-decoration: none;
-  text-transform: uppercase;
-  margin-bottom: 5px;
-  line-height: 26px;
-}
-
-.s_workplace_info_block {
-  margin-left: 160px;
-  font-size: 12pt;
-  color: #567174;
-}
-
-.s_lecturer_position {
-  font-weight: bold;
-  color: #567174;
-  font-size: 13pt;
-}
-
-.s_lecturer_workplace {
-  margin: 5px 0 15px;
-}
-/* Заголовок "Новини" на головній сторінці */
-#science_news h1 {
-  cursor: pointer;
-  font-size: 20pt;
-}
 /* *** Панель алфавіту - пошук *** */
 .alphabet {
   /* Поточна (вибрана) літера - НЕ посилання  */
@@ -528,62 +234,6 @@ ymaps {
 
 .alphabet a:first-of-type {
   padding-left: 15px;
-}
-/* Список посилань на субсторінки зі сторінки Профілю */
-/* *** Інтервали між рядками таблиць на сторінці Профілю *** */
-.profile table td {
-  padding-top: 1px !important;
-  padding-bottom: 1px !important;
-}
-/* Відстань між таблицями у розділі "Загальна інформація" */
-.profile table.workplace {
-  margin-top: 7px;
-}
-/* Відстань між розділами сторінки Профіль */
-.profile .panel {
-  margin-bottom: 2px;
-}
-/* Стиль помилки на підсторінках Профілю - якщо такої сторінки немає */
-.subprofile_error_message {
-  margin: 30px;
-}
-/* Спливаючі підказки на головній сторінці */
-#powerTip {
-  background-color: #fff !important;
-  padding: 2px 5px;
-  border: none !important;
-  font-size: 14px !important;
-  color: #415867 !important;
-  -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15), 0 2px 1px rgba(255, 255, 255, 0.5) inset, 0 -1px 3px #a5d2fa inset !important;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15), 0 2px 1px rgba(255, 255, 255, 0.5) inset, 0 -1px 3px #a5d2fa inset !important;
-}
-
-#powerTip:before {
-  display: none !important;
-}
-
-.left_float_picture {
-  float: left;
-  margin: 60px 10px 15px 0;
-}
-/* Заголовки різних пошуків на головній */
-.search.row h2 {
-  font-size: 20pt;
-}
-
-.height-x {
-  height: 83px;
-  overflow: hidden;
-  text-align: center;
-  padding: 10px;
-}
-
-.height-x h3 {
-  display: inline-block;
-  min-height: 30px;
-  font-size: 11pt;
-  width: 100%;
-  text-transform: uppercase;
 }
 
 a {
@@ -613,7 +263,6 @@ a:focus {
 
 
 .profile-image {
-  /*float: left;*/
   margin-right: 10px;
   margin-bottom: 10px;
 }
@@ -639,28 +288,8 @@ button,
   border-color: transparent;
 }
 
-.panel-heading-1,
-.panel-year {
-  cursor: pointer;
-}
-
-.tt-dropdown-menu {
-  border-radius: 0;
-}
-
-.search-panel img {
-  width: 70px;
-  height: 70px;
-  opacity: 1;
-}
-
-.search-panel:hover {
-  /*opacity: 0.5;*/
-}
-
 .search {
   padding-bottom: 25px;
-  /*padding-top: 25px;*/
 }
 
 .search .col-md-6 {
@@ -700,15 +329,6 @@ button,
   clear: both;
 }
 
-#main_container {
-  min-height: 100%;
-  margin-bottom: -80px;
-}
-
-#main_container::after {
-  content: "";
-  display: block;
-}
 
 #main_container::after {
   height: 80px;
@@ -742,29 +362,6 @@ footer a:hover {
   text-decoration: underline;
 }
 
-.slogan {
-  padding: 10px;
-  border: 3px solid #EEE;
-  margin-top: 15px;
-}
-
-.jumbotron {
-  background-color: #fff;
-  color: #fff;
-  margin-bottom: 0;
-  padding-top: 15px;
-}
-
-.jumbotron .col-md-8 {
-  color: #FFF;
-  padding-bottom: 5px;
-  padding-top: 10px;
-  margin-left: 15px;
-  margin-right: 15px;
-  font-size: 12pt;
-  background-color: rgba(0, 0, 0, 0.3);
-}
-
 .panel-heading {
   cursor: pointer;
 }
@@ -774,7 +371,6 @@ footer a:hover {
   padding: 0;
   background-color: transparent;
   border-radius: 0;
-  /*border-left: 5px solid #078dba;*/
 }
 
 .navigation {
@@ -795,91 +391,10 @@ footer a:hover {
 }
 
 
-
-@media (max-width: 767px) {
-  .search .col-md-6 {
-    padding-right: 15px;
-  }
-
-  .search .col-md-2 {
-    padding-left: 15px;
-  }
-
-  .search .btn-default {
-    width: 100%;
-  }
-}
-
 @media (max-width: 767px) {
   footer {
     text-align: center;
   }
-}
-
-ymaps {
-  margin-bottom: 20px;
-}
-
-.tt-query,
-.tt-hint {
-  width: 396px;
-  height: 30px;
-  padding: 8px 12px;
-  font-size: 12pt;
-  line-height: 30px;
-  border: 1px solid #ccc;
-  outline: none;
-}
-
-.twitter-typeahead {
-  width: 100%;
-}
-
-.typeahead {
-  background-color: #fff;
-  width: 100%;
-}
-
-.typeahead:focus {
-  border: 1px solid #0097cf;
-}
-
-.tt-query {
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-}
-
-.tt-hint {
-  padding-top: 10px;
-  color: red;
-}
-
-.tt-dropdown-menu {
-  width: 80%;
-  margin-top: 12px;
-  padding: 8px 0;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-}
-
-.tt-suggestion {
-  padding: 3px 20px;
-  font-size: 18px;
-  line-height: 18pt;
-}
-
-.tt-suggestion.tt-cursor {
-  color: #fff;
-  background-color: #0097cf;
-}
-
-.tt-suggestion p {
-  margin: 0;
 }
 
 .gist {
@@ -890,37 +405,11 @@ ymaps {
   background: #0277bd;
 }
 
-.carousel-caption-inner {
-  z-index: 999;
-  position: relative;
-}
 
 .carousel-indicators {
   z-index: 300;
 }
 
-.profile {
-  margin-top: 30px;
-}
-
-.profile .panel-heading {
-  text-transform: uppercase;
-  font-size: 14pt;
-  padding: 0;
-  padding-bottom: 10px;
-  padding-top: 10px;
-}
-
-.profile .table,
-.profile td,
-.profile .table > thead > tr > th,
-.profile .table > tbody > tr > th,
-.profile .table > tfoot > tr > th,
-.profile .table > thead > tr > td,
-.profile .table > tbody > tr > td,
-.profile .table > tfoot > tr > td {
-  border: none;
-}
 
 .profile .table {
   margin-top: 0;
@@ -953,163 +442,12 @@ ymaps {
   }
 }
 
-.search-panel a {
-  display: block;
-  text-align: center;
-}
-/* *************************** */
-/* New styles for Profile page */
-/* *************************** */
-.panel-default > .panel-heading {
-  background: none;
-  border: none;
-  /* Заголовки розділів (загальна інформація, контактна інформація і т.д.) */
-}
-
-.panel-default > .panel-heading .panel-title {
-  font-size: 18pt;
-  border-bottom: 1px solid #0277bd;
-  color: #0277bd;
-}
-/* Основний текст на сторінці профілю (не заголовки, а простий текст) */
-.profile {
-  font-size: 12pt;
-}
-/* Ширина першого стовпчика таблиці "Загальна інформація" */
-.common_info tr td:first-child {
-  width: 320px;
-}
-/* Ширина першого стовпчика таблиці "Дані за місцем роботи" */
-.workplace tr td:first-child {
-  width: 320px;
-}
-
-.contact_info {
-  overflow: hidden;
-  max-width: 100%;
-}
-/* Ширина першого стовпчика таблиці "Контактна інформація" */
-.contact_info tr td:first-child {
-  width: 320px;
-}
-
-/* Назви вкладок в розділі "Наукова діяльність" (Публікації, Конференції, виставки і т.д.) */
-.scientific_activities a {
-  font-size: 12pt;
-}
-/* Кнопка "Вгору" */
-#goTop {
-  display: block;
-  width: 38px;
-  height: 38px;
-  background: url("/images/up_arrow.jpg") center center;
-  position: fixed;
-  right: -100px;
-  cursor: pointer;
-  z-index: 2;
-  border: none !important;
-}
-
 @media screen and (max-width: 767px) {
   .table-responsive {
     font-size: 9pt;
   }
 }
 
-@media (max-width: 1199px) {
-  .s_one_result,
-  .s_one_result:hover {
-    width: 100% !important;
-    margin: 0 0 10px !important;
-  }
-
-  .anim_bl {
-    width: 100% !important;
-  }
-
-  .anim_bl.right_anim_bl.animated {
-    margin-left: 0 !important;
-  }
-}
-
-@media (min-width: 320px) and (max-width: 767px) {
-  #search-result .s_img {
-    display: block !important;
-    width: 120px;
-    height: 120px;
-  }
-
-  #search-result img {
-    height: 120px;
-    max-width: 120px;
-  }
-}
-/* animation blocks before animation */
-.anim_bl {
-  float: left;
-  width: 49%;
-  opacity: 0;
-  -webkit-transition: all 0.5s linear;
-  -moz-transition: all 0.5s linear;
-  transition: all 0.5s linear;
-}
-
-.anim_bl.animated {
-  opacity: 1;
-}
-/* animation styles */
-/* left lecturer block */
-.anim_bl.left_anim_bl {
-  margin-top: 25px;
-  margin-left: -15px;
-}
-
-.anim_bl.left_anim_bl.animated {
-  margin-top: 0;
-  margin-left: 0px;
-}
-/* right lecturer block */
-.anim_bl.right_anim_bl {
-  margin-top: 25px;
-  margin-left: 35px;
-}
-
-.anim_bl.right_anim_bl.animated {
-  margin-top: 0;
-  margin-left: 6px;
-}
-/* ПІБ викладача в блоці пошуку */
-.s_lecturer_name {
-  display: block;
-  float: none;
-  color: #0277bd;
-  font-size: 17pt;
-  text-decoration: none;
-  text-transform: uppercase;
-  margin-bottom: 5px;
-  line-height: 26px;
-}
-
-.s_workplace_info_block {
-  margin-left: 160px;
-  font-size: 12pt;
-  color: #567174;
-}
-
-.s_lecturer_position {
-  font-weight: bold;
-  color: #567174;
-  font-size: 13pt;
-}
-
-.s_lecturer_workplace {
-  margin: 5px 0 15px;
-}
-/* Заголовок "Новини" на головній сторінці */
-#science_news h1 {
-  cursor: pointer;
-  font-size: 20pt;
-}
 /* *** Панель алфавіту - пошук *** */
 .alphabet {
   /* Поточна (вибрана) літера - НЕ посилання  */
@@ -1130,63 +468,6 @@ ymaps {
 .alphabet a:first-of-type {
   padding-left: 15px;
 }
-/* Список посилань на субсторінки зі сторінки Профілю */
-/* *** Інтервали між рядками таблиць на сторінці Профілю *** */
-.profile table td {
-  padding-top: 1px !important;
-  padding-bottom: 1px !important;
-}
-/* Відстань між таблицями у розділі "Загальна інформація" */
-.profile table.workplace {
-  margin-top: 7px;
-}
-/* Відстань між розділами сторінки Профіль */
-.profile .panel {
-  margin-bottom: 2px;
-}
-/* Стиль помилки на підсторінках Профілю - якщо такої сторінки немає */
-.subprofile_error_message {
-  margin: 30px;
-}
-/* Спливаючі підказки на головній сторінці */
-#powerTip {
-  background-color: #fff !important;
-  padding: 2px 5px;
-  border: none !important;
-  font-size: 14px !important;
-  color: #415867 !important;
-  -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15), 0 2px 1px rgba(255, 255, 255, 0.5) inset, 0 -1px 3px #a5d2fa inset !important;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15), 0 2px 1px rgba(255, 255, 255, 0.5) inset, 0 -1px 3px #a5d2fa inset !important;
-}
-
-#powerTip:before {
-  display: none !important;
-}
-
-.left_float_picture {
-  float: left;
-  margin: 60px 10px 15px 0;
-}
-/* Заголовки різних пошуків на головній */
-.search.row h2 {
-  font-size: 20pt;
-}
-
-.search-panel a span {
-  float: right;
-  margin-top: 25px;
-  padding-left: 5px;
-  width: 70%;
-  vertical-align: middle;
-}
-
-.loading {
-  height: 20px !important;
-  display: block;
-  margin: auto;
-  width: 200px;
-}
-
 .loading {
   height: 20px !important;
   display: block;

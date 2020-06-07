@@ -68,7 +68,7 @@ function App() {
                   <Route path="/page/about">
                     <About />
                   </Route>
-                  <Route path="/profile/:profileId/conferences">
+                  <Route path="/profile/:profileId/conference">
                     <ProfileConferences />
                   </Route>
                   <Route path="/profile/:profileId/executions">

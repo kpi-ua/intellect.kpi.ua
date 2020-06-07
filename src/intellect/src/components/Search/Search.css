@@ -1,11 +1,3 @@
-/*
- * Search css File
-*/
-
-.Search {
-    /* propertys here */
-}
-
 .search-result .card {
     margin-bottom: 25px;
 }
@@ -24,4 +16,8 @@
 }
 .image img{
     position:absolute;
+}
+
+.card-title {
+    text-align: left;
 }
