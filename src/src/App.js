@@ -17,8 +17,11 @@ import ProfilePublications from "./components/ProfilePublications";
 import ProfileExecutions from "./components/ProfileExecutions";
 import ProfileConferences from "./components/ProfileConferences";
 import ProfileResults from "./components/ProfileResults";
+import * as ReactGA from "jest-worker";
 
 function App() {
+
+  ReactGA.initialize("UA-79442229-3");
 
   return (
       <Router>
