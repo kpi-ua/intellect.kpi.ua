@@ -5,6 +5,8 @@ import {
   matchPath
 } from "react-router-dom";
 import api from "../../services/api";
+import {Button} from "react-bootstrap";
+import * as Icon from 'react-bootstrap-icons';
 
 class ProfilePublications extends Component {
 
@@ -97,6 +99,14 @@ class ProfilePublications extends Component {
           </span>
 
           {!!profile.credo && <h5 className="credo">{profile.credo}</h5>}
+          <br />
+          <Button
+            size="lg" block
+            variant="outline-success"
+            href={'/profile/' + this.state.profile.userIdentifier}>
+            Повернутися до профілю
+            {/*<Icon.ArrowBarLeft />*/}
+          </Button>
         </div>
 
         <div className="col-md-9">
@@ -106,7 +116,6 @@ class ProfilePublications extends Component {
               {publications}
             </div>
           </div>
-
 
         </div>
       </div>

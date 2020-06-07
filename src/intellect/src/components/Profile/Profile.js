@@ -77,7 +77,7 @@ class Profile extends Component {
 
     if (!!profile.positions) {
       positions = profile.positions.map((p, index) =>
-        <div className="row">
+        <div className="row" key={"position-" + index}>
           <div className="col-md-5 title"><a href={p.subdivision.url}>{p.subdivision.name}</a></div>
           <div className="col-md-7">{p.name}</div>
         </div>
@@ -86,7 +86,7 @@ class Profile extends Component {
 
     if (!!profile.contactRecords) {
       contactInformation = profile.contactRecords.map((c, index) =>
-        <div className="row">
+        <div className="row" key={"contact-record-" + index}>
           <div className="col-md-5 title">{c.name}</div>
           <div className="col-md-7">{c.value}</div>
         </div>
