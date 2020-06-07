@@ -9,3 +9,7 @@ a.btn-outline-success:hover {
     /*border-bottom: 1px dotted #CCC;*/
     padding-bottom: 5px;
 }
+
+.profile-information section {
+    margin-bottom: 25px;
+}

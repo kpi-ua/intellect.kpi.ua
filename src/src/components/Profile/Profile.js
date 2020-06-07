@@ -39,25 +39,46 @@ class Profile extends Component {
   render() {
 
     const profile = this.state.profile;
-    let positions = [];
-    let contactInformation = [];
 
-    if (!!profile.positions) {
-      positions = profile.positions.map((p, index) =>
-        <div className="row" key={"position-" + index}>
-          <div className="col-md-5 title"><a href={p.subdivision.url}>{p.subdivision.name}</a></div>
-          <div className="col-md-7">{p.name}</div>
-        </div>
-      );
+    function generalInformationExist(profile) {
+      return  !!profile && (
+        !!profile.academicDegree  ||
+        !!profile.academicStatus  ||
+        !!profile.scientificInterest);
     }
 
-    if (!!profile.contactRecords) {
-      contactInformation = profile.contactRecords.map((c, index) =>
-        <div className="row" key={"contact-record-" + index}>
-          <div className="col-md-5 title">{c.name}</div>
-          <div className="col-md-7">{c.value}</div>
-        </div>
-      );
+    function employerInformationExist(profile) {
+      return true;
+    }
+
+    function renderPositions(profile) {
+
+      if (!!profile && !!profile.positions && profile.positions.length > 0) {
+
+        return profile.positions.map((p, index) =>
+          <div className="row" key={"position-" + index}>
+            <div className="col-md-5 title"><a href={p.subdivision.url}>{p.subdivision.name}</a></div>
+            <div className="col-md-7">{p.name}</div>
+          </div>
+        );
+      }
+
+      return null;
+    }
+
+    function renderContactInformation(profile) {
+
+      if (!!profile && !!profile.contactRecords && profile.contactRecords.length > 0) {
+
+        return profile.contactRecords.map((c, index) =>
+          <div className="row" key={"contact-record-" + index}>
+            <div className="col-md-5 title">{c.name}</div>
+            <div className="col-md-7">{c.value}</div>
+          </div>
+        );
+
+        return null;
+      }
     }
 
     return (
@@ -66,117 +87,104 @@ class Profile extends Component {
             <ProfileAvatar profile={this.state.profile} hideBackLink={true} />
           </div>
 
-          <div className="col-md-9">
-            <div className="panel panel-default">
+          <div className="col-md-9 profile-information">
               <h1>{profile.fullName}</h1>
-              <div className="panel-heading">
-                <h3 className="panel-title">Загальна інформація</h3>
-              </div>
 
-              <div className="panel-body">
-                  {
-                    !!profile.academicDegree &&
-                    <div className="row">
-                      <div className="col-md-5 title">Науковий ступень</div>
-                      <div className="col-md-7">{profile.academicDegree}</div>
-                    </div>
-                  }
-                  {
-                    !!profile.academicStatus &&
-                    <div className="row">
-                      <div className="col-md-5 title">Вчене звання</div>
-                      <div className="col-md-7">{profile.academicStatus}</div>
-                    </div>
-                  }
-                  {
-                    !!profile.scientificInterest &&
-                    <div className="row">
-                      <div className="col-md-5 title">Наукові інтереси</div>
-                      <div className="col-md-7">{profile.scientificInterest}</div>
-                    </div>
-                  }
-              </div>
+            { generalInformationExist(profile) &&
+              <section>
+                <h4>Загальна інформація</h4>
 
-              <div className="panel panel-default">
-                <div className="panel-heading">
-                  <h3 className="panel-title">Дані за місцем роботи</h3>
-                </div>
-
-                <div className="panel-body positions">
-                    {positions}
-                </div>
-              </div>
-
-            </div>
-
-            <div className="panel panel-default">
-              <div className="panel-heading">
-                <h3 className="panel-title">Контактна інформація</h3>
-              </div>
-              <div className="panel-body">
-
-                {contactInformation}
-
-                <div className="row">
-                  <div className="col-md-5 title">Адреса публічної сторінки</div>
-                  <div className="col-md-7">
-                    <a href={"https://intellect.kpi.ua/profile/" + profile.userIdentifier}>
-                      {"intellect.kpi.ua/profile/" + profile.userIdentifier}
-                    </a>
-
+                {
+                  !!profile.academicDegree &&
+                  <div className="row">
+                    <div className="col-md-5 title">Науковий ступень</div>
+                    <div className="col-md-7">{profile.academicDegree}</div>
                   </div>
+                }
+                {
+                  !!profile.academicStatus &&
+                  <div className="row">
+                    <div className="col-md-5 title">Вчене звання</div>
+                    <div className="col-md-7">{profile.academicStatus}</div>
+                  </div>
+                }
+                {
+                  !!profile.scientificInterest &&
+                  <div className="row">
+                    <div className="col-md-5 title">Наукові інтереси</div>
+                    <div className="col-md-7">{profile.scientificInterest}</div>
+                  </div>
+                }
+
+              </section>
+            }
+
+            { employerInformationExist(profile) &&
+              <section>
+                <h4>Дані за місцем роботи</h4>
+                {renderPositions(profile)}
+              </section>
+            }
+
+
+            <section>
+              <h4>Контактна інформація</h4>
+              {renderContactInformation(profile)}
+              <div className="row">
+                <div className="col-md-5 title">Адреса публічної сторінки</div>
+                <div className="col-md-7">
+                  <a href={"https://intellect.kpi.ua/profile/" + profile.userIdentifier}>
+                    {"intellect.kpi.ua/profile/" + profile.userIdentifier}
+                  </a>
+
                 </div>
-
               </div>
-            </div>
+            </section>
 
-            <div className="panel panel-default">
-              <div className="panel-heading">
-                <h3 className="panel-title">Наукова діяльність</h3>
-              </div>
-              <div className="panel-body">
-                <Button
-                  size="lg" block
-                  variant="outline-success"
-                  href={'/profile/' + this.state.profile.userIdentifier + '/publications'}>
-                  Публікації
-                  &nbsp;
-                  <Icon.Newspaper />
-                </Button>
 
-                <Button
-                  size="lg" block
-                  variant="outline-success"
-                  href={'/profile/' + this.state.profile.userIdentifier + '/executions'}>
-                  Виконання науково-дослідних та дослідно-конструкторських робіт
-                  &nbsp;
-                  <Icon.XDiamond />
-                </Button>
+            <section>
+              <h4>Наукова діяльність</h4>
 
-                <Button
-                  size="lg" block
-                  variant="outline-success"
-                  href={'/profile/' + this.state.profile.userIdentifier + '/results'}>
-                  Результати виконання науково-дослідних та дослідно-конструкторських робіт
-                  &nbsp;
-                  <Icon.XDiamondFill />
-                </Button>
+              <Button
+                size="lg" block
+                variant="outline-success"
+                href={'/profile/' + this.state.profile.userIdentifier + '/publications'}>
+                Публікації
+                &nbsp;
+                <Icon.Newspaper />
+              </Button>
 
-                <Button
-                  size="lg" block
-                  variant="outline-success"
-                  href={'/profile/' + this.state.profile.userIdentifier + '/conference'}>
-                  Конференції, виставки
-                  &nbsp;
-                  <Icon.People />
-                </Button>
+              <Button
+                size="lg" block
+                variant="outline-success"
+                href={'/profile/' + this.state.profile.userIdentifier + '/executions'}>
+                Виконання науково-дослідних та дослідно-конструкторських робіт
+                &nbsp;
+                <Icon.XDiamond />
+              </Button>
 
-                <br />
-                <br />
-                <br />
+              <Button
+                size="lg" block
+                variant="outline-success"
+                href={'/profile/' + this.state.profile.userIdentifier + '/results'}>
+                Результати виконання науково-дослідних та дослідно-конструкторських робіт
+                &nbsp;
+                <Icon.XDiamondFill />
+              </Button>
 
-              </div>
-            </div>
+              <Button
+                size="lg" block
+                variant="outline-success"
+                href={'/profile/' + this.state.profile.userIdentifier + '/conference'}>
+                Конференції, виставки
+                &nbsp;
+                <Icon.People />
+              </Button>
+            </section>
+
+            <br />
+            <br />
+            <br />
 
           </div>
         </div>

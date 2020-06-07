@@ -21,3 +21,7 @@
 .card-title {
     text-align: left;
 }
+
+.card {
+    width: 100%;
+}

@@ -26,7 +26,7 @@ class Alphabet extends Component {
     const letters = alphabet.map((item, key) =>
         <Link
           key={item}
-          className={ item===this.state.letter ? 'selected': '' }
+          className={"letter" + (item===this.state.letter ? ' selected': '') }
           to={"/search?q=startwith:" + item}
           onClick={() => this.onLetterClick(item)}
         >
@@ -38,9 +38,10 @@ class Alphabet extends Component {
       <div>
         <h3>Алфавiтний покажчик</h3>
         <div className="line"/>
-        {letters}
+        <div>
+          {letters}
+        </div>
         <div className="line"/>
-
       </div>
     );
   }

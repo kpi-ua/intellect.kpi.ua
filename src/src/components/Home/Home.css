@@ -11,17 +11,20 @@
 }
 
 .welcome {
-    font-size: 20pt;
+    font-size: 27pt;
     text-align: center;
     padding-top: 100px;
     padding-bottom: 150px;
+    color: #777;
 }
 
 .welcome h1{
-    font-size: 40pt;
+    font-size: 42pt;
 }
 
 .welcome .grey {
     color: #333333;
+    border-left: 2px solid #333;
+    padding-left: 7px;
 }
 

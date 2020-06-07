@@ -186,26 +186,6 @@ button,
   }
 }
 
-/* *** Панель алфавіту - пошук *** */
-.alphabet {
-  /* Поточна (вибрана) літера - НЕ посилання  */
-  /* Всі решта літери - посилання */
-}
-
-.alphabet .selected-letter {
-  color: #39C;
-  font-size: 20pt;
-  padding-right: 15px;
-}
-
-.alphabet a {
-  padding-right: 15px;
-  font-size: 18pt;
-}
-
-.alphabet a:first-of-type {
-  padding-left: 15px;
-}
 
 a {
   color: #01677D;
@@ -408,26 +388,6 @@ footer a:hover {
   }
 }
 
-/* *** Панель алфавіту - пошук *** */
-.alphabet {
-  /* Поточна (вибрана) літера - НЕ посилання  */
-  /* Всі решта літери - посилання */
-}
-
-.alphabet .selected-letter {
-  color: #39C;
-  font-size: 20pt;
-  padding-right: 15px;
-}
-
-.alphabet a {
-  padding-right: 15px;
-  font-size: 18pt;
-}
-
-.alphabet a:first-of-type {
-  padding-left: 15px;
-}
 .loading {
   height: 20px !important;
   display: block;

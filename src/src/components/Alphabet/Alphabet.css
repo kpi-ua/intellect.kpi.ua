@@ -1,10 +1,16 @@
-/*
- * Alphabet css File
-*/
+.letter {
 
-.Alphabet {
-    /* propertys here */
 }
 
-a.selected {
+.alphabet {
+}
+
+.alphabet a {
+    padding-right: 15px;
+    font-size: 18pt;
+    display: inline-block;
+}
+
+.alphabet a:first-of-type {
+    padding-left: 15px;
 }
