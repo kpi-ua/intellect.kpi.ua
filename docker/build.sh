@@ -42,6 +42,7 @@ cd "$root_dir" || exit
 
 cd ./src
 
+yarn install
 yarn build
 
 mv ./build ../docker
