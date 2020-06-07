@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 import './Profile.css';
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useParams,
   withRouter,
   matchPath
 } from "react-router-dom";
 import api from "../../services/api";
+import {Button} from "react-bootstrap";
+import * as Icon from 'react-bootstrap-icons';
 
 class Profile extends Component {
 
@@ -20,7 +17,6 @@ class Profile extends Component {
     };
   }
 
-  // componentWillMount(){}
   async componentDidMount(){
     const profileId = this.getProfileId();
     const profile = await api.getProfile(profileId);
@@ -81,66 +77,61 @@ class Profile extends Component {
 
     if (!!profile.positions) {
       positions = profile.positions.map((p, index) =>
-          <tr>
-            <td><a href={p.subdivision.url}>{p.subdivision.name}</a></td>
-            <td>{p.name}</td>
-          </tr>
+        <div className="row">
+          <div className="col-md-5 title"><a href={p.subdivision.url}>{p.subdivision.name}</a></div>
+          <div className="col-md-7">{p.name}</div>
+        </div>
       );
     }
 
     if (!!profile.contactRecords) {
       contactInformation = profile.contactRecords.map((c, index) =>
-          <tr>
-            <td>{c.name}</td>
-            <td>{c.value}</td>
-          </tr>
+        <div className="row">
+          <div className="col-md-5 title">{c.name}</div>
+          <div className="col-md-7">{c.value}</div>
+        </div>
       );
     }
 
     return (
-        <div class="row profile">
-          <div class="col-md-3">
-            <a href="#" class="thumbnail profile-image">
-              <img class="img-thumbnail" src={profile.photo} alt={profile.fullName} />
-            </a>
+        <div className="row profile">
+          <div className="col-md-3">
+            <span className="thumbnail profile-image">
+              <img className="img-thumbnail" src={profile.photo} alt={profile.fullName} />
+            </span>
 
             {!!profile.credo && <h5 className="credo">{profile.credo}</h5>}
           </div>
 
-          <div class="col-md-9">
-            <div class="panel panel-default">
+          <div className="col-md-9">
+            <div className="panel panel-default">
               <h2>{profile.fullName}</h2>
-              <div class="panel-heading">
-                <h3 class="panel-title">Загальна інформація</h3>
+              <div className="panel-heading">
+                <h3 className="panel-title">Загальна інформація</h3>
               </div>
 
               <div className="panel-body">
-                <table className="table table-responsive table-hover table-striped common_info">
-                  <tbody>
                   {
                     !!profile.academicDegree &&
-                    <tr>
-                      <td>Науковий ступень</td>
-                      <td>{profile.academicDegree}</td>
-                    </tr>
+                    <div className="row">
+                      <div className="col-md-5 title">Науковий ступень</div>
+                      <div className="col-md-7">{profile.academicDegree}</div>
+                    </div>
                   }
-
                   {
                     !!profile.academicStatus &&
-                    <tr>
-                      <td>Вчене звання</td>
-                      <td>{profile.academicStatus}</td>
-                    </tr>
+                    <div className="row">
+                      <div className="col-md-5 title">Вчене звання</div>
+                      <div className="col-md-7">{profile.academicStatus}</div>
+                    </div>
                   }
                   {
                     !!profile.scientificInterest &&
-                    <tr>
-                      <td>Наукові інтереси</td>
-                      <td>{profile.scientificInterest}</td>
-                    </tr>
+                    <div className="row">
+                      <div className="col-md-5 title">Наукові інтереси</div>
+                      <div className="col-md-7">{profile.scientificInterest}</div>
+                    </div>
                   }
-                  </tbody>
-                </table>
               </div>
 
               <div className="panel panel-default">
@@ -148,25 +139,21 @@ class Profile extends Component {
                   <h3 className="panel-title">Дані за місцем роботи</h3>
                 </div>
 
-                <table className="table table-responsive table-hover table-striped workplace">
-                  <tbody>
+                <div className="panel-body">
                     {positions}
-                  </tbody>
-                </table>
+                </div>
               </div>
 
             </div>
 
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title">Контактна інформація</h3>
+            <div className="panel panel-default">
+              <div className="panel-heading">
+                <h3 className="panel-title">Контактна інформація</h3>
               </div>
-              <div class="panel-body">
+              <div className="panel-body">
 
-                <table class="table table-responsive table-hover table-striped contact_info">
-                  <tbody>
-                  {contactInformation}
-                  </tbody>
+                {contactInformation}
+
                 {/*  @Html.Partial("RecordPartialView", new Record("Особиста сторiнка", ViewBag.Link))*/}
 
                 {/*  @Html.Partial("RecordPartialView", new Record("Електронна пошта", Model.GetField("Email")))*/}
@@ -174,41 +161,37 @@ class Profile extends Component {
                 {/*  {*/}
                 {/*  @Html.Partial("RecordPartialView", new Record(item.Name, item.Value))*/}
                 {/*  }*/}
-                </table>
               </div>
             </div>
 
-            <div class="panel panel-default" id="science">
-              <div class="panel-heading">
-                <h3 class="panel-title">Наукова діяльність ...</h3>
+            <div className="panel panel-default" id="science">
+              <div className="panel-heading">
+                <h3 className="panel-title">Наукова діяльність</h3>
               </div>
-              <div class="panel-body">
-                <ul class="profile_subsections">
-                  <li id="execution_subsection"><a href="/profile/@ViewBag.ProfileName/execution">Виконання НДДКР</a></li>
-                  <li id="results_subsection"><a href="/profile/@ViewBag.ProfileName/results">Результати виконання НДДКР</a></li>
-                  <li id="publications_subsection"><a href="/profile/@ViewBag.ProfileName/publications">Публікації</a></li>
-                  <li id="conference_subsection"><a href="/profile/@ViewBag.ProfileName/conference">Конференції, виставки</a></li>
-                </ul>
-              </div>
-            </div>
+              <div className="panel-body">
+                <Button
+                  size="lg" block
+                  variant="outline-success"
+                  href={'/profile/' + this.state.profile.userIdentifier + '/publications'}>
+                  Публікації
+                  <Icon.ArrowBarRight />
+                </Button>
 
-            <div class="panel panel-default" id="awards">
-              <div class="panel-heading">
-                <h3 class="panel-title">Нагороди/Державні премії ...</h3>
-              </div>
-              <div class="panel-body">
-                <div id="awards-text">
+                <Button
+                  size="lg" block
+                  variant="outline-success"
+                  href={'/profile/' + this.state.profile.userIdentifier + '/results'}>
+                  Виконання НДДКР
+                  <Icon.ArrowBarRight />
+                </Button>
 
-                </div>
-
-                {/*<script>*/}
-                {/*  $(function () {*/}
-                {/*  $("#awards > .panel-body").hide();*/}
-                {/*  $("#awards > .panel-heading").click(function () {*/}
-                {/*  $("#awards > .panel-body").toggle();*/}
-                {/*});*/}
-                {/*});*/}
-                {/*</script>*/}
+                <Button
+                  size="lg" block
+                  variant="outline-success"
+                  href={'/profile/' + this.state.profile.userIdentifier + '/conference'}>
+                  Конференції, виставки
+                  <Icon.ArrowBarRight />
+                </Button>
 
               </div>
             </div>

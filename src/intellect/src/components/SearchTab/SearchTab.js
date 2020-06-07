@@ -13,33 +13,8 @@ class SearchTab extends Component {
       tab: null
     };
 
-    this.searchDefault = this.searchDefault.bind(this);
-    this.searchSubdivision = this.searchSubdivision.bind(this);
-    this.searchAlphabet = this.searchAlphabet.bind(this);
-    this.searchInterests = this.searchInterests.bind(this);
-
-    this.redirectToSearchInterests = this.redirectToSearchInterests.bind(this);
-    this.redirectToSearchSubdivision = this.redirectToSearchSubdivision.bind(this);
-    this.redirectToSearchDefault = this.redirectToSearchDefault.bind(this);
     this.redirectToSearch = this.redirectToSearch.bind(this);
 
-  }
-
-  searchDefault = () => this.setState({tab: 1});
-  searchSubdivision = () => this.setState({tab: 2});
-  searchAlphabet = () => this.setState({tab: 3});
-  searchInterests = () => this.setState({tab: 4});
-
-  redirectToSearchInterests(e) {
-    this.redirectToSearch(e, 'interests:');
-  }
-
-  redirectToSearchSubdivision(e) {
-    this.redirectToSearch(e, 'subdivision:');
-  }
-
-  redirectToSearchDefault(e) {
-    this.redirectToSearch(e, 'startwith:');
   }
 
   /**
@@ -58,19 +33,31 @@ class SearchTab extends Component {
     return (
       <div>
         <div className="row search-panel">
-          <div className={"col-md-3 height-x " + (this.state.tab === 1 ? 'selected' : '')} onClick={this.searchDefault}>
+          <div
+            className={"col-md-3 height-x " + (this.state.tab === 1 ? 'selected' : '')}
+            onClick={() => this.setState({tab: 1})}
+          >
               <Icon.PersonFill size={32} className="search-tab-icon" />
               <span>Загальний пошук спiвробiтникiв</span>
           </div>
-          <div className={"col-md-3 height-x " + (this.state.tab === 2 ? 'selected' : '')} onClick={this.searchSubdivision}>
+          <div
+            className={"col-md-3 height-x " + (this.state.tab === 2 ? 'selected' : '')}
+            onClick={() => this.setState({tab: 2})}
+          >
               <Icon.Building size={32} className="search-tab-icon" />
               <span>Пошук за кафедрами<br/> та факультетами</span>
           </div>
-          <div className={"col-md-3 height-x " + (this.state.tab === 3 ? 'selected' : '')} onClick={this.searchAlphabet}>
+          <div
+            className={"col-md-3 height-x " + (this.state.tab === 3 ? 'selected' : '')}
+            onClick={() => this.setState({tab: 3})}
+          >
               <Icon.CardList size={32} className="search-tab-icon" />
               <span>Алфавітний покажчик</span>
           </div>
-          <div className={"col-md-3 height-x " + (this.state.tab === 4 ? 'selected' : '')} onClick={this.searchInterests}>
+          <div
+            className={"col-md-3 height-x " + (this.state.tab === 4 ? 'selected' : '')}
+            onClick={() => this.setState({tab: 4})}
+          >
               <Icon.Intersect size={32} className="search-tab-icon" />
               <span>Пошук за інтеpeсами</span>
           </div>
@@ -78,14 +65,15 @@ class SearchTab extends Component {
 
         { this.state.tab === 1 &&
           <div className="row search">
+            <div className="col-md-12">
               <h2>Загальний пошук спiвробiтникiв</h2>
               <div className="line"/>
               <input type="search"
-                     name="q"
                      className="form-control typeahead"
-                     onKeyDown={this.redirectToSearchDefault}
+                     onKeyDown={(e) => this.redirectToSearch(e, 'startwith:')}
                      placeholder="Введiть ПІБ особи... (наприклад: ПЕТРОВ ПЕТРО ПЕТРОВИЧ)" />
               <div className="line"/>
+            </div>
           </div>
         }
 
@@ -95,9 +83,8 @@ class SearchTab extends Component {
               <h2>Пошук за кафедрами та факультетами</h2>
               <div className="line"/>
               <input type="search"
-                     name="q"
                      className="form-control typeahead"
-                     onKeyDown={this.redirectToSearchSubdivision}
+                     onKeyDown={(e) => this.redirectToSearch(e, 'subdivision:')}
                      placeholder="Введiть назву пiдроздiлу... (наприклад: Кафедра технiчної кiбернетики ФІОТ)" />
               <div className="line"/>
             </div>
@@ -119,9 +106,8 @@ class SearchTab extends Component {
               <div className="line"/>
               <input
                 type="search"
-                name="q"
                 className="form-control typeahead"
-                onKeyDown={this.redirectToSearchInterests}
+                onKeyDown={(e) => this.redirectToSearch(e, 'interests:')}
                 placeholder="Введiть інтереси для пошуку..." />
               <div className="line"/>
             </div>

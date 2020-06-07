@@ -55,16 +55,26 @@ class Search extends Component {
 
     let result = [];
 
+    /**
+     * Get primary position
+     * @param item
+     * @returns {string}
+     */
     function getPosition(item) {
-      if (!item || !item.Positions || item.Positions.length == 0) {
+      if (!item || !item.Positions || item.Positions.length === 0) {
         return '';
       }
 
       return item.Positions[0].Name;
     }
 
+    /**
+     * Get primary subdivision
+     * @param item
+     * @returns {string}
+     */
     function getSubdivision(item) {
-      if (!item || !item.Positions || item.Positions.length == 0) {
+      if (!item || !item.Positions || item.Positions.length === 0) {
         return '';
       }
 
@@ -72,34 +82,6 @@ class Search extends Component {
     }
 
     if (!!this.state.profiles && this.state.profiles.length > 0) {
-
-      // "Positions": [
-      //   {
-      //     "Name": "Доцент",
-      //     "Subdivision": {
-      //       "Url": "http://tc.kpi.ua",
-      //       "Logo": null,
-      //       "Address": null,
-      //       "Name": "Кафедра технiчної кiбернетики ФІОТ",
-      //       "Id": 10193
-      //     },
-      //     "Employment": 0
-      //   }
-      // ],
-      //   "Fields": {},
-      // "Status": "Доцент",
-      //   "Items": [],
-      //   "ScientificInterest": "Інформаційні та комунікаційні технології. Інтелектуальні інформаційні та інформаційно-аналітичні технології.  Інтегровані  системи баз даних та знань.  Національні інформаційні ресурси. Технології та засоби розробки програмних продуктів і систем.",
-      //   "AcademicDegree": "Кандидат наук",
-      //   "AcademicStatus": "",
-      //   "ContactRecords": null,
-      //   "IsConfirmed": true,
-      //   "UserIdentifier": "mky",
-      //   "FullName": "Мелкумян Катерина Юріївна",
-      //   "Photo": "https://api.campus.kpi.ua/Account/81/ProfileImage",
-      //   "Credo": "Разум ищет, и только сердце находит",
-      //   "Profile": "https://intellect.kpi.ua/profile/mky",
-      //   "Id": 0
 
       result = this.state.profiles.map((item, index) =>
 
@@ -124,29 +106,6 @@ class Search extends Component {
             </div>
           </div>
         </div>
-
-        // <div className="col-md-4 search-result-item">
-        //   <div className="row">
-        //     <div className="col-md-6">
-        //       <a href={"/profile/" + item.UserIdentifier}>
-        //         <img
-        //           className="img-fluid"
-        //           src={item.Photo}
-        //           alt={item.FullName}
-        //           title={item.FullName} />
-        //       </a>
-        //     </div>
-        //     <div className="col-md-6">
-        //       <a href={"/profile/" + item.UserIdentifier}>
-        //         <h4>{item.FullName}</h4>
-        //       </a>
-        //       <div>
-        //         <div>{getPosition(item)}</div>
-        //         <div>{getSubdivision(item)}</div>
-        //       </div>
-        //     </div>
-        //   </div>
-        // </div>
       );
     }
 

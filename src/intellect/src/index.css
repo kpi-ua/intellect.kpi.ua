@@ -154,47 +154,7 @@ button,
   height: 80px;
 }
 
-footer {
-  min-height: 100px;
-  overflow: hidden;
-  color: #fff;
-  font-size: 10pt;
-  text-align: left;
-  background: #0277BD;
-  padding: 0 0 20px;
-}
 
-footer .small-logo {
-  margin-top: 17px;
-}
-
-footer .row {
-  padding: 14px 20px 0;
-  border-top: none;
-}
-
-footer menu {
-  text-align: left;
-}
-
-footer ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-footer a,
-footer a:hover {
-  color: #fff;
-}
-
-footer a {
-  text-decoration: none;
-}
-
-footer a:hover {
-  text-decoration: underline;
-}
 
 .slogan {
   padding: 10px;
@@ -231,38 +191,6 @@ footer a:hover {
   /*border-left: 5px solid #078dba;*/
 }
 
-.navigation {
-  background: #FFF;
-  padding-bottom: 0;
-  padding-top: 0;
-  text-align: right;
-  border: none;
-  margin-bottom: 0;
-  position: relative;
-  z-index: 1000;
-  border-radius: 0;
-}
-
-.navigation #navbar a:hover {
-  color: #0277bd;
-  text-decoration: none;
-}
-
-.navigation a {
-  display: inline-block;
-  font-size: 12pt;
-  padding-left: 10px;
-  color: #777;
-  text-transform: uppercase;
-  padding-top: 5px;
-  font-family: 'Ubuntu', sans-serif;
-}
-
-.navigation a:hover {
-  color: #0277bd;
-  text-decoration: none;
-}
-
 @media (max-width: 767px) {
   .search .col-md-6 {
     padding-right: 15px;
@@ -277,11 +205,7 @@ footer a:hover {
   }
 }
 
-@media (max-width: 767px) {
-  footer {
-    text-align: center;
-  }
-}
+
 
 ymaps {
   margin-bottom: 20px;
@@ -421,14 +345,6 @@ ymaps {
   .carousel {
     display: none;
   }
-
-  header {
-    background-color: #0277bd;
-  }
-
-  #search-result img {
-    max-width: 100px;
-  }
 }
 
 .search-panel a {
@@ -472,8 +388,9 @@ ymaps {
 }
 /* Кредо викладача - під фото */
 .credo {
-  color: #0B9E93;
+  color: #333;
   font-size: 12pt;
+  text-align: left;
 }
 /* Назви вкладок в розділі "Наукова діяльність" (Публікації, Конференції, виставки і т.д.) */
 .scientific_activities a {
@@ -495,40 +412,6 @@ ymaps {
 @media screen and (max-width: 767px) {
   .table-responsive {
     font-size: 9pt;
-  }
-}
-/* Сторінка результатів пошуку, адаптована під всі девайси */
-@media (max-width: 767px) {
-  .s_one_result,
-  .s_one_result:hover {
-    width: 100% !important;
-    height: auto !important;
-    margin: 0 0 10px !important;
-  }
-
-  .s_workplace_info_block {
-    margin-left: 0 !important;
-  }
-
-  .s_lecturer_name {
-    width: 100% !important;
-    font-size: 13pt !important;
-    line-height: 20px;
-  }
-
-  .s_lecturer_workplace {
-    margin: 5px 0 5px !important;
-  }
-
-  #search-result .s_img {
-    display: none !important;
-  }
-
-  footer .small-logo {
-    margin-top: -7px !important;
-    margin-bottom: 10px;
-    max-width: 190px;
-    display: inline-block;
   }
 }
 
@@ -792,12 +675,6 @@ button,
   width: 100%;
 }
 
-.carousel .carousel-caption {
-  background-color: #0277bd;
-  color: #FFF;
-  z-index: 999;
-  text-shadow: none;
-}
 
 .carousel .carousel-control {
   background: none;
@@ -835,10 +712,6 @@ button,
 
 #main_container::after {
   height: 80px;
-}
-
-footer .small-logo {
-  margin-top: 17px;
 }
 
 footer .row {
@@ -1072,22 +945,11 @@ ymaps {
 }
 
 @media (min-width: 768px) {
-  .navigation #navbar {
-    padding: 0;
-  }
 }
 
 @media (max-width: 768px) {
   .carousel {
     display: none;
-  }
-
-  header {
-    background-color: #0277bd;
-  }
-
-  #search-result img {
-    max-width: 100px;
   }
 }
 
@@ -1130,11 +992,7 @@ ymaps {
 .contact_info tr td:first-child {
   width: 320px;
 }
-/* Кредо викладача - під фото */
-.credo {
-  color: #0B9E93;
-  font-size: 12pt;
-}
+
 /* Назви вкладок в розділі "Наукова діяльність" (Публікації, Конференції, виставки і т.д.) */
 .scientific_activities a {
   font-size: 12pt;
@@ -1155,40 +1013,6 @@ ymaps {
 @media screen and (max-width: 767px) {
   .table-responsive {
     font-size: 9pt;
-  }
-}
-/* Сторінка результатів пошуку, адаптована під всі девайси */
-@media (max-width: 767px) {
-  .s_one_result,
-  .s_one_result:hover {
-    width: 100% !important;
-    height: auto !important;
-    margin: 0 0 10px !important;
-  }
-
-  .s_workplace_info_block {
-    margin-left: 0 !important;
-  }
-
-  .s_lecturer_name {
-    width: 100% !important;
-    font-size: 13pt !important;
-    line-height: 20px;
-  }
-
-  .s_lecturer_workplace {
-    margin: 5px 0 5px !important;
-  }
-
-  #search-result .s_img {
-    display: none !important;
-  }
-
-  footer .small-logo {
-    margin-top: -7px !important;
-    margin-bottom: 10px;
-    max-width: 190px;
-    display: inline-block;
   }
 }
 

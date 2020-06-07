@@ -25,6 +25,28 @@ class API {
     }
   }
 
+
+  /**
+   * Get publications
+   * @param userIdentifier
+   * @returns {Promise<*[]|*>}
+   */
+  async getProfilePublications(userIdentifier) {
+    const axios = require('axios');
+    const url = this.ApiEndpoint + 'Intellect/publications?userIdentifier=' + userIdentifier;
+
+    try {
+      const response = await axios.get(url);
+      return  response.data.Data;
+      // const result = Object.values(data.Value);
+      // return result;
+    } catch (error) {
+      console.error(error);
+      debugger
+      return [];
+    }
+  }
+
   /**
    * Find public profiles
    * @param query
@@ -38,11 +60,9 @@ class API {
         paging: {}
       };
     }
-
     const axios = require('axios');
     const url = this.ApiEndpoint + 'Intellect/Find?value=' + query + '&pageNumber=' + page + '&pageSize=' + this.DefaultPageSize;
 
-    console.log(url);
     try {
       const response = await axios.get(url);
 
