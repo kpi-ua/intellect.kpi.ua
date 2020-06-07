@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './ProfileResults.css';
+import {withRouter} from "react-router-dom";
 
 class ProfileResults extends Component {
   // constructor(props){
@@ -23,4 +24,4 @@ class ProfileResults extends Component {
   }
 }
 
-export default ProfileResults;
+export default withRouter(ProfileResults);

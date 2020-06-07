@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './ProfileConferences.css';
+import {withRouter} from "react-router-dom";
 
 class ProfileConferences extends Component {
   // constructor(props){
@@ -25,4 +26,4 @@ class ProfileConferences extends Component {
   }
 }
 
-export default ProfileConferences;
+export default withRouter(ProfileConferences);

@@ -16,6 +16,7 @@ import Footer from "./components/Footer";
 import ProfilePublications from "./components/ProfilePublications";
 import ProfileExecutions from "./components/ProfileExecutions";
 import ProfileConferences from "./components/ProfileConferences";
+import ProfileResults from "./components/ProfileResults";
 
 function App() {
 
@@ -75,6 +76,9 @@ function App() {
                   </Route>
                   <Route path="/profile/:profileId/publications">
                     <ProfilePublications />
+                  </Route>
+                  <Route path="/profile/:profileId/results">
+                    <ProfileResults />
                   </Route>
                   <Route path="/profile/:profileId">
                     <Profile />

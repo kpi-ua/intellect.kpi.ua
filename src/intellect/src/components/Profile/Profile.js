@@ -188,6 +188,14 @@ class Profile extends Component {
                 <Button
                   size="lg" block
                   variant="outline-success"
+                  href={'/profile/' + this.state.profile.userIdentifier + '/results'}>
+                  Результати виконання НДДКР
+                  <Icon.ArrowBarRight />
+                </Button>
+
+                <Button
+                  size="lg" block
+                  variant="outline-success"
                   href={'/profile/' + this.state.profile.userIdentifier + '/conference'}>
                   Конференції, виставки
                   <Icon.ArrowBarRight />
