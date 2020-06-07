@@ -14,7 +14,8 @@ class ProfileResults extends Component {
     super(props);
     this.state = {
       profile: {},
-      results: []
+      results: [],
+      loading: true
     };
   }
 
@@ -25,7 +26,8 @@ class ProfileResults extends Component {
 
     this.setState({
       profile: profile,
-      results: results
+      results: results,
+      loading: false
     });
 
   }
@@ -50,13 +52,13 @@ class ProfileResults extends Component {
         </div>
 
         <div className="col-md-9">
-          <div className="panel panel-default">
-            <h1>{this.state.profile.fullName}</h1>
-            <h2>Результати виконання науково-дослідних та дослідно-конструкторських робіт</h2>
-            <div className="panel-body">
-              <ProfileData profile={this.state.profile} records={this.state.results} />
-            </div>
-          </div>
+          <h1>{this.state.profile.fullName}</h1>
+          <h2>Результати виконання науково-дослідних та дослідно-конструкторських робіт</h2>
+
+          {
+            !this.state.loading  &&
+            <ProfileData profile={this.state.profile} records={this.state.results} />
+          }
 
         </div>
       </div>

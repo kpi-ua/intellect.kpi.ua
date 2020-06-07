@@ -6,6 +6,7 @@ import './Search.css';
 import Alphabet from "../Alphabet";
 import api from "../../services/api";
 import * as Icon from 'react-bootstrap-icons';
+import ProgressBar from "../ProgressBar";
 
 class Search extends Component {
   constructor(props){
@@ -14,7 +15,8 @@ class Search extends Component {
     this.state = {
         q: '',
         profiles: [],
-        paging: {}
+        paging: {},
+        loading: true
     };
 
     this.updateSearchQuery = this.updateSearchQuery.bind(this);
@@ -41,9 +43,15 @@ class Search extends Component {
   async search(query) {
     this.setState({q: query});
 
+    this.setState({loading: true});
+
     const result = await api.searchPublicProfiles(query);
-    this.setState({profiles: result.data});
-    this.setState({paging: result.paging});
+
+    this.setState({
+      profiles: result.data,
+      paging: result.paging,
+      loading: false
+    });
   }
 
   async componentDidMount() {
@@ -130,19 +138,23 @@ class Search extends Component {
                     <span className="glyphicon glyphicon-search"/></button>
               </span>
             </div>
-
           </div>
-
         </div>
 
-        <div className="row">
-          <div className="col-md-12 search-result">
-            <div className="row">
-              {result}
+        <ProgressBar visible={this.state.loading} />
+
+        {
+          !this.state.loading  &&
+
+          <div className="row">
+            <div className="col-md-12 search-result">
+              <div className="row">
+                {result}
+              </div>
+              <ul className="pagination"/>
             </div>
-            <ul className="pagination"/>
           </div>
-        </div>
+        }
 
       </div>
     );

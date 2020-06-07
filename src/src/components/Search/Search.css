@@ -25,3 +25,11 @@
 .card {
     width: 100%;
 }
+
+.card-text {
+    font-size: 9pt;
+}
+
+.card-text strong{
+    font-size: 11pt;
+}

@@ -14,7 +14,8 @@ class ProfileConferences extends Component {
     super(props);
     this.state = {
       profile: {},
-      conferences: []
+      conferences: [],
+      loading: true
     };
   }
 
@@ -25,7 +26,8 @@ class ProfileConferences extends Component {
 
     this.setState({
       profile: profile,
-      conferences: conferences
+      conferences: conferences,
+      loading: false
     });
 
   }
@@ -50,13 +52,13 @@ class ProfileConferences extends Component {
         </div>
 
         <div className="col-md-9">
-          <div className="panel panel-default">
-            <h1>{this.state.profile.fullName}</h1>
-            <h2>Конференції, виставки</h2>
-            <div className="panel-body">
-              <ProfileData profile={this.state.profile} records={this.state.conferences} />
-            </div>
-          </div>
+          <h1>{this.state.profile.fullName}</h1>
+          <h2>Конференції, виставки</h2>
+
+          {
+            !this.state.loading  &&
+            <ProfileData profile={this.state.profile} records={this.state.conferences} />
+          }
 
         </div>
       </div>

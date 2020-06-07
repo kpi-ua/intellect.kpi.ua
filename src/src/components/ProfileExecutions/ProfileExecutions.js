@@ -14,7 +14,8 @@ class ProfileExecutions extends Component {
     super(props);
     this.state = {
       profile: {},
-      executions: []
+      executions: [],
+      loading: true
     };
   }
 
@@ -25,7 +26,8 @@ class ProfileExecutions extends Component {
 
     this.setState({
       profile: profile,
-      executions: executions
+      executions: executions,
+      loading: false
     });
 
   }
@@ -50,13 +52,13 @@ class ProfileExecutions extends Component {
         </div>
 
         <div className="col-md-9">
-          <div className="panel panel-default">
-            <h1>{this.state.profile.fullName}</h1>
-            <h2>Виконання науково-дослідних та дослідно-конструкторських робіт</h2>
-            <div className="panel-body">
-              <ProfileData profile={this.state.profile} records={this.state.executions} />
-            </div>
-          </div>
+          <h1>{this.state.profile.fullName}</h1>
+          <h2>Виконання науково-дослідних та дослідно-конструкторських робіт</h2>
+
+          {
+            !this.state.loading  &&
+            <ProfileData profile={this.state.profile} records={this.state.executions} />
+          }
 
         </div>
       </div>
