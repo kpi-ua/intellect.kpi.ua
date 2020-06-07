@@ -42,12 +42,16 @@ cd "$root_dir" || exit
 
 cd ./src
 
-npm install
-npm install -g bower grunt-cli
-bower install
-grunt build
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 
-mv ./dist ../docker
+npm install
+
+sudo apt update && sudo apt install yarn
+
+yarn build
+
+mv ./build ../docker
 
 
 #################################################################################

@@ -258,3 +258,6 @@ paket-files/
 /bower_components
 
 .DS_Store/
+.DS_Store
+
+src/build/
