@@ -14,6 +14,8 @@ import Profile from "./components/Profile";
 import {Nav, Navbar, Container} from "react-bootstrap";
 import Footer from "./components/Footer";
 import ProfilePublications from "./components/ProfilePublications";
+import ProfileExecutions from "./components/ProfileExecutions";
+import ProfileConferences from "./components/ProfileConferences";
 
 function App() {
 
@@ -64,6 +66,12 @@ function App() {
                   </Route>
                   <Route path="/page/about">
                     <About />
+                  </Route>
+                  <Route path="/profile/:profileId/conferences">
+                    <ProfileConferences />
+                  </Route>
+                  <Route path="/profile/:profileId/executions">
+                    <ProfileExecutions />
                   </Route>
                   <Route path="/profile/:profileId/publications">
                     <ProfilePublications />

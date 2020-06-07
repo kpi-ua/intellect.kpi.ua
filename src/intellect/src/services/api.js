@@ -37,9 +37,21 @@ class API {
 
     try {
       const response = await axios.get(url);
-      return  response.data.Data;
-      // const result = Object.values(data.Value);
-      // return result;
+      return response.data.Data;
+    } catch (error) {
+      console.error(error);
+      debugger
+      return [];
+    }
+  }
+
+  async getProfileExecutions(userIdentifier) {
+    const axios = require('axios');
+    const url = this.ApiEndpoint + 'Intellect/KRExecutions?userIdentifier=' + userIdentifier;
+
+    try {
+      const response = await axios.get(url);
+      return response.data.Data;
     } catch (error) {
       console.error(error);
       debugger

@@ -7,6 +7,7 @@ import {
 import api from "../../services/api";
 import {Button} from "react-bootstrap";
 import * as Icon from 'react-bootstrap-icons';
+import ProfileAvatar from "../ProfileAvatar";
 
 class ProfilePublications extends Component {
 
@@ -94,24 +95,12 @@ class ProfilePublications extends Component {
     return (
       <div className="row profile">
         <div className="col-md-3">
-          <span className="thumbnail profile-image">
-            <img className="img-thumbnail" src={profile.photo} alt={profile.fullName} />
-          </span>
-
-          {!!profile.credo && <h5 className="credo">{profile.credo}</h5>}
-          <br />
-          <Button
-            size="lg" block
-            variant="outline-success"
-            href={'/profile/' + this.state.profile.userIdentifier}>
-            Повернутися до профілю
-            {/*<Icon.ArrowBarLeft />*/}
-          </Button>
+          <ProfileAvatar profile={this.state.profile} />
         </div>
 
         <div className="col-md-9">
           <div className="panel panel-default">
-            <h2>{profile.fullName}</h2>
+            <h1>{profile.fullName}</h1>
             <div className="panel-body">
               {publications}
             </div>

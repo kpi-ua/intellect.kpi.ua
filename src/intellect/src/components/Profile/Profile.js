@@ -105,7 +105,7 @@ class Profile extends Component {
 
           <div className="col-md-9">
             <div className="panel panel-default">
-              <h2>{profile.fullName}</h2>
+              <h1>{profile.fullName}</h1>
               <div className="panel-heading">
                 <h3 className="panel-title">Загальна інформація</h3>
               </div>
@@ -180,7 +180,7 @@ class Profile extends Component {
                 <Button
                   size="lg" block
                   variant="outline-success"
-                  href={'/profile/' + this.state.profile.userIdentifier + '/results'}>
+                  href={'/profile/' + this.state.profile.userIdentifier + '/executions'}>
                   Виконання НДДКР
                   <Icon.ArrowBarRight />
                 </Button>
