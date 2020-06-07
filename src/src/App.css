@@ -28,19 +28,6 @@ h5 {
   color: #0277bd;
 }
 
-/*h1 {*/
-/*  padding-top: 20px;*/
-/*  font-size: 30pt;*/
-/*}*/
-
-/*h2 {*/
-/*  font-size: 27pt;*/
-/*}*/
-
-/*h3 {*/
-/*  font-size: 20pt;*/
-/*}*/
-
 .content {
   min-height: 700px;
 }
@@ -53,4 +40,25 @@ a:hover,
 a:focus {
   color: #0277bd !important;
   text-decoration: underline;
+}
+
+header {
+  background-color: #0d0d5a;
+  min-height: 35px;
+  padding-top: 8px;
+  text-transform: uppercase;
+  font-family: 'Ubuntu', sans-serif;
+  width: 100%;
+  position: relative;
+  z-index: 1000;
+  color: #FFF;
+}
+
+header .container:first-child {
+  padding-bottom: 5px;
+  font-size: 8pt;
+}
+
+.navbar-nav {
+  font-size: 14pt;
 }

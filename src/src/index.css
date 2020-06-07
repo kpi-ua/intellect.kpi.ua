@@ -33,18 +33,7 @@
   transition: 0.5s;
 }
 
-header {
-  background-color: transparent;
-  font-size: 9pt;
-  min-height: 35px;
-  letter-spacing: 1px;
-  padding-top: 8px;
-  text-transform: uppercase;
-  font-family: 'Ubuntu', sans-serif;
-  width: 100%;
-  position: relative;
-  z-index: 1000;
-}
+
 
 .carousel-inner .item img {
   width: 100%;

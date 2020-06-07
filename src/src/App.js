@@ -23,7 +23,6 @@ function App() {
   return (
       <Router>
 
-
         <header>
           <div className="container">
             <div className="row">
@@ -32,7 +31,6 @@ function App() {
               </div>
             </div>
           </div>
-
 
           <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
             <Container>
