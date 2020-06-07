@@ -40,9 +40,15 @@ echo "Build project"
 
 cd "$root_dir" || exit
 
-dotnet build ./src/Site/Site.csproj --configuration Release
-dotnet publish ./src/Site/Site.csproj --configuration Release -o ./docker/out
-rm ./docker/out/appsettings.Development.json
+cd ./src
+
+npm install
+npm install -g bower grunt-cli
+bower install
+grunt build
+
+mv ./dist ../docker
+
 
 #################################################################################
 
