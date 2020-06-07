@@ -256,3 +256,5 @@ paket-files/
 /.tmp
 /.sass-cache
 /bower_components
+
+.DS_Store/
