@@ -5,22 +5,8 @@ import * as Icon from 'react-bootstrap-icons';
 
 class ProfileAvatar extends Component {
 
-//   if (!!profile.contactRecords) {
-//   contactInformation = profile.contactRecords.map((c, index) =>
-//     <div className="row" key={"contact-record-" + index}>
-//       <div className="col-md-5 title">{c.name}</div>
-//       <div className="col-md-7">{c.value}</div>
-//     </div>
-//   );
-// }
-
-
-
   render() {
     const profile = this.props.profile;
-
-    // const email = getPrimaryEmail(profile);
-    // const phone = getPrimaryPhone(profile);
 
     function getIcon(c) {
       if (!c || !c.name) {
@@ -78,13 +64,18 @@ class ProfileAvatar extends Component {
         </div>
 
         <br />
-        <Button
-          size="lg" block
-          variant="outline-success"
-          href={'/profile/' + profile.userIdentifier}>
-          Повернутися до профілю
-          {/*<Icon.ArrowBarLeft />*/}
-        </Button>
+
+        {
+          !this.props.hideBackLink &&
+
+          <Button
+            size="lg" block
+            variant="outline-success"
+            href={'/profile/' + profile.userIdentifier}>
+            Повернутися до профілю
+            {/*<Icon.ArrowBarLeft />*/}
+          </Button>
+        }
       </div>
     );
   }

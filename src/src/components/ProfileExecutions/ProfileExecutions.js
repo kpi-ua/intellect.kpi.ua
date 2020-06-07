@@ -7,6 +7,7 @@ import {
 import api from "../../services/api";
 import ProfileAvatar from "../ProfileAvatar";
 import ProfileData from "../ProfileData";
+import {Button} from "react-bootstrap";
 
 class ProfileExecutions extends Component {
 
@@ -52,7 +53,7 @@ class ProfileExecutions extends Component {
         <div className="col-md-9">
           <div className="panel panel-default">
             <h1>{this.state.profile.fullName}</h1>
-            <h2>Науково-дослідні та дослідно-конструкторські роботи</h2>
+            <h2>Виконання науково-дослідних та дослідно-конструкторських робіт</h2>
             <div className="panel-body">
               <ProfileData profile={this.state.profile} records={this.state.executions} />
             </div>

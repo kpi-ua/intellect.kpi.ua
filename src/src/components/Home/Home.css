@@ -9,3 +9,19 @@
 .carousel {
     margin-top: 20px;
 }
+
+.welcome {
+    font-size: 20pt;
+    text-align: center;
+    padding-top: 100px;
+    padding-bottom: 150px;
+}
+
+.welcome h1{
+    font-size: 40pt;
+}
+
+.welcome .grey {
+    color: #333333;
+}
+

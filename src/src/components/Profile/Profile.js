@@ -63,7 +63,7 @@ class Profile extends Component {
     return (
         <div className="row profile">
           <div className="col-md-3">
-            <ProfileAvatar profile={this.state.profile} />
+            <ProfileAvatar profile={this.state.profile} hideBackLink={true} />
           </div>
 
           <div className="col-md-9">
@@ -102,7 +102,7 @@ class Profile extends Component {
                   <h3 className="panel-title">Дані за місцем роботи</h3>
                 </div>
 
-                <div className="panel-body">
+                <div className="panel-body positions">
                     {positions}
                 </div>
               </div>
@@ -117,17 +117,20 @@ class Profile extends Component {
 
                 {contactInformation}
 
-                {/*  @Html.Partial("RecordPartialView", new Record("Особиста сторiнка", ViewBag.Link))*/}
+                <div className="row">
+                  <div className="col-md-5 title">Адреса публічної сторінки</div>
+                  <div className="col-md-7">
+                    <a href={"https://intellect.kpi.ua/profile/" + profile.userIdentifier}>
+                      {"intellect.kpi.ua/profile/" + profile.userIdentifier}
+                    </a>
 
-                {/*  @Html.Partial("RecordPartialView", new Record("Електронна пошта", Model.GetField("Email")))*/}
-                {/*  @foreach (Record item in @Model.ContactRecords)*/}
-                {/*  {*/}
-                {/*  @Html.Partial("RecordPartialView", new Record(item.Name, item.Value))*/}
-                {/*  }*/}
+                  </div>
+                </div>
+
               </div>
             </div>
 
-            <div className="panel panel-default" id="science">
+            <div className="panel panel-default">
               <div className="panel-heading">
                 <h3 className="panel-title">Наукова діяльність</h3>
               </div>
@@ -137,23 +140,26 @@ class Profile extends Component {
                   variant="outline-success"
                   href={'/profile/' + this.state.profile.userIdentifier + '/publications'}>
                   Публікації
-                  <Icon.ArrowBarRight />
+                  &nbsp;
+                  <Icon.Newspaper />
                 </Button>
 
                 <Button
                   size="lg" block
                   variant="outline-success"
                   href={'/profile/' + this.state.profile.userIdentifier + '/executions'}>
-                  Виконання НДДКР
-                  <Icon.ArrowBarRight />
+                  Виконання науково-дослідних та дослідно-конструкторських робіт
+                  &nbsp;
+                  <Icon.XDiamond />
                 </Button>
 
                 <Button
                   size="lg" block
                   variant="outline-success"
                   href={'/profile/' + this.state.profile.userIdentifier + '/results'}>
-                  Результати виконання НДДКР
-                  <Icon.ArrowBarRight />
+                  Результати виконання науково-дослідних та дослідно-конструкторських робіт
+                  &nbsp;
+                  <Icon.XDiamondFill />
                 </Button>
 
                 <Button
@@ -161,8 +167,13 @@ class Profile extends Component {
                   variant="outline-success"
                   href={'/profile/' + this.state.profile.userIdentifier + '/conference'}>
                   Конференції, виставки
-                  <Icon.ArrowBarRight />
+                  &nbsp;
+                  <Icon.People />
                 </Button>
+
+                <br />
+                <br />
+                <br />
 
               </div>
             </div>

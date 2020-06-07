@@ -16,4 +16,5 @@ h5 {
     font-size: 9pt;
     background-color: #FAFAFA;
     padding: 5px;
+    overflow: hidden;
 }

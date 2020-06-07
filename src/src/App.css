@@ -62,3 +62,13 @@ header .container:first-child {
 .navbar-nav {
   font-size: 14pt;
 }
+
+.btn-outline-success {
+  border-color: #0277bd;
+}
+
+.btn-outline-success:hover {
+  color: #fff;
+  background-color: #0277bd;
+  border-color: #0277bd;
+}

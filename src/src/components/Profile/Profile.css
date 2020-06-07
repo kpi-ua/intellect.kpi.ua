@@ -1,3 +1,11 @@
 a.btn-outline-success:hover {
     color: #FFF !important;
 }
+
+/*.positions .row*/
+.positions .col-md-5,
+.positions .col-md-7 {
+    margin-bottom: 5px;
+    /*border-bottom: 1px dotted #CCC;*/
+    padding-bottom: 5px;
+}

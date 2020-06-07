@@ -8,39 +8,10 @@ class Home extends Component {
     return (
       <div>
 
-
-        <Carousel>
-          <Carousel.Item>
-            <img
-                className="d-block w-100"
-                src="https://intellect.kpi.ua/static/slides/b1.jpg"
-                alt="First slide"
-            />
-          </Carousel.Item>
-          <Carousel.Item>
-            <img
-                className="d-block w-100"
-                src="https://intellect.kpi.ua/static/slides/b2.jpg"
-                alt="Third slide"
-            />
-          </Carousel.Item>
-          <Carousel.Item>
-            <img
-                className="d-block w-100"
-                src="https://intellect.kpi.ua/static/slides/b3.jpg"
-                alt="Third slide"
-            />
-          </Carousel.Item>
-
-          <Carousel.Item>
-            <img
-                className="d-block w-100"
-                src="https://intellect.kpi.ua/static/slides/b4.jpg"
-                alt="Third slide"
-            />
-          </Carousel.Item>
-        </Carousel>
-
+        <div className="welcome">
+          <h1>Інтелект <span className="grey">Пошук викладачів та науковців</span></h1>
+          КПІ ім. Ігоря Сікорського
+        </div>
 
         <SearchTab />
 
