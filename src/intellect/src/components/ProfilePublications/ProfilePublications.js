@@ -8,6 +8,7 @@ import api from "../../services/api";
 import {Button} from "react-bootstrap";
 import * as Icon from 'react-bootstrap-icons';
 import ProfileAvatar from "../ProfileAvatar";
+import ProfileData from "../ProfileData";
 
 class ProfilePublications extends Component {
 
@@ -25,8 +26,8 @@ class ProfilePublications extends Component {
     const publications = await api.getProfilePublications(profileId);
 
     this.setState({
-      profile:profile,
-      publications:publications
+      profile: profile,
+      publications: publications
     });
 
   }
@@ -44,54 +45,6 @@ class ProfilePublications extends Component {
 
   render() {
 
-    const profile = this.state.profile;
-
-    let publications = [];
-
-    function getPublicationsCategoryTitle(category) {
-      return Object.entries(category)[0][1];
-    }
-
-    function getPublicationBlockYear(publicationBlock) {
-      return publicationBlock[0];
-    }
-
-    function getPublicationDescription(publication) {
-      return publication[1].toString();
-    }
-
-    if (!!this.state.publications) {
-
-      publications = this.state.publications.map((item, i) =>
-      <div className="section" key={"pub-" + i}>
-        <h3 className="text-uppercase">{item.Key}</h3>
-
-        {
-          Object.entries(item.Value).map((category,j) =>
-          <div key={"pub-cat-" + j}>
-            <h4 className="text-uppercase">{getPublicationsCategoryTitle(category)}</h4>
-
-            {
-              Object.entries(category[1]).map((publicationBlock, y) =>
-              <div key={"publicationBlock" + y}>
-                <h5 className="text-uppercase">{getPublicationBlockYear(publicationBlock)}</h5>
-
-                {
-                  Object.entries(publicationBlock[1]).map((publication, n)=>
-                    <div className="publication" key={"publication-" + n}>
-                      {getPublicationDescription(publication)}
-                    </div>)
-                }
-
-              </div>)
-            }
-
-          </div>)
-        }
-
-      </div>)
-    }
-
     return (
       <div className="row profile">
         <div className="col-md-3">
@@ -100,9 +53,10 @@ class ProfilePublications extends Component {
 
         <div className="col-md-9">
           <div className="panel panel-default">
-            <h1>{profile.fullName}</h1>
+            <h1>{this.state.profile.fullName}</h1>
+            <h2>Публікації</h2>
             <div className="panel-body">
-              {publications}
+              <ProfileData profile={this.state.profile} records={this.state.publications} />
             </div>
           </div>
 

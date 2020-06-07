@@ -1,15 +1,22 @@
 import React, { Component } from 'react';
 import './ProfileExecutions.css';
+import {
+  withRouter,
+  matchPath
+} from "react-router-dom";
 import api from "../../services/api";
-import {matchPath, withRouter} from "react-router-dom";
+import ProfileAvatar from "../ProfileAvatar";
+import ProfileData from "../ProfileData";
 
 class ProfileExecutions extends Component {
-  // constructor(props){
-    // super(props);
-    // this.state = {};
-  // }
 
-  // componentWillMount(){}
+  constructor(props){
+    super(props);
+    this.state = {
+      profile: {},
+      executions: []
+    };
+  }
 
   async componentDidMount(){
     const profileId = this.getProfileId();
@@ -17,11 +24,10 @@ class ProfileExecutions extends Component {
     const executions = await api.getProfileExecutions(profileId);
 
     this.setState({
-      profile:profile,
-      executions:executions
+      profile: profile,
+      executions: executions
     });
 
-    debugger;
   }
 
   getProfileId() {
@@ -34,16 +40,26 @@ class ProfileExecutions extends Component {
     return  match.params.profileId;
   }
 
-  // componentWillUnmount(){}
-
-  // componentWillReceiveProps(){}
-  // shouldComponentUpdate(){}
-  // componentWillUpdate(){}
-  // componentDidUpdate(){}
 
   render() {
+
     return (
-      <div></div>
+      <div className="row profile">
+        <div className="col-md-3">
+          <ProfileAvatar profile={this.state.profile} />
+        </div>
+
+        <div className="col-md-9">
+          <div className="panel panel-default">
+            <h1>{this.state.profile.fullName}</h1>
+            <h2>Публікації</h2>
+            <div className="panel-body">
+              <ProfileData profile={this.state.profile} records={this.state.executions} />
+            </div>
+          </div>
+
+        </div>
+      </div>
     );
   }
 }
