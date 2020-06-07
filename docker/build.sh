@@ -42,13 +42,6 @@ cd "$root_dir" || exit
 
 cd ./src
 
-curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-
-npm install
-
-sudo apt update && sudo apt install yarn
-
 yarn build
 
 mv ./build ../docker
