@@ -76,9 +76,9 @@ class Profile extends Component {
             <div className="col-md-7">{c.value}</div>
           </div>
         );
-
-        return null;
       }
+
+      return null;
     }
 
     return (
