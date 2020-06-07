@@ -9,11 +9,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
+    - uses: actions/setup-node@v1
       with:
-        dotnet-version: 3.1.101
+        node-version: '12'
+    - uses: borales/actions-yarn@v2.0.0
 
     - name: Build and Publish
       run: |

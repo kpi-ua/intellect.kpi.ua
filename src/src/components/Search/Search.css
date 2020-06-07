@@ -1,0 +1,35 @@
+.search-result .card {
+    margin-bottom: 25px;
+}
+
+.search-button {
+    border: 1px solid #ced4da;
+    border-left: none;
+}
+
+.image{
+    position:relative;
+    overflow:hidden;
+    padding-bottom:100%;
+    border-bottom: 1px solid #eee;
+    background: #EEE;
+}
+.image img{
+    position:absolute;
+}
+
+.card-title {
+    text-align: left;
+}
+
+.card {
+    width: 100%;
+}
+
+.card-text {
+    font-size: 9pt;
+}
+
+.card-text strong{
+    font-size: 11pt;
+}

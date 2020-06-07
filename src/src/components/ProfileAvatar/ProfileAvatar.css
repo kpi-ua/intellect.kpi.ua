@@ -1,0 +1,19 @@
+.credo {
+    color: #333;
+    font-size: 10pt;
+    text-align: left;
+}
+
+.img-thumbnail {
+    width: 100%;
+}
+
+.contacts {
+
+}
+
+.contacts .row {
+    border-top: 1px solid #CCC;
+    margin-top: 10px;
+    padding-top: 5px;
+}

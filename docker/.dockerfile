@@ -1,6 +1,4 @@
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1.2-alpine
+FROM boclipsconcourse/nginx-spa
 
 WORKDIR /app
-COPY ./out/ ./
-
-ENTRYPOINT ["dotnet", "Site.dll"]
+COPY ./build/ /usr/share/nginx/html
