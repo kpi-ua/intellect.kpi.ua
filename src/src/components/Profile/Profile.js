@@ -7,6 +7,7 @@ import {
 import api from "../../services/api";
 import {Button} from "react-bootstrap";
 import * as Icon from 'react-bootstrap-icons';
+import ProfileAvatar from "../ProfileAvatar";
 
 class Profile extends Component {
 
@@ -35,40 +36,6 @@ class Profile extends Component {
     return  match.params.profileId
   }
 
-// componentWillUnmount(){}
-
-  // componentWillReceiveProps(){}
-  // shouldComponentUpdate(){}
-  // componentWillUpdate(){}
-  // componentDidUpdate(){}
-
-// {
-
-//   "fields": {
-//     "UserContactValue": "204 - 80 - 06 ",
-//     "IsVisible": "0",
-//     "ReceptionHours": "пн.-вт. 10.00-14.00",
-//     "SubdivName": "Кафедра технiчної кiбернетики ФІОТ",
-//     "DutiesName": "Доцент",
-//     "DutiesSubTypeName": "",
-//     "GroupName": "",
-//     "SexName": "Жіноча    ",
-//     "StudyYear": "2010-2011",
-//     "WorkKindNMNIOV2": "публікації статті у наукових виданнях",
-//     "WorkKind": "вітчизняних фахових",
-//     "NameWorkKind": "Писаренко В. Г., Писаренко Ю. В., Мелкумян Е. Ю., Коваль А. С. , Концепция и базовые компоненты интеллекуального мобильного робота для горноспасательных работ // Компютерні засоби, мережі та системи 2010. - № 9"
-//   },
-//   "status": null,
-//   "items": null,
-
-
-//   "isConfirmed": false,
-//   "userIdentifier": "mky",
-
-//   "profile": "https://intellect.kpi.ua/profile/mky",
-//   "id": 81
-// }
-
   render() {
 
     const profile = this.state.profile;
@@ -96,11 +63,7 @@ class Profile extends Component {
     return (
         <div className="row profile">
           <div className="col-md-3">
-            <span className="thumbnail profile-image">
-              <img className="img-thumbnail" src={profile.photo} alt={profile.fullName} />
-            </span>
-
-            {!!profile.credo && <h5 className="credo">{profile.credo}</h5>}
+            <ProfileAvatar profile={this.state.profile} />
           </div>
 
           <div className="col-md-9">

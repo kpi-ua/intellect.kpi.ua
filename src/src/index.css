@@ -46,17 +46,6 @@ header {
   z-index: 1000;
 }
 
-.profile-image {
-  margin-right: 10px;
-  margin-bottom: 10px;
-}
-
-.profile-image img {
-  width: 100%;
-  border: 1px solid #DDD;
-  padding: 1px;
-}
-
 .carousel-inner .item img {
   width: 100%;
 }
@@ -189,13 +178,6 @@ button,
   border: none;
 }
 
-/* Кредо викладача - під фото */
-.credo {
-  color: #333;
-  font-size: 12pt;
-  text-align: left;
-}
-
 /* Кнопка "Вгору" */
 #goTop {
   display: block;
@@ -261,17 +243,6 @@ a:focus {
   transition: 0.5s;
 }
 
-
-.profile-image {
-  margin-right: 10px;
-  margin-bottom: 10px;
-}
-
-.profile-image img {
-  width: 100%;
-  border: 1px solid #DDD;
-  padding: 1px;
-}
 
 .carousel-inner .item img {
   width: 100%;
