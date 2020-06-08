@@ -8,59 +8,77 @@ class ProfileAvatar extends Component {
   render() {
     const profile = this.props.profile;
 
-    function getIcon(c) {
-      if (!c || !c.name) {
+    function renderContactBlock(title, value, index) {
+
+      return <div className="row" key={"cr-" + index}>
+              <div className="col-2">
+                {title}
+              </div>
+              <div className="col-10">
+                {value}
+              </div>
+            </div>;
+    }
+
+    function renderContact(c, index) {
+
+      if (!c || !c.name || !c.value || c.value.trim() === '') {
         return;
       }
 
-      if (c.name.toLowerCase() === "e-mail") {
-        return <Icon.Envelope />
+      debugger;
+
+      if (c.name.toLowerCase().includes("e-mail")) {
+
+        return renderContactBlock(
+          <Icon.Envelope />,
+          <a href={"mailto:" + c.value}>{c.value}</a>,
+          index
+        )
       }
 
       if (c.name.toLowerCase().includes("телефон")) {
-        return <Icon.Phone />
-      }
-    }
-
-    function formatContactValue(value) {
-
-      if (!value || value.trim().length === '') {
-        return '';
+        return renderContactBlock(
+          <Icon.Phone />,
+          <a href={"tel:" + c.value}>{c.value}</a>,
+          index
+        )
       }
 
-      if (value.toLowerCase().includes("@")) {
-        return <a href={"mailto:"+value}>{value}</a>
-      }
-      return value;
-    }
-
-    function renderContacts(contactRecords) {
-
-      if (!contactRecords)
-      {
-        return;
+      if (c.name.toLowerCase().includes("skype")) {
+        return renderContactBlock(
+          <Icon.Phone />,
+          <a href={"skype:" + c.value}>{c.value}</a>,
+          index
+        )
       }
 
-      return contactRecords.map((c, index) =>
-       <div className="row">
-          <div className="col-md-2">
-            {getIcon(c)}
-          </div>
-          <div className="col-md-10">
-            {formatContactValue(c.value)}
-          </div>
-        </div>
+      if (c.name.toLowerCase().includes("сайт")) {
+        return renderContactBlock(
+          <Icon.Window />,
+          <a target="_website" href={c.value}>{c.value.replace('https://', '').replace('http://', '')}</a>,
+          index
+        )
+      }
+
+      return renderContactBlock(
+        '',
+        c.value,
+        index
       )
     }
 
     return (
+      !!profile &&
       <div>
         <img className="img-thumbnail" src={profile.photo} alt={profile.fullName} />
 
-        {!!profile.credo && <h5 className="credo">{profile.credo}</h5>}
-
         <div className="container contacts">
-        {renderContacts(profile.contactRecords)}
+          {
+            !!profile.contactRecords &&  profile.contactRecords.map((c, index) =>
+              renderContact(c, index)
+            )
+          }
         </div>
 
         <br />

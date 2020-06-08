@@ -92,11 +92,7 @@ class SearchTab extends Component {
         }
 
         { this.state.tab === 3 &&
-        <div className="row search">
-          <div className="col-md-12 alphabet">
-            <Alphabet />
-          </div>
-        </div>
+          <Alphabet />
         }
 
         { this.state.tab === 4 &&

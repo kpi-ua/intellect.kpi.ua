@@ -1,26 +1,13 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './About.css';
 
 class About extends Component {
-  // constructor(props){
-    // super(props);
-    // this.state = {};
-  // }
-
-  // componentWillMount(){}
-  // componentDidMount(){}
-  // componentWillUnmount(){}
-
-  // componentWillReceiveProps(){}
-  // shouldComponentUpdate(){}
-  // componentWillUpdate(){}
-  // componentDidUpdate(){}
-
   render() {
     return (
-      <div>
-        <h1>Про проект</h1>
-        <div>
+      <div className="row">
+        <div className="col-md-12">
+          <h1>Про проект</h1>
+
           Об′єднує вчених, викладачів, інженерів та аспірантів університету, які займаються інтелектуальною творчою
           діяльністю, проводять фундаментальні та прикладні наукові дослідження, впроваджують отримані результати в
           виробництво, займаються навчальною, методичною і організаційною роботою.

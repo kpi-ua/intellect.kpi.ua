@@ -35,13 +35,16 @@ class Alphabet extends Component {
     );
 
     return (
-      <div>
-        <h3>Алфавiтний покажчик</h3>
-        <div className="line"/>
-        <div>
-          {letters}
+
+      <div className="row search alphabet">
+        <div className="col-md-12">
+          <h3>Алфавiтний покажчик</h3>
+          <div className="line"/>
+          <div>
+            {letters}
+          </div>
+          <div className="line"/>
         </div>
-        <div className="line"/>
       </div>
     );
   }
