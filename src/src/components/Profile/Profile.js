@@ -5,7 +5,7 @@ import {
   matchPath
 } from "react-router-dom";
 import api from "../../services/api";
-import {Button} from "react-bootstrap";
+import {Button, OverlayTrigger, Tooltip} from "react-bootstrap";
 import * as Icon from 'react-bootstrap-icons';
 import ProfileAvatar from "../ProfileAvatar";
 
@@ -48,19 +48,57 @@ class Profile extends Component {
     }
 
     function employerInformationExist(profile) {
-      return true;
+      return !!profile && !!profile.positions && profile.positions.length > 0;
+    }
+
+    function renderTooltip(value, tooltip) {
+      return <OverlayTrigger
+        placement="right"
+        delay={{ show: 250, hide: 400 }}
+        overlay={(props) => {
+          return  <Tooltip {...props}> {tooltip} </Tooltip>
+        }}
+      >
+        <span className="label-with-tooltip">{value}</span>
+      </OverlayTrigger>
+    }
+
+    function renderPositionOrDegree(name) {
+      name = !name ? '' : name.trim();
+
+      if (name === "Доцент") {
+        return renderTooltip(name, "В Україні та інших країнах вчене звання викладачів закладів вищої освіти, що виконують функцію університетських лекторів; вчене звання співробітників наукових установ; посада в закладах вищої освіти. Учене звання доцента присвоюється ученими радами. Звання доцента засвідчується атестатом, що видає Міністерство освіти України. ")
+      }
+
+      if (name === "Професор") {
+        return renderTooltip(name, "Вчене звання і посада викладача закладу вищої освіти чи наукового співробітника науково-дослідної установи.")
+      }
+
+      if (name === "Науковий співробітник") {
+        return renderTooltip(name, "Вчене звання старшого наукового співробітника в Україні присвоювалося докторам і кандидатам наук із стажем наукової роботи не менше трьох років, які працювали у вищих навчальних закладах III—IV рівня акредитації або наукових установах та організаціях до них прирівняних і зараховані після обрання за конкурсом чи в порядку атестації.")
+      }
+
+      if (name === "Кандидат наук") {
+        return renderTooltip(name, "Науковий ступінь кандидата наук присуджується спеціалізованою вченою радою на підставі прилюдного захисту дисертації та затверджується Міністерством освіти і науки України з урахуванням висновку відповідної експертної ради.  Прирівнюється до ступеня доктора філософії.")
+      }
+
+      if (name === "Викладач Старший") {
+        return renderTooltip(name, "Викладацька посада у закладах вищої освіти, що займає проміжне положення між асистентом і доцентом. Старші викладачі можуть самостійно читати курси лекцій та приймати заліки та іспити.")
+      }
+
+      return name
     }
 
     function renderPositions(profile) {
 
-      if (!!profile && !!profile.positions && profile.positions.length > 0) {
+      if (employerInformationExist(profile)) {
 
         return profile.positions.map((p, index) =>
           <div className="row" key={"position-" + index}>
             <div className="col-md-5 title">
               <a target="_subdivision" href={p.subdivision.url}>{p.subdivision.name}</a>
             </div>
-            <div className="col-md-7">{p.name}</div>
+            <div className="col-md-7">{renderPositionOrDegree(p.name)}</div>
           </div>
         );
       }
@@ -88,14 +126,14 @@ class Profile extends Component {
                   !!profile.academicDegree &&
                   <div className="row">
                     <div className="col-md-5 title">Науковий ступень</div>
-                    <div className="col-md-7">{profile.academicDegree}</div>
+                    <div className="col-md-7">{renderPositionOrDegree(profile.academicDegree)}</div>
                   </div>
                 }
                 {
                   !!profile.academicStatus &&
                   <div className="row">
                     <div className="col-md-5 title">Вчене звання</div>
-                    <div className="col-md-7">{profile.academicStatus}</div>
+                    <div className="col-md-7">{renderPositionOrDegree(profile.academicStatus)}</div>
                   </div>
                 }
                 {
@@ -124,7 +162,6 @@ class Profile extends Component {
                 {renderPositions(profile)}
               </section>
             }
-
 
             <section>
               <h4>Наукова діяльність</h4>

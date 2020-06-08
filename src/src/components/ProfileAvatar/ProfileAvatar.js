@@ -22,9 +22,11 @@ class ProfileAvatar extends Component {
 
     function renderContact(c, index) {
 
-      if (!c || !c.name) {
+      if (!c || !c.name || !c.value || c.value.trim() === '') {
         return;
       }
+
+      debugger;
 
       if (c.name.toLowerCase().includes("e-mail")) {
 
