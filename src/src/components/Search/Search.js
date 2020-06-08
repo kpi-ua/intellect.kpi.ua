@@ -42,9 +42,10 @@ class Search extends Component {
    * @param query
    */
   async search(query) {
-    this.setState({q: query});
-
-    this.setState({loading: true});
+    this.setState({
+      q: !query ? '' : query,
+      loading: true
+    });
 
     const result = await api.searchPublicProfiles(query);
 
@@ -57,6 +58,7 @@ class Search extends Component {
 
   async componentDidMount() {
     let params = new URLSearchParams(this.props.location.search);
+
     await this.search(params.get('q'));
   }
 
@@ -66,10 +68,9 @@ class Search extends Component {
 
     if (!!this.state.profiles && this.state.profiles.length > 0) {
       result = this.state.profiles.map((item, index) =>
-        <SearchResultItem item={item}/>
+        <SearchResultItem key={"card-" + index} item={item}/>
       );
     }
-
 
     return (
       <div className="row">

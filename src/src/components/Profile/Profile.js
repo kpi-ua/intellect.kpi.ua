@@ -57,7 +57,9 @@ class Profile extends Component {
 
         return profile.positions.map((p, index) =>
           <div className="row" key={"position-" + index}>
-            <div className="col-md-5 title"><a href={p.subdivision.url}>{p.subdivision.name}</a></div>
+            <div className="col-md-5 title">
+              <a target="_subdivision" href={p.subdivision.url}>{p.subdivision.name}</a>
+            </div>
             <div className="col-md-7">{p.name}</div>
           </div>
         );

@@ -12,7 +12,12 @@ class Contacts extends Component {
           тел.: +38 (044) 454 98 45<br/>
           факс: +38 (044) 454 98 45<br/>
           e-mail: <a href="mailto:ecampus@kpi.ua">ecampus@kpi.ua</a><br/>
-          <br/>
+          <br />
+
+          <strong>
+          <a href="https://ecampus.kpi.ua/feedback">Форма скарг i пропозицiй</a>
+          </strong>
+
         </div>
       </div>
     );

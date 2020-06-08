@@ -11,10 +11,10 @@ class ProfileAvatar extends Component {
     function renderContactBlock(title, value, index) {
 
       return <div className="row" key={"cr-" + index}>
-              <div className="col-md-2">
+              <div className="col-2">
                 {title}
               </div>
-              <div className="col-md-10">
+              <div className="col-10">
                 {value}
               </div>
             </div>;
