@@ -47,7 +47,7 @@ class ProfilePublications extends Component {
   render() {
 
     return (
-      <div className="row profile">
+      <div className="row">
         <div className="col-md-3">
           <ProfileAvatar profile={this.state.profile} />
         </div>

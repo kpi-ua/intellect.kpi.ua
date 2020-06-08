@@ -119,43 +119,41 @@ class Search extends Component {
 
 
     return (
-      <div>
-        <h1>Пошук</h1>
-        <br />
-        <div className="row">
-          <div className="col-md-12 alphabet">
-            <Alphabet onSelectLetter={this.selectLetter} />
-          </div>
-        </div>
+      <div className="row">
+        <div className="col-md-12">
+          <h1>Пошук</h1>
 
-        <div className="row search">
-          <div className="col-md-12">
-            <div className="input-group">
-              <input type="search" id="input" value={this.state.q} onChange={this.updateSearchQuery} className="form-control" />
-              <span className="input-group-btn">
+          <Alphabet onSelectLetter={this.selectLetter} />
+
+          <div className="row search">
+            <div className="col-md-12">
+              <div className="input-group">
+                <input type="search" id="input" value={this.state.q} onChange={this.updateSearchQuery} className="form-control" />
+                <span className="input-group-btn">
                   <button className="btn btn-default search-button" onClick={this.updateSearchQuery} value="Search">
                     <Icon.Search />
-                    <span className="glyphicon glyphicon-search"/></button>
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <ProgressBar visible={this.state.loading} />
-
-        {
-          !this.state.loading  &&
-
-          <div className="row">
-            <div className="col-md-12 search-result">
-              <div className="row">
-                {result}
+                  </button>
+                </span>
               </div>
-              <ul className="pagination"/>
             </div>
           </div>
-        }
 
+          <ProgressBar visible={this.state.loading} />
+
+          {
+            !this.state.loading  &&
+
+            <div className="row">
+              <div className="col-md-12 search-result">
+                <div className="row">
+                  {result}
+                </div>
+                <ul className="pagination"/>
+              </div>
+            </div>
+          }
+
+        </div>
       </div>
     );
   }

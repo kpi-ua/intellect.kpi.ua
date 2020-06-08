@@ -1,22 +1,3 @@
-
-
-.height-x {
-  height: 83px;
-  overflow: hidden;
-  text-align: center;
-  padding: 10px;
-}
-
-.height-x h3 {
-  display: inline-block;
-  min-height: 30px;
-  font-size: 11pt;
-  width: 100%;
-  text-transform: uppercase;
-}
-
-
-
 .logo {
   margin-top: 0;
   height: 35px;
@@ -25,14 +6,13 @@
 }
 
 .logo:hover {
-  background-image: url(/images/logo_yellow1.png);
   transition: 0.3s;
+  background-image: url(/images/logo_yellow1.png);
 }
 
 .logo:not(hover) {
   transition: 0.5s;
 }
-
 
 
 .carousel-inner .item img {
@@ -46,46 +26,19 @@ button,
   border-radius: 0 !important;
 }
 
-.panel-default {
-  border-color: transparent;
-}
-
-.panel-heading-1,
-.panel-year {
-  cursor: pointer;
-}
-
-.tt-dropdown-menu {
-  border-radius: 0;
-}
-
 .search-panel img {
   width: 70px;
   height: 70px;
   opacity: 1;
 }
 
-.search-panel:hover {
-  /*opacity: 0.5;*/
-}
-
 .search {
   padding-bottom: 25px;
-  /*padding-top: 25px;*/
-}
-
-.search .col-md-6 {
-  padding-right: 0;
-}
-
-.search .col-md-2 {
-  padding-left: 0;
 }
 
 .search .btn-default {
   width: 100%;
 }
-
 
 .carousel .carousel-caption {
   background-color: #0277bd;
@@ -96,10 +49,6 @@ button,
 
 .carousel .carousel-control {
   background: none;
-}
-
-.content {
-  padding-bottom: 0;
 }
 
 .line {
@@ -130,22 +79,6 @@ button,
   z-index: 300;
 }
 
-.profile {
-  margin-top: 30px;
-}
-
-.profile .panel-heading {
-  text-transform: uppercase;
-  font-size: 14pt;
-  padding: 0;
-  padding-bottom: 10px;
-  padding-top: 10px;
-}
-
-.profile .panel-body {
-  padding: 0;
-}
-
 .part-header {
   height: 150px;
   background-size: cover;
@@ -159,57 +92,10 @@ button,
   }
 }
 
-/* *************************** */
-/* New styles for Profile page */
-/* *************************** */
-.panel-default > .panel-heading {
-  background: none;
-  border: none;
-}
-
-/* Кнопка "Вгору" */
-#goTop {
-  display: block;
-  width: 38px;
-  height: 38px;
-  background: url("/images/up_arrow.jpg") center center;
-  position: fixed;
-  right: -100px;
-  cursor: pointer;
-  z-index: 2;
-  border: none !important;
-}
-
 @media screen and (max-width: 767px) {
   .table-responsive {
     font-size: 9pt;
   }
-}
-
-
-a {
-  color: #01677D;
-}
-
-a:hover,
-a:focus {
-  text-decoration: underline;
-}
-
-.logo {
-  margin-top: 0;
-  height: 35px;
-  width: 191px;
-  background-image: url(/images/logo.png);
-}
-
-.logo:hover {
-  background-image: url(/images/logo_yellow1.png);
-  transition: 0.3s;
-}
-
-.logo:not(hover) {
-  transition: 0.5s;
 }
 
 
@@ -249,10 +135,6 @@ button,
   background: none;
 }
 
-.content {
-  padding-bottom: 0;
-}
-
 .line {
   background-image: url("/images/line.png");
   height: 10px;
@@ -267,11 +149,6 @@ button,
 .clear_fix {
   width: 100%;
   clear: both;
-}
-
-
-#main_container::after {
-  height: 80px;
 }
 
 footer .row {
@@ -330,7 +207,6 @@ footer a:hover {
   text-decoration: none;
 }
 
-
 @media (max-width: 767px) {
   footer {
     text-align: center;
@@ -345,25 +221,8 @@ footer a:hover {
   background: #0277bd;
 }
 
-
 .carousel-indicators {
   z-index: 300;
-}
-
-
-.profile .table {
-  margin-top: 0;
-}
-
-.profile .panel-body {
-  padding: 0;
-}
-
-.news-illustration {
-  float: left;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  width: 300px;
 }
 
 .part-header {
@@ -371,9 +230,6 @@ footer a:hover {
   background-size: cover;
   background-position: center 670px;
   margin-top: -85px;
-}
-
-@media (min-width: 768px) {
 }
 
 @media (max-width: 768px) {

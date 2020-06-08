@@ -66,29 +66,17 @@ class Profile extends Component {
       return null;
     }
 
-    function renderContactInformation(profile) {
-
-      if (!!profile && !!profile.contactRecords && profile.contactRecords.length > 0) {
-
-        return profile.contactRecords.map((c, index) =>
-          <div className="row" key={"contact-record-" + index}>
-            <div className="col-md-5 title">{c.name}</div>
-            <div className="col-md-7">{c.value}</div>
-          </div>
-        );
-      }
-
-      return null;
-    }
-
     return (
-        <div className="row profile">
+
+        <div className="row">
           <div className="col-md-3">
             <ProfileAvatar profile={this.state.profile} hideBackLink={true} />
           </div>
 
           <div className="col-md-9 profile-information">
-              <h1>{profile.fullName}</h1>
+            <h1>{profile.fullName}</h1>
+
+            {!!profile.credo && <h5 className="credo">{profile.credo}</h5>}
 
             { generalInformationExist(profile) &&
               <section>
@@ -116,6 +104,15 @@ class Profile extends Component {
                   </div>
                 }
 
+                <div className="row">
+                  <div className="col-md-5 title">Адреса публічної сторінки</div>
+                  <div className="col-md-7">
+                    <a href={"https://intellect.kpi.ua/profile/" + profile.userIdentifier}>
+                      {"intellect.kpi.ua/profile/" + profile.userIdentifier}
+                    </a>
+                  </div>
+                </div>
+
               </section>
             }
 
@@ -125,21 +122,6 @@ class Profile extends Component {
                 {renderPositions(profile)}
               </section>
             }
-
-
-            <section>
-              <h4>Контактна інформація</h4>
-              {renderContactInformation(profile)}
-              <div className="row">
-                <div className="col-md-5 title">Адреса публічної сторінки</div>
-                <div className="col-md-7">
-                  <a href={"https://intellect.kpi.ua/profile/" + profile.userIdentifier}>
-                    {"intellect.kpi.ua/profile/" + profile.userIdentifier}
-                  </a>
-
-                </div>
-              </div>
-            </section>
 
 
             <section>
