@@ -7,6 +7,7 @@ import Alphabet from "../Alphabet";
 import api from "../../services/api";
 import * as Icon from 'react-bootstrap-icons';
 import ProgressBar from "../ProgressBar";
+import SearchResultItem from "../SearchResultItem";
 
 class Search extends Component {
   constructor(props){
@@ -63,57 +64,9 @@ class Search extends Component {
 
     let result = [];
 
-    /**
-     * Get primary position
-     * @param item
-     * @returns {string}
-     */
-    function getPosition(item) {
-      if (!item || !item.Positions || item.Positions.length === 0) {
-        return '';
-      }
-
-      return item.Positions[0].Name;
-    }
-
-    /**
-     * Get primary subdivision
-     * @param item
-     * @returns {string}
-     */
-    function getSubdivision(item) {
-      if (!item || !item.Positions || item.Positions.length === 0) {
-        return '';
-      }
-
-      return  item.Positions[0].Subdivision.Name;
-    }
-
     if (!!this.state.profiles && this.state.profiles.length > 0) {
-
       result = this.state.profiles.map((item, index) =>
-
-        <div className="col-md-3 d-flex align-items-stretch" key={"uk-" + index}>
-          <div className="card">
-            <a
-              href={"/profile/" + item.UserIdentifier}
-              className="image">
-                <img
-                  className="card-img-top"
-                  src={item.Photo}
-                  alt={item.FullName}
-                  title={item.FullName} />
-            </a>
-            <div className="card-body">
-              <h5 className="card-title"><a href={"/profile/" + item.UserIdentifier}>{item.FullName}</a></h5>
-              <p className="card-text">
-                <strong>{getPosition(item)}</strong>
-                <br />
-                {getSubdivision(item)}
-              </p>
-            </div>
-          </div>
-        </div>
+        <SearchResultItem item={item}/>
       );
     }
 
