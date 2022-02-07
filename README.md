@@ -1,4 +1,8 @@
 # intellect.kpi.ua
+![example workflow](https://github.com/kpi-ua/intellect.kpi.ua/actions/workflows/workflow.yml/badge.svg)
+
+Available at [Docker hub](https://hub.docker.com/r/kpiua/intellect.kpi.ua)
+
 
 ## Available Scripts
 
