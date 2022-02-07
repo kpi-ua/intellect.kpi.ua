@@ -1,6 +1,9 @@
 name: Build intellect.kpi.ua
 
-on: [push]
+on:
+  push:
+    branches:
+      - master
 
 jobs:
   build-and-deploy:
@@ -8,13 +11,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
-        node-version: '12'
-    - uses: borales/actions-yarn@v2.0.0
+      - name: Docker Login
+        uses: docker/login-action@v1.10.0
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+          logout: true
 
-    - name: Build and Publish
-      run: |
-        chmod +x ./docker/build.sh
-        ./docker/build.sh ${{ secrets.GH_USERNAME }} ${{ secrets.GITHUB_TOKEN }} ${{ secrets.DOCKER_HUB_USERNAME }} ${{ secrets.DOCKER_HUB_TOKEN }}
+      - name: Checkout
+        uses: actions/checkout@v2.4.0
+        with:
+          repository: ${{ github.repository }}
+
+      - name: Build Docker image
+        run: |
+          now=$(date +%Y%m%d%H%M%S)
+          tag1="kpiua/intellect.kpi.ua:$now"
+          tag2="kpiua/intellect.kpi.ua:latest"
+          
+          docker build ./ --file ./.dockerfile --tag $tag1 --tag $tag2
+          
+          docker push $tag1
+          docker push $tag2
