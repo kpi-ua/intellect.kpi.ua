@@ -28,7 +28,7 @@ export default class ContactHelper {
     }
 
     isWebSite(contact) {
-        return contact.name.toLowerCase().includes("сайт");
+        return contact.name.toLowerCase().includes("сайт") || Decontact.name.toLowerCase().includes("соц");
     }
 
     isResearchId(contact) {
