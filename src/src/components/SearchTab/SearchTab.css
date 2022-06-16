@@ -13,12 +13,13 @@
 .search-panel {
     margin-top: 10px;
     margin-bottom: 25px;
-
 }
 
 .search-panel .col-md-3 {
     text-align: center;
     cursor: pointer;
+    padding-bottom: 30px;
+    font-size: 14pt;
 }
 
 .search-panel svg {

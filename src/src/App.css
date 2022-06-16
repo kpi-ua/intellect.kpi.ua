@@ -24,6 +24,7 @@ h2,
 h3,
 h4,
 h5 {
+    margin-top: 14pt;
     font-family: 'Ubuntu', sans-serif;
     color: #0277bd;
 }
