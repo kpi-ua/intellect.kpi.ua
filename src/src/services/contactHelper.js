@@ -31,13 +31,55 @@ export default class ContactHelper {
         return contact.name.toLowerCase().includes("scopus");
     }
 
-    isGoogleScholarid(contact) {
+    isGoogleScholarId(contact) {
         return contact.name.toLowerCase().includes("google");
     }
 
     isTelegram(contact) {
         return contact.name.toLowerCase().includes("telegram")
     }
-}
 
-// export default new ContactHelper();
+    renderOrcidIdLink(contact) {
+        return "https://orcid.org/" + contact.value;
+    }
+
+    renderEmailLink(contact) {
+        return "mailto:" + contact.value;
+    }
+
+    renderPhoneLink(contact) {
+        return "tel:" + contact.value;
+    }
+
+    renderSkypeLink(contact) {
+        return "skype:" + contact.value;
+    }
+
+    renderWebSiteLink(contact) {
+        return contact.value;
+    }
+
+    renderResearchIdLink(contact) {
+        return "https://publons.com/researcher/" + contact.value;
+    }
+
+    renderScopusIdLink(contact) {
+        return "https://www.scopus.com/authid/detail.uri?authorId=" + contact.value;
+    }
+
+    renderGoogleScholarIdLink(contact) {
+        return "https://scholar.google.ru/citations?user=" + contact.value;
+    }
+
+    renderTelegramLink(contact) {
+        return "https://t.me/" + contact.value.replace("@", "");
+    }
+
+    renderWebSiteTitle(contact) {
+        return contact.value.replace('https://', '').replace('http://', '');
+    }
+
+    isEmpty(contact) {
+        return !contact || !contact.name || !contact.value || contact.value.trim() === '';
+    }
+}
