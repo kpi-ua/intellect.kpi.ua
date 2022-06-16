@@ -1,22 +1,22 @@
 .nav-item a {
-  display: inline-block;
-  font-size: 12pt;
-  padding-left: 10px;
-  color: #777;
-  text-transform: uppercase;
-  padding-top: 5px;
-  font-family: 'Ubuntu', sans-serif;
+    display: inline-block;
+    font-size: 12pt;
+    padding-left: 10px;
+    color: #777;
+    text-transform: uppercase;
+    padding-top: 5px;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 .nav-item a:hover {
-  color: #0277bd;
-  text-decoration: none;
+    color: #0277bd;
+    text-decoration: none;
 }
 
 html,
 body {
-  font-size: 11pt;
-  font-family: 'Ubuntu', sans-serif;
+    font-size: 11pt;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 h1,
@@ -24,73 +24,73 @@ h2,
 h3,
 h4,
 h5 {
-  font-family: 'Ubuntu', sans-serif;
-  color: #0277bd;
+    margin-top: 14pt;
+    font-family: 'Ubuntu', sans-serif;
+    color: #0277bd;
 }
 
 h2 {
-  color: #333 !important;
+    color: #333 !important;
 }
 
 h3, h4, h5 {
-  color: #777 !important;
+    color: #777 !important;
 }
 
 .content {
-  min-height: 700px;
+    min-height: 700px;
 }
 
 a {
-  color: #0277bd;
+    color: #0277bd;
 }
 
 .btn-outline-success {
-  color: #0277bd;
+    color: #0277bd;
 }
 
 a:hover,
 a:focus {
-  /*color: #0277bd !important;*/
-  text-decoration: underline;
+    /*color: #0277bd !important;*/
+    text-decoration: underline;
 }
 
-.navbar a{
-  color: #777;
+.navbar a {
+    color: #777;
 }
 
 .navbar-light .navbar-nav .nav-link:focus,
-.navbar-light .navbar-nav .nav-link:hover
-{
-  color: #0277bd;
+.navbar-light .navbar-nav .nav-link:hover {
+    color: #0277bd;
 }
 
 header {
-  background-color: #0d0d5a;
-  min-height: 35px;
-  padding-top: 8px;
-  text-transform: uppercase;
-  font-family: 'Ubuntu', sans-serif;
-  width: 100%;
-  position: relative;
-  z-index: 1000;
-  color: #FFF;
+    background-color: #0d0d5a;
+    min-height: 35px;
+    padding-top: 8px;
+    text-transform: uppercase;
+    font-family: 'Ubuntu', sans-serif;
+    width: 100%;
+    position: relative;
+    z-index: 1000;
+    color: #FFF;
 }
 
 header .container:first-child {
-  padding-bottom: 5px;
-  font-size: 8pt;
+    padding-bottom: 5px;
+    font-size: 8pt;
 }
 
 .navbar-nav {
-  font-size: 14pt;
+    font-size: 14pt;
 }
 
 .btn-outline-success {
-  border-color: #0277bd;
+    border-color: #0277bd;
 }
 
 .btn-outline-success:hover {
-  color: #fff;
-  background-color: #0277bd;
-  border-color: #0277bd;
+    color: #fff;
+    background-color: #0277bd;
+    border-color: #0277bd;
 }
