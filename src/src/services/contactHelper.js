@@ -3,6 +3,14 @@ export default class ContactHelper {
     constructor() {
     }
 
+    isEmpty(contact) {
+        return !contact || !contact.name || !contact.value || contact.value.trim() === '';
+    }
+
+    isAddress(contact) {
+        return contact.name.toLowerCase().includes("адрес");
+    }
+
     isOrcidId(contact) {
         return contact.name.toLowerCase().includes("orcid");
     }
@@ -79,7 +87,7 @@ export default class ContactHelper {
         return contact.value.replace('https://', '').replace('http://', '');
     }
 
-    isEmpty(contact) {
-        return !contact || !contact.name || !contact.value || contact.value.trim() === '';
+    renderAddress(contact) {
+        return 'https://maps.google.com/?q=' + contact.value;
     }
 }

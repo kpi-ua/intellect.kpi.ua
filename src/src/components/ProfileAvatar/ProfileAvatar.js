@@ -78,6 +78,14 @@ class ProfileAvatar extends Component {
                 )
             }
 
+            if (contact.isAddress(c)) {
+                return renderContactBlock(
+                    <Icon.Map/>,
+                    <a target="_blank" href={contact.renderAddress(c)}>{c.value}</a>,
+                    index
+                )
+            }
+
             if (contact.isResearchId(c)) {
                 return renderContactBlock(
                     <Icon.Book/>,
@@ -112,9 +120,11 @@ class ProfileAvatar extends Component {
 
                 <div className="container contacts">
                     {
-                        !!profile.contactRecords && profile.contactRecords.map((c, index) =>
-                            renderContact(c, index)
-                        )
+                        !!profile.contactRecords && profile.contactRecords
+                            //.sort((a, b) => a.value > b.value ? -1 : 1)
+                            .map((c, index) =>
+                                renderContact(c, index)
+                            )
                     }
                 </div>
 
