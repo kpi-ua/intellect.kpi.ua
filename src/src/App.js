@@ -37,7 +37,7 @@ function App() {
                     <Container>
                         <Navbar.Brand href="/">
                             <div className="logo">
-                                Intellect
+                                Інтелект
                             </div>
                         </Navbar.Brand>
                         <Navbar.Toggle aria-controls="responsive-navbar-nav"/>

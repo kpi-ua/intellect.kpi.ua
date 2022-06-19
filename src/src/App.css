@@ -2,14 +2,13 @@
     display: inline-block;
     font-size: 12pt;
     padding-left: 10px;
-    color: #777;
     text-transform: uppercase;
     padding-top: 5px;
     font-family: 'Ubuntu', sans-serif;
 }
 
 .bg-light {
-    background-color: #1c396e !important;
+    background-color: #1062a3 !important;
 }
 
 .nav-item a:hover {
@@ -30,7 +29,7 @@ h4,
 h5 {
     margin-top: 14pt;
     font-family: 'Ubuntu', sans-serif;
-    color: #008acf;
+    color: #1062a3;
 }
 
 h2 {
@@ -56,7 +55,6 @@ a {
 
 a:hover,
 a:focus {
-    /*color: #0277bd !important;*/
     text-decoration: underline;
 }
 
@@ -64,20 +62,19 @@ a:focus {
     color: #777;
 }
 
-.navbar-nav .nav-link {
-    color: #b3bdc8;
+.navbar-dark .navbar-nav .nav-link {
+    color: #fff;
 }
 
 .navbar-dark .navbar-nav .nav-link:focus,
 .navbar-dark .navbar-nav .nav-link:hover {
-    color: #fff;
+    color: #000;
 }
 
 header {
     background-color: #fff;
     min-height: 35px;
     padding-top: 8px;
-    text-transform: uppercase;
     font-family: 'Ubuntu', sans-serif;
     width: 100%;
     position: relative;
@@ -87,7 +84,7 @@ header {
 
 header .container:first-child {
     padding-bottom: 5px;
-    font-size: 8pt;
+    font-size: 9pt;
 }
 
 .navbar-nav {
