@@ -37,28 +37,28 @@ class SearchTab extends Component {
             className={"col-md-3 height-x " + (this.state.tab === 1 ? 'selected' : '')}
             onClick={() => this.setState({tab: 1})}
           >
-              <Icon.PersonFill size={32} className="search-tab-icon" />
+              <Icon.PersonFill size="56" className="search-tab-icon" />
               <span>Загальний пошук спiвробiтникiв</span>
           </div>
           <div
             className={"col-md-3 height-x " + (this.state.tab === 2 ? 'selected' : '')}
             onClick={() => this.setState({tab: 2})}
           >
-              <Icon.Building size={32} className="search-tab-icon" />
+              <Icon.Building size="56" className="search-tab-icon" />
               <span>Пошук за кафедрами<br/> та факультетами</span>
           </div>
           <div
             className={"col-md-3 height-x " + (this.state.tab === 3 ? 'selected' : '')}
             onClick={() => this.setState({tab: 3})}
           >
-              <Icon.CardList size={32} className="search-tab-icon" />
+              <Icon.CardList size="56" className="search-tab-icon" />
               <span>Алфавітний покажчик</span>
           </div>
           <div
             className={"col-md-3 height-x " + (this.state.tab === 4 ? 'selected' : '')}
             onClick={() => this.setState({tab: 4})}
           >
-              <Icon.Intersect size={32} className="search-tab-icon" />
+              <Icon.Intersect size="56" className="search-tab-icon" />
               <span>Пошук за інтеpeсами</span>
           </div>
         </div>

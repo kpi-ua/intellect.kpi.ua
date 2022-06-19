@@ -1,21 +1,13 @@
 .logo {
     margin-top: 0;
-    height: 35px;
+    height: 45px;
     width: 191px;
+    background-size: contain;
+    background-repeat: no-repeat;
     background-image: url(/images/logo.png);
-}
-
-.logo:hover {
-    transition: 0.3s;
-    background-image: url(/images/logo_yellow1.png);
-}
-
-.logo:not(hover) {
-    transition: 0.5s;
-}
-
-.carousel-inner .item img {
-    width: 100%;
+    color: #FFF;
+    padding-left: 43px;
+    font-size: 26pt;
 }
 
 input,
@@ -39,15 +31,10 @@ button,
     width: 100%;
 }
 
-.carousel .carousel-caption {
-    background-color: #0277bd;
-    color: #FFF;
-    z-index: 999;
-    text-shadow: none;
-}
-
-.carousel .carousel-control {
-    background: none;
+.btn-group-lg > .btn,
+.btn, .btn-lg,
+.btn-outline-success {
+    border-radius: 0 !important;
 }
 
 .line {
@@ -65,30 +52,11 @@ button,
     font-size: 12pt;
 }
 
-.carousel-caption {
-    background: #0277bd;
-}
-
-.carousel-caption-inner {
-    z-index: 999;
-    position: relative;
-}
-
-.carousel-indicators {
-    z-index: 300;
-}
-
 .part-header {
     height: 150px;
     background-size: cover;
     background-position: center 670px;
     margin-top: -85px;
-}
-
-@media (max-width: 768px) {
-    .carousel {
-        display: none;
-    }
 }
 
 @media screen and (max-width: 767px) {
@@ -97,10 +65,6 @@ button,
     }
 }
 
-
-.carousel-inner .item img {
-    width: 100%;
-}
 
 input,
 input.form-control,
@@ -129,11 +93,6 @@ button,
     width: 100%;
 }
 
-
-.carousel .carousel-control {
-    background: none;
-}
-
 .line {
     background-image: url("/images/line.png");
     height: 10px;
@@ -148,34 +107,6 @@ button,
 .clear_fix {
     width: 100%;
     clear: both;
-}
-
-footer .row {
-    padding: 14px 20px 0;
-    border-top: none;
-}
-
-footer menu {
-    text-align: left;
-}
-
-footer ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-footer a,
-footer a:hover {
-    color: #fff;
-}
-
-footer a {
-    text-decoration: none;
-}
-
-footer a:hover {
-    text-decoration: underline;
 }
 
 .panel-heading {
@@ -216,25 +147,11 @@ footer a:hover {
     font-size: 12pt;
 }
 
-.carousel-caption {
-    background: #0277bd;
-}
-
-.carousel-indicators {
-    z-index: 300;
-}
-
 .part-header {
     height: 150px;
     background-size: cover;
     background-position: center 670px;
     margin-top: -85px;
-}
-
-@media (max-width: 768px) {
-    .carousel {
-        display: none;
-    }
 }
 
 @media screen and (max-width: 767px) {

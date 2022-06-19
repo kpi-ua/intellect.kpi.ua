@@ -7,7 +7,7 @@
     text-align: center;
     padding-top: 100px;
     padding-bottom: 150px;
-    color: #777;
+    color: #000;
 }
 
 .welcome h1 {
@@ -15,7 +15,7 @@
 }
 
 .welcome .grey {
-    color: #333333;
+    color: #958f93;
     border-left: 2px solid #333;
     padding-left: 7px;
 }
