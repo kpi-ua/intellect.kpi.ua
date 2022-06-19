@@ -8,6 +8,10 @@
     font-family: 'Ubuntu', sans-serif;
 }
 
+.bg-light {
+    background-color: #1c396e !important;
+}
+
 .nav-item a:hover {
     color: #0277bd;
     text-decoration: none;
@@ -26,7 +30,7 @@ h4,
 h5 {
     margin-top: 14pt;
     font-family: 'Ubuntu', sans-serif;
-    color: #0277bd;
+    color: #008acf;
 }
 
 h2 {
@@ -39,6 +43,7 @@ h3, h4, h5 {
 
 .content {
     min-height: 700px;
+    padding-top: 15px;
 }
 
 a {
@@ -59,13 +64,17 @@ a:focus {
     color: #777;
 }
 
-.navbar-light .navbar-nav .nav-link:focus,
-.navbar-light .navbar-nav .nav-link:hover {
-    color: #0277bd;
+.navbar-nav .nav-link {
+    color: #b3bdc8;
+}
+
+.navbar-dark .navbar-nav .nav-link:focus,
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: #fff;
 }
 
 header {
-    background-color: #0d0d5a;
+    background-color: #fff;
     min-height: 35px;
     padding-top: 8px;
     text-transform: uppercase;
@@ -73,7 +82,7 @@ header {
     width: 100%;
     position: relative;
     z-index: 1000;
-    color: #FFF;
+    color: #1c396e;
 }
 
 header .container:first-child {
