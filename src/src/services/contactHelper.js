@@ -76,7 +76,7 @@ export default class ContactHelper {
     }
 
     renderGoogleScholarIdLink(contact) {
-        return "https://scholar.google.ru/citations?user=" + contact.value;
+        return "https://scholar.google.com/citations?hl=uk&user=" + contact.value;
     }
 
     renderTelegramLink(contact) {
