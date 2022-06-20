@@ -4,7 +4,7 @@
     padding-left: 10px;
     text-transform: uppercase;
     padding-top: 5px;
-    font-family: 'Ubuntu', sans-serif;
+    font-family: 'Exo 2', sans-serif;
 }
 
 .bg-light {
@@ -19,7 +19,7 @@
 html,
 body {
     font-size: 11pt;
-    font-family: 'Ubuntu', sans-serif;
+    font-family: 'Exo 2', sans-serif;
 }
 
 h1,
@@ -28,7 +28,7 @@ h3,
 h4,
 h5 {
     margin-top: 14pt;
-    font-family: 'Ubuntu', sans-serif;
+    font-family: 'Exo 2', sans-serif;
     color: #1062a3;
 }
 
@@ -75,7 +75,7 @@ header {
     background-color: #fff;
     min-height: 35px;
     padding-top: 8px;
-    font-family: 'Ubuntu', sans-serif;
+    font-family: 'Exo 2', sans-serif;
     width: 100%;
     position: relative;
     z-index: 1000;
