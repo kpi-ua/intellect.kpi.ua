@@ -1,4 +1,4 @@
-FROM node:lts-buster as builder
+FROM node:16.19.1-bullseye as builder
 RUN corepack enable
 
 
