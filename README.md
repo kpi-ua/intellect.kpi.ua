@@ -36,7 +36,7 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ### Build
 ```
-docker build ./ --file ./.dockerfile --tag intellect.kpi.ua:test
+docker build ./ --file ./Dockerfile --tag intellect.kpi.ua:test
 ```
 ### Run
 ```
