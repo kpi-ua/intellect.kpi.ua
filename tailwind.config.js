@@ -7,11 +7,16 @@ module.exports = {
     extend: {
       colors: {
         primary: '#1f4d80',
-        neutral: '#afb0be',
-        inactive: 'rgba(255, 255, 255, .4)'
+        inactive: 'rgba(255, 255, 255, .4)',
+        gray: '#bbb',
+        neutral: {
+          500: '#afb0be',
+          600: '#808191'
+        },
       },
       margin: {
-        72: '72px'
+        72: '72px',
+        140: '140px'
       },
       width: {
         '80%': '80%',
@@ -26,6 +31,9 @@ module.exports = {
         220: '220px',
         42: '42px',
       },
+      maxHeight: {
+        550: '550px'
+      },
       maxWidth: {
         500: '500px',
         1200: '1200px'
@@ -38,7 +46,7 @@ module.exports = {
       },
       translate: {
         50: '50px',
-      }
+      },
     },
   },
   plugins: [],

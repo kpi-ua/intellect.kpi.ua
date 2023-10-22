@@ -28,12 +28,11 @@ const ITeacherSearch = () => {
       </div>
       <div className='bg-white flex gap-3 h-100 items-center px-8 rounded-lg rounded-tl-none field-shadow'>
         <FeatherIcon icon='search' />
-        <div
+        <input
           className='text-black flex-1 max-h-6 overflow-auto'
-          contentEditable
-          data-placeholder='Введіть ПІБ особи.. (наприклад: Петро Петров Петрович)'
+          placeholder='Введіть ПІБ особи.. (наприклад: Петро Петров Петрович)'
           onInput={e => setSearchValue(e.currentTarget.textContent)}>
-        </div>
+        </input>
         <CommonButton>Пошук</CommonButton>
       </div>
     </>

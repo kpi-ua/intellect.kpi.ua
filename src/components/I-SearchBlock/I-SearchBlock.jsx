@@ -1,4 +1,5 @@
 import ITeacherSearch from '../I-TeacherSearch/I-TeacherSearch';
+import Alphabet from '../Alphabet/Alphabet';
 
 const ISearchBlock = () => {
   return (
@@ -12,7 +13,7 @@ const ISearchBlock = () => {
           Проект об′єднує вчених, викладачів, інженерів та аспірантів університету, які займаються інтелектуальною творчою діяльністю, проводять фундаментальні таприкладні наукові дослідження,
           впроваджують отримані результати в виробництво, займаються навчальною, методичною і організаційною роботою.
         </p>
-        <div className='mt-72 translate-y-50'>
+        <div className='mt-72 translate-y-50 text-black'>
           <ITeacherSearch />
         </div>
       </section>

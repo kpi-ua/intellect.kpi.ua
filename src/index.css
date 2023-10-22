@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 * {
     font-family: 'Exo 2', sans-serif;
     font-weight: 500;
@@ -19,7 +20,7 @@
 }
 
 [contenteditable=true]:empty:not(:focus):before{
-    @apply text-neutral;
+    @apply text-neutral-500;
     content:attr(data-placeholder);
     cursor: text;
 }

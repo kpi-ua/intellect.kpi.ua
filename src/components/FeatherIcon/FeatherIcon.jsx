@@ -1,6 +1,6 @@
 import feather from 'feather-icons';
 
-const FeatherIcon = ({icon, width = 20, height = 20, fillClass = 'fill-none', crossed = false}) => {
+const FeatherIcon = ({icon, width = 20, height = 20, fillClass = 'fill-none', crossed = false, color = '#000'}) => {
   const additionalShapes = crossed ? '<line x1="0" y1="0" x2="24" y2="24"/>' : '';
   const svg = () => {
     const featherIcon = feather.icons[icon];
@@ -16,7 +16,7 @@ const FeatherIcon = ({icon, width = 20, height = 20, fillClass = 'fill-none', cr
     width={`${width}px`}
     height={`${height}px`}
     className={fillClass}
-    color={'#000'}
+    color={color}
     dangerouslySetInnerHTML={{__html: svg()}} />
 }
 
