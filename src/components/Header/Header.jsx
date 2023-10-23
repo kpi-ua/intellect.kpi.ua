@@ -1,17 +1,21 @@
 import darkLogo from '../../assets/svg/intellect-logo-dark.svg'
 import lightLogo from '../../assets/svg/intellect-logo-light.svg'
 
-const Header = ({scheme = 'dark'}) => {
+import { Link } from 'react-router-dom';
+
+import './Header.css'
+
+const Header = ({scheme = 'dark', underlined = true}) => {
   const logoSrc = scheme === 'dark' ? darkLogo : lightLogo;
 
   return (
-    <header className='h-100 leading-100 wrapper'>
-      <div className='flex justify-between'>
+    <header className={'h-100 leading-100 ' + (underlined ? 'header' : '')}>
+      <div className='flex justify-between wrapper'>
         <img src={logoSrc} alt='logo' />
         <nav className='flex gap-5'>
-          <a href='#'>Пошук</a>
-          <a href='#'>Про проект</a>
-          <a href='#'>Контакти</a>
+          <Link to='/'>Пошук</Link>
+          <Link to='about'>Про проект</Link>
+          <Link to='contacts'>Контакти</Link>
         </nav>
       </div>
     </header>

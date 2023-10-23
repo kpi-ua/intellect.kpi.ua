@@ -6,21 +6,30 @@ import RoutePointer from './components/RoutePointer/RoutePointer';
 import bottomLogo from './assets/svg/kpi-logo.svg'
 
 import './index.css';
-import IAbout from './components/pages/I-About/I-About';
-import Contacts from './components/pages/Contacts/Contacts';
+import { useOutlet } from 'react-router-dom';
 
 const App = () => {
-  return (
+  const outlet = useOutlet();
+
+  return !outlet ? (
     <>
       <div className='header-wrapper text-white'>
+        <Header underlined={false} scheme='light'/>
         <div className="wrapper">
-          <Header scheme='light'/>
           <ISearchBlock />
         </div>
       </div>
       <div className="wrapper">
         <div className='min-h-220' />
       </div>
+      <Footer logoSrc={bottomLogo} />
+    </>
+  ) : (
+    <>
+      <Header scheme='dark' />
+        <div className="wrapper">
+          {outlet}
+        </div>
       <Footer logoSrc={bottomLogo} />
     </>
   )

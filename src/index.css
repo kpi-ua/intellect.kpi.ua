@@ -8,6 +8,10 @@
     font-weight: 500;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 .wrapper {
     max-width: 1135px;
     width: 95%;
