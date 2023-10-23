@@ -40,7 +40,7 @@ const Header = ({scheme = 'dark', underlined = true}) => {
   return (
     <header className={'h-100 ' + (underlined ? 'header' : '')}>
       <div className='flex justify-between wrapper h-full items-center'>
-        <img src={logoSrc} alt='logo' />
+        <Link className='cursor-pointer' to='/'><img src={logoSrc} alt='logo' /></Link>
         <Burger onBurgerClick={value => toggleCollapse(value)} collapsed={burgerCollapsed} scheme={scheme} className='block xs:hidden'>
           {navigation}
         </Burger>
