@@ -40,7 +40,7 @@ const Search = ({navigation}) => {
       </div>
       <SearchGrid className='mt-6'>
         {
-          testData.map(item => <ITeacherCard key={item.name} teacherInfo={item} />)
+          testData.map(item => <ITeacherCard className='justify-self-center' key={item.name} teacherInfo={item} />)
         }
       </SearchGrid>
     </section>

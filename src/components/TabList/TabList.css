@@ -11,7 +11,7 @@
 .active-tab:before {
     @apply bg-primary;
     content: '';
-    height: 1px;
+    height: 2px;
     position: absolute;
     bottom: -9px;
     width: 100%;

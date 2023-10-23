@@ -25,7 +25,7 @@ const Alphabet = ({onLetterSelected = () => {}}) => {
     return [...acc, LetterElement(letterFullCode)];
   }, [])
 
-  return <div className='tracking-[0.7em] font-semibold text-gray cursor-pointer'>{alphabetRow}</div>;
+  return <div className='xs:tracking-[0.7em] tracking-[2em] font-semibold text-gray cursor-pointer overflow-x-auto scrollbar-hidden'>{alphabetRow}</div>;
 }
 
 export default Alphabet;

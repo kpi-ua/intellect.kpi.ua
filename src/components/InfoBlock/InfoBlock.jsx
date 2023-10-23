@@ -1,8 +1,10 @@
 const InfoBlock = ({sectionImg, children}) => {
   return (
-    <section className='flex justify-between mt-9 mb-140'>
-      {children}
-      <img className='max-h-550' src={sectionImg} alt='sectionImg' />
+    <section className='flex justify-between items-start mt-9 mb-140 gap-4'>
+      <div className='max-w-500 shrink-[2]'>
+        {children}
+      </div>
+      <img className='max-w-480 hidden sm:block h-auto w-full shrink' src={sectionImg} alt='sectionImg' />
     </section>
   )
 }

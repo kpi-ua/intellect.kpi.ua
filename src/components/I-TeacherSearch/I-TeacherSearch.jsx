@@ -28,7 +28,7 @@ const ITeacherSearch = () => {
 
   return (
     <>
-      <div className='flex gap-3 text-xs text-primary'>
+      <div className='flex gap-3 text-xs text-primary mb-3 xs:m-0 overflow-x-auto xs:overflow-x-hidden'>
         {tabs.map(tab => (
           <ITab key={tab.type} isActive={tab.type === activeTab} onClick={() => setActiveTab(tab.type)}>
             {tab.label}
@@ -40,6 +40,7 @@ const ITeacherSearch = () => {
           activeTab === 'alphabetic' ? <Alphabet onLetterSelected={handleLetterSelect} /> : (
             <InputField
               buttonText='Пошук'
+              buttonClass='xs:flex hidden'
               icon='search'
               fieldClass='text-black flex-1 max-h-6 overflow-auto'
               placeholder='Введіть ПІБ особи.. (наприклад: Петро Петров Петрович)'

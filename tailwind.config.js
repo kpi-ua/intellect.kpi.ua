@@ -4,6 +4,10 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
+    screens: {
+      xs: '450px',
+      sm: '660px'
+    },
     extend: {
       colors: {
         primary: '#1f4d80',
@@ -35,12 +39,16 @@ module.exports = {
         200: '200px'
       },
       minWidth: {
-        140: '140px'
+        100: '100px',
+        140: '140px',
+        200: '200px',
+        700: '700px'
       },
       height: {
         100: '100px',
         40: '40px',
-        '5px': '5px'
+        '5px': '5px',
+        '95vh': '95vh'
       },
       minHeight: {
         220: '220px',
@@ -50,7 +58,15 @@ module.exports = {
         550: '550px'
       },
       maxWidth: {
+        120: '120px',
+        160: '160px',
+        170: '170px',
+        200: '200px',
+        350: '350px',
+        480: '480px',
         500: '500px',
+        600: '600px',
+        700: '700px',
         1200: '1200px'
       },
       lineHeight: {
@@ -66,7 +82,11 @@ module.exports = {
         '2/5': '40%',
       },
       gap: {
-        17: '3.25rem'
+        17: '3.25rem',
+        120: '120px'
+      },
+      gridTemplateColumns: {
+        'teachers': 'repeat(auto-fit, minmax(120px, 1fr))'
       }
     },
   },

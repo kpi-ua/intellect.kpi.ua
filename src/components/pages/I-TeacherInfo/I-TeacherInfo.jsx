@@ -20,25 +20,30 @@ const tabs = [
   {label: 'Конференції, виставки', value: 'confs'}
 ]
 
+const ContactBlock = ({className}) => (
+  <div className={className}>Контактні дані</div>
+)
+
 const ITeacherInfo = () => {
   const [activeTab, setActiveTab] = useState('publications')
 
   return (
     <section className="pt-12 pb-110">
       <RoutePointer routePath={route} />
-      <div className='flex gap-6 mt-6'>
+      <div className='flex flex-col sm:flex-row items-center sm:items-start gap-6 mt-6'>
         <div>
           <img src={avatar} alt='avatar' />
-          <div>1231224215</div>
+          <ContactBlock className='hidden sm:block' />
         </div>
-        <div className='flex-1'>
-          <SectionTitle className='text-3xl' isPrimary={false}>Діденко Юрій Вікторович</SectionTitle>
-          <div className='flex gap-3 mt-5'>
+        <div className='flex-1 w-full'>
+          <SectionTitle className='text-3xl sm:text-5xl text-center sm:text-left' isPrimary={false}>Діденко Юрій Вікторович</SectionTitle>
+          <div className='flex gap-3 mt-5 justify-center sm:justify-start'>
             <JobLabel qualification='Старший викладач' workplace='КМФДР' />
             <JobLabel qualification='Доцент' workplace='КДР ФМФ' />
           </div>
+          <ContactBlock className='block sm:hidden text-center mt-2' />
           <TabList selectTab={newTab => setActiveTab(newTab)} tabActive={activeTab} tabs={tabs} className='mt-9'>
-            <ContentMap className='gap-48 mt-4'>
+            <ContentMap anchorsClass='hidden sm:block' className='gap-24 mt-4'>
               <article id='1' data-label='Вітчизняних фахових'>
                 <div className="text-primary uppercase text-md">Вітчизняних фахових</div>
                 <DataList>

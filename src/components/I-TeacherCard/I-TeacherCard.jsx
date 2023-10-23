@@ -1,11 +1,11 @@
 import avatarStub from '../../assets/img/avatar-stub.png';
 import { useNavigate } from 'react-router-dom';
 
-const ITeacherCard = ({teacherInfo}) => {
+const ITeacherCard = ({teacherInfo, className}) => {
   const navigate = useNavigate();
 
   return (
-    <div onClick={() => navigate(`/teacher/${teacherInfo.id}`)} className='w-170 cursor-pointer'>
+    <div onClick={() => navigate(`/teacher/${teacherInfo.id}`)} className={'cursor-pointer max-w-160 ' + className}>
       <img src={teacherInfo.avatar || avatarStub} alt='avatar' />
       <div className='text-semibold'>{teacherInfo.name}</div>
       <div className='text-neutral-900 text-sm mt-1'>{teacherInfo.qualification}</div>

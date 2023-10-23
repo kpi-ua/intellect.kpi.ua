@@ -1,8 +1,8 @@
 const Footer = ({logoSrc}) => {
   return (
     <footer className='bg-primary text-white text-sm'>
-      <div className='wrapper flex justify-between py-9 gap-9'>
-        <img src={logoSrc} alt='logo' />
+      <div className='wrapper flex sm:flex-row sm:text-left text-center flex-col justify-between py-9 gap-9'>
+        <img className='max-w-120 mx-auto' src={logoSrc} alt='logo' />
         <section>
           <p>
             Національний технічний університет України"Київський політехнічний інститут імені Ігоря Сікорського" © 1998-2023

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import TableContent from '../TableContent/TableContent';
 
-const ContentMap = ({children, className = ''}) => {
+const ContentMap = ({children, className = '', anchorsClass = ''}) => {
   const [anchors, setAnchors] = useState([]);
   const [activeAnchor, setActiveAnchor] = useState(null);
   const itemsRef = useRef([]);
@@ -42,7 +42,7 @@ const ContentMap = ({children, className = ''}) => {
           return React.cloneElement(child, {ref: el => itemsRef.current[idx] = el})
         })}
       </div>
-      <div className='relative flex-1 min-w-140'>
+      <div className={'relative flex-1 min-w-140 ' + anchorsClass}>
         <TableContent className='sticky top-0 text-primary' links={anchors} activeAnchor={activeAnchor} />
       </div>
     </div>

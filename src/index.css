@@ -8,6 +8,10 @@
     font-weight: 500;
 }
 
+:root {
+    @apply text-sm xs:text-base
+}
+
 html {
     scroll-behavior: smooth;
 }
@@ -27,4 +31,13 @@ html {
     @apply text-neutral-500;
     content:attr(data-placeholder);
     cursor: text;
+}
+
+.scrollbar-hidden {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+    display: none;
 }
