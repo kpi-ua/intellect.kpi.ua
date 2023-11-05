@@ -2,8 +2,9 @@ import InfoBlock from '../../InfoBlock/InfoBlock';
 import SectionTitle from '../../common/SectionTitle';
 
 import sectionImg from '../../../assets/img/sections/contacts.png'
+import React from "react";
 
-const Contacts = () => {
+const Contacts: React.FC = () => {
   return (
     <InfoBlock sectionImg={sectionImg}>
       <div>

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import './Header.css'
 import Burger from '../Burger/Burger';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 const links = [
   {to: '/', label: 'Пошук'},
@@ -13,7 +13,12 @@ const links = [
   {to: 'contacts', label: 'Контакти'},
 ]
 
-const Header = ({scheme = 'dark', underlined = true}) => {
+type Props = {
+  scheme?: 'dark' | 'light'
+  underlined?: boolean
+}
+
+const Header: React.FC<Props> = ({scheme = 'dark', underlined = true}) => {
   const [burgerCollapsed, setBurgerCollapsed] = useState(true);
 
   const logoSrc = scheme === 'dark' ? darkLogo : lightLogo;
@@ -26,7 +31,7 @@ const Header = ({scheme = 'dark', underlined = true}) => {
     </nav>
   )
 
-  const toggleCollapse = newValue => {
+  const toggleCollapse = (newValue: boolean) => {
     const bodyClass = window.document.body.classList;
     if (newValue && bodyClass.contains('overflow-hidden')) {
       bodyClass.remove('overflow-hidden')

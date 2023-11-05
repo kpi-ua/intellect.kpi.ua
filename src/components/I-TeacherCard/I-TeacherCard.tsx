@@ -1,7 +1,15 @@
 import avatarStub from '../../assets/img/avatar-stub.png';
 import { useNavigate } from 'react-router-dom';
+import React from "react";
 
-const ITeacherCard = ({teacherInfo, className}) => {
+type Props = {
+    // TODO connect with backend and create type
+    teacherInfo: any,
+    className?: string,
+}
+
+
+const ITeacherCard: React.FC<Props> = ({teacherInfo, className = ''}) => {
   const navigate = useNavigate();
 
   return (

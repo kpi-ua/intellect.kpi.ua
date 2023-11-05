@@ -1,7 +1,8 @@
 import ITeacherSearch from '../I-TeacherSearch/I-TeacherSearch';
-import Alphabet from '../Alphabet/Alphabet';
 
-const ISearchBlock = () => {
+import React from "react";
+
+const ISearchBlock: React.FC = () => {
   return (
     <main>
       <section className='pt-18'>

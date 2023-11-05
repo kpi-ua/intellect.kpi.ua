@@ -1,11 +1,17 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {JSX, useEffect, useRef, useState} from 'react';
 
 import TableContent from '../TableContent/TableContent';
 
-const ContentMap = ({children, className = '', anchorsClass = ''}) => {
-  const [anchors, setAnchors] = useState([]);
-  const [activeAnchor, setActiveAnchor] = useState(null);
-  const itemsRef = useRef([]);
+type Props = {
+    children: JSX.Element[],
+    className?: string,
+    anchorsClass?: string,
+}
+
+const ContentMap: React.FC<Props> = ({children, className = '', anchorsClass = ''}) => {
+  const [anchors, setAnchors] = useState<ECampus.Anchor[]>([]);
+  const [activeAnchor, setActiveAnchor] = useState<string | null>(null);
+  const itemsRef = useRef<HTMLElement[]>([]);
 
   useEffect(() => {
     setAnchors(parseAnchors());
@@ -16,7 +22,7 @@ const ContentMap = ({children, className = '', anchorsClass = ''}) => {
   }, [children]);
 
   const scrollHandler = () => {
-    for (const element of itemsRef.current) {
+    for (const element of itemsRef!.current) {
       if (element.getBoundingClientRect().bottom > 0) {
         setActiveAnchor(element.id);
         break;
@@ -24,9 +30,9 @@ const ContentMap = ({children, className = '', anchorsClass = ''}) => {
     }
   }
 
-  const parseAnchors = () => {
-      const anchors = [];
-      React.Children.forEach(children, child => {
+  const parseAnchors = (): ECampus.Anchor[] => {
+      const anchors: ECampus.Anchor[] = [];
+      React.Children.forEach(children, (child: JSX.Element) => {
         if (child.props.id && child.props['data-label']) {
           anchors.push({id: child.props.id, path: '#' + child.props.id, label: child.props['data-label']})
         }
@@ -39,7 +45,7 @@ const ContentMap = ({children, className = '', anchorsClass = ''}) => {
     <div className={'relative flex justify-between ' + className}>
       <div>
         {React.Children.map(children, (child, idx) => {
-          return React.cloneElement(child, {ref: el => itemsRef.current[idx] = el})
+          return React.cloneElement(child, {ref: (el: HTMLElement) => itemsRef.current[idx] = el})
         })}
       </div>
       <div className={'relative flex-1 min-w-140 ' + anchorsClass}>

@@ -1,11 +1,15 @@
-import React from 'react';
+import React, {JSX} from 'react';
 
-const DataList = ({children}) => {
+type Props = {
+  children: JSX.Element[] | JSX.Element,
+}
+
+const DataList: React.FC<Props> = ({children}) => {
   const parseListItems = () => {
     const childrenCount = React.Children.count(children);
 
     return React.Children.map(children, (child, idx) => {
-      if (child.props['data-title']) {
+      if (child!.props['data-title']) {
         return (
           <div className={'pl-6 ' + (idx === childrenCount - 1 ? 'relative' : '')}>
             {idx !== childrenCount - 1 && childrenCount > 1 ? <div className='w-1px bg-primary absolute top-3 left-0 bottom-0' /> : null }

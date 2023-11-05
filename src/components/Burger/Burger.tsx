@@ -1,8 +1,17 @@
 import logoDark from '../../assets/svg/intellect-logo-dark.svg'
 
 import FeatherIcon from '../FeatherIcon/FeatherIcon';
+import React from "react";
 
-const Burger = ({children, className = '', scheme, collapsed, onBurgerClick}) => {
+type Props = {
+  children: React.ReactNode,
+  className: string,
+  scheme: string,
+  collapsed: boolean,
+  onBurgerClick: (a: boolean) => void,
+}
+
+const Burger: React.FC<Props> = ({children, className = '', scheme, collapsed, onBurgerClick}) => {
   return (
     <div className={className}>
       { collapsed ? (

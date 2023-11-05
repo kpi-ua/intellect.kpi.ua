@@ -1,4 +1,12 @@
-const TableContent = ({className, links, activeAnchor}) => {
+import React from "react";
+
+type Props = {
+    className?: string,
+    links: ECampus.Anchor[],
+    activeAnchor: string | null,
+}
+
+const TableContent: React.FC<Props> = ({className = '', links, activeAnchor}) => {
   return (
     <div className={className}>
       <div className='text-sm'>Зміст</div>

@@ -1,4 +1,11 @@
-const InfoBlock = ({sectionImg, children}) => {
+import React from "react";
+
+type Props = {
+    sectionImg: string,
+    children: React.ReactNode
+}
+
+const InfoBlock: React.FC<Props> = ({sectionImg, children}) => {
   return (
     <section className='flex justify-between items-start mt-9 mb-140 gap-4'>
       <div className='max-w-500 shrink-[2]'>

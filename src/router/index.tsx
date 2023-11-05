@@ -6,6 +6,8 @@ import Contacts from '../components/pages/Contacts/Contacts';
 import Search from '../components/pages/Search/Search';
 import ITeacherInfo from '../components/pages/I-TeacherInfo/I-TeacherInfo';
 
+import React from 'react';
+
 const router = createBrowserRouter([
   {
     path: "/",

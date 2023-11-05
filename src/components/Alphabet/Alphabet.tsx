@@ -1,15 +1,21 @@
+import React, {Key} from "react";
+
 const htmlCodeStart = '&#';
 const indexes = [[1040, 1043], [1168], [1044, 1045], [1028], [1046, 1048], [1030, 1031], [1049, 1065], [1068], [1070, 1071]]
 
-const Alphabet = ({onLetterSelected = () => {}}) => {
-  const LetterElement = letterFullCode => (
+type Props = {
+  onLetterSelected?: (a: string) => void,
+}
+
+const Alphabet: React.FC<Props> = ({onLetterSelected = () => {}}) => {
+  const LetterElement = (letterFullCode: string): React.JSX.Element => (
     <span
-      key={letterFullCode}
-      onClick={() => onLetterSelected(letterFullCode)}
-      dangerouslySetInnerHTML={{__html: letterFullCode}} />
+      key={letterFullCode as Key}
+      onClick={() => onLetterSelected(letterFullCode as string)}
+      dangerouslySetInnerHTML={{__html: letterFullCode as any}} />
   )
 
-  const alphabetRow = indexes.reduce((acc, el) => {
+  const alphabetRow = indexes.reduce((acc: React.JSX.Element[], el: number[]): React.JSX.Element[] => {
     if (el.length === 2) {
       let raw = [];
 

@@ -8,6 +8,7 @@ import avatar1 from '../../../assets/testdata/avatar1.png';
 import avatar2 from '../../../assets/testdata/avatar2.png';
 import avatar3 from '../../../assets/testdata/avatar3.png';
 import { useLocation } from 'react-router-dom';
+import React from "react";
 
 const route = [{path: '/', label: 'Головна'}, {path: '/search?mode=alphabet', label: 'Алфавітний покажчик'}]
 
@@ -20,7 +21,7 @@ const testData = [
   {id: 5, avatar: null, name: 'Дімарова Олена Володимирівна', qualification: 'Доцент', workplace: 'Кафедра загальної та теоретичної фiзики ФМФ'}
 ]
 
-const Search = ({navigation}) => {
+const Search: React.FC = () => {
   const location = useLocation();
   console.log(location?.state?.letter)
 

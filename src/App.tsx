@@ -1,14 +1,14 @@
 import Header from './components/Header/Header';
 import ISearchBlock from './components/I-SearchBlock/I-SearchBlock';
 import Footer from './components/Footer/Footer';
-import RoutePointer from './components/RoutePointer/RoutePointer';
 
 import bottomLogo from './assets/svg/kpi-logo.svg'
 
 import './index.css';
 import { useOutlet } from 'react-router-dom';
+import React from "react";
 
-const App = () => {
+const App: React.FC = () => {
   const outlet = useOutlet();
 
   return !outlet ? (

@@ -6,7 +6,7 @@ import JobLabel from '../../JobLabel/JobLabel';
 import ContentMap from '../../ContentMap/ContentMap';
 import DataList from '../../DataList/DataList';
 import TabList from '../../TabList/TabList';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 const route = [
   {path: '/', label: 'Головна'},
@@ -20,7 +20,11 @@ const tabs = [
   {label: 'Конференції, виставки', value: 'confs'}
 ]
 
-const ContactBlock = ({className}) => (
+type Props = {
+  className?: string,
+}
+
+const ContactBlock: React.FC<Props> = ({className = ''}) => (
   <div className={className}>Контактні дані</div>
 )
 

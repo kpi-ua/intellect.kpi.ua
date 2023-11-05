@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import ITab from '../I-Tab/I-Tab';
@@ -9,8 +9,7 @@ import { decodeHtmlCharCodes } from '../../utils';
 
 import './I-TeacherSearch.css';
 
-const ITeacherSearch = () => {
-  const [searchValue, setSearchValue] = useState('');
+const ITeacherSearch: React.FC = () => {
   const [activeTab, setActiveTab] = useState('overall');
   const navigate = useNavigate();
 
@@ -21,7 +20,7 @@ const ITeacherSearch = () => {
     {label: 'За інтересами', type: 'interests'}
   ]
 
-  const handleLetterSelect = (charCode) => {
+  const handleLetterSelect = (charCode: string) => {
     const letter = decodeHtmlCharCodes(charCode);
     navigate('search?mode=alphabetic', {state: {letter}})
   }
@@ -44,7 +43,6 @@ const ITeacherSearch = () => {
               icon='search'
               fieldClass='text-black flex-1 max-h-6 overflow-auto'
               placeholder='Введіть ПІБ особи.. (наприклад: Петро Петров Петрович)'
-              onInput={e => setSearchValue(e.currentTarget.textContent)}
             />
           )
         }

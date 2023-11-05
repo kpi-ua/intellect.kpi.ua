@@ -2,8 +2,9 @@ import InfoBlock from '../../InfoBlock/InfoBlock';
 import SectionTitle from '../../common/SectionTitle';
 
 import aboutImg from '../../../assets/img/sections/about.png';
+import React from "react";
 
-const IAbout = () => {
+const IAbout: React.FC = () => {
   return (
     <InfoBlock sectionImg={aboutImg}>
       <article>
