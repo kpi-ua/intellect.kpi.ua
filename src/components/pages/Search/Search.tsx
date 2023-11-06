@@ -8,7 +8,8 @@ import avatar1 from '../../../assets/testdata/avatar1.png';
 import avatar2 from '../../../assets/testdata/avatar2.png';
 import avatar3 from '../../../assets/testdata/avatar3.png';
 import { useLocation } from 'react-router-dom';
-import React from "react";
+import React, {EffectCallback, useEffect, useState} from "react";
+import {searchByInput} from "../../../api/teacher";
 
 const route = [{path: '/', label: 'Головна'}, {path: '/search?mode=alphabet', label: 'Алфавітний покажчик'}]
 
@@ -23,7 +24,21 @@ const testData = [
 
 const Search: React.FC = () => {
   const location = useLocation();
-  console.log(location?.state?.letter)
+
+  const [teachers, setTeachers] = useState<Intellect.Teacher[]>([])
+
+    useEffect(() => {
+        const searchTeacher = async () => {
+            try {
+                const data = await searchByInput(location.state.letter)
+                setTeachers(data.Data)
+            } catch (e) {
+                console.error(e)
+            }
+        }
+
+        searchTeacher();
+    }, [location.state.letter]);
 
   return (
     <section className='wrapper pt-12 pb-160'>
@@ -41,7 +56,7 @@ const Search: React.FC = () => {
       </div>
       <SearchGrid className='mt-6'>
         {
-          testData.map(item => <ITeacherCard className='justify-self-center' key={item.name} teacherInfo={item} />)
+          teachers.map(item => <ITeacherCard className='justify-self-center' key={item.Id} teacherInfo={item} />)
         }
       </SearchGrid>
     </section>

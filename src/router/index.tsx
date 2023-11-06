@@ -26,7 +26,7 @@ const router = createBrowserRouter([
         element: <Search />
       },
       {
-        path: 'teacher/:teacherId',
+        path: 'profile/:teacherId',
         element: <ITeacherInfo />
       }
     ]

@@ -1,6 +1,7 @@
 import React, {JSX, useEffect, useRef, useState} from 'react';
 
 import TableContent from '../TableContent/TableContent';
+import SectionTitle from "../common/SectionTitle";
 
 type Props = {
     children: JSX.Element[],
@@ -14,16 +15,18 @@ const ContentMap: React.FC<Props> = ({children, className = '', anchorsClass = '
   const itemsRef = useRef<HTMLElement[]>([]);
 
   useEffect(() => {
-    setAnchors(parseAnchors());
-    scrollHandler();
-    window.addEventListener('scroll', scrollHandler)
+      if (children && children.length) {
+          setAnchors(parseAnchors());
+          scrollHandler();
+          window.addEventListener('scroll', scrollHandler)
 
-    return () => window.removeEventListener('scroll', scrollHandler)
+          return () => window.removeEventListener('scroll', scrollHandler)
+      }
   }, [children]);
 
   const scrollHandler = () => {
     for (const element of itemsRef!.current) {
-      if (element.getBoundingClientRect().bottom > 0) {
+      if (element && element.getBoundingClientRect().bottom > 0) {
         setActiveAnchor(element.id);
         break;
       }
@@ -41,7 +44,7 @@ const ContentMap: React.FC<Props> = ({children, className = '', anchorsClass = '
       return anchors;
   }
 
-  return (
+  return children && children.length ? (
     <div className={'relative flex justify-between ' + className}>
       <div>
         {React.Children.map(children, (child, idx) => {
@@ -52,7 +55,7 @@ const ContentMap: React.FC<Props> = ({children, className = '', anchorsClass = '
         <TableContent className='sticky top-0 text-primary' links={anchors} activeAnchor={activeAnchor} />
       </div>
     </div>
-  )
+  ): <SectionTitle className='text-primary mt-3 mb-24'>Поки нема даних</SectionTitle>
 }
 
 export default ContentMap;
