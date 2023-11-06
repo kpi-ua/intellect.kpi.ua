@@ -43,7 +43,6 @@ docker build ./ --file ./Dockerfile --tag intellect.kpi.ua:test
 docker run --rm -it -p 8000:80 intellect.kpi.ua:test
 ```
 
-
 ### Debug
 
 #### Build the Docker image for development
