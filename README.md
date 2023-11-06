@@ -42,3 +42,18 @@ docker build ./ --file ./Dockerfile --tag intellect.kpi.ua:test
 ```bash
 docker run --rm -it -p 8000:80 intellect.kpi.ua:test
 ```
+
+
+### Debug
+
+#### Build the Docker image for development
+```bash
+docker build -f debug.dockerfile -t intellect.kpi.ua:debug .
+```
+
+#### Run the Docker container with volume mapping for live updates
+```bash
+docker run --rm -it -p 3000:3000 -v $(pwd):/usr/src/app -v /usr/src/app/node_modules intellect.kpi.ua:debug
+```
+
+Now you can open website locally at http://localhost:3000/
