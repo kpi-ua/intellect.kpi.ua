@@ -9,55 +9,57 @@ declare module ECampus {
     }
 
     type Division = {
-        Id: number,
-        Name: string,
-        Url: string,
-        Logo: string | null,
-        Address: string | null
+        id: number,
+        name: string,
+        url: string,
+        logo: string | null,
+        address: string | null
     }
 
     type ApiResponse<T> = {
-        Paging: object,
-        Data: T[]
+        paging: object,
+        data: T[]
     }
 }
 
 declare module Intellect {
     type Teacher = {
-        Profile: string,
-        Credo: string,
-        Photo: string,
-        FullName: string,
-        UserIdentifier: string,
-        Id: number,
-        IsConfirmed: boolean,
-        ContactRecord: string[] | null,
-        AcademicStatus: string,
-        AcademicDegree: string,
-        ScientificInterests: string,
-        Items: any[],
-        Status: string,
-        Field: any,
-        Positions: Position[]
+        profile: string,
+        credo: string,
+        photo: string,
+        fullName: string,
+        userIdentifier: string,
+        id: number,
+        isConfirmed: boolean,
+        contactRecords: {name: string, value: string}[] | null,
+        academicStatus: string,
+        academicDegree: string,
+        scientificInterests: string,
+        items: any[],
+        status: string,
+        field: any,
+        positions: Position[]
     }
 
     type Position = {
-        Name: string,
-        Subdivision: ECampus.Division,
+        name: string,
+        subdivision: ECampus.Division,
     }
 
     type ExperienceItem = {
-        Key: string,
-        Value: {
-            [key: string]: {
-                [key in string]: string[]
-            }
+        [key in string]: {
+            [key in string]: {
+                Key: string,
+                Value: string[]
+            }[]
         }
     }
 
     type ExperienceType =  'publications' | 'exploration' | 'exploration_results' | 'confs';
+    type SearchMode = 'overall' | 'alphabetic' | 'subdivision' | 'interests';
+    type SearchParams = 'startsWith' | 'subdivision' | 'interests';
 
     type TeacherExperience = {
-        [key in ExperienceType]: ExperienceItem[]
+        [key in ExperienceType]: ExperienceItem
     }
 }

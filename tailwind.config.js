@@ -47,6 +47,7 @@ module.exports = {
       height: {
         100: '100px',
         40: '40px',
+        225: '225px',
         '5px': '5px',
         '95vh': '95vh'
       },
@@ -86,7 +87,7 @@ module.exports = {
         120: '120px'
       },
       gridTemplateColumns: {
-        'teachers': 'repeat(auto-fit, minmax(120px, 1fr))'
+        'teachers': 'repeat(auto-fill, minmax(140px, 1fr))'
       }
     },
   },

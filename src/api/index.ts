@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const Http = axios.create({
-    baseURL: 'https://api.campus.kpi.ua/Intellect/',
+    baseURL: 'https://dev-api.campus.cloud.kpi.ua/intellect/',
 });
 
 Http.interceptors.response.use(res => res.data)

@@ -1,4 +1,5 @@
-import React, {Key} from "react";
+import React from "react";
+import {decodeHtmlCharCodes} from "../../utils";
 
 const htmlCodeStart = '&#';
 const indexes = [[1040, 1043], [1168], [1044, 1045], [1028], [1046, 1048], [1030, 1031], [1049, 1065], [1068], [1070, 1071]]
@@ -10,8 +11,8 @@ type Props = {
 const Alphabet: React.FC<Props> = ({onLetterSelected = () => {}}) => {
   const LetterElement = (letterFullCode: string): React.JSX.Element => (
     <span
-      key={letterFullCode as Key}
-      onClick={() => onLetterSelected(letterFullCode as string)}
+      key={letterFullCode}
+      onClick={() => onLetterSelected(decodeHtmlCharCodes(letterFullCode))}
       dangerouslySetInnerHTML={{__html: letterFullCode as any}} />
   )
 

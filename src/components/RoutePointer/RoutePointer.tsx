@@ -9,7 +9,7 @@ type Props = {
 const RoutePointer: React.FC<Props> = ({routePath = []}) => {
   const route = routePath.map((item, idx) => {
     return (
-      <div  key={item.path} className={'flex items-center ' + (idx === routePath.length - 1 ? '' : 'text-neutral-600')}>
+      <div  key={idx} className={'flex items-center ' + (idx === routePath.length - 1 ? '' : 'text-neutral-600')}>
         <a className='cursor-pointer' href={item.path}>{item.label}</a>
         {idx !== routePath.length - 1 ? <FeatherIcon width={40} className='inline fill-none text-neutral-600' icon='chevron-right'/> : ''}
       </div>

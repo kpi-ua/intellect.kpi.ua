@@ -1,30 +1,42 @@
 import Http from './index'
+import {parseSearchParams} from "../utils";
 
 type ExperienceResultPromise = Promise<ECampus.ApiResponse<Intellect.ExperienceItem>>
 
 export const searchByInput = (input: string): Promise<ECampus.ApiResponse<Intellect.Teacher>> => {
-    const searchString = '?value=' + input;
-    return Http.get('/Find' + searchString);
+    const params = parseSearchParams(input);
+    let searchString = '?'
+
+    if (params.startsWith) {
+        searchString += '&startsWith=' + params.startsWith;
+    } else if (params.subdivision)  {
+        searchString += '&subdivision=' + params.subdivision;
+    } else if (params.interests) {
+        searchString += '&interests=' + params.interests;
+    } else {
+        searchString += '&value=' + input;
+    }
+
+    return Http.get('/v2/find' + searchString);
 }
 
-const getPublications = (searchString: string, key: Intellect.ExperienceType): ExperienceResultPromise  => {
-    return Http.get('/publications' + searchString)
+const getPublications = (teacherId: string, key: Intellect.ExperienceType): ExperienceResultPromise  => {
+    return Http.get(`/v2/persons/${teacherId}/publications`)
 }
 
-const getConferences = (searchString: string, key: Intellect.ExperienceType): ExperienceResultPromise => {
-    return Http.get('/conferences' + searchString);
+const getConferences = (teacherId: string, key: Intellect.ExperienceType): ExperienceResultPromise => {
+    return Http.get(`/v2/persons/${teacherId}/conferences`);
 }
 
-const getKRExecutions = (searchString: string, key: Intellect.ExperienceType): ExperienceResultPromise => {
-    return Http.get('/KRExecutions' + searchString);
+const getKRExecutions = (teacherId: string, key: Intellect.ExperienceType): ExperienceResultPromise => {
+    return Http.get(`/v2/persons/${teacherId}/researches/carrying-out`);
 }
 
-const getKRResults = (searchString: string, key: Intellect.ExperienceType): ExperienceResultPromise => {
-    return Http.get('/KRResults' + searchString);
+const getKRResults = (teacherId: string, key: Intellect.ExperienceType): ExperienceResultPromise => {
+    return Http.get(`/v2/persons/${teacherId}/researches/results`);
 }
 
 export const getExperienceByTeacherId = async (teacherId: string): Promise<Intellect.TeacherExperience> => {
-    const searchString = '?userIdentifier=' + teacherId;
     const resultObj: any = {
         publications: [],
         exploration: [],
@@ -34,18 +46,22 @@ export const getExperienceByTeacherId = async (teacherId: string): Promise<Intel
 
     try {
         const results = await Promise.all<ExperienceResultPromise>([
-            getPublications(searchString, 'publications'),
-            getKRExecutions(searchString, 'exploration'),
-            getKRResults(searchString, 'exploration_results'),
-            getConferences(searchString, 'confs'),
+            getPublications(teacherId, 'publications'),
+            getKRExecutions(teacherId, 'exploration'),
+            getKRResults(teacherId, 'exploration_results'),
+            getConferences(teacherId, 'confs'),
         ])
 
         Object.keys(resultObj).forEach((item, idx) => {
-            resultObj[item] = results[idx].Data;
+            resultObj[item] = results[idx];
         })
     } catch (e: any) {
         throw new Error(e)
     }
 
     return resultObj;
+}
+
+export const getTeacherByTeacherId = (teacherId: string): Promise<Intellect.Teacher> => {
+    return Http.get('https://dev-api.campus.cloud.kpi.ua/account/public/' + teacherId);
 }

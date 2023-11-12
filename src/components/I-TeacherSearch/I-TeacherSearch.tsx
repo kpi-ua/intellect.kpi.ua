@@ -5,24 +5,26 @@ import ITab from '../I-Tab/I-Tab';
 import InputField from '../InputField/InputField';
 import Alphabet from '../Alphabet/Alphabet';
 
-import { decodeHtmlCharCodes } from '../../utils';
-
 import './I-TeacherSearch.css';
 
+type Tab = {
+  label: string,
+  type: Intellect.SearchMode
+}
+
 const ITeacherSearch: React.FC = () => {
-  const [activeTab, setActiveTab] = useState('overall');
+  const [activeTab, setActiveTab] = useState('overall' as Intellect.SearchMode);
   const navigate = useNavigate();
 
   const tabs = [
     {label: 'Загальний пошук спiвробiтникiв', type: 'overall'},
     {label: 'Алфавітний покажчик', type: 'alphabetic'},
-    {label: 'За кафедрами та факультетами', type: 'faculty'},
+    {label: 'За кафедрами та факультетами', type: 'subdivision'},
     {label: 'За інтересами', type: 'interests'}
-  ]
+  ] as Tab[];
 
-  const handleLetterSelect = (charCode: string) => {
-    const letter = decodeHtmlCharCodes(charCode);
-    navigate('search?mode=alphabetic', {state: {letter}})
+  const handleSearch = (input: string) => {
+    navigate('search', {state: {input, mode: activeTab}})
   }
 
   return (
@@ -36,13 +38,14 @@ const ITeacherSearch: React.FC = () => {
       </div>
       <div className='bg-white flex gap-3 h-100 items-center px-8 rounded-lg rounded-tl-none field-shadow'>
         {
-          activeTab === 'alphabetic' ? <Alphabet onLetterSelected={handleLetterSelect} /> : (
+          activeTab === 'alphabetic' ? <Alphabet onLetterSelected={handleSearch} /> : (
             <InputField
               buttonText='Пошук'
-              buttonClass='xs:flex hidden'
+              buttonClass='xs:flex hidden p-4 h-40 items-center'
               icon='search'
               fieldClass='text-black flex-1 max-h-6 overflow-auto'
               placeholder='Введіть ПІБ особи.. (наприклад: Петро Петров Петрович)'
+              onSubmit={handleSearch}
             />
           )
         }

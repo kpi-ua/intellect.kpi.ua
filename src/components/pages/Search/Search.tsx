@@ -4,59 +4,93 @@ import InputField from '../../InputField/InputField';
 import SearchGrid from '../../common/SearchGrid';
 import ITeacherCard from '../../I-TeacherCard/I-TeacherCard';
 
-import avatar1 from '../../../assets/testdata/avatar1.png';
-import avatar2 from '../../../assets/testdata/avatar2.png';
-import avatar3 from '../../../assets/testdata/avatar3.png';
-import { useLocation } from 'react-router-dom';
-import React, {EffectCallback, useEffect, useState} from "react";
+import {Location, useLocation} from 'react-router-dom';
+import React, {useEffect, useRef, useState} from "react";
 import {searchByInput} from "../../../api/teacher";
+import CommonButton from "../../CommonButton/CommonButton";
+import {searchStringParams} from "../../../constants";
+import useLinkRoute from "../../../utils/hooks/useLinkRoute";
 
-const route = [{path: '/', label: 'Головна'}, {path: '/search?mode=alphabet', label: 'Алфавітний покажчик'}]
-
-const testData = [
-  {id: 0, avatar: null, name: 'Діброва Валентина Анатоліївна', qualification: 'Доцент', workplace: 'Кафедра англійської мови гуманітарного спрямування №3'},
-  {id: 1, avatar: avatar1, name: 'Діденко Юрій Вікторович', qualification: 'Доцент', workplace: 'Кафедра мiкроелектронiки ФЕЛ'},
-  {id: 2, avatar: avatar2, name: 'Дідковська Марина Віталіївна', qualification: 'Доцент', workplace: 'Кафедра математичних методів системного аналізу ІПСА'},
-  {id: 3, avatar: avatar3, name: 'Дідковський Віталій Семенович', qualification: 'Професор', workplace: 'Кафедра акустики та акустоелектронiки ФЕЛ'},
-  {id: 4, avatar: null, name: 'Дімітрієв Олег Петрович', qualification: 'Доцент', workplace: 'Кафедра прикладної фізики'},
-  {id: 5, avatar: null, name: 'Дімарова Олена Володимирівна', qualification: 'Доцент', workplace: 'Кафедра загальної та теоретичної фiзики ФМФ'}
-]
+type SearchLocation = {
+  input: string,
+  mode: Intellect.SearchMode,
+}
 
 const Search: React.FC = () => {
-  const location = useLocation();
+  const location: Location<SearchLocation> = useLocation();
+  const inputRef = useRef<HTMLInputElement>(null);
+  const searchedValue = useRef('');
 
   const [teachers, setTeachers] = useState<Intellect.Teacher[]>([])
+  const [searchValue, setSearchValue] = useState('');
 
-    useEffect(() => {
-        const searchTeacher = async () => {
-            try {
-                const data = await searchByInput(location.state.letter)
-                setTeachers(data.Data)
-            } catch (e) {
-                console.error(e)
-            }
-        }
+  const {route} = useLinkRoute([{path: '/search', label: 'Пошук'}])
 
-        searchTeacher();
-    }, [location.state.letter]);
+  const searchTeacher = async (value: string) => {
+    if (value.trim() && searchedValue.current !== value) {
+      try {
+        const data = await searchByInput(value);
+        setTeachers(data.data)
+        searchedValue.current = value;
+      } catch (e) {
+        console.error(e)
+      }
+    }
+  }
+
+  useEffect(() => {
+      const searchString = createSearchString(location.state?.input || '');
+      onSubmit(searchString);
+  }, [location.state?.input]);
+
+  const createSearchString = (value: string): string => {
+    switch (location.state?.mode) {
+      case 'alphabetic': return 'startsWith:' + value;
+      case 'subdivision': return 'subdivision:' + value;
+      case 'interests': return 'interests:' + value;
+      default: return value;
+    }
+  }
+
+  const onSubmit = (value: string, doSearch = true, focus = true) => {
+    setSearchValue(value);
+
+    if (doSearch) {
+      searchTeacher(value);
+    }
+
+    if (focus && inputRef.current) {
+      inputRef.current.select();
+    }
+  };
 
   return (
     <section className='wrapper pt-12 pb-160'>
       <RoutePointer routePath={route} />
       <div className='mt-4'>
-        <Alphabet />
+        <Alphabet onLetterSelected={e => onSubmit(searchStringParams.STARTS_WITH + e, true, false)} />
         <div className='flex w-full rounded-lg border-1 border-neutral-100 p-1 mt-6'>
           <InputField
-            placeholder='startwith:Д'
+            syntheticRef={inputRef}
+            onSubmit={e => onSubmit(e, true, false)}
+            placeholder='Введіть строку пошука'
+            value={searchValue}
             fieldClass='flex-1'
             buttonText='Пошук'
-            buttonClass='px-4 py-1'
+            buttonClass='px-4 py-1 h-40 flex items-center'
           />
+        </div>
+      </div>
+      <div className='mt-2'>
+        <span className='text-primary'>Або оберіть режим пошуку:</span>
+        <div className="flex gap-2">
+          <CommonButton onClick={() => onSubmit(searchStringParams.SUBDIVISION, false)} className='p-2'>За місцем роботи</CommonButton>
+          <CommonButton onClick={() => onSubmit(searchStringParams.INTERESTS, false)} className='p-2'>За інтересами </CommonButton>
         </div>
       </div>
       <SearchGrid className='mt-6'>
         {
-          teachers.map(item => <ITeacherCard className='justify-self-center' key={item.Id} teacherInfo={item} />)
+          teachers.map((item, idx) => <ITeacherCard className='justify-self-center' key={idx} teacherInfo={item} />)
         }
       </SearchGrid>
     </section>

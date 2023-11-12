@@ -8,6 +8,7 @@
     font-weight: 500;
 }
 
+
 :root {
     @apply text-sm xs:text-base
 }
@@ -31,6 +32,16 @@ html {
     @apply text-neutral-500;
     content:attr(data-placeholder);
     cursor: text;
+}
+
+#root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+footer {
+    margin-top: auto;
 }
 
 .scrollbar-hidden {
