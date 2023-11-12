@@ -66,7 +66,7 @@ const ITeacherInfo: React.FC = () => {
     if (experience) {
       const selectedExperience = experience[activeTab];
       const experienceItemKeys = Object.keys(selectedExperience) || [];
-      
+
       return (experienceItemKeys || []).map((experienceItemKey: string, idx: number) => (
           <article className='mt-3 first:mt-0' key={idx} id={String(idx + 1)} data-label={experienceItemKey}>
             <div className="text-primary uppercase text-xl">{experienceItemKey}</div>
@@ -78,9 +78,11 @@ const ITeacherInfo: React.FC = () => {
                   {(selectedExperience[experienceItemKey][key] || []).map(data => {
                     return (
                       <div key={idx} className='text-neutral-600 text-xs' data-title={data.Key}>
-                        {data.Value.map((publication: string, idx: number) => (
+                        {
+                          (data.Value || []).map((publication: string, idx: number) => (
                             <p className='first:mt-0 mt-3' key={idx} dangerouslySetInnerHTML={{__html: publication.replaceAll('\n', '<br />')}} />
-                        ))}
+                          ))
+                        }
                       </div>
                     )
                   })}
