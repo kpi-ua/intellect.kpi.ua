@@ -49,8 +49,8 @@ declare module Intellect {
     type ExperienceItem = {
         [key in string]: {
             [key in string]: {
-                Key: string,
-                Value: string[]
+                key: string,
+                value: string[]
             }[]
         }
     }

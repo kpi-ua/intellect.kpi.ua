@@ -77,9 +77,9 @@ const ITeacherInfo: React.FC = () => {
                 <DataList>
                   {(selectedExperience[experienceItemKey][key] || []).map(data => {
                     return (
-                      <div key={idx} className='text-neutral-600 text-xs' data-title={data.Key}>
+                      <div key={idx} className='text-neutral-600 text-xs' data-title={data.key}>
                         {
-                          (data.Value || []).map((publication: string, idx: number) => (
+                          (data.value || []).map((publication: string, idx: number) => (
                             <p className='first:mt-0 mt-3 break-all' key={idx} dangerouslySetInnerHTML={{__html: publication.replaceAll('\n', '<br />')}} />
                           ))
                         }
