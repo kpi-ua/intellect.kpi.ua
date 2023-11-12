@@ -12,6 +12,7 @@ const Alphabet: React.FC<Props> = ({onLetterSelected = () => {}}) => {
   const LetterElement = (letterFullCode: string): React.JSX.Element => (
     <span
       key={letterFullCode}
+      className='hover:text-blue-950 transition-all'
       onClick={() => onLetterSelected(decodeHtmlCharCodes(letterFullCode))}
       dangerouslySetInnerHTML={{__html: letterFullCode as any}} />
   )
