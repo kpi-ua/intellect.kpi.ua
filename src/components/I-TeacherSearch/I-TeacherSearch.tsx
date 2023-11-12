@@ -9,7 +9,8 @@ import './I-TeacherSearch.css';
 
 type Tab = {
   label: string,
-  type: Intellect.SearchMode
+  type: Intellect.SearchMode,
+  placeholder?: string
 }
 
 const ITeacherSearch: React.FC = () => {
@@ -17,10 +18,10 @@ const ITeacherSearch: React.FC = () => {
   const navigate = useNavigate();
 
   const tabs = [
-    {label: 'Загальний пошук спiвробiтникiв', type: 'overall'},
+    {label: 'Загальний пошук спiвробiтникiв', type: 'overall', placeholder: 'Введіть ПІБ особи.. (наприклад: Петро Петров Петрович)'},
     {label: 'Алфавітний покажчик', type: 'alphabetic'},
-    {label: 'За кафедрами та факультетами', type: 'subdivision'},
-    {label: 'За інтересами', type: 'interests'}
+    {label: 'За кафедрами та факультетами', type: 'subdivision', placeholder: 'Введіть кафедру або факультет.. (наприклад: ФІОТ)'},
+    {label: 'За інтересами', type: 'interests', placeholder: 'Введіть можливі інтереси.. (наприклад: програмування)'}
   ] as Tab[];
 
   const handleSearch = (input: string) => {
@@ -44,7 +45,7 @@ const ITeacherSearch: React.FC = () => {
               buttonClass='xs:flex hidden p-4 h-40 items-center'
               icon='search'
               fieldClass='text-black flex-1 max-h-6 overflow-auto'
-              placeholder='Введіть ПІБ особи.. (наприклад: Петро Петров Петрович)'
+              placeholder={tabs.find(tab => tab.type === activeTab)?.placeholder}
               onSubmit={handleSearch}
             />
           )
