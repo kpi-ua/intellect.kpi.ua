@@ -80,7 +80,7 @@ const ITeacherInfo: React.FC = () => {
                       <div key={idx} className='text-neutral-600 text-xs' data-title={data.Key}>
                         {
                           (data.Value || []).map((publication: string, idx: number) => (
-                            <p className='first:mt-0 mt-3' key={idx} dangerouslySetInnerHTML={{__html: publication.replaceAll('\n', '<br />')}} />
+                            <p className='first:mt-0 mt-3 break-all' key={idx} dangerouslySetInnerHTML={{__html: publication.replaceAll('\n', '<br />')}} />
                           ))
                         }
                       </div>
