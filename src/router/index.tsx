@@ -9,28 +9,28 @@ import ITeacherInfo from '../components/pages/I-TeacherInfo/I-TeacherInfo';
 import React from 'react';
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-    children: [
-      {
-        path: 'about',
-        element: <IAbout />
-      },
-      {
-        path: 'contacts',
-        element: <Contacts />
-      },
-      {
-        path: 'search',
-        element: <Search />
-      },
-      {
-        path: 'profile/:teacherId',
-        element: <ITeacherInfo />
-      }
-    ]
-  },
+    {
+        path: '/',
+        element: <App />,
+        children: [
+            {
+                path: 'about',
+                element: <IAbout />,
+            },
+            {
+                path: 'contacts',
+                element: <Contacts />,
+            },
+            {
+                path: 'search',
+                element: <Search />,
+            },
+            {
+                path: 'profile/:teacherId',
+                element: <ITeacherInfo />,
+            },
+        ],
+    },
 ]);
 
 export default router;

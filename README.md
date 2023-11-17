@@ -1,4 +1,5 @@
 # intellect.kpi.ua
+
 ![example workflow](https://github.com/kpi-ua/intellect.kpi.ua/actions/workflows/workflow.yml/badge.svg)
 
 Available at [Docker hub](https://hub.docker.com/r/kpiua/intellect.kpi.ua)
@@ -30,15 +31,16 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-
 ## Docker
 
 ### Build
+
 ```bash
 docker build ./ --file ./Dockerfile --tag intellect.kpi.ua:test
 ```
 
 ### Run
+
 ```bash
 docker run --rm -it -p 8000:80 intellect.kpi.ua:test
 ```
@@ -46,11 +48,13 @@ docker run --rm -it -p 8000:80 intellect.kpi.ua:test
 ### Debug
 
 #### Build the Docker image for development
+
 ```bash
 docker build -f debug.dockerfile -t intellect.kpi.ua:debug .
 ```
 
 #### Run the Docker container with volume mapping for live updates
+
 ```bash
 docker run --rm -it -p 3000:3000 -v $(pwd):/usr/src/app -v /usr/src/app/node_modules intellect.kpi.ua:debug
 ```

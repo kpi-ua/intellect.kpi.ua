@@ -2,15 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-
 * {
     font-family: 'Exo 2', sans-serif;
     font-weight: 500;
 }
 
-
 :root {
-    @apply text-sm xs:text-base
+    @apply text-sm xs:text-base;
 }
 
 html {
@@ -24,13 +22,13 @@ html {
 }
 
 .header-wrapper {
-    background: url("assets/img/main-bg.png") no-repeat;
+    background: url('assets/img/main-bg.png') no-repeat;
     background-size: cover;
 }
 
-[contenteditable=true]:empty:not(:focus):before{
+[contenteditable='true']:empty:not(:focus):before {
     @apply text-neutral-500;
-    content:attr(data-placeholder);
+    content: attr(data-placeholder);
     cursor: text;
 }
 
@@ -45,8 +43,8 @@ footer {
 }
 
 .scrollbar-hidden {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
 }
 
 .scrollbar-hidden::-webkit-scrollbar {
