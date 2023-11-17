@@ -18,12 +18,13 @@ type Props = {
     onLetterSelected?: (a: string) => void;
 };
 
-const Alphabet: React.FC<Props> = ({ onLetterSelected = () => {} }) => {
+const Alphabet: React.FC<Props> = ({ onLetterSelected = null }) => {
     const LetterElement = (letterFullCode: string): React.JSX.Element => (
         <span
             key={letterFullCode}
             className="hover:text-blue-950 transition-all"
             onClick={() =>
+                onLetterSelected &&
                 onLetterSelected(decodeHtmlCharCodes(letterFullCode))
             }
             dangerouslySetInnerHTML={{ __html: letterFullCode as any }}
