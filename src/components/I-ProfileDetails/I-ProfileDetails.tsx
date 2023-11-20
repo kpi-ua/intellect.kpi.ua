@@ -1,7 +1,7 @@
 import React from 'react';
 import SectionTitle from '../common/SectionTitle';
 
-import { tabs } from '../../constants';
+import { profileTabs } from '../../constants';
 
 type Props = {
     teacherInfo: Intellect.Teacher;
@@ -9,9 +9,9 @@ type Props = {
 
 const IProfileDetails: React.FC<Props> = ({ teacherInfo }) => {
     const generateProfileRows = (): React.JSX.Element[] => {
-        return Object.keys(tabs).map((key, idx) => (
+        return Object.keys(profileTabs).map((key, idx) => (
             <div key={idx}>
-                {tabs[key].map((row) =>
+                {profileTabs[key].map((row) =>
                     teacherInfo[row.field] ? (
                         <div className="flex flex-col xs:flex-row" key={row.field}>
                             <span className="text-neutral-500 block w-500">{row.label}: </span>
