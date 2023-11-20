@@ -16,8 +16,8 @@ type Props = {
 };
 
 const InputField: React.FC<Props> = ({
-    onInput = () => {},
-    onSubmit = () => {},
+    onInput = () => {  console.log('Input received'); },
+    onSubmit = () => {  console.log('Submit received'); },
     buttonText,
     icon = '' as feather.FeatherIconNames,
     placeholder = '',

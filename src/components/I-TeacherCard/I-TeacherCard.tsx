@@ -12,7 +12,7 @@ const ITeacherCard: React.FC<Props> = ({ teacherInfo, className = '' }) => {
 
     return (
         <div
-            onClick={() => navigate(`/profile/` + teacherInfo.userIdentifier)}
+            onClick={() => navigate('/profile/' + teacherInfo.userIdentifier)}
             className={'cursor-pointer max-w-160 ' + className}
         >
             <Avatar img={teacherInfo.photo} />

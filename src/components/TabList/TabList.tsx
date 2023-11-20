@@ -13,7 +13,7 @@ type Props = {
 const TabList: React.FC<Props> = ({
     children,
     tabs,
-    selectTab = (newTab: any) => {},
+    selectTab = (newTab: any) => { console.log('SelectTab received '+ newTab); },
     className = '',
     tabActive,
 }) => {

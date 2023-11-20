@@ -45,14 +45,14 @@ const Search: React.FC = () => {
 
     const createSearchString = (value: string): string => {
         switch (location.state?.mode) {
-            case 'alphabetic':
-                return 'startsWith:' + value;
-            case 'subdivision':
-                return 'subdivision:' + value;
-            case 'interests':
-                return 'interests:' + value;
-            default:
-                return value;
+        case 'alphabetic':
+            return 'startsWith:' + value;
+        case 'subdivision':
+            return 'subdivision:' + value;
+        case 'interests':
+            return 'interests:' + value;
+        default:
+            return value;
         }
     };
 
