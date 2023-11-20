@@ -9,7 +9,7 @@ import React, { useState } from 'react';
 
 const links = [
     { to: '/', label: 'Пошук' },
-    { to: 'about', label: 'Про проект' },
+    { to: 'about', label: 'Про проєкт' },
     { to: 'contacts', label: 'Контакти' },
 ];
 

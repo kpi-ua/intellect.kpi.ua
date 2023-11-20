@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const Http = axios.create({
-    baseURL: 'https://dev-api.campus.cloud.kpi.ua/intellect/',
+    baseURL: process.env.API_BASE_URL + '/intellect/',
 });
 
 Http.interceptors.response.use((res) => res.data);

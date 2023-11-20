@@ -84,6 +84,6 @@ export const getTeacherByTeacherId = (
     teacherId: string
 ): Promise<Intellect.Teacher> => {
     return Http.get(
-        'https://dev-api.campus.cloud.kpi.ua/account/public/' + teacherId
+        process.env.API_BASE_URL + '/account/public/' + teacherId
     );
 };
