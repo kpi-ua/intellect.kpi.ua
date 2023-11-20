@@ -9,11 +9,7 @@ type Props = {
     anchorsClass?: string;
 };
 
-const ContentMap: React.FC<Props> = ({
-    children,
-    className = '',
-    anchorsClass = '',
-}) => {
+const ContentMap: React.FC<Props> = ({ children, className = '', anchorsClass = '' }) => {
     const [anchors, setAnchors] = useState<ECampus.Anchor[]>([]);
     const [activeAnchor, setActiveAnchor] = useState<string | null>(null);
     const itemsRef = useRef<HTMLElement[]>([]);
@@ -62,17 +58,11 @@ const ContentMap: React.FC<Props> = ({
                 })}
             </div>
             <div className={'relative flex-1 min-w-140 ' + anchorsClass}>
-                <TableContent
-                    className="sticky top-0 text-primary"
-                    links={anchors}
-                    activeAnchor={activeAnchor}
-                />
+                <TableContent className="sticky top-0 text-primary" links={anchors} activeAnchor={activeAnchor} />
             </div>
         </div>
     ) : (
-        <SectionTitle className="text-primary mt-3 mb-24">
-            Поки нема даних
-        </SectionTitle>
+        <SectionTitle className="text-primary mt-3 mb-24">Дані відсутні</SectionTitle>
     );
 };
 

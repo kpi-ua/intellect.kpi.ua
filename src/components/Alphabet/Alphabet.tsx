@@ -34,7 +34,7 @@ const Alphabet: React.FC<Props> = ({ onLetterSelected = null }) => {
     const alphabetRow = indexes.reduce(
         (acc: React.JSX.Element[], el: number[]): React.JSX.Element[] => {
             if (el.length === 2) {
-                let raw = [];
+                const raw = [];
 
                 for (let i = el[0]; i <= el[1]; i++) {
                     const letterFullCode = `${htmlCodeStart + i};`;

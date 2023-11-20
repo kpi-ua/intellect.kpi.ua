@@ -59,7 +59,8 @@ declare module Intellect {
         | 'publications'
         | 'exploration'
         | 'exploration_results'
-        | 'confs';
+        | 'confs'
+        | 'profile';
     type SearchMode = 'overall' | 'alphabetic' | 'subdivision' | 'interests';
     type SearchParams = 'startsWith' | 'subdivision' | 'interests';
 

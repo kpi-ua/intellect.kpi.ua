@@ -1,4 +1,5 @@
 export const experienceTabs: { [key in Intellect.ExperienceType]: string } = {
+    profile: 'Профіль',
     publications: 'Публікації',
     exploration:
         'Виконання науково-дослідних та дослідно-конструкторських робіт',

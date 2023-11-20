@@ -7,13 +7,11 @@ import DataList from '../../DataList/DataList';
 import TabList from '../../TabList/TabList';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import {
-    getExperienceByTeacherId,
-    getTeacherByTeacherId,
-} from '../../../api/teacher';
+import { getExperienceByTeacherId, getTeacherByTeacherId } from '../../../api/teacher';
 import { experienceTabs } from '../../../constants';
 import Avatar from '../../Avatar/Avatar';
 import useLinkRoute from '../../../utils/hooks/useLinkRoute';
+import IProfileDetails from '../../I-ProfileDetails/I-ProfileDetails';
 
 type Props = {
     className?: string;
@@ -38,8 +36,7 @@ const ITeacherInfo: React.FC = () => {
     const [activeTab, setActiveTab] = useState<Intellect.ExperienceType>(
         Object.keys(experienceTabs)[0] as Intellect.ExperienceType
     );
-    const [experience, setExperience] =
-        useState<Intellect.TeacherExperience | null>(null);
+    const [experience, setExperience] = useState<Intellect.TeacherExperience | null>(null);
     const [teacher, setTeacher] = useState<Intellect.Teacher | null>(null);
 
     const { addLink, route } = useLinkRoute();
@@ -74,62 +71,33 @@ const ITeacherInfo: React.FC = () => {
             const selectedExperience = experience[activeTab];
             const experienceItemKeys = Object.keys(selectedExperience) || [];
 
-            return (experienceItemKeys || []).map(
-                (experienceItemKey: string, idx: number) => (
-                    <article
-                        className="mt-3 first:mt-0"
-                        key={idx}
-                        id={String(idx + 1)}
-                        data-label={experienceItemKey}
-                    >
-                        <div className="text-primary uppercase text-xl">
-                            {experienceItemKey}
-                        </div>
-                        {Object.keys(selectedExperience[experienceItemKey]).map(
-                            (key, idx) => (
-                                <div key={idx}>
-                                    <div className="text-primary text-md">
-                                        {key}
-                                    </div>
-                                    <DataList>
-                                        {(
-                                            selectedExperience[
-                                                experienceItemKey
-                                            ][key] || []
-                                        ).map((data) => {
-                                            return (
-                                                <div
+            return (experienceItemKeys || []).map((experienceItemKey: string, idx: number) => (
+                <article className="mt-3 first:mt-0" key={idx} id={String(idx + 1)} data-label={experienceItemKey}>
+                    <div className="text-primary uppercase text-xl">{experienceItemKey}</div>
+                    {Object.keys(selectedExperience[experienceItemKey]).map((key, idx) => (
+                        <div key={idx}>
+                            <div className="text-primary text-md">{key}</div>
+                            <DataList>
+                                {(selectedExperience[experienceItemKey][key] || []).map((data) => {
+                                    return (
+                                        <div key={idx} className="text-neutral-600 text-xs" data-title={data.key}>
+                                            {(data.value || []).map((publication: string, idx: number) => (
+                                                <p
+                                                    className="first:mt-0 mt-3 break-all"
                                                     key={idx}
-                                                    className="text-neutral-600 text-xs"
-                                                    data-title={data.key}
-                                                >
-                                                    {(data.value || []).map(
-                                                        (
-                                                            publication: string,
-                                                            idx: number
-                                                        ) => (
-                                                            <p
-                                                                className="first:mt-0 mt-3 break-all"
-                                                                key={idx}
-                                                                dangerouslySetInnerHTML={{
-                                                                    __html: publication.replaceAll(
-                                                                        '\n',
-                                                                        '<br />'
-                                                                    ),
-                                                                }}
-                                                            />
-                                                        )
-                                                    )}
-                                                </div>
-                                            );
-                                        })}
-                                    </DataList>
-                                </div>
-                            )
-                        )}
-                    </article>
-                )
-            );
+                                                    dangerouslySetInnerHTML={{
+                                                        __html: publication.replaceAll('\n', '<br />'),
+                                                    }}
+                                                />
+                                            ))}
+                                        </div>
+                                    );
+                                })}
+                            </DataList>
+                        </div>
+                    ))}
+                </article>
+            ));
         }
 
         return [];
@@ -141,16 +109,10 @@ const ITeacherInfo: React.FC = () => {
             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 mt-6">
                 <div>
                     <Avatar img={teacher?.photo} />
-                    <ContactBlock
-                        contactRecords={teacher?.contactRecords}
-                        className="hidden sm:block"
-                    />
+                    <ContactBlock contactRecords={teacher?.contactRecords} className="hidden sm:block" />
                 </div>
                 <div className="flex-1 w-full">
-                    <SectionTitle
-                        className="text-3xl sm:text-5xl text-center sm:text-left"
-                        isPrimary={false}
-                    >
+                    <SectionTitle className="text-3xl sm:text-5xl text-center sm:text-left" isPrimary={false}>
                         {teacher?.fullName}
                     </SectionTitle>
                     <div className="flex gap-3 mt-5 justify-center sm:justify-start overflow-x-auto">
@@ -173,12 +135,13 @@ const ITeacherInfo: React.FC = () => {
                         tabs={experienceTabs}
                         className="mt-9"
                     >
-                        <ContentMap
-                            anchorsClass="hidden sm:block"
-                            className="gap-24 mt-4"
-                        >
-                            {generateDataPerTab()}
-                        </ContentMap>
+                        {activeTab !== 'profile' ? (
+                            <ContentMap anchorsClass="hidden sm:block" className="gap-24 mt-4">
+                                {generateDataPerTab()}
+                            </ContentMap>
+                        ) : (
+                            <IProfileDetails />
+                        )}
                     </TabList>
                 </div>
             </div>
