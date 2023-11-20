@@ -4,7 +4,7 @@ module.exports = {
     theme: {
         screens: {
             xs: '450px',
-            sm: '660px',
+            sm: '920px',
         },
         extend: {
             colors: {
@@ -35,6 +35,7 @@ module.exports = {
                 90: '90px',
                 170: '170px',
                 200: '200px',
+                500: '300px',
             },
             minWidth: {
                 100: '100px',

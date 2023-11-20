@@ -1,7 +1,7 @@
 declare module '*.svg';
 declare module '*.png';
 
-declare module ECampus {
+declare namespace ECampus {
     type Anchor = {
         id: string;
         path: string;
@@ -22,7 +22,7 @@ declare module ECampus {
     };
 }
 
-declare module Intellect {
+declare namespace Intellect {
     type Teacher = {
         profile: string;
         credo: string;
@@ -55,12 +55,7 @@ declare module Intellect {
         };
     };
 
-    type ExperienceType =
-        | 'publications'
-        | 'exploration'
-        | 'exploration_results'
-        | 'confs'
-        | 'profile';
+    type ExperienceType = 'publications' | 'exploration' | 'exploration_results' | 'confs' | 'profile';
     type SearchMode = 'overall' | 'alphabetic' | 'subdivision' | 'interests';
     type SearchParams = 'startsWith' | 'subdivision' | 'interests';
 

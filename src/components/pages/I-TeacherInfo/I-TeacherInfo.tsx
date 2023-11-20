@@ -13,23 +13,6 @@ import Avatar from '../../Avatar/Avatar';
 import useLinkRoute from '../../../utils/hooks/useLinkRoute';
 import IProfileDetails from '../../I-ProfileDetails/I-ProfileDetails';
 
-type Props = {
-    className?: string;
-    contactRecords: { name: string; value: string }[] | null | undefined;
-};
-
-const ContactBlock: React.FC<Props> = ({ className = '', contactRecords }) => (
-    <div className={className}>
-        <div className="text-primary">Контактні дані</div>
-        {(contactRecords || []).map((record, idx) => (
-            <div className="flex gap-3" key={idx}>
-                <span className="text-primary">{record.name}</span>
-                <span>{record.value}</span>
-            </div>
-        ))}
-    </div>
-);
-
 const ITeacherInfo: React.FC = () => {
     const { teacherId } = useParams();
 
@@ -109,7 +92,6 @@ const ITeacherInfo: React.FC = () => {
             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 mt-6">
                 <div>
                     <Avatar img={teacher?.photo} />
-                    <ContactBlock contactRecords={teacher?.contactRecords} className="hidden sm:block" />
                 </div>
                 <div className="flex-1 w-full">
                     <SectionTitle className="text-3xl sm:text-5xl text-center sm:text-left" isPrimary={false}>
@@ -125,10 +107,6 @@ const ITeacherInfo: React.FC = () => {
                             />
                         ))}
                     </div>
-                    <ContactBlock
-                        contactRecords={teacher?.contactRecords}
-                        className="block sm:hidden text-center mt-2"
-                    />
                     <TabList
                         selectTab={(newTab) => setActiveTab(newTab)}
                         tabActive={activeTab}
@@ -139,9 +117,9 @@ const ITeacherInfo: React.FC = () => {
                             <ContentMap anchorsClass="hidden sm:block" className="gap-24 mt-4">
                                 {generateDataPerTab()}
                             </ContentMap>
-                        ) : (
-                            <IProfileDetails />
-                        )}
+                        ) : teacher ? (
+                            <IProfileDetails teacherInfo={teacher} />
+                        ) : null}
                     </TabList>
                 </div>
             </div>
