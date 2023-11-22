@@ -29,4 +29,4 @@ export const profileTabs: { [key in string]: { field: keyof Intellect.Teacher; l
     ],
 };
 
-export const API_BASE_URL = "https://dev-api.campus.cloud.kpi.ua";
+export const API_BASE_URL = 'https://dev-api.campus.cloud.kpi.ua';
