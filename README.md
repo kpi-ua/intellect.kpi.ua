@@ -42,7 +42,7 @@ docker build ./ --file ./Dockerfile --tag intellect.kpi.ua:test
 ### Run
 
 ```bash
-docker run --rm -it -p 8000:80 -e API_BASE_URL="https://dev-api.campus.cloud.kpi.ua" intellect.kpi.ua:test
+docker run --rm -it -p 8000:80 intellect.kpi.ua:test
 ```
 
 ### Debug
@@ -56,7 +56,7 @@ docker build -f debug.dockerfile -t intellect.kpi.ua:debug .
 #### Run the Docker container with volume mapping for live updates
 
 ```bash
-docker run --rm -it -p 3000:3000 -e API_BASE_URL="https://dev-api.campus.cloud.kpi.ua" -v $(pwd):/usr/src/app -v /usr/src/app/node_modules intellect.kpi.ua:debug
+docker run --rm -it -p 3000:3000 -v $(pwd):/usr/src/app -v /usr/src/app/node_modules intellect.kpi.ua:debug
 ```
 
 Now you can open website locally at http://localhost:3000/

@@ -1,5 +1,6 @@
 import Http from './index';
 import { parseSearchParams } from '../utils';
+import { API_BASE_URL } from '../constants';
 
 type ExperienceResultPromise = Promise<
     ECampus.ApiResponse<Intellect.ExperienceItem>
@@ -84,6 +85,6 @@ export const getTeacherByTeacherId = (
     teacherId: string
 ): Promise<Intellect.Teacher> => {
     return Http.get(
-        process.env.API_BASE_URL + '/account/public/' + teacherId
+        API_BASE_URL + '/account/public/' + teacherId
     );
 };
