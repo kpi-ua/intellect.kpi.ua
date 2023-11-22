@@ -98,7 +98,6 @@ const ITeacherInfo: React.FC = () => {
                         {teacher?.fullName}
                     </SectionTitle>
                     <div className="flex gap-3 mt-5 justify-center sm:justify-start overflow-x-auto">
-                        {/*TODO*/}
                         {(teacher?.positions || []).map((item: any, idx) => (
                             <JobLabel
                                 key={item.subdivision.id}
