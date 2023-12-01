@@ -1,9 +1,9 @@
 import darkLogo from '../../assets/svg/intellect-logo-dark.svg';
 import lightLogo from '../../assets/svg/intellect-logo-light.svg';
 
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
-import './Header.css';
+import './Header.module.css';
 import Burger from '../Burger/Burger';
 import React, { useState } from 'react';
 
@@ -26,11 +26,7 @@ const Header: React.FC<Props> = ({ scheme = 'dark', underlined = true }) => {
     const navigation = (
         <nav className="flex flex-col xs:flex-row gap-10 xs:gap-5 text-4xl xs:text-base leading-none">
             {links.map((link) => (
-                <Link
-                    onClick={() => !burgerCollapsed && toggleCollapse(true)}
-                    key={link.to}
-                    to={link.to}
-                >
+                <Link onClick={() => !burgerCollapsed && toggleCollapse(true)} key={link.to} href={link.to || '/'}>
                     {link.label}
                 </Link>
             ))}
@@ -51,7 +47,7 @@ const Header: React.FC<Props> = ({ scheme = 'dark', underlined = true }) => {
     return (
         <header className={'h-100 ' + (underlined ? 'header' : '')}>
             <div className="flex justify-between wrapper h-full items-center">
-                <Link className="cursor-pointer" to="/">
+                <Link className="cursor-pointer" href="/">
                     <img src={logoSrc} alt="logo" />
                 </Link>
                 <Burger
