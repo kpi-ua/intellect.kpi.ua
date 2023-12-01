@@ -2,13 +2,9 @@ import Http from './index';
 import { parseSearchParams } from '../utils';
 import { API_BASE_URL } from '../constants';
 
-type ExperienceResultPromise = Promise<
-    ECampus.ApiResponse<Intellect.ExperienceItem>
->;
+type ExperienceResultPromise = Promise<ECampus.ApiResponse<Intellect.ExperienceItem>>;
 
-export const searchByInput = (
-    input: string
-): Promise<ECampus.ApiResponse<Intellect.Teacher>> => {
+export const searchByInput = (input: string): Promise<ECampus.ApiResponse<Intellect.Teacher>> => {
     const params = parseSearchParams(input);
     let searchString = '?';
 
@@ -25,37 +21,23 @@ export const searchByInput = (
     return Http.get('/v2/find' + searchString);
 };
 
-const getPublications = (
-    teacherId: string,
-    key: Intellect.ExperienceType
-): ExperienceResultPromise => {
+const getPublications = (teacherId: string): ExperienceResultPromise => {
     return Http.get(`/v2/persons/${teacherId}/publications`);
 };
 
-const getConferences = (
-    teacherId: string,
-    key: Intellect.ExperienceType
-): ExperienceResultPromise => {
+const getConferences = (teacherId: string): ExperienceResultPromise => {
     return Http.get(`/v2/persons/${teacherId}/conferences`);
 };
 
-const getKRExecutions = (
-    teacherId: string,
-    key: Intellect.ExperienceType
-): ExperienceResultPromise => {
+const getKRExecutions = (teacherId: string): ExperienceResultPromise => {
     return Http.get(`/v2/persons/${teacherId}/researches/carrying-out`);
 };
 
-const getKRResults = (
-    teacherId: string,
-    key: Intellect.ExperienceType
-): ExperienceResultPromise => {
+const getKRResults = (teacherId: string, key: Intellect.ExperienceType): ExperienceResultPromise => {
     return Http.get(`/v2/persons/${teacherId}/researches/results`);
 };
 
-export const getExperienceByTeacherId = async (
-    teacherId: string
-): Promise<Intellect.TeacherExperience> => {
+export const getExperienceByTeacherId = async (teacherId: string): Promise<Intellect.TeacherExperience> => {
     const resultObj: any = {
         publications: [],
         exploration: [],
@@ -65,10 +47,10 @@ export const getExperienceByTeacherId = async (
 
     try {
         const results = await Promise.all<ExperienceResultPromise>([
-            getPublications(teacherId, 'publications'),
-            getKRExecutions(teacherId, 'exploration'),
+            getPublications(teacherId),
+            getKRExecutions(teacherId),
             getKRResults(teacherId, 'exploration_results'),
-            getConferences(teacherId, 'confs'),
+            getConferences(teacherId),
         ]);
 
         Object.keys(resultObj).forEach((item, idx) => {
@@ -81,10 +63,10 @@ export const getExperienceByTeacherId = async (
     return resultObj;
 };
 
-export const getTeacherByTeacherId = (
-    teacherId: string
-): Promise<Intellect.Teacher> => {
-    return Http.get(
-        API_BASE_URL + '/account/public/' + teacherId
-    );
+export const getTeacherByTeacherId = (teacherId: string): Promise<Intellect.Teacher> => {
+    return Http.get(API_BASE_URL + '/account/public/' + teacherId);
+};
+
+export const getInterests = (): Promise<string[]> => {
+    return Http.get('/v2/scientific-interests');
 };

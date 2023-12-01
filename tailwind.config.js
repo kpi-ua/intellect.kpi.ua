@@ -76,6 +76,11 @@ module.exports = {
                 18: '4.5rem',
                 160: '160px',
                 110: '110px',
+                '10px': '10px',
+                '7px': '7px',
+            },
+            borderRadius: {
+                24: '24px',
             },
             translate: {
                 50: '50px',

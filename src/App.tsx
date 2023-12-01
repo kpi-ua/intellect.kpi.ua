@@ -7,6 +7,8 @@ import bottomLogo from './assets/svg/kpi-logo.svg';
 import './index.css';
 import { useOutlet } from 'react-router-dom';
 import React from 'react';
+import TagsBlock from './components/TagsBlock/TagsBlock';
+import TagsSection from './components/TagsSection/TagsSection';
 
 const App: React.FC = () => {
     const outlet = useOutlet();
@@ -20,7 +22,9 @@ const App: React.FC = () => {
                 </div>
             </div>
             <div className="wrapper">
-                <div className="min-h-220" />
+                <div className="min-h-220 mt-16">
+                    <TagsSection />
+                </div>
             </div>
             <Footer logoSrc={bottomLogo} />
         </>
