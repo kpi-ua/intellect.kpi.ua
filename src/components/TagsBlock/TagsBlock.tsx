@@ -2,19 +2,27 @@ import React, { useLayoutEffect, useState } from 'react';
 
 import SectionTitle from '../common/SectionTitle';
 import Tag from '../Tag/Tag';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
     title: string;
     subtitle: string;
+    mode: Intellect.SearchMode;
     fetchFunction: (a?: number) => Promise<{ name: string }[] | string[]>;
     lazy?: boolean;
 };
 
 const LIMIT_TAGS = 12;
 
-const TagsBlock: React.FC<Props> = ({ title, subtitle, fetchFunction, lazy }) => {
+const TagsBlock: React.FC<Props> = ({ title, subtitle, mode, fetchFunction, lazy }) => {
     const [tags, setTags] = useState<string[]>([]);
     const [expanded, setExpanded] = useState(false);
+
+    useLayoutEffect(() => {
+        getAndSetTags();
+    }, []);
+
+    const navigate = useNavigate();
 
     const getAndSetTags = async (fullList?: boolean) => {
         try {
@@ -27,12 +35,12 @@ const TagsBlock: React.FC<Props> = ({ title, subtitle, fetchFunction, lazy }) =>
 
     const handleExpanded = () => {
         setExpanded(true);
-        lazy && setTimeout(() => getAndSetTags(true), 100);
+        getAndSetTags(true);
     };
 
-    useLayoutEffect(() => {
-        getAndSetTags();
-    }, []);
+    const handleTagSelect = (tagValue: string) => {
+        navigate('search', { state: { input: tagValue, mode } });
+    };
 
     return (
         <div className="flex xs:flex-row flex-col mt-10">
@@ -42,7 +50,9 @@ const TagsBlock: React.FC<Props> = ({ title, subtitle, fetchFunction, lazy }) =>
             </div>
             <div className="basis-3/4">
                 {tags.slice(0, expanded ? undefined : LIMIT_TAGS).map((tag, idx) => (
-                    <Tag key={idx}>{tag}</Tag>
+                    <Tag onTagSelect={handleTagSelect} key={idx}>
+                        {tag}
+                    </Tag>
                 ))}
                 {!expanded ? <Tag expand={handleExpanded} expander={true} /> : null}
             </div>
