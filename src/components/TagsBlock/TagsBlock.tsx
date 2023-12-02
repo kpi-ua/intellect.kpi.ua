@@ -41,7 +41,7 @@ const TagsBlock: React.FC<Props> = ({ title, subtitle, mode, fetchFunction, lazy
     const handleTagSelect = (tagValue: string) => {
         router.push({
             pathname: '/search',
-            query: { state_input: tagValue, mode },
+            query: { state_input: `${mode}:${tagValue}` },
         });
     };
 
