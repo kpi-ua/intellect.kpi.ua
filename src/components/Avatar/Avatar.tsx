@@ -12,6 +12,9 @@ const Avatar: React.FC<Props> = ({ img }) => {
             className="block w-170 h-[200px]"
             src={img || avatarStub}
             alt="avatar"
+            width={0}
+            height={0}
+            sizes="100vw"
         />
     );
 };
