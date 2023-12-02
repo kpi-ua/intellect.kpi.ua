@@ -29,7 +29,7 @@ const DataList: React.FC<Props> = ({ children }) => {
                                 <div className="w-5px h-5px rounded-full bg-primary absolute top-[10px] -left-6 -translate-x-2/5" />
                             </div>
                         ) : null}
-                        <div className="text-md text-primary">
+                        <div className="text-md text-primary" style={{ marginTop: '5px' }}>
                             {child.props['data-title']}
                         </div>
                         {child}

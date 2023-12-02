@@ -57,10 +57,10 @@ const ITeacherInfo: React.FC = () => {
 
             return (experienceItemKeys || []).map((experienceItemKey: string, idx: number) => (
                 <article className="mt-3 first:mt-0" key={idx} id={String(idx + 1)} data-label={experienceItemKey}>
-                    <div className="text-primary uppercase text-xl">{experienceItemKey}</div>
+                    <h1 className="font-semibold uppercase text-primary mt-2">{experienceItemKey}</h1>
                     {Object.keys(selectedExperience[experienceItemKey]).map((key, idx) => (
                         <div key={idx}>
-                            <div className="text-primary text-md">{key}</div>
+                            <h2 className="text-primary text-md uppercase" style={{ marginTop: '10px' }}>{key}</h2>
                             <DataList>
                                 {(selectedExperience[experienceItemKey][key] || []).map((data) => {
                                     return (
