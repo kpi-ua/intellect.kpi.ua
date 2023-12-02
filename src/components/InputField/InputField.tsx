@@ -33,13 +33,13 @@ const InputField: React.FC<Props> = ({
     }, [value]);
 
     const handleInput = (e: React.SyntheticEvent<HTMLInputElement>) => {
-        onInput(e);
+        onInput && onInput(e);
         setUserInput(e.currentTarget.value);
     };
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement | HTMLDivElement>) => {
         if (e.key === 'Enter') {
-            onSubmit(userInput);
+            onSubmit && onSubmit(userInput);
         }
     };
 
