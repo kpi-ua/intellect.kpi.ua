@@ -6,22 +6,28 @@ import Tag from '../Tag/Tag';
 type Props = {
     title: string;
     subtitle: string;
-    fetchFunction: () => Promise<{ name: string }[] | string[]>;
+    fetchFunction: (a?: number) => Promise<{ name: string }[] | string[]>;
+    lazy?: boolean;
 };
 
 const LIMIT_TAGS = 12;
 
-const TagsBlock: React.FC<Props> = ({ title, subtitle, fetchFunction }) => {
+const TagsBlock: React.FC<Props> = ({ title, subtitle, fetchFunction, lazy }) => {
     const [tags, setTags] = useState<string[]>([]);
     const [expanded, setExpanded] = useState(false);
 
-    const getAndSetTags = async () => {
+    const getAndSetTags = async (fullList?: boolean) => {
         try {
-            const tags = await fetchFunction();
+            const tags = await fetchFunction(lazy && !fullList ? LIMIT_TAGS : undefined);
             setTags(tags.map((item) => (typeof item === 'string' ? item : item.name)));
         } catch (e) {
             console.error(e);
         }
+    };
+
+    const handleExpanded = () => {
+        setExpanded(true);
+        lazy && setTimeout(() => getAndSetTags(true), 100);
     };
 
     useLayoutEffect(() => {
@@ -38,7 +44,7 @@ const TagsBlock: React.FC<Props> = ({ title, subtitle, fetchFunction }) => {
                 {tags.slice(0, expanded ? undefined : LIMIT_TAGS).map((tag, idx) => (
                     <Tag key={idx}>{tag}</Tag>
                 ))}
-                {!expanded ? <Tag expand={() => setExpanded(true)} expander={true} /> : null}
+                {!expanded ? <Tag expand={handleExpanded} expander={true} /> : null}
             </div>
         </div>
     );

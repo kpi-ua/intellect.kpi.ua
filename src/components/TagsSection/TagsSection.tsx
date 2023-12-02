@@ -8,11 +8,13 @@ const tagsOptions = [
         title: 'Список підрозділів',
         subtitle: 'Список інститутів та факультетів',
         fetchFunction: getFaculties,
+        lazy: false,
     },
     {
         title: 'Наукові інтереси',
         subtitle: 'Список можливих інтересів і захоплень викладачів',
         fetchFunction: getInterests,
+        lazy: true,
     },
 ];
 
@@ -24,6 +26,7 @@ const TagsSection: React.FC = () => {
                     key={item.title}
                     fetchFunction={item.fetchFunction}
                     title={item.title}
+                    lazy={item.lazy}
                     subtitle={item.subtitle}
                 />
             ))}
