@@ -48,6 +48,7 @@ module.exports = {
             },
             height: {
                 100: '100px',
+                200: '200px',
                 40: '40px',
                 225: '225px',
                 '5px': '5px',
@@ -83,6 +84,7 @@ module.exports = {
                 '7px': '7px',
             },
             borderRadius: {
+                8: '8px',
                 24: '24px',
             },
             translate: {

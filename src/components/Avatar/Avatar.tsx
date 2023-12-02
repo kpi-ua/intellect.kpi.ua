@@ -6,13 +6,7 @@ type Props = {
 };
 
 const Avatar: React.FC<Props> = ({ img }) => {
-    return (
-        <img
-            className="block w-170 h-[200px]"
-            src={img || avatarStub}
-            alt="avatar"
-        />
-    );
+    return <img className="block w-170 h-200 rounded-8" src={img || avatarStub} alt="avatar" />;
 };
 
 export default Avatar;
