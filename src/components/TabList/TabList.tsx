@@ -1,4 +1,4 @@
-import './TabList.css';
+import './TabList.module.css';
 import React from 'react';
 
 type Props = {
