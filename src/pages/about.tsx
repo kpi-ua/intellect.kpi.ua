@@ -1,4 +1,3 @@
-'use client';
 import React from 'react';
 
 import InfoBlock from '../components/InfoBlock/InfoBlock';
