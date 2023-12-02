@@ -19,6 +19,9 @@ module.exports = {
                     600: '#808191',
                     900: '#40414d',
                 },
+                brand: {
+                    100: '#3c88cd',
+                },
             },
             borderWidth: {
                 1: '1px',

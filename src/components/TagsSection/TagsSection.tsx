@@ -1,7 +1,6 @@
 import React from 'react';
 import TagsBlock from '../TagsBlock/TagsBlock';
 import { getFaculties } from '../../api/subdivision';
-import { it } from 'node:test';
 import { getInterests } from '../../api/teacher';
 
 const tagsOptions = [
@@ -19,7 +18,7 @@ const tagsOptions = [
 
 const TagsSection: React.FC = () => {
     return (
-        <section>
+        <section className="pb-5">
             {tagsOptions.map((item) => (
                 <TagsBlock
                     key={item.title}
