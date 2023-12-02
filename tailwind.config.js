@@ -22,6 +22,9 @@ module.exports = {
                     600: '#808191',
                     900: '#40414d',
                 },
+                brand: {
+                    100: '#3c88cd',
+                },
             },
             borderWidth: {
                 1: '1px',
@@ -48,6 +51,7 @@ module.exports = {
             },
             height: {
                 100: '100px',
+                200: '200px',
                 40: '40px',
                 225: '225px',
                 '5px': '5px',
@@ -83,6 +87,7 @@ module.exports = {
                 '7px': '7px',
             },
             borderRadius: {
+                8: '8px',
                 24: '24px',
             },
             translate: {

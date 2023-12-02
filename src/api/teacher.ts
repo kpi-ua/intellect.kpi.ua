@@ -67,6 +67,7 @@ export const getTeacherByTeacherId = (teacherId: string): Promise<Intellect.Teac
     return Http.get(API_BASE_URL + '/account/public/' + teacherId);
 };
 
-export const getInterests = (): Promise<string[]> => {
-    return Http.get('/v2/scientific-interests');
+export const getInterests = (limit?: number): Promise<string[]> => {
+    const param = limit ? `?count=${limit}` : '';
+    return Http.get('/v2/scientific-interests' + param);
 };

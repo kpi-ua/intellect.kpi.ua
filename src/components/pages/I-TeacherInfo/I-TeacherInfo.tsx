@@ -1,16 +1,16 @@
+import React, { useEffect, useState } from 'react';
 import RoutePointer from '../../RoutePointer/RoutePointer';
 import SectionTitle from '../../common/SectionTitle';
-
 import JobLabel from '../../JobLabel/JobLabel';
 import ContentMap from '../../ContentMap/ContentMap';
 import DataList from '../../DataList/DataList';
 import TabList from '../../TabList/TabList';
-import React, { useEffect, useState } from 'react';
+import IProfileDetails from '../../I-ProfileDetails/I-ProfileDetails';
+import Avatar from '../../Avatar/Avatar';
+
 import { getExperienceByTeacherId, getTeacherByTeacherId } from '../../../api/teacher';
 import { experienceTabs } from '../../../constants';
-import Avatar from '../../Avatar/Avatar';
 import useLinkRoute from '../../../utils/hooks/useLinkRoute';
-import IProfileDetails from '../../I-ProfileDetails/I-ProfileDetails';
 import { useSearchParams } from 'next/navigation';
 
 const ITeacherInfo: React.FC = () => {
@@ -98,7 +98,7 @@ const ITeacherInfo: React.FC = () => {
                     <SectionTitle className="text-3xl sm:text-5xl text-center sm:text-left" isPrimary={false}>
                         {teacher?.fullName}
                     </SectionTitle>
-                    <div className="flex gap-3 mt-5 justify-center sm:justify-start overflow-x-auto">
+                    <div className="flex xs:flex-row flex-col gap-3 mt-5 justify-center sm:justify-start overflow-x-auto">
                         {(teacher?.positions || []).map((item: any, idx) => (
                             <JobLabel
                                 key={item.subdivision.id}

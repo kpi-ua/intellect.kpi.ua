@@ -16,8 +16,8 @@ type Props = {
 };
 
 const InputField: React.FC<Props> = ({
-    onInput = () => {  console.log('Input received'); },
-    onSubmit = () => {  console.log('Submit received'); },
+    onInput,
+    onSubmit,
     buttonText,
     icon = '' as feather.FeatherIconNames,
     placeholder = '',
@@ -33,15 +33,13 @@ const InputField: React.FC<Props> = ({
     }, [value]);
 
     const handleInput = (e: React.SyntheticEvent<HTMLInputElement>) => {
-        onInput(e);
+        onInput && onInput(e);
         setUserInput(e.currentTarget.value);
     };
 
-    const handleKeyDown = (
-        e: React.KeyboardEvent<HTMLInputElement | HTMLDivElement>
-    ) => {
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement | HTMLDivElement>) => {
         if (e.key === 'Enter') {
-            onSubmit(userInput);
+            onSubmit && onSubmit(userInput);
         }
     };
 
@@ -57,7 +55,7 @@ const InputField: React.FC<Props> = ({
                 onKeyDown={handleKeyDown}
             ></input>
             <CommonButton
-                onClick={() => onSubmit(userInput)}
+                onClick={() => (onSubmit ? onSubmit(userInput) : undefined)}
                 onKeyDown={handleKeyDown}
                 className={buttonClass}
             >
