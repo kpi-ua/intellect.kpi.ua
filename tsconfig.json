@@ -22,7 +22,7 @@
         "@/*": ["./src/*"]
       }
     },
-    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "tailwind.config.js", "postcss.config.js"],
     "exclude": ["node_modules"],
     "files" : ["src/@types/index.d.ts"]
   }
