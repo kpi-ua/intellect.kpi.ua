@@ -1,5 +1,6 @@
 import React from 'react';
 import avatarStub from '../../assets/img/avatar-stub.png';
+import Image from 'next/image';
 
 type Props = {
     img?: string;
@@ -7,7 +8,7 @@ type Props = {
 
 const Avatar: React.FC<Props> = ({ img }) => {
     return (
-        <img
+        <Image
             className="block w-170 h-[200px]"
             src={img || avatarStub}
             alt="avatar"

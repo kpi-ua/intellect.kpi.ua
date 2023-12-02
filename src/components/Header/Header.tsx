@@ -6,6 +6,7 @@ import Link from 'next/link';
 import './Header.module.css';
 import Burger from '../Burger/Burger';
 import React, { useState } from 'react';
+import Image from 'next/image';
 
 const links = [
     { to: '/', label: 'Пошук' },
@@ -48,7 +49,7 @@ const Header: React.FC<Props> = ({ scheme = 'dark', underlined = true }) => {
         <header className={'h-100 ' + (underlined ? 'header' : '')}>
             <div className="flex justify-between wrapper h-full items-center">
                 <Link className="cursor-pointer" href="/">
-                    <img src={logoSrc} alt="logo" />
+                    <Image src={logoSrc} alt="logo" />
                 </Link>
                 <Burger
                     onBurgerClick={(value) => toggleCollapse(value)}
