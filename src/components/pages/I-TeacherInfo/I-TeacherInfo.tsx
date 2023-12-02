@@ -6,15 +6,16 @@ import ContentMap from '../../ContentMap/ContentMap';
 import DataList from '../../DataList/DataList';
 import TabList from '../../TabList/TabList';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { getExperienceByTeacherId, getTeacherByTeacherId } from '../../../api/teacher';
 import { experienceTabs } from '../../../constants';
 import Avatar from '../../Avatar/Avatar';
 import useLinkRoute from '../../../utils/hooks/useLinkRoute';
 import IProfileDetails from '../../I-ProfileDetails/I-ProfileDetails';
+import { useSearchParams } from 'next/navigation';
 
 const ITeacherInfo: React.FC = () => {
-    const { teacherId } = useParams();
+    const search = useSearchParams();
+    const teacherId = search.get('teacherId');
 
     const [activeTab, setActiveTab] = useState<Intellect.ExperienceType>(
         Object.keys(experienceTabs)[0] as Intellect.ExperienceType
