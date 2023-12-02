@@ -2,7 +2,7 @@ import React, { useLayoutEffect, useState } from 'react';
 
 import SectionTitle from '../common/SectionTitle';
 import Tag from '../Tag/Tag';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/router';
 
 type Props = {
     title: string;
@@ -22,7 +22,7 @@ const TagsBlock: React.FC<Props> = ({ title, subtitle, mode, fetchFunction, lazy
         getAndSetTags();
     }, []);
 
-    const navigate = useNavigate();
+    const router = useRouter();
 
     const getAndSetTags = async (fullList?: boolean) => {
         try {
@@ -39,7 +39,10 @@ const TagsBlock: React.FC<Props> = ({ title, subtitle, mode, fetchFunction, lazy
     };
 
     const handleTagSelect = (tagValue: string) => {
-        navigate('search', { state: { input: tagValue, mode } });
+        router.push({
+            pathname: '/search',
+            query: { state_input: tagValue, mode },
+        });
     };
 
     return (
