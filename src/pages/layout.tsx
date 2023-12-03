@@ -7,9 +7,7 @@ export default function Layout({ children }: any) {
     return (
         <>
             <Header scheme="dark" />
-            <div className="wrapper">
-                <main>{children}</main>
-            </div>
+            <div className="wrapper">{children}</div>
             <Footer logoSrc={bottomLogo} />
         </>
     );
