@@ -4,7 +4,8 @@ on:
     push:
         branches:
             #      - master
-            - intellect-new
+            #      - intellect-new
+            - intellect-ssr
 
 jobs:
     build-and-deploy:
