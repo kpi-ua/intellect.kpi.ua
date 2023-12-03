@@ -16,6 +16,7 @@ RUN \
 
 RUN yarn dev
 
+COPY . .
 
 ENV NODE_ENV development
 
