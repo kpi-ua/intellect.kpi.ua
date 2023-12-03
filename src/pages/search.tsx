@@ -19,8 +19,10 @@ type SearchLocation = {
 
 const Search: React.FC = () => {
     const search = useSearchParams();
-    // const location = search.get('location');
-    const stateInput = search.get('state_input');
+
+    const searchStateInput = search.get('state_input');
+    const searchStateMode = search.get('mode');
+
     const inputRef = useRef<HTMLInputElement>(null);
     const searchedValue = useRef('');
 
@@ -42,21 +44,20 @@ const Search: React.FC = () => {
     };
 
     useEffect(() => {
-        const searchString = createSearchString(stateInput || '');
+        const searchString = createSearchString(searchStateMode || '', searchStateInput || '');
         onSubmit(searchString);
-    }, [stateInput]);
+    }, [searchStateInput, searchStateMode]);
 
-    const createSearchString = (value: string): string => {
-        console.log(value);
-        switch (value) {
+    const createSearchString = (mode: string, input: string): string => {
+        switch (mode) {
             case 'alphabetic':
-                return 'startsWith:' + value;
+                return 'startsWith:' + input;
             case 'subdivision':
-                return 'subdivision:' + value;
+                return 'subdivision:' + input;
             case 'interests':
-                return 'interests:' + value;
+                return 'interests:' + input;
             default:
-                return value;
+                return input;
         }
     };
 
