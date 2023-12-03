@@ -11,11 +11,11 @@ import { experienceTabs } from '../../constants';
 import Avatar from '../../components/Avatar/Avatar';
 import useLinkRoute from '../../utils/hooks/useLinkRoute';
 import IProfileDetails from '../../components/I-ProfileDetails/I-ProfileDetails';
-import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/router';
 
 const ITeacherInfo: React.FC = () => {
-    const search = useSearchParams();
-    const teacherId = search.get('teacherId');
+    const router = useRouter();
+    const teacherId = router.query.teacherId as string;
 
     const [activeTab, setActiveTab] = useState<Intellect.ExperienceType>(
         Object.keys(experienceTabs)[0] as Intellect.ExperienceType
