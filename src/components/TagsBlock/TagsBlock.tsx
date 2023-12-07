@@ -1,3 +1,4 @@
+'use client';
 import React, { useLayoutEffect, useState } from 'react';
 
 import SectionTitle from '../common/SectionTitle';
