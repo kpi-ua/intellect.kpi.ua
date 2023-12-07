@@ -11,7 +11,6 @@ import CommonButton from '../../CommonButton/CommonButton';
 import { searchStringParams } from '../../../constants';
 import useLinkRoute from '../../../utils/hooks/useLinkRoute';
 import FeatherIcon from '../../FeatherIcon/FeatherIcon';
-import { Button } from 'react-bootstrap';
 
 type SearchLocation = {
     input: string;
