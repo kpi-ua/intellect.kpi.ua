@@ -18,6 +18,12 @@ export const searchByInput = (input: string): Promise<ECampus.ApiResponse<Intell
         searchString += '&value=' + input;
     }
 
+    if(params.pageNumber) {
+        searchString += '&pageNumber=' + params.pageNumber;
+    }
+
+    console.log(searchString);
+
     return Http.get('/v2/find' + searchString);
 };
 
