@@ -4,7 +4,7 @@ import ITab from '../I-Tab/I-Tab';
 import InputField from '../InputField/InputField';
 import Alphabet from '../Alphabet/Alphabet';
 
-import './I-TeacherSearch.module.css';
+import styles from './I-TeacherSearch.module.css';
 import { useRouter } from 'next/router';
 
 type Tab = {
@@ -51,7 +51,12 @@ const ITeacherSearch: React.FC = () => {
                     </ITab>
                 ))}
             </div>
-            <div className="bg-white flex gap-3 h-100 items-center px-8 rounded-lg rounded-tl-none field-shadow">
+            <div
+                className={
+                    'bg-white flex gap-3 h-100 items-center px-8 rounded-lg rounded-tl-none' +
+                    styles['field-shadow']
+                }
+            >
                 {activeTab === 'alphabetic' ? (
                     <Alphabet onLetterSelected={handleSearch} />
                 ) : (
