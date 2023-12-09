@@ -1,5 +1,5 @@
 'use client';
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 
 import SectionTitle from '../common/SectionTitle';
 import Tag from '../Tag/Tag';
@@ -19,7 +19,7 @@ const TagsBlock: React.FC<Props> = ({ title, subtitle, mode, fetchFunction, lazy
     const [tags, setTags] = useState<string[]>([]);
     const [expanded, setExpanded] = useState(false);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         getAndSetTags();
     }, []);
 
