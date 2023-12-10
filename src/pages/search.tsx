@@ -56,8 +56,8 @@ const Search: React.FC = () => {
      * Search value expected to be updated on search form submission.
      */
     useEffect(() => {
-        fetchTeachers();
-    }, []);
+        fetchTeachers(1);
+    }, [searchValue]);
 
     const fetchTeachers = async (page?: number) => {
         try {
@@ -104,7 +104,6 @@ const Search: React.FC = () => {
 
         if (doSearch) {
             setCurrentPage(1);
-            await fetchTeachers(1);
 
             router.push({
                 pathname,
