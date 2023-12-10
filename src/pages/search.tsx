@@ -10,8 +10,9 @@ import { searchByInput } from '../api/teacher';
 import CommonButton from '../components/CommonButton/CommonButton';
 import { searchStringParams } from '../constants';
 import useLinkRoute from '../utils/hooks/useLinkRoute';
-import { useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import FeatherIcon from '@/components/FeatherIcon/FeatherIcon';
+import { useRouter } from 'next/router';
 
 type SearchLocation = {
     input: string;
@@ -19,6 +20,8 @@ type SearchLocation = {
 };
 
 const Search: React.FC = () => {
+    const router = useRouter();
+    const pathname = usePathname();
     const search = useSearchParams();
 
     const searchStateInput = search.get('state_input');
@@ -55,6 +58,10 @@ const Search: React.FC = () => {
         onSubmit(searchString);
     }, [searchStateInput, searchStateMode]);
 
+    useEffect(() => {
+        searchTeacher(searchValue);
+    }, [searchValue]);
+
     const createSearchString = (mode: string, input: string): string => {
         switch (mode) {
             case 'alphabetic':
@@ -74,6 +81,11 @@ const Search: React.FC = () => {
         if (focus && inputRef.current) {
             inputRef.current.select();
         }
+        
+        router.push({
+            pathname,
+            query: { ...router.query, state_input: value },
+        });
     };
 
     const onPageChange = (newPage: number) => {
