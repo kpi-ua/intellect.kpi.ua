@@ -1,4 +1,4 @@
-import './TabList.css';
+import styles from './TabList.module.css';
 import React from 'react';
 
 type Props = {
@@ -25,7 +25,7 @@ const TabList: React.FC<Props> = ({
                         <div
                             className={
                                 'cursor-pointer ' +
-                                (tab === tabActive ? 'active-tab' : '')
+                                (tab === tabActive ? styles['active-tab'] : '')
                             }
                             onClick={() => selectTab(tab)}
                             key={tab}

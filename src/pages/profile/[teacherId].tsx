@@ -1,21 +1,21 @@
+import RoutePointer from '../../components/RoutePointer/RoutePointer';
+import SectionTitle from '../../components/common/SectionTitle';
+
+import JobLabel from '../../components/JobLabel/JobLabel';
+import ContentMap from '../../components/ContentMap/ContentMap';
+import DataList from '../../components/DataList/DataList';
+import TabList from '../../components/TabList/TabList';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-
-import RoutePointer from '../../RoutePointer/RoutePointer';
-import SectionTitle from '../../common/SectionTitle';
-import JobLabel from '../../JobLabel/JobLabel';
-import ContentMap from '../../ContentMap/ContentMap';
-import DataList from '../../DataList/DataList';
-import TabList from '../../TabList/TabList';
-import IProfileDetails from '../../I-ProfileDetails/I-ProfileDetails';
-import Avatar from '../../Avatar/Avatar';
-
-import { getExperienceByTeacherId, getTeacherByTeacherId } from '../../../api/teacher';
-import { experienceTabs } from '../../../constants';
-import useLinkRoute from '../../../utils/hooks/useLinkRoute';
+import { getExperienceByTeacherId, getTeacherByTeacherId } from '../../api/teacher';
+import { experienceTabs } from '../../constants';
+import Avatar from '../../components/Avatar/Avatar';
+import useLinkRoute from '../../utils/hooks/useLinkRoute';
+import IProfileDetails from '../../components/I-ProfileDetails/I-ProfileDetails';
+import { useRouter } from 'next/router';
 
 const ITeacherInfo: React.FC = () => {
-    const { teacherId } = useParams();
+    const router = useRouter();
+    const teacherId = router.query.teacherId as string;
 
     const [activeTab, setActiveTab] = useState<Intellect.ExperienceType>(
         Object.keys(experienceTabs)[0] as Intellect.ExperienceType
@@ -98,7 +98,7 @@ const ITeacherInfo: React.FC = () => {
                     <SectionTitle className="text-3xl sm:text-5xl text-center sm:text-left" isPrimary={false}>
                         {teacher?.fullName}
                     </SectionTitle>
-                    <div className="flex xs:flex-row flex-col gap-3 mt-5 justify-center sm:justify-start overflow-x-auto">
+                    <div className="flex gap-3 mt-5 justify-center sm:justify-start overflow-x-auto">
                         {(teacher?.positions || []).map((item: any, idx) => (
                             <JobLabel
                                 key={item.subdivision.id}

@@ -2,6 +2,7 @@ import logoDark from '../../assets/svg/intellect-logo-dark.svg';
 
 import FeatherIcon from '../FeatherIcon/FeatherIcon';
 import React from 'react';
+import Image from 'next/image';
 
 type Props = {
     children: React.ReactNode;
@@ -37,7 +38,7 @@ const Burger: React.FC<Props> = ({
             ) : (
                 <div className="fixed top-0 left-0 right-0 bottom-0 bg-white z-[9999] px-4 py-5 text-black">
                     <div className="flex justify-between items-center">
-                        <img src={logoDark} alt="logo" />
+                        <Image src={logoDark} alt="logo" />
                         <div
                             onClick={() => onBurgerClick(true)}
                             className="cursor-pointer"

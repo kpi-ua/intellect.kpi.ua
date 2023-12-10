@@ -1,12 +1,22 @@
 import React from 'react';
 import avatarStub from '../../assets/img/avatar-stub.png';
+import Image from 'next/image';
 
 type Props = {
     img?: string;
 };
 
 const Avatar: React.FC<Props> = ({ img }) => {
-    return <img className="block w-170 h-200 rounded-8" src={img || avatarStub} alt="avatar" />;
+    return (
+        <Image
+            className="block w-170 h-[200px]"
+            src={img || avatarStub}
+            alt="avatar"
+            width={0}
+            height={0}
+            sizes="100vw"
+        />
+    );
 };
 
 export default Avatar;
