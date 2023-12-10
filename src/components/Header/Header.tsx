@@ -10,8 +10,8 @@ import lightLogo from '@/assets/svg/intellect-logo-light.svg';
 
 const links = [
     { to: '/', label: 'Пошук' },
-    { to: 'about', label: 'Про проєкт' },
-    { to: 'contacts', label: 'Контакти' },
+    { to: '/about', label: 'Про проєкт' },
+    { to: '/contacts', label: 'Контакти' },
 ];
 
 type Props = {

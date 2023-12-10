@@ -9,7 +9,6 @@ export const parseSearchParams = (searchString: string): { [key in Intellect.Sea
         startsWith: '',
         subdivision: '',
         interests: '',
-        pageNumber: '',
     };
 
     Object.values(searchStringParams).forEach((param) => {
@@ -37,4 +36,31 @@ export const debounce = (cb: () => void, debounceTimeout: number) => {
             timer = null;
         }, debounceTimeout);
     };
+};
+
+export const sanitizeHTML = (text: string): TrustedHTML & string => {
+    return text
+        .replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/'/g, '&#039;');
+};
+
+const URLRegEx = /\b(?:https?:\/\/\S+)(?=\s|$)/gim;
+const emailRegEx = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/gim;
+export const reformatLinks = (text: string) => {
+    let sanitizedText = sanitizeHTML(text);
+
+    const urlInputs = sanitizedText.match(URLRegEx) || [];
+    const emailInputs = sanitizedText.match(emailRegEx) || [];
+
+    urlInputs.forEach((url) => {
+        sanitizedText = sanitizedText.replace(url, `<a class="underline" href=${url}>${url}</a>`);
+    });
+    emailInputs.forEach((email) => {
+        sanitizedText = sanitizedText.replace(email, `<a class="underline" href=mailto:${email}>${email}</a>`);
+    });
+
+    return sanitizedText;
 };

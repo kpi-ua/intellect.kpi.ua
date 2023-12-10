@@ -4,7 +4,7 @@ import { API_BASE_URL } from '../constants';
 
 type ExperienceResultPromise = Promise<ECampus.ApiResponse<Intellect.ExperienceItem>>;
 
-export const searchByInput = (input: string): Promise<ECampus.ApiResponse<Intellect.Teacher>> => {
+export const searchByInput = (input: string, currentPage: number): Promise<ECampus.ApiResponse<Intellect.Teacher>> => {
     const params = parseSearchParams(input);
     let searchString = '?';
 
@@ -18,11 +18,7 @@ export const searchByInput = (input: string): Promise<ECampus.ApiResponse<Intell
         searchString += '&value=' + input;
     }
 
-    if(params.pageNumber) {
-        searchString += '&pageNumber=' + params.pageNumber;
-    }
-
-    return Http.get('/v2/find' + searchString);
+    return Http.get('/v2/find' + searchString + `&pageNumber=${currentPage}`);
 };
 
 const getPublications = (teacherId: string): ExperienceResultPromise => {

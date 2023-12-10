@@ -100,6 +100,11 @@ const ITeacherInfo: React.FC = () => {
                     <SectionTitle className="text-3xl sm:text-5xl text-center sm:text-left" isPrimary={false}>
                         {teacher?.fullName}
                     </SectionTitle>
+                    {teacher?.credo ? (
+                        <div className="mt-5 text-neutral-600 bg-neutral-100 p-1 inline-block rounded-8">
+                            <i>{teacher?.credo}</i>
+                        </div>
+                    ) : null}
                     <div className="flex gap-3 mt-5 justify-center sm:justify-start overflow-x-auto">
                         {(teacher?.positions || []).map((item: any, idx) => (
                             <JobLabel
