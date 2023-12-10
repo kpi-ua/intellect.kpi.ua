@@ -1,18 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { usePathname, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/router';
 
 import RoutePointer from '@/components/RoutePointer/RoutePointer';
 import Alphabet from '@/components/Alphabet/Alphabet';
 import InputField from '@/components/InputField/InputField';
 import SearchGrid from '@/components/common/SearchGrid';
 import ITeacherCard from '@/components/I-TeacherCard/I-TeacherCard';
-
-import { searchByInput } from '../api/teacher';
-import CommonButton from '../components/CommonButton/CommonButton';
-import { searchStringParams } from '../constants';
-import useLinkRoute from '../utils/hooks/useLinkRoute';
-import { usePathname, useSearchParams } from 'next/navigation';
+import CommonButton from '@/components/CommonButton/CommonButton';
 import FeatherIcon from '@/components/FeatherIcon/FeatherIcon';
-import { useRouter } from 'next/router';
+
+import { searchByInput } from '@/api/teacher';
+import { searchStringParams } from '@/constants';
+import useLinkRoute from '@/utils/hooks/useLinkRoute';
 
 const Search: React.FC = () => {
     const router = useRouter();
@@ -52,21 +52,21 @@ const Search: React.FC = () => {
      * Search value expected to be updated on search form submission.
      */
     useEffect(() => {
-        (async () => {
-            if (searchValue.trim() && searchedValue.current !== searchValue) {
-                try {
-                    const data = await searchByInput(searchValue);
-                    setTeachers(data.data);
-                    searchedValue.current = searchValue;
-
-                    setCurrentPage(data.paging.pageNumber);
-                    setTotalPages(data.paging.pageCount);
-                } catch (e) {
-                    console.error(e);
-                }
-            }
-        })();
+        fetchTeachers();
     }, [searchValue]);
+
+    const fetchTeachers = async (page?: number) => {
+        try {
+            const data = await searchByInput(searchValue, page || currentPage);
+            setTeachers(data.data);
+            searchedValue.current = searchValue;
+
+            setCurrentPage(data.paging.pageNumber);
+            setTotalPages(data.paging.pageCount);
+        } catch (e) {
+            console.error(e);
+        }
+    };
 
     const createSearchString = (mode: string, input: string): string => {
         switch (mode) {
@@ -85,8 +85,9 @@ const Search: React.FC = () => {
      * @description Handle search form submit.
      * Will update URL and update searched value, which expected to trigger search hook.
      * @param value new value for input. Expected to have mode appended if needed. (e.g. alphabetic:<searchValue>)
+     * @param focus
      */
-    const onSubmit = (value: string, doSearch = true, focus = true) => {
+    const onSubmit = (value: string, focus = true) => {
         setSearchValue(value);
 
         if (focus && inputRef.current) {
@@ -104,24 +105,20 @@ const Search: React.FC = () => {
      * @param newPage
      */
     const onPageChange = (newPage: number) => {
-        if (searchValue.includes('pageNumber')) {
-            const searchValueAltered = searchValue.replace(/pageNumber=\d+/, `pageNumber=${newPage}`);
-            setSearchValue(searchValueAltered);
-        } else {
-            const searchValueAltered = searchValue + `&pageNumber=${newPage}`;
-            setSearchValue(searchValueAltered);
-        }
+        setCurrentPage(newPage);
+        // TODO caching
+        fetchTeachers(newPage);
     };
 
     return (
         <section className="wrapper pt-12 pb-160">
             <RoutePointer routePath={route} />
             <div className="mt-4">
-                <Alphabet onLetterSelected={(e) => onSubmit(searchStringParams.STARTS_WITH + e, true, false)} />
+                <Alphabet onLetterSelected={(e) => onSubmit(searchStringParams.STARTS_WITH + e, false)} />
                 <div className="flex w-full rounded-lg border-1 border-neutral-100 p-1 mt-6">
                     <InputField
                         syntheticRef={inputRef}
-                        onSubmit={(e) => onSubmit(e, true, false)}
+                        onSubmit={(e) => onSubmit(e, false)}
                         placeholder="Введіть строку пошука"
                         value={searchValue}
                         fieldClass="flex-1"
@@ -151,28 +148,18 @@ const Search: React.FC = () => {
                     {currentPage > 1 ? (
                         <button onClick={() => onPageChange(currentPage - 1)}>
                             <FeatherIcon width={40} className="inline fill-none" icon="chevron-left" />
-                            Далі
+                            Назад
                         </button>
-                    ) : (
-                        <span className="text-neutral-600">
-                            <FeatherIcon width={40} className="inline fill-none " icon="chevron-left" />
-                            Далі
-                        </span>
-                    )}
+                    ) : null}
                     <div className="mx-2">
-                        Сторінка {currentPage} з {totalPages}
+                        {currentPage} / {totalPages}
                     </div>
                     {currentPage < totalPages ? (
                         <button onClick={() => onPageChange(currentPage + 1)}>
                             Далі
                             <FeatherIcon width={40} className="inline fill-none" icon="chevron-right" />
                         </button>
-                    ) : (
-                        <span className="text-neutral-600">
-                            Далі
-                            <FeatherIcon width={40} className="inline fill-none" icon="chevron-right" />
-                        </span>
-                    )}
+                    ) : null}
                 </div>
             )}
         </section>

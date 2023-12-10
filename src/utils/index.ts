@@ -9,7 +9,6 @@ export const parseSearchParams = (searchString: string): { [key in Intellect.Sea
         startsWith: '',
         subdivision: '',
         interests: '',
-        pageNumber: '',
     };
 
     Object.values(searchStringParams).forEach((param) => {

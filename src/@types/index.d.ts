@@ -57,7 +57,7 @@ declare namespace Intellect {
 
     type ExperienceType = 'publications' | 'exploration' | 'exploration_results' | 'confs' | 'profile';
     type SearchMode = 'overall' | 'alphabetic' | 'subdivision' | 'interests';
-    type SearchParams = 'startsWith' | 'subdivision' | 'interests' | 'pageNumber';
+    type SearchParams = 'startsWith' | 'subdivision' | 'interests';
 
     type TeacherExperience = {
         [key in ExperienceType]: ExperienceItem;
