@@ -1,16 +1,17 @@
-import RoutePointer from '../../RoutePointer/RoutePointer';
-import Alphabet from '../../Alphabet/Alphabet';
-import InputField from '../../InputField/InputField';
-import SearchGrid from '../../common/SearchGrid';
-import ITeacherCard from '../../I-TeacherCard/I-TeacherCard';
-
-import { Link, Location, useLocation } from 'react-router-dom';
 import React, { useEffect, useRef, useState } from 'react';
-import { searchByInput } from '../../../api/teacher';
-import CommonButton from '../../CommonButton/CommonButton';
-import { searchStringParams } from '../../../constants';
-import useLinkRoute from '../../../utils/hooks/useLinkRoute';
-import FeatherIcon from '../../FeatherIcon/FeatherIcon';
+
+import RoutePointer from '../components/RoutePointer/RoutePointer';
+import Alphabet from '../components/Alphabet/Alphabet';
+import InputField from '../components/InputField/InputField';
+import SearchGrid from '../components/common/SearchGrid';
+import ITeacherCard from '../components/I-TeacherCard/I-TeacherCard';
+
+import { searchByInput } from '../api/teacher';
+import CommonButton from '../components/CommonButton/CommonButton';
+import { searchStringParams } from '../constants';
+import useLinkRoute from '../utils/hooks/useLinkRoute';
+import { useSearchParams } from 'next/navigation';
+import FeatherIcon from '@/components/FeatherIcon/FeatherIcon';
 
 type SearchLocation = {
     input: string;
@@ -18,7 +19,11 @@ type SearchLocation = {
 };
 
 const Search: React.FC = () => {
-    const location: Location<SearchLocation> = useLocation();
+    const search = useSearchParams();
+
+    const searchStateInput = search.get('state_input');
+    const searchStateMode = search.get('mode');
+
     const inputRef = useRef<HTMLInputElement>(null);
     const searchedValue = useRef('');
 
@@ -46,24 +51,20 @@ const Search: React.FC = () => {
     };
 
     useEffect(() => {
-        const searchString = createSearchString(location.state?.input || '');
+        const searchString = createSearchString(searchStateMode || '', searchStateInput || '');
         onSubmit(searchString);
-    }, [location.state?.input]);
+    }, [searchStateInput, searchStateMode]);
 
-    useEffect(() => {
-        searchTeacher(searchValue);
-    }, [searchValue]);
-
-    const createSearchString = (value: string): string => {
-        switch (location.state?.mode) {
+    const createSearchString = (mode: string, input: string): string => {
+        switch (mode) {
             case 'alphabetic':
-                return 'startsWith:' + value;
+                return 'startsWith:' + input;
             case 'subdivision':
-                return 'subdivision:' + value;
+                return 'subdivision:' + input;
             case 'interests':
-                return 'interests:' + value;
+                return 'interests:' + input;
             default:
-                return value;
+                return input;
         }
     };
 

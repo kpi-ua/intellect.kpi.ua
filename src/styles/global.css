@@ -22,7 +22,7 @@ html {
 }
 
 .header-wrapper {
-    background: url('assets/img/main-bg.png') no-repeat;
+    background: url('../assets/img/main-bg.png') no-repeat;
     background-size: cover;
 }
 

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import React from 'react';
 import Avatar from '../Avatar/Avatar';
 
@@ -9,7 +9,7 @@ type Props = {
 
 const ITeacherCard: React.FC<Props> = ({ teacherInfo, className = '' }) => {
     return (
-        <Link to={'/profile/' + teacherInfo.userIdentifier}>
+        <Link href={'/profile/' + teacherInfo.userIdentifier}>
             <div className={'cursor-pointer max-w-160 ' + className}>
                 <Avatar img={teacherInfo.photo} />
                 <div className="text-semibold">{teacherInfo.fullName}</div>
