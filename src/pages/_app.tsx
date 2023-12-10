@@ -51,7 +51,7 @@ export default function Intellect({ Component, pageProps }: AppPropsWithLayout) 
                 />
                 <meta property="fb:app_id" content="1214335051921931" />
             </Head>
-            <main>{getLayout(<Component {...pageProps} />)};</main>
+            <main>{getLayout(<Component {...pageProps} />)}</main>
         </>
     );
 }
