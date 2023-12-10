@@ -1,12 +1,12 @@
-import darkLogo from '../../assets/svg/intellect-logo-dark.svg';
-import lightLogo from '../../assets/svg/intellect-logo-light.svg';
-
-import Link from 'next/link';
-
-import './Header.module.css';
-import Burger from '../Burger/Burger';
 import React, { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
+import './Header.module.css';
+
+import Burger from '../Burger/Burger';
+
+import darkLogo from '@/assets/svg/intellect-logo-dark.svg';
+import lightLogo from '@/assets/svg/intellect-logo-light.svg';
 
 const links = [
     { to: '/', label: 'Пошук' },

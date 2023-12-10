@@ -1,21 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import RoutePointer from '../components/RoutePointer/RoutePointer';
-import Alphabet from '../components/Alphabet/Alphabet';
-import InputField from '../components/InputField/InputField';
-import SearchGrid from '../components/common/SearchGrid';
-import ITeacherCard from '../components/I-TeacherCard/I-TeacherCard';
+import RoutePointer from '@/components/RoutePointer/RoutePointer';
+import Alphabet from '@/components/Alphabet/Alphabet';
+import InputField from '@/components/InputField/InputField';
+import SearchGrid from '@/components/common/SearchGrid';
+import ITeacherCard from '@/components/I-TeacherCard/I-TeacherCard';
 
-import { searchByInput } from '../api/teacher';
-import CommonButton from '../components/CommonButton/CommonButton';
-import { searchStringParams } from '../constants';
-import useLinkRoute from '../utils/hooks/useLinkRoute';
+import { searchByInput } from '@/api/teacher';
+import CommonButton from '@/components/CommonButton/CommonButton';
+import { searchStringParams } from '@/constants';
+import useLinkRoute from '@/utils/hooks/useLinkRoute';
 import { useSearchParams } from 'next/navigation';
-
-type SearchLocation = {
-    input: string;
-    mode: Intellect.SearchMode;
-};
 
 const Search: React.FC = () => {
     const search = useSearchParams();

@@ -1,7 +1,7 @@
 import React from 'react';
-import TagsBlock from '../TagsBlock/TagsBlock';
-import { getFaculties } from '../../api/subdivision';
-import { getInterests } from '../../api/teacher';
+import TagsBlock from '@/components/TagsBlock/TagsBlock';
+import { getFaculties } from '@/api/subdivision';
+import { getInterests } from '@/api/teacher';
 
 const tagsOptions = [
     {
