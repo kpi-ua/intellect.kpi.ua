@@ -34,7 +34,7 @@ const ContentMap: React.FC<Props> = ({ children, className = '', anchorsClass = 
             }
         }
     };
-    const scrollHandler = debounce(scrollHandlerCb, 200);
+    const scrollHandler = debounce(scrollHandlerCb, 50);
 
     const parseAnchors = (): ECampus.Anchor[] => {
         const anchors: ECampus.Anchor[] = [];
