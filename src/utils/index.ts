@@ -1,4 +1,4 @@
-import { searchStringParams } from '../constants';
+import { searchStringParams } from '@/constants';
 
 export const decodeHtmlCharCodes = (str: string): string => {
     return str.replace(/(&#(\d+);)/g, (match, capture, charCode) => String.fromCharCode(charCode));
@@ -25,4 +25,16 @@ export const parseSearchParams = (searchString: string): { [key in Intellect.Sea
     });
 
     return paramsObject;
+};
+
+export const debounce = (cb: () => void, debounceTimeout: number) => {
+    let timer: NodeJS.Timeout | null = null;
+
+    return () => {
+        timer && clearTimeout(timer);
+        timer = setTimeout(() => {
+            cb();
+            timer = null;
+        }, debounceTimeout);
+    };
 };

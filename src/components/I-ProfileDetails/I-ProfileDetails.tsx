@@ -1,7 +1,8 @@
 import React from 'react';
-import SectionTitle from '../common/SectionTitle';
 
-import { profileTabs } from '../../constants';
+import SectionTitle from '@/components/common/SectionTitle';
+
+import { profileTabs } from '@/constants';
 
 type Props = {
     teacherInfo: Intellect.Teacher;

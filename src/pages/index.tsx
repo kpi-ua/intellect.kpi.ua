@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react';
-import ISearchBlock from '@/components/I-SearchBlock/I-SearchBlock';
+import React from 'react';
+
 import { NextPageWithLayout } from './_app';
 
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
-import bottomLogo from '@/assets/svg/kpi-logo.svg';
+import ISearchBlock from '@/components/I-SearchBlock/I-SearchBlock';
 import TagsSection from '@/components/TagsSection/TagsSection';
+
+import bottomLogo from '@/assets/svg/kpi-logo.svg';
 
 const Home: NextPageWithLayout = () => {
     return <></>;

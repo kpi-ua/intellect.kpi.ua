@@ -1,7 +1,9 @@
 import React, { JSX, useEffect, useRef, useState } from 'react';
 
-import TableContent from '../TableContent/TableContent';
-import SectionTitle from '../common/SectionTitle';
+import TableContent from '@/components/TableContent/TableContent';
+import SectionTitle from '@/components/common/SectionTitle';
+
+import { debounce } from '@/utils';
 
 type Props = {
     children: JSX.Element[];
@@ -24,7 +26,7 @@ const ContentMap: React.FC<Props> = ({ children, className = '', anchorsClass = 
         }
     }, [children]);
 
-    const scrollHandler = () => {
+    const scrollHandlerCb = () => {
         for (const element of itemsRef!.current) {
             if (element && element.getBoundingClientRect().bottom > 0) {
                 setActiveAnchor(element.id);
@@ -32,6 +34,7 @@ const ContentMap: React.FC<Props> = ({ children, className = '', anchorsClass = 
             }
         }
     };
+    const scrollHandler = debounce(scrollHandlerCb, 200);
 
     const parseAnchors = (): ECampus.Anchor[] => {
         const anchors: ECampus.Anchor[] = [];

@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import RoutePointer from '../components/RoutePointer/RoutePointer';
-import Alphabet from '../components/Alphabet/Alphabet';
-import InputField from '../components/InputField/InputField';
-import SearchGrid from '../components/common/SearchGrid';
-import ITeacherCard from '../components/I-TeacherCard/I-TeacherCard';
+import RoutePointer from '@/components/RoutePointer/RoutePointer';
+import Alphabet from '@/components/Alphabet/Alphabet';
+import InputField from '@/components/InputField/InputField';
+import SearchGrid from '@/components/common/SearchGrid';
+import ITeacherCard from '@/components/I-TeacherCard/I-TeacherCard';
 
 import { searchByInput } from '../api/teacher';
 import CommonButton from '../components/CommonButton/CommonButton';
@@ -13,11 +13,6 @@ import useLinkRoute from '../utils/hooks/useLinkRoute';
 import { usePathname, useSearchParams } from 'next/navigation';
 import FeatherIcon from '@/components/FeatherIcon/FeatherIcon';
 import { useRouter } from 'next/router';
-
-type SearchLocation = {
-    input: string;
-    mode: Intellect.SearchMode;
-};
 
 const Search: React.FC = () => {
     const router = useRouter();
@@ -81,7 +76,7 @@ const Search: React.FC = () => {
         if (focus && inputRef.current) {
             inputRef.current.select();
         }
-        
+
         router.push({
             pathname,
             query: { ...router.query, state_input: value },

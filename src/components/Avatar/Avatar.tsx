@@ -1,6 +1,7 @@
 import React from 'react';
-import avatarStub from '../../assets/img/avatar-stub.png';
 import Image from 'next/image';
+
+import avatarStub from '@/assets/img/avatar-stub.png';
 
 type Props = {
     img?: string;

@@ -1,9 +1,9 @@
 import React from 'react';
 
-import InfoBlock from '../components/InfoBlock/InfoBlock';
-import SectionTitle from '../components/common/SectionTitle';
+import InfoBlock from '@/components/InfoBlock/InfoBlock';
+import SectionTitle from '@/components/common/SectionTitle';
 
-import sectionImg from '../assets/img/sections/contacts.png';
+import sectionImg from '@/assets/img/sections/contacts.png';
 
 const Contacts: React.FC = () => {
     return (

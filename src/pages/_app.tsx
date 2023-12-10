@@ -1,11 +1,12 @@
 import type { AppProps } from 'next/app';
 import React, { ReactElement, ReactNode } from 'react';
-
-import 'feather-icons/dist/feather';
-import '../styles/global.css';
-import Layout from './layout';
 import { NextPage } from 'next';
 import Head from 'next/head';
+import 'feather-icons/dist/feather';
+
+import '../styles/global.css';
+
+import Layout from './layout';
 
 export type NextPageWithLayout<P = any, IP = P> = NextPage<P, IP> & {
     getLayout?: (page: ReactElement) => ReactNode;
@@ -25,7 +26,7 @@ export default function Intellect({ Component, pageProps }: AppPropsWithLayout) 
                 <meta charSet="utf-8" />
                 <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="%PUBLIC_URL%/favicon.ico" />
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
-                <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin='anonymous' />
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
                 <meta
                     name="viewport"
                     content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
