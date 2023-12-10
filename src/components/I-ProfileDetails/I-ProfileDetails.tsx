@@ -3,6 +3,7 @@ import React from 'react';
 import SectionTitle from '@/components/common/SectionTitle';
 
 import { profileTabs } from '@/constants';
+import { reformatLinks } from '@/utils';
 
 type Props = {
     teacherInfo: Intellect.Teacher;
@@ -16,7 +17,10 @@ const IProfileDetails: React.FC<Props> = ({ teacherInfo }) => {
                     teacherInfo[row.field] ? (
                         <div className="flex flex-col xs:flex-row mt-4" key={row.field}>
                             <span className="text-neutral-500 block basis-1/4">{row.label}: </span>
-                            <span className="basis-3/4">{teacherInfo[row.field] || ''}</span>
+                            <span
+                                dangerouslySetInnerHTML={{ __html: reformatLinks(teacherInfo[row.field]) }}
+                                className="basis-3/4"
+                            />
                         </div>
                     ) : null
                 )}
@@ -33,7 +37,10 @@ const IProfileDetails: React.FC<Props> = ({ teacherInfo }) => {
                 (record, idx): React.JSX.Element => (
                     <div className="flex flex-col xs:flex-row mt-4" key={idx}>
                         <span className="text-neutral-500 block basis-1/4">{record.name}: </span>
-                        <span className="basis-3/4">{record.value}</span>
+                        <span
+                            dangerouslySetInnerHTML={{ __html: reformatLinks(record.value) || '' }}
+                            className="basis-3/4"
+                        />
                     </div>
                 )
             )}
