@@ -15,8 +15,8 @@ const IProfileDetails: React.FC<Props> = ({ teacherInfo }) => {
                 {profileTabs[key].map((row) =>
                     teacherInfo[row.field] ? (
                         <div className="flex flex-col xs:flex-row mt-4" key={row.field}>
-                            <span className="text-neutral-500 block w-500">{row.label}: </span>
-                            <span>{teacherInfo[row.field] || ''}</span>
+                            <span className="text-neutral-500 block basis-1/4">{row.label}: </span>
+                            <span className="basis-3/4">{teacherInfo[row.field] || ''}</span>
                         </div>
                     ) : null
                 )}
@@ -32,8 +32,8 @@ const IProfileDetails: React.FC<Props> = ({ teacherInfo }) => {
             {(teacherInfo.contactRecords || []).map(
                 (record, idx): React.JSX.Element => (
                     <div className="flex flex-col xs:flex-row mt-4" key={idx}>
-                        <span className="text-neutral-500 block w-500">{record.name}: </span>
-                        <span>{record.value}</span>
+                        <span className="text-neutral-500 block basis-1/4">{record.name}: </span>
+                        <span className="basis-3/4">{record.value}</span>
                     </div>
                 )
             )}
