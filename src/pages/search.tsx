@@ -6,13 +6,17 @@ import InputField from '@/components/InputField/InputField';
 import SearchGrid from '@/components/common/SearchGrid';
 import ITeacherCard from '@/components/I-TeacherCard/I-TeacherCard';
 
-import { searchByInput } from '@/api/teacher';
-import CommonButton from '@/components/CommonButton/CommonButton';
-import { searchStringParams } from '@/constants';
-import useLinkRoute from '@/utils/hooks/useLinkRoute';
-import { useSearchParams } from 'next/navigation';
+import { searchByInput } from '../api/teacher';
+import CommonButton from '../components/CommonButton/CommonButton';
+import { searchStringParams } from '../constants';
+import useLinkRoute from '../utils/hooks/useLinkRoute';
+import { usePathname, useSearchParams } from 'next/navigation';
+import FeatherIcon from '@/components/FeatherIcon/FeatherIcon';
+import { useRouter } from 'next/router';
 
 const Search: React.FC = () => {
+    const router = useRouter();
+    const pathname = usePathname();
     const search = useSearchParams();
 
     const searchStateInput = search.get('state_input');
@@ -26,12 +30,18 @@ const Search: React.FC = () => {
 
     const { route } = useLinkRoute([{ path: '/search', label: 'Пошук' }]);
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+
     const searchTeacher = async (value: string) => {
         if (value.trim() && searchedValue.current !== value) {
             try {
                 const data = await searchByInput(value);
                 setTeachers(data.data);
                 searchedValue.current = value;
+
+                setCurrentPage(data.paging.pageNumber);
+                setTotalPages(data.paging.pageCount);
             } catch (e) {
                 console.error(e);
             }
@@ -42,6 +52,10 @@ const Search: React.FC = () => {
         const searchString = createSearchString(searchStateMode || '', searchStateInput || '');
         onSubmit(searchString);
     }, [searchStateInput, searchStateMode]);
+
+    useEffect(() => {
+        searchTeacher(searchValue);
+    }, [searchValue]);
 
     const createSearchString = (mode: string, input: string): string => {
         switch (mode) {
@@ -59,12 +73,23 @@ const Search: React.FC = () => {
     const onSubmit = (value: string, doSearch = true, focus = true) => {
         setSearchValue(value);
 
-        if (doSearch) {
-            searchTeacher(value);
-        }
-
         if (focus && inputRef.current) {
             inputRef.current.select();
+        }
+
+        router.push({
+            pathname,
+            query: { ...router.query, state_input: value },
+        });
+    };
+
+    const onPageChange = (newPage: number) => {
+        if (searchValue.includes('pageNumber')) {
+            const searchValueAltered = searchValue.replace(/pageNumber=\d+/, `pageNumber=${newPage}`);
+            setSearchValue(searchValueAltered);
+        } else {
+            const searchValueAltered = searchValue + `&pageNumber=${newPage}`;
+            setSearchValue(searchValueAltered);
         }
     };
 
@@ -101,6 +126,35 @@ const Search: React.FC = () => {
                     <ITeacherCard className="justify-self-center" key={idx} teacherInfo={item} />
                 ))}
             </SearchGrid>
+            {teachers.length > 0 && (
+                <div className={'flex items-center justify-center mt-6'}>
+                    {currentPage > 1 ? (
+                        <button onClick={() => onPageChange(currentPage - 1)}>
+                            <FeatherIcon width={40} className="inline fill-none" icon="chevron-left" />
+                            Далі
+                        </button>
+                    ) : (
+                        <span className="text-neutral-600">
+                            <FeatherIcon width={40} className="inline fill-none " icon="chevron-left" />
+                            Далі
+                        </span>
+                    )}
+                    <div className="mx-2">
+                        Сторінка {currentPage} з {totalPages}
+                    </div>
+                    {currentPage < totalPages ? (
+                        <button onClick={() => onPageChange(currentPage + 1)}>
+                            Далі
+                            <FeatherIcon width={40} className="inline fill-none" icon="chevron-right" />
+                        </button>
+                    ) : (
+                        <span className="text-neutral-600">
+                            Далі
+                            <FeatherIcon width={40} className="inline fill-none" icon="chevron-right" />
+                        </span>
+                    )}
+                </div>
+            )}
         </section>
     );
 };
