@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-
-import ITab from '../I-Tab/I-Tab';
-import InputField from '../InputField/InputField';
-import Alphabet from '../Alphabet/Alphabet';
-
 import styles from './I-TeacherSearch.module.css';
 import { useRouter } from 'next/router';
+
+import ITab from '@/components/I-Tab/I-Tab';
+import InputField from '@/components/InputField/InputField';
+import Alphabet from '@/components/Alphabet/Alphabet';
 
 type Tab = {
     label: string;
@@ -53,8 +52,7 @@ const ITeacherSearch: React.FC = () => {
             </div>
             <div
                 className={
-                    'bg-white flex gap-3 h-100 items-center px-8 rounded-lg rounded-tl-none' +
-                    styles['field-shadow']
+                    'bg-white flex gap-3 h-100 items-center px-8 rounded-lg rounded-tl-none' + styles['field-shadow']
                 }
             >
                 {activeTab === 'alphabetic' ? (

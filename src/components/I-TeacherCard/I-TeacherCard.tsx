@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import React from 'react';
-import Avatar from '../Avatar/Avatar';
+
+import Avatar from '@/components/Avatar/Avatar';
 
 type Props = {
     teacherInfo: Intellect.Teacher;

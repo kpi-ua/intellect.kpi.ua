@@ -1,8 +1,9 @@
-import logoDark from '../../assets/svg/intellect-logo-dark.svg';
-
-import FeatherIcon from '../FeatherIcon/FeatherIcon';
 import React from 'react';
 import Image from 'next/image';
+
+import FeatherIcon from '@/components/FeatherIcon/FeatherIcon';
+
+import logoDark from '@/assets/svg/intellect-logo-dark.svg';
 
 type Props = {
     children: React.ReactNode;
@@ -12,37 +13,23 @@ type Props = {
     onBurgerClick: (a: boolean) => void;
 };
 
-const Burger: React.FC<Props> = ({
-    children,
-    className = '',
-    scheme,
-    collapsed,
-    onBurgerClick,
-}) => {
+const Burger: React.FC<Props> = ({ children, className = '', scheme, collapsed, onBurgerClick }) => {
     return (
         <div className={className}>
             {collapsed ? (
-                <div
-                    onClick={() => onBurgerClick(!collapsed)}
-                    className="cursor-pointer"
-                >
+                <div onClick={() => onBurgerClick(!collapsed)} className="cursor-pointer">
                     <FeatherIcon
                         width={40}
                         height={40}
                         icon="menu"
-                        className={
-                            scheme === 'light' ? 'text-white' : 'text-black'
-                        }
+                        className={scheme === 'light' ? 'text-white' : 'text-black'}
                     />
                 </div>
             ) : (
                 <div className="fixed top-0 left-0 right-0 bottom-0 bg-white z-[9999] px-4 py-5 text-black">
                     <div className="flex justify-between items-center">
                         <Image src={logoDark} alt="logo" />
-                        <div
-                            onClick={() => onBurgerClick(true)}
-                            className="cursor-pointer"
-                        >
+                        <div onClick={() => onBurgerClick(true)} className="cursor-pointer">
                             <FeatherIcon icon="x" width={40} height={40} />
                         </div>
                     </div>

@@ -1,17 +1,19 @@
-import RoutePointer from '../../components/RoutePointer/RoutePointer';
-import SectionTitle from '../../components/common/SectionTitle';
-
-import JobLabel from '../../components/JobLabel/JobLabel';
-import ContentMap from '../../components/ContentMap/ContentMap';
-import DataList from '../../components/DataList/DataList';
-import TabList from '../../components/TabList/TabList';
 import React, { useEffect, useState } from 'react';
-import { getExperienceByTeacherId, getTeacherByTeacherId } from '../../api/teacher';
-import { experienceTabs } from '../../constants';
-import Avatar from '../../components/Avatar/Avatar';
-import useLinkRoute from '../../utils/hooks/useLinkRoute';
-import IProfileDetails from '../../components/I-ProfileDetails/I-ProfileDetails';
 import { useRouter } from 'next/router';
+
+import { getExperienceByTeacherId, getTeacherByTeacherId } from '@/api/teacher';
+
+import RoutePointer from '@/components/RoutePointer/RoutePointer';
+import SectionTitle from '@/components/common/SectionTitle';
+import JobLabel from '@/components/JobLabel/JobLabel';
+import ContentMap from '@/components/ContentMap/ContentMap';
+import DataList from '@/components/DataList/DataList';
+import TabList from '@/components/TabList/TabList';
+import Avatar from '@/components/Avatar/Avatar';
+import IProfileDetails from '@/components/I-ProfileDetails/I-ProfileDetails';
+
+import useLinkRoute from '@/utils/hooks/useLinkRoute';
+import { experienceTabs } from '@/constants';
 
 const ITeacherInfo: React.FC = () => {
     const router = useRouter();

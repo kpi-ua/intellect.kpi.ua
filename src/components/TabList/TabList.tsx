@@ -3,7 +3,6 @@ import React from 'react';
 
 type Props = {
     children: React.ReactNode;
-    // TODO type for tabs
     tabs: { [key in Intellect.ExperienceType]: string };
     selectTab?: (a: any) => void;
     className: string;
@@ -13,7 +12,9 @@ type Props = {
 const TabList: React.FC<Props> = ({
     children,
     tabs,
-    selectTab = (newTab: any) => { console.log('SelectTab received '+ newTab); },
+    selectTab = (newTab: any) => {
+        console.log('SelectTab received ' + newTab);
+    },
     className = '',
     tabActive,
 }) => {
@@ -23,10 +24,7 @@ const TabList: React.FC<Props> = ({
                 <div className="flex text-xs text-neutral-400 border-b-1 border-neutral-200 pb-2 items-end gap-17 min-w-700">
                     {Object.keys(tabs).map((tab) => (
                         <div
-                            className={
-                                'cursor-pointer ' +
-                                (tab === tabActive ? styles['active-tab'] : '')
-                            }
+                            className={'cursor-pointer ' + (tab === tabActive ? styles['active-tab'] : '')}
                             onClick={() => selectTab(tab)}
                             key={tab}
                         >

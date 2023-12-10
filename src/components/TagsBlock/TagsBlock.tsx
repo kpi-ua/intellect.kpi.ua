@@ -1,9 +1,9 @@
 'use client';
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 
 import SectionTitle from '../common/SectionTitle';
 import Tag from '../Tag/Tag';
-import { useRouter } from 'next/router';
 
 type Props = {
     title: string;

@@ -1,7 +1,8 @@
-import FeatherIcon from '../FeatherIcon/FeatherIcon';
-import CommonButton from '../CommonButton/CommonButton';
-import feather from 'feather-icons';
 import React, { useEffect, useState } from 'react';
+import feather from 'feather-icons';
+
+import FeatherIcon from '@/components/FeatherIcon/FeatherIcon';
+import CommonButton from '@/components/CommonButton/CommonButton';
 
 type Props = {
     onInput?: (a: React.SyntheticEvent<HTMLInputElement>) => void;
