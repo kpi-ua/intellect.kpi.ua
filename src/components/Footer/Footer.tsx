@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 type Props = {
     logoSrc: string;
@@ -10,7 +11,7 @@ const Footer: React.FC<Props> = ({ logoSrc }) => {
     return (
         <footer className="bg-primary text-white text-sm">
             <div className="wrapper flex sm:flex-row sm:text-left text-center flex-col justify-between py-9 gap-9">
-                <img className="max-w-120 mx-auto" src={logoSrc} alt="logo" />
+                <Image className="max-w-120 mx-auto" src={logoSrc} alt="logo" />
                 <section>
                     <p>
                         Національний технічний університет України &quot;Київський
