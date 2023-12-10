@@ -14,7 +14,7 @@ const IProfileDetails: React.FC<Props> = ({ teacherInfo }) => {
             <div key={idx}>
                 {profileTabs[key].map((row) =>
                     teacherInfo[row.field] ? (
-                        <div className="flex flex-col xs:flex-row" key={row.field}>
+                        <div className="flex flex-col xs:flex-row mt-4" key={row.field}>
                             <span className="text-neutral-500 block w-500">{row.label}: </span>
                             <span>{teacherInfo[row.field] || ''}</span>
                         </div>
