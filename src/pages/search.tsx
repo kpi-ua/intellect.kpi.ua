@@ -9,6 +9,8 @@ import SearchGrid from '@/components/common/SearchGrid';
 import ITeacherCard from '@/components/I-TeacherCard/I-TeacherCard';
 import CommonButton from '@/components/CommonButton/CommonButton';
 import FeatherIcon from '@/components/FeatherIcon/FeatherIcon';
+import NotFoundIndicator from '@/components/ContentStubs/NotFoundIndicator';
+import SpinnerIndicator from '@/components/ContentStubs/SpinnerIndicator';
 
 import { searchByInput } from '@/api/teacher';
 import { searchStringParams } from '@/constants';
@@ -33,6 +35,8 @@ const Search: React.FC = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
 
+    const [loading, setLoading] = useState(false);
+
     /**
      * @description Initial loading of data, reflecting the current search state in URL.
      * Will determine type of search from query params set searched value to the input field.
@@ -53,10 +57,11 @@ const Search: React.FC = () => {
      */
     useEffect(() => {
         fetchTeachers();
-    }, [searchValue]);
+    }, []);
 
     const fetchTeachers = async (page?: number) => {
         try {
+            setLoading(true);
             const data = await searchByInput(searchValue, page || currentPage);
             setTeachers(data.data);
             searchedValue.current = searchValue;
@@ -65,6 +70,8 @@ const Search: React.FC = () => {
             setTotalPages(data.paging.pageCount);
         } catch (e) {
             console.error(e);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -85,19 +92,25 @@ const Search: React.FC = () => {
      * @description Handle search form submit.
      * Will update URL and update searched value, which expected to trigger search hook.
      * @param value new value for input. Expected to have mode appended if needed. (e.g. alphabetic:<searchValue>)
-     * @param focus
+     * @param doSearch should we make search?
+     * @param focus should input element be focused after submit?
      */
-    const onSubmit = (value: string, focus = true) => {
+    const onSubmit = async (value: string, doSearch = false, focus = true) => {
         setSearchValue(value);
 
         if (focus && inputRef.current) {
             inputRef.current.select();
         }
 
-        router.push({
-            pathname,
-            query: { ...router.query, state_input: value },
-        });
+        if (doSearch) {
+            setCurrentPage(1);
+            await fetchTeachers(1);
+
+            router.push({
+                pathname,
+                query: { ...router.query, state_input: value },
+            });
+        }
     };
 
     /**
@@ -110,15 +123,35 @@ const Search: React.FC = () => {
         fetchTeachers(newPage);
     };
 
+    const ShownContent = (): React.ReactNode => {
+        if (loading) {
+            return <SpinnerIndicator className="mx-auto w-fit" />;
+        }
+
+        if (teachers.length) {
+            return (
+                <SearchGrid className="mt-6">
+                    {teachers.map((item, idx) => (
+                        <ITeacherCard className="justify-self-center" key={idx} teacherInfo={item} />
+                    ))}
+                </SearchGrid>
+            );
+        }
+
+        if (!teachers.length) {
+            return <NotFoundIndicator className="mx-auto w-fit" />;
+        }
+    };
+
     return (
-        <section className="wrapper pt-12 pb-160">
+        <section className="wrapper pt-12 pb-20">
             <RoutePointer routePath={route} />
             <div className="mt-4">
-                <Alphabet onLetterSelected={(e) => onSubmit(searchStringParams.STARTS_WITH + e, false)} />
+                <Alphabet onLetterSelected={(e) => onSubmit(searchStringParams.STARTS_WITH + e, true, false)} />
                 <div className="flex w-full rounded-lg border-1 border-neutral-100 p-1 mt-6">
                     <InputField
                         syntheticRef={inputRef}
-                        onSubmit={(e) => onSubmit(e, false)}
+                        onSubmit={(e) => onSubmit(e, true, false)}
                         placeholder="Введіть строку пошука"
                         value={searchValue}
                         fieldClass="flex-1"
@@ -130,19 +163,18 @@ const Search: React.FC = () => {
             <div className="mt-2">
                 <span className="text-primary">Або оберіть режим пошуку:</span>
                 <div className="flex gap-2">
-                    <CommonButton onClick={() => onSubmit(searchStringParams.SUBDIVISION, false)} className="p-2">
+                    <CommonButton
+                        onClick={() => onSubmit(searchStringParams.SUBDIVISION, false, false)}
+                        className="p-2"
+                    >
                         За місцем роботи
                     </CommonButton>
-                    <CommonButton onClick={() => onSubmit(searchStringParams.INTERESTS, false)} className="p-2">
+                    <CommonButton onClick={() => onSubmit(searchStringParams.INTERESTS, false, false)} className="p-2">
                         За інтересами{' '}
                     </CommonButton>
                 </div>
             </div>
-            <SearchGrid className="mt-6">
-                {teachers.map((item, idx) => (
-                    <ITeacherCard className="justify-self-center" key={idx} teacherInfo={item} />
-                ))}
-            </SearchGrid>
+            {<ShownContent />}
             {teachers.length > 0 && (
                 <div className={'flex items-center justify-center mt-6'}>
                     {currentPage > 1 ? (
