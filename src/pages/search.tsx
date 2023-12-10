@@ -33,28 +33,39 @@ const Search: React.FC = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
 
-    const searchTeacher = async (value: string) => {
-        if (value.trim() && searchedValue.current !== value) {
-            try {
-                const data = await searchByInput(value);
-                setTeachers(data.data);
-                searchedValue.current = value;
-
-                setCurrentPage(data.paging.pageNumber);
-                setTotalPages(data.paging.pageCount);
-            } catch (e) {
-                console.error(e);
-            }
-        }
-    };
-
+    /**
+     * @description Initial loading of data, reflecting the current search state in URL.
+     * Will determine type of search from query params set searched value to the input field.
+     */
     useEffect(() => {
         const searchString = createSearchString(searchStateMode || '', searchStateInput || '');
-        onSubmit(searchString);
-    }, [searchStateInput, searchStateMode]);
 
+        setSearchValue(searchString);
+
+        if (inputRef.current) {
+            inputRef.current.select();
+        }
+    }, [searchStateInput, searchStateMode, router.isReady]);
+
+    /**
+     * @description Search for teachers on every change of search value.
+     * Search value expected to be updated on search form submission.
+     */
     useEffect(() => {
-        searchTeacher(searchValue);
+        (async () => {
+            if (searchValue.trim() && searchedValue.current !== searchValue) {
+                try {
+                    const data = await searchByInput(searchValue);
+                    setTeachers(data.data);
+                    searchedValue.current = searchValue;
+
+                    setCurrentPage(data.paging.pageNumber);
+                    setTotalPages(data.paging.pageCount);
+                } catch (e) {
+                    console.error(e);
+                }
+            }
+        })();
     }, [searchValue]);
 
     const createSearchString = (mode: string, input: string): string => {
@@ -70,6 +81,11 @@ const Search: React.FC = () => {
         }
     };
 
+    /**
+     * @description Handle search form submit.
+     * Will update URL and update searched value, which expected to trigger search hook.
+     * @param value new value for input. Expected to have mode appended if needed. (e.g. alphabetic:<searchValue>)
+     */
     const onSubmit = (value: string, doSearch = true, focus = true) => {
         setSearchValue(value);
 
@@ -83,6 +99,10 @@ const Search: React.FC = () => {
         });
     };
 
+    /**
+     * @description Handle buttons for 'Prev' and 'Next' pages. Will increase/decrease page number.
+     * @param newPage
+     */
     const onPageChange = (newPage: number) => {
         if (searchValue.includes('pageNumber')) {
             const searchValueAltered = searchValue.replace(/pageNumber=\d+/, `pageNumber=${newPage}`);
