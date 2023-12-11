@@ -1,5 +1,6 @@
 import type { AppProps } from 'next/app';
 import React, { ReactElement, ReactNode } from 'react';
+import { useRouter } from 'next/router';
 import { NextPage } from 'next';
 import Head from 'next/head';
 import 'feather-icons/dist/feather';
@@ -15,6 +16,9 @@ export type NextPageWithLayout<P = any, IP = P> = NextPage<P, IP> & {
 type AppPropsWithLayout = AppProps & {
     Component: NextPageWithLayout;
 };
+
+const router = useRouter();
+const useCustomPreviewImage = router.pathname === '/profile/[teacherId]';
 
 // This default export is required in a new `pages/_app.js` file.
 export default function Intellect({ Component, pageProps }: AppPropsWithLayout) {
@@ -44,7 +48,11 @@ export default function Intellect({ Component, pageProps }: AppPropsWithLayout) 
 
                 {/* <meta property="og:title" content="Інтелект | КПІ ім. Ігоря Сікорського" /> */}
                 <meta property="og:type" content="website" />
-                <meta property="og:image" content="https://intellect.kpi.ua/images/fb-image.png?v=20200608105700" />
+
+                {!useCustomPreviewImage && (
+                    <meta property="og:image" content="https://intellect.kpi.ua/images/fb-image.png?v=20200608105700" />
+                )}
+
                 {/* <meta
                     property="og:description"
                     content="Проект об′єднує вчених, викладачів, інженерів та аспірантів університету, які займаються інтелектуальною творчою діяльністю, проводять фундаментальні та прикладні наукові дослідження, впроваджують отримані результати в виробництво, займаються навчальною, методичною і організаційною роботою."
