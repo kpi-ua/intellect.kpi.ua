@@ -49,7 +49,7 @@ const generateMetaDescription = (teacher: Intellect.Teacher | null): string => {
 
         const finalDescription = credoOrEmpty + academicDegreeOrEmpty + positionsOrEmpty + scientificInterestsOrEmpty;
 
-        if(finalDescription.endsWith(', ')) {
+        if (finalDescription.endsWith(', ')) {
             return finalDescription.slice(0, -2);
         }
 
@@ -123,8 +123,8 @@ function ITeacherInfo({
     return (
         <>
             <Head>
-                <meta name="og:title" content={teacher?.fullName}></meta>
-                <meta name="og:description" content={generateMetaDescription(teacher)}></meta>
+                <meta key="og:title" property="og:title" content={teacher?.fullName}></meta>
+                <meta key="og:description" property="og:description" content={generateMetaDescription(teacher)}></meta>
             </Head>
             <section className="pt-12 pb-110">
                 <RoutePointer routePath={route} />
