@@ -95,7 +95,7 @@ function ITeacherInfo({
                 ></meta>
                 <meta
                     property="og:image"
-                    content={`${API_BASE_URL}/intellect/v2/persons/${teacher?.id}/page-preview`}
+                    content={`${API_BASE_URL}/intellect/v2/persons/${teacher?.userIdentifier}/page-preview`}
                 ></meta>
 
             </Head>
