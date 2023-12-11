@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { API_BASE_URL } from '../constants';
 
 import { getExperienceByTeacherId, getTeacherByTeacherId } from '@/api/teacher';
 
@@ -92,6 +93,11 @@ function ITeacherInfo({
                     content={`${teacher?.academicDegree || ''} \n
                     ${teacher?.positions.map((p) => `${p.name}`).join(',')}\n`}
                 ></meta>
+                <meta
+                    property="og:image"
+                    content={`${API_BASE_URL}/intellect/v2/persons/${teacher?.id}/page-preview`}
+                ></meta>
+
             </Head>
             <section className="pt-12 pb-110">
                 <RoutePointer routePath={route} />
