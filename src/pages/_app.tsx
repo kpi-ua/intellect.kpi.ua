@@ -39,7 +39,7 @@ export default function Intellect({ Component, pageProps }: AppPropsWithLayout) 
                     name="keywords"
                     content="система Інтелект, НТУУ КПІ, Київський політехнічний інститут, викладачі КПІ, Intellect"
                 />
-                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
                 <meta name="theme-color" content="#0277bd" />
 
                 {/* <meta property="og:title" content="Інтелект | КПІ ім. Ігоря Сікорського" /> */}
