@@ -52,7 +52,7 @@ const ITeacherSearch: React.FC = () => {
             </div>
             <div
                 className={
-                    'bg-white flex gap-3 h-100 items-center px-8 rounded-lg rounded-tl-none' + styles['field-shadow']
+                    'bg-white flex gap-3 h-100 items-center px-8 rounded-lg rounded-tl-none '  + styles['field-shadow']
                 }
             >
                 {activeTab === 'alphabetic' ? (
