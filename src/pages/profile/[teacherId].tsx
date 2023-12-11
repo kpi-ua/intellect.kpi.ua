@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { API_BASE_URL } from '../constants';
+import { API_BASE_URL } from '../../constants';
 
 import { getExperienceByTeacherId, getTeacherByTeacherId } from '@/api/teacher';
 
