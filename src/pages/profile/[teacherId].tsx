@@ -16,6 +16,12 @@ import useLinkRoute from '@/utils/hooks/useLinkRoute';
 import { experienceTabs } from '@/constants';
 import Head from 'next/head';
 
+/**
+ * @description Fetches teacher and experience data on server side.
+ * result.props will be passed to the page component as props arguments.
+ * @param context
+ * @returns
+ */
 export async function getServerSideProps(context: any) {
     const teacherId = context.params.teacherId;
 
@@ -27,6 +33,37 @@ export async function getServerSideProps(context: any) {
     };
 }
 
+/**
+ * @description Generates description for og:description meta tag.
+ * Important to keep commas and spaces at the beginning of the each section.
+ * @param teacher
+ * @returns
+ */
+const generateMetaDescription = (teacher: Intellect.Teacher | null): string => {
+    if (teacher) {
+        const credoOrEmpty = teacher.credo ? `"${teacher.credo}", ` : ''; // with quotes
+        const academicDegreeOrEmpty = teacher.academicDegree ? `${teacher.academicDegree}, ` : '';
+        const positionsOrEmpty =
+            teacher.positions?.length && `${teacher.positions.map((p) => `${p.name}, ${p.subdivision.name}`)}, `;
+        const scientificInterestsOrEmpty = teacher.scientificInterest ? `${teacher.scientificInterest}` : '';
+
+        const finalDescription = credoOrEmpty + academicDegreeOrEmpty + positionsOrEmpty + scientificInterestsOrEmpty;
+
+        if(finalDescription.endsWith(', ')) {
+            return finalDescription.slice(0, -2);
+        }
+
+        return finalDescription;
+    }
+
+    return '';
+};
+
+/**
+ * @description Argument props are values, returned from getServerSideProps.
+ * @param param0
+ * @returns
+ */
 function ITeacherInfo({
     teacher,
     experience,
@@ -87,11 +124,7 @@ function ITeacherInfo({
         <>
             <Head>
                 <meta name="og:title" content={teacher?.fullName}></meta>
-                <meta
-                    name="og:description"
-                    content={`${teacher?.academicDegree || ''} \n
-                    ${teacher?.positions.map((p) => `${p.name}`).join(',')}\n`}
-                ></meta>
+                <meta name="og:description" content={generateMetaDescription(teacher)}></meta>
             </Head>
             <section className="pt-12 pb-110">
                 <RoutePointer routePath={route} />
