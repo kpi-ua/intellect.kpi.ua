@@ -17,11 +17,11 @@ type AppPropsWithLayout = AppProps & {
     Component: NextPageWithLayout;
 };
 
-const router = useRouter();
-const useCustomPreviewImage = router.pathname === '/profile/[teacherId]';
-
 // This default export is required in a new `pages/_app.js` file.
 export default function Intellect({ Component, pageProps }: AppPropsWithLayout) {
+    const router = useRouter();
+    const useCustomPreviewImage = router.pathname === '/profile/[teacherId]';
+
     const getLayout = Component.getLayout ?? ((page) => <Layout>{page}</Layout>);
 
     return (
