@@ -28,7 +28,23 @@ const IProfileDetails: React.FC<Props> = ({ teacherInfo }) => {
         ));
     };
 
-    const formatRecordValue = (record) => {
+    const simplifyUrl = (url: string) => {
+        try {
+            // Use a URL object to parse the URL
+            const parsedUrl = new URL(url);
+
+            // Get the hostname and pathname, remove the 'www.' if it exists
+            const hostname = parsedUrl.hostname.replace(/^www\./, '');
+            const pathname = parsedUrl.pathname.endsWith('/') ? parsedUrl.pathname.slice(0, -1) : parsedUrl.pathname;
+
+            // Concatenate the hostname and pathname
+            return `${hostname}${pathname}`;
+        } catch (e) {
+            return url;
+        }
+    };
+
+    const formatRecordValue = (record: { name: string; value: string; }) => {
         let url;
         switch (record.name) {
             case 'Orcid ID':
@@ -37,6 +53,14 @@ const IProfileDetails: React.FC<Props> = ({ teacherInfo }) => {
             case 'Research ID':
                 url = `https://www.researchid.co/rid${record.value}`;
                 break;
+            case 'Telegram':
+                url = `https://t.me/${record.value.replace('@', '')}`;
+                break;
+            case 'E-mail':
+                return <span>
+                    <a href={`mailto:${record.value}`}>{record.value}</a>&nbsp;
+                    <i className="fa-solid fa-envelope"></i>
+                </span>;
             case 'Google Scholar':
                 url = `https://scholar.google.ru/citations?user=${record.value}`;
                 break;
@@ -47,10 +71,12 @@ const IProfileDetails: React.FC<Props> = ({ teacherInfo }) => {
                 return <span>{record.value}</span>;
             default:
                 url = record.value;
-                // return record.value;
         }
 
-        return <a target="_blank" rel="noopener noreferrer" href={url}>{record.value}</a>;
+        return <span>
+            <a target="_blank" rel="noopener noreferrer" href={url}>{simplifyUrl(record.value)}</a>&nbsp;
+            <i className="fa-solid fa-arrow-up-right-from-square"></i>
+        </span>;
     };
 
     return (
