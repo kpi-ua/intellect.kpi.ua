@@ -49,13 +49,14 @@ export default function Intellect({ Component, pageProps }: AppPropsWithLayout) 
                     content="система Інтелект, НТУУ КПІ, Київський політехнічний інститут, викладачі КПІ, Intellect"
                 />
                 <meta name="viewport"
-                      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+                    content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
                 <meta name="theme-color" content="#0277bd" />
 
                 <meta key="og:title" property="og:title" content="Інтелект | КПІ ім. Ігоря Сікорського" />
                 <meta key="og:type" property="og:type" content="website" />
                 <meta key="og:image" property="og:image"
-                      content="https://intellect.kpi.ua/images/fb-image.png?v=20200608105700" />
+                    content="https://do4rt9wur3t6m.cloudfront.net/intellect/intellect-preview.jpeg" />
+
                 <meta
                     key="og:description"
                     property="og:description"
