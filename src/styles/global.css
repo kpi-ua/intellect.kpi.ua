@@ -55,3 +55,7 @@ footer {
     border: 1px solid #EEE;
     border-radius: 5px;
 }
+
+footer a {
+    text-decoration: underline;
+}
