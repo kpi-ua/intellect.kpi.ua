@@ -27,7 +27,7 @@ Home.getLayout = function getLayout(page) {
                     <TagsSection />
                 </div>
             </div>
-            <Footer logoSrc={bottomLogo} />;
+            <Footer logoSrc={bottomLogo} />
         </>
     );
 };
