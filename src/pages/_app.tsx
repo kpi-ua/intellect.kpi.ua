@@ -24,7 +24,8 @@ export default function Intellect({ Component, pageProps }: AppPropsWithLayout) 
         <>
             <Head>
                 <meta charSet="utf-8" />
-                <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="%PUBLIC_URL%/favicon.ico" />
+                <title key="title">Інтелект | Викладачі та науковці</title>
+                <link rel="shortcut icon" type="image/vnd.microsoft.icon" href='/favicon.ico' />
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
                 <meta
@@ -32,6 +33,7 @@ export default function Intellect({ Component, pageProps }: AppPropsWithLayout) 
                     content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
                 />
                 <meta
+                    key="description"
                     name="description"
                     content="Проект об′єднує вчених, викладачів, інженерів та аспірантів університету, які займаються інтелектуальною творчою діяльністю, проводять фундаментальні та прикладні наукові дослідження, впроваджують отримані результати в виробництво, займаються навчальною, методичною і організаційною роботою."
                 />
