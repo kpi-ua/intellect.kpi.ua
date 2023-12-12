@@ -121,11 +121,17 @@ function ITeacherInfo({
         return [];
     };
 
+    const description = generateMetaDescription(teacher);
+
     return (
         <>
             <Head>
+                <title key="title">{teacher?.fullName} | Викладачі та науковці</title>
+
                 <meta key="og:title" property="og:title" content={teacher?.fullName}></meta>
-                <meta key="og:description" property="og:description" content={generateMetaDescription(teacher)}></meta>
+                <meta key="og:description" property="og:description" content={description}></meta>
+                <meta key="description" name="description" content={description}></meta>
+
                 <meta
                     key="og:image"
                     property="og:image"
