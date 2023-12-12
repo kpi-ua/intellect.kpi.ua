@@ -3,8 +3,7 @@ name: Build intellect.kpi.ua
 on:
     push:
         branches:
-            #      - master
-            - pre-release
+            - master
 
 jobs:
     build-and-deploy:
