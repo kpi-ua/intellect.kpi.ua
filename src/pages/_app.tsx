@@ -42,10 +42,11 @@ export default function Intellect({ Component, pageProps }: AppPropsWithLayout) 
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <meta name="theme-color" content="#0277bd" />
 
-                <meta property="og:title" content="Інтелект | КПІ ім. Ігоря Сікорського" />
+                <meta key="og:title" property="og:title" content="Інтелект | КПІ ім. Ігоря Сікорського" />
                 <meta property="og:type" content="website" />
                 <meta property="og:image" content="https://intellect.kpi.ua/images/fb-image.png?v=20200608105700" />
                 <meta
+                    key="og:description"
                     property="og:description"
                     content="Проект об′єднує вчених, викладачів, інженерів та аспірантів університету, які займаються інтелектуальною творчою діяльністю, проводять фундаментальні та прикладні наукові дослідження, впроваджують отримані результати в виробництво, займаються навчальною, методичною і організаційною роботою."
                 />

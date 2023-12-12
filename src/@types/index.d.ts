@@ -34,7 +34,7 @@ declare namespace Intellect {
         contactRecords: { name: string; value: string }[] | null;
         academicStatus: string;
         academicDegree: string;
-        scientificInterests: string;
+        scientificInterest: string;
         items: any[];
         status: string;
         field: any;
