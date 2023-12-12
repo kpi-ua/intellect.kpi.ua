@@ -73,7 +73,7 @@ const IProfileDetails: React.FC<Props> = ({ teacherInfo }) => {
                 url = `https://orcid.org/${record.value}`;
                 break;
             case 'Research ID':
-                url = `https://www.researchid.co/rid${record.value}`;
+                url = `https://www.webofscience.com/wos/author/record/${record.value}`;
                 break;
             case 'Telegram':
                 url = `https://t.me/${record.value.replace('@', '')}`;
