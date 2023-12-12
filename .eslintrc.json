@@ -1,0 +1,40 @@
+{
+    "env": {
+        "es6": true,
+        "node": true,
+        "browser": true
+    },
+    "plugins": ["import", "@typescript-eslint", "react"],
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:import/warnings",
+        "plugin:@typescript-eslint/recommended",
+        "prettier"
+    ],
+    "parserOptions": {
+        "parser": "@typescript-eslint/parser",
+        "sourceType": "module",
+        "allowImportExportEverywhere": true
+    },
+    "ignorePatterns": ["src/assets"],
+    "rules": {
+        "indent": ["error", 4, {"SwitchCase": 1}],
+        "linebreak-style": ["error", "unix"],
+        "quotes": ["error", "single"],
+        "semi": ["error", "always"],
+        "import/extensions": [
+            "error",
+            "never",
+            {
+                "scss": "always",
+                "min": "always",
+                "svg": "always",
+                "jpg": "always",
+                "png": "always"
+            }
+        ],
+        "no-var": "error",
+        "no-console": "warn"
+    }
+}
