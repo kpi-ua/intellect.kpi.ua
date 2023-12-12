@@ -12,7 +12,6 @@ const Contacts: React.FC = () => {
                 <SectionTitle>Контакти</SectionTitle>
                 <div className="mt-4">
                     <div className="leading-6">
-                        <div className="font-semibold mb-1">Інформаційна підтримка</div>
                         <div>
                             тел.: <a href="tel:380444549845">+380 (44) 454 98 45</a>
                         </div>
@@ -28,7 +27,7 @@ const Contacts: React.FC = () => {
                             </a>
                         </div>
                     </div>
-                    <a href="#" className="block mt-5 text-primary">
+                    <a href="https://ecampus.kpi.ua/feedback" className="block mt-5 text-primary">
                         Форма скарг та пропозицій
                     </a>
                 </div>
