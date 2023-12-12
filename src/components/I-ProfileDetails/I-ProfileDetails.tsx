@@ -28,6 +28,31 @@ const IProfileDetails: React.FC<Props> = ({ teacherInfo }) => {
         ));
     };
 
+    const formatRecordValue = (record) => {
+        let url;
+        switch (record.name) {
+            case 'Orcid ID':
+                url = `https://orcid.org/${record.value}`;
+                break;
+            case 'Research ID':
+                url = `https://www.researchid.co/rid${record.value}`;
+                break;
+            case 'Google Scholar':
+                url = `https://scholar.google.ru/citations?user=${record.value}`;
+                break;
+            case 'Scopus ID':
+                url = `https://www.scopus.com/authid/detail.uri?authorId=${record.value}`;
+                break;
+            case 'Skype':
+                return <span>{record.value}</span>;
+            default:
+                url = record.value;
+                // return record.value;
+        }
+
+        return <a target="_blank" rel="noopener noreferrer" href={url}>{record.value}</a>;
+    };
+
     return (
         <div>
             <SectionTitle className="uppercase text-primary mt-6">Загальна інформація</SectionTitle>
@@ -37,10 +62,9 @@ const IProfileDetails: React.FC<Props> = ({ teacherInfo }) => {
                 (record, idx): React.JSX.Element => (
                     <div className="flex flex-col xs:flex-row mt-4" key={idx}>
                         <span className="text-neutral-500 block basis-1/4">{record.name}: </span>
-                        <span
-                            dangerouslySetInnerHTML={{ __html: reformatLinks(record.value) || '' }}
-                            className="basis-3/4"
-                        />
+                        <span className="basis-3/4 profile-links">
+                            {formatRecordValue(record)}
+                        </span>
                     </div>
                 )
             )}
