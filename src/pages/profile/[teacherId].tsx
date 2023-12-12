@@ -127,6 +127,7 @@ function ITeacherInfo({
                 <meta key="og:title" property="og:title" content={teacher?.fullName}></meta>
                 <meta key="og:description" property="og:description" content={generateMetaDescription(teacher)}></meta>
                 <meta
+                    key="og:image"
                     property="og:image"
                     content={`${API_BASE_URL}/intellect/v2/persons/${teacher?.userIdentifier}/page-preview`}
                 ></meta>

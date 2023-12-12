@@ -43,8 +43,8 @@ export default function Intellect({ Component, pageProps }: AppPropsWithLayout) 
                 <meta name="theme-color" content="#0277bd" />
 
                 <meta key="og:title" property="og:title" content="Інтелект | КПІ ім. Ігоря Сікорського" />
-                <meta property="og:type" content="website" />
-                <meta property="og:image" content="https://intellect.kpi.ua/images/fb-image.png?v=20200608105700" />
+                <meta key="og:type" property="og:type" content="website" />
+                <meta key="og:image" property="og:image" content="https://intellect.kpi.ua/images/fb-image.png?v=20200608105700" />
                 <meta
                     key="og:description"
                     property="og:description"
