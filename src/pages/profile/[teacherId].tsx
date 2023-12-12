@@ -126,7 +126,7 @@ function ITeacherInfo({
     return (
         <>
             <Head>
-                <title key="title">{teacher?.fullName} | Викладачі та науковці</title>
+                <title key="title">{`${teacher?.fullName} | Викладачі та науковці`}</title>
 
                 <meta key="og:title" property="og:title" content={teacher?.fullName}></meta>
                 <meta key="og:description" property="og:description" content={description}></meta>
