@@ -91,6 +91,8 @@ const IProfileDetails: React.FC<Props> = ({ teacherInfo }) => {
                 break;
             case 'Skype':
                 return <span>{record.value}</span>;
+            case 'Адреса за місцем прийому':
+                return <span>{record.value}</span>;
             default:
                 url = record.value;
         }
