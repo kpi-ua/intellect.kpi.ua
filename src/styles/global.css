@@ -50,3 +50,8 @@ footer {
 .scrollbar-hidden::-webkit-scrollbar {
     display: none;
 }
+
+.avatar {
+    border: 1px solid #EEE;
+    border-radius: 5px;
+}

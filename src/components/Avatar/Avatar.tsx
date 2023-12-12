@@ -10,7 +10,7 @@ type Props = {
 const Avatar: React.FC<Props> = ({ img }) => {
     return (
         <Image
-            className="block w-170 h-[200px]"
+            className="block w-170 h-[200px] avatar"
             src={img || avatarStub}
             alt="avatar"
             width={0}
