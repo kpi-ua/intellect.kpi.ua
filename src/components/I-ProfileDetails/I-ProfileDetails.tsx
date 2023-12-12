@@ -28,22 +28,44 @@ const IProfileDetails: React.FC<Props> = ({ teacherInfo }) => {
         ));
     };
 
+    /**
+     * Simplifies a given URL by removing 'www.' prefix from the hostname and trailing '/' from the pathname.
+     *
+     * @param {string} url - The URL to be simplified.
+     * @returns {string} - The simplified URL if the input is a valid URL, otherwise returns the original input.
+     *
+     * If the input URL is valid, the function parses it to extract the hostname and pathname.
+     * It removes 'www.' if it's present at the start of the hostname. For the pathname,
+     * it removes a trailing '/' if it exists. Then, it combines the simplified hostname
+     * and pathname to form the simplified URL. In case of an invalid URL or any parsing error,
+     * the original URL is returned as is.
+     */
     const simplifyUrl = (url: string) => {
         try {
-            // Use a URL object to parse the URL
             const parsedUrl = new URL(url);
 
             // Get the hostname and pathname, remove the 'www.' if it exists
             const hostname = parsedUrl.hostname.replace(/^www\./, '');
             const pathname = parsedUrl.pathname.endsWith('/') ? parsedUrl.pathname.slice(0, -1) : parsedUrl.pathname;
 
-            // Concatenate the hostname and pathname
             return `${hostname}${pathname}`;
         } catch (e) {
             return url;
         }
     };
 
+    /**
+     * Format link depending on the link's type.
+     *
+     * @param {Object} record - The record object with properties 'name' and 'value'.
+     * @param {string} record.name - The name of the record, indicating the type of link.
+     * @param {string} record.value - The link value.
+     * @returns {JSX.Element} - A JSX element representing the formatted link.
+     *
+     * This function handles different types of records like 'Orcid ID', 'Research ID', 'Telegram', etc.
+     * It formats each type into a specific hyperlink or text format. The function utilizes
+     * the `simplifyUrl` function to display a simplified version of the URL.
+     */
     const formatRecordValue = (record: { name: string; value: string; }) => {
         let url;
         switch (record.name) {
