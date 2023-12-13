@@ -76,16 +76,25 @@ const Search: React.FC = () => {
     };
 
     const createSearchString = (mode: string, input: string): string => {
+        let query = '';
+
         switch (mode) {
             case 'alphabetic':
-                return 'startsWith:' + input;
+                query = 'startsWith:' + input;
+                break;
             case 'subdivision':
-                return 'subdivision:' + input;
+                query = 'subdivision:' + input;
+                break;
             case 'interests':
-                return 'interests:' + input;
+                query = 'interests:' + input;
+                break;
             default:
-                return input;
+                query = input;
+                break;
         }
+
+        return query != null ? query.trim() : '';
+
     };
 
     /**
