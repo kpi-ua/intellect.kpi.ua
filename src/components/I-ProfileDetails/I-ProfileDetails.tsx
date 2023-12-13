@@ -79,6 +79,7 @@ const IProfileDetails: React.FC<Props> = ({ teacherInfo }) => {
                 url = `https://t.me/${record.value.replace('@', '')}`;
                 break;
             case 'E-mail':
+            case 'E-mail 2':
                 return <span>
                     <a href={`mailto:${record.value}`}>{record.value}</a>&nbsp;
                     <i className="fa-solid fa-envelope"></i>
@@ -88,6 +89,13 @@ const IProfileDetails: React.FC<Props> = ({ teacherInfo }) => {
                 break;
             case 'Scopus ID':
                 url = `https://www.scopus.com/authid/detail.uri?authorId=${record.value}`;
+                break;
+            case 'Веб-сайт':
+                url = record.value;
+                break;
+            case 'Телефон робочий':
+            case 'Телефон мобільний':
+                url = `tel:${record.value}`;
                 break;
             case 'Skype':
                 return <span>{record.value}</span>;
