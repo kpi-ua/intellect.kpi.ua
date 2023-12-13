@@ -55,6 +55,31 @@ const IProfileDetails: React.FC<Props> = ({ teacherInfo }) => {
     };
 
     /**
+     * Formats a given phone number string to a specific pattern if it meets the criteria.
+     * The method first removes any non-digit characters from the input string.
+     * If the cleaned number is 12 digits long and starts with '380',
+     * it formats the number into '+XX (XXX) XXX XX XX' pattern.
+     * If the number doesn't meet these conditions, it returns the original input.
+     *
+     * @param phoneNumber - The phone number string to be formatted.
+     * @returns The formatted phone number if criteria are met, otherwise the original input.
+     */
+    const formatPhoneNumber = (phoneNumber: string) => {
+        // Remove any character that is not a digit
+        const cleanNumber = phoneNumber.replace(/\D/g, '');
+
+        // Check if the number matches the expected format
+        if (cleanNumber.length === 12 && cleanNumber.startsWith('380')) {
+            // Format the number
+            return cleanNumber.replace(/(\d{2})(\d{3})(\d{3})(\d{2})(\d{2})/, '+$1 ($2) $3 $4 $5');
+        } else {
+            // If not, return the original input
+            return phoneNumber;
+        }
+    };
+
+
+    /**
      * Format link depending on the link's type.
      *
      * @param {Object} record - The record object with properties 'name' and 'value'.
@@ -95,8 +120,11 @@ const IProfileDetails: React.FC<Props> = ({ teacherInfo }) => {
                 break;
             case 'Телефон робочий':
             case 'Телефон мобільний':
-                url = `tel:${record.value}`;
-                break;
+                return  <span>
+                    <a target="_blank" rel="noopener noreferrer" href={`tel:${record.value}`}>{formatPhoneNumber(record.value)}</a>&nbsp;
+                    <i className="fa-solid fa-arrow-up-right-from-square"></i>
+                </span>;
+
             case 'Skype':
                 return <span>{record.value}</span>;
             case 'Адреса за місцем прийому':
