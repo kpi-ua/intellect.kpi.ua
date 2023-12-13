@@ -94,7 +94,6 @@ const Search: React.FC = () => {
         }
 
         return query != null ? query.trim() : '';
-
     };
 
     /**
