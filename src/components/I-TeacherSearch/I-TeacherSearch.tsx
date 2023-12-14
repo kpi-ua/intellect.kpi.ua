@@ -36,7 +36,8 @@ const ITeacherSearch: React.FC = () => {
     ] as Tab[];
 
     const handleSearch = (input: string) => {
-        router.push('search', {
+        router.push({
+            pathname: '/search',
             query: { state_input: input, mode: activeTab },
         });
     };
@@ -52,7 +53,7 @@ const ITeacherSearch: React.FC = () => {
             </div>
             <div
                 className={
-                    'bg-white flex gap-3 h-100 items-center px-8 rounded-lg rounded-tl-none '  + styles['field-shadow']
+                    'bg-white flex gap-3 h-100 items-center px-8 rounded-lg rounded-tl-none ' + styles['field-shadow']
                 }
             >
                 {activeTab === 'alphabetic' ? (
