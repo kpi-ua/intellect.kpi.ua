@@ -119,7 +119,9 @@ const IProfileDetails: React.FC<Props> = ({ teacherInfo }) => {
                 url = record.value;
                 break;
             case 'Телефон робочий':
+            case 'Телефон робочий 2':    
             case 'Телефон мобільний':
+            case 'Телефон мобільний 2':
                 return  <span>
                     <a target="_blank" rel="noopener noreferrer" href={`tel:${record.value}`}>{formatPhoneNumber(record.value)}</a>&nbsp;
                     <i className="fa-solid fa-arrow-up-right-from-square"></i>
