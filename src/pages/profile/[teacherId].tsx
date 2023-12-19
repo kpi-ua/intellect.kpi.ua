@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import { API_BASE_URL } from '../../constants';
+import Head from 'next/head';
 
 import { getExperienceByTeacherId, getTeacherByTeacherId } from '@/api/teacher';
 
@@ -14,8 +13,7 @@ import Avatar from '@/components/Avatar/Avatar';
 import IProfileDetails from '@/components/I-ProfileDetails/I-ProfileDetails';
 
 import useLinkRoute from '@/utils/hooks/useLinkRoute';
-import { experienceTabs } from '@/constants';
-import Head from 'next/head';
+import { experienceTabs, API_BASE_URL } from '@/constants';
 
 /**
  * @description Fetches teacher and experience data on server side.
@@ -94,14 +92,14 @@ function ITeacherInfo({
                     <h1 className="font-semibold uppercase text-primary mt-2">{experienceItemKey}</h1>
                     {Object.keys(selectedExperience[experienceItemKey]).map((key, idx) => (
                         <div key={idx}>
-                            <h2 className="text-primary text-md uppercase" style={{ marginTop: '10px' }}>{key}</h2>
+                            <h2 className="text-primary text-md uppercase mt-2.5">{key}</h2>
                             <DataList>
                                 {(selectedExperience[experienceItemKey][key] || []).map((data) => {
                                     return (
                                         <div key={idx} className="text-neutral-600 text-xs" data-title={data.key}>
                                             {(data.value || []).map((publication: string, idx: number) => (
                                                 <p
-                                                    className="first:mt-0 mt-3 break-all"
+                                                    className="first:mt-0 mt-3 whitespace-pre-wrap"
                                                     key={idx}
                                                     dangerouslySetInnerHTML={{
                                                         __html: publication.replaceAll('\n', '<br />'),
