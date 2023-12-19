@@ -26,6 +26,13 @@ html {
     background-size: cover;
 }
 
+@media (max-width: 768px) {
+    .header-wrapper {
+        background: url('../assets/img/main-sm.png') no-repeat;
+        background-size: cover;
+    }
+}
+
 [contenteditable='true']:empty:not(:focus):before {
     @apply text-neutral-500;
     content: attr(data-placeholder);
