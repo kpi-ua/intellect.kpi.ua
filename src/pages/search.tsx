@@ -189,7 +189,7 @@ const Search: React.FC = () => {
                     </CommonButton>
                 </div>
             </div>
-            {<ShownContent />}
+            <ShownContent />
             {teachers.length > 0 && pagingOptions && (
                 <Pagination onChange={(newPage) => handlePageChange(newPage)} pagination={pagingOptions} />
             )}
