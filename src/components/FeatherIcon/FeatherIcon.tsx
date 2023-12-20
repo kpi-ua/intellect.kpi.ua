@@ -18,15 +18,11 @@ const FeatherIcon: React.FC<Props> = ({
     crossed = false,
     color = '#000',
 }) => {
-    const additionalShapes = crossed
-        ? '<line x1="0" y1="0" x2="24" y2="24"/>'
-        : '';
+    const additionalShapes = crossed ? '<line x1="0" y1="0" x2="24" y2="24"/>' : '';
+
     const svg = (): string => {
         const featherIcon = feather.icons[icon];
-        return featherIcon
-            ? featherIcon.toSvg().match(/<svg.*?>(.*?)<\/svg>/)![1] +
-                  additionalShapes
-            : '';
+        return featherIcon ? featherIcon.toSvg().match(/<svg.*?>(.*?)<\/svg>/)![1] + additionalShapes : '';
     };
 
     return (

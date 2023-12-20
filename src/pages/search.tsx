@@ -8,13 +8,16 @@ import InputField from '@/components/InputField/InputField';
 import SearchGrid from '@/components/common/SearchGrid';
 import ITeacherCard from '@/components/I-TeacherCard/I-TeacherCard';
 import CommonButton from '@/components/CommonButton/CommonButton';
-import FeatherIcon from '@/components/FeatherIcon/FeatherIcon';
 import NotFoundIndicator from '@/components/ContentStubs/NotFoundIndicator';
 import SpinnerIndicator from '@/components/ContentStubs/SpinnerIndicator';
+import Pagination from '@/components/Pagination/Pagination';
 
 import { searchByInput } from '@/api/teacher';
 import { searchStringParams } from '@/constants';
 import useLinkRoute from '@/utils/hooks/useLinkRoute';
+import useRuntimeCache from '@/utils/hooks/useRuntimeCache';
+
+const CACHE_KEY = 'cachedSearch_';
 
 const Search: React.FC = () => {
     const router = useRouter();
@@ -32,8 +35,10 @@ const Search: React.FC = () => {
 
     const { route } = useLinkRoute([{ path: '/search', label: 'Пошук' }]);
 
-    const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(1);
+    const [pagingOptions, setPagingOptions] = useState<ECampus.PaginationModel | null>(null);
+
+    const { invalidateCache, cacheSlice, setCache } =
+        useRuntimeCache<{ [key in number]: Intellect.Teacher[] }>(CACHE_KEY);
 
     const [loading, setLoading] = useState(false);
 
@@ -56,18 +61,23 @@ const Search: React.FC = () => {
      * Search value expected to be updated on search form submission.
      */
     useEffect(() => {
-        fetchTeachers(1);
+        invalidateCache();
     }, [searchValue]);
 
-    const fetchTeachers = async (page?: number) => {
+    useEffect(() => {
+        if (cacheSlice === null) {
+            handlePageChange(1);
+        }
+    }, [cacheSlice]);
+
+    const fetchTeachers = async (page: number) => {
         try {
             setLoading(true);
-            const data = await searchByInput(searchValue, page || currentPage);
+            const data = await searchByInput(searchValue, page);
             setTeachers(data.data);
+            setCache({ [page]: data.data });
             searchedValue.current = searchValue;
-
-            setCurrentPage(data.paging.pageNumber);
-            setTotalPages(data.paging.pageCount);
+            setPagingOptions(data.paging);
         } catch (e) {
             console.error(e);
         } finally {
@@ -93,7 +103,7 @@ const Search: React.FC = () => {
                 break;
         }
 
-        return query != null ? query.trim() : '';
+        return query !== null ? query.trim() : '';
     };
 
     /**
@@ -111,23 +121,13 @@ const Search: React.FC = () => {
         }
 
         if (doSearch) {
-            setCurrentPage(1);
+            setPagingOptions(null);
 
             router.push({
                 pathname,
                 query: { ...router.query, state_input: value },
             });
         }
-    };
-
-    /**
-     * @description Handle buttons for 'Prev' and 'Next' pages. Will increase/decrease page number.
-     * @param newPage
-     */
-    const onPageChange = (newPage: number) => {
-        setCurrentPage(newPage);
-        // TODO caching
-        fetchTeachers(newPage);
     };
 
     const ShownContent = (): React.ReactNode => {
@@ -147,6 +147,14 @@ const Search: React.FC = () => {
 
         if (!teachers.length) {
             return <NotFoundIndicator className="mx-auto w-fit" />;
+        }
+    };
+
+    const handlePageChange = (newPage: number) => {
+        if (cacheSlice && cacheSlice[newPage]) {
+            setTeachers(cacheSlice[newPage]);
+        } else {
+            fetchTeachers(newPage);
         }
     };
 
@@ -182,24 +190,8 @@ const Search: React.FC = () => {
                 </div>
             </div>
             {<ShownContent />}
-            {teachers.length > 0 && (
-                <div className={'flex items-center justify-center mt-6'}>
-                    {currentPage > 1 ? (
-                        <button onClick={() => onPageChange(currentPage - 1)}>
-                            <FeatherIcon width={40} className="inline fill-none" icon="chevron-left" />
-                            Назад
-                        </button>
-                    ) : null}
-                    <div className="mx-2">
-                        {currentPage} / {totalPages}
-                    </div>
-                    {currentPage < totalPages ? (
-                        <button onClick={() => onPageChange(currentPage + 1)}>
-                            Далі
-                            <FeatherIcon width={40} className="inline fill-none" icon="chevron-right" />
-                        </button>
-                    ) : null}
-                </div>
+            {teachers.length > 0 && pagingOptions && (
+                <Pagination onChange={(newPage) => handlePageChange(newPage)} pagination={pagingOptions} />
             )}
         </section>
     );

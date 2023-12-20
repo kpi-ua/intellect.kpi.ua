@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-      "target": "es5",
+      "target": "es2015",
       "lib": ["dom", "dom.iterable", "esnext"],
       "allowJs": true,
       "skipLibCheck": true,
@@ -26,4 +26,3 @@
     "exclude": ["node_modules"],
     "files" : ["src/@types/index.d.ts"]
   }
-  
