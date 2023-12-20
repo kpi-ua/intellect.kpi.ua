@@ -62,6 +62,7 @@ const Search: React.FC = () => {
      */
     useEffect(() => {
         invalidateCache();
+        return invalidateCache;
     }, [searchValue]);
 
     useEffect(() => {
