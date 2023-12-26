@@ -79,7 +79,7 @@ function ITeacherInfo({
     const { addLink, route } = useLinkRoute();
 
     useEffect(() => {
-        if (teacher) {
+        if (teacher && route.length === 1) {
             addLink({ path: '/search', label: teacher.fullName });
         }
     }, [teacher, experience]);

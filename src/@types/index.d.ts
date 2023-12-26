@@ -17,9 +17,14 @@ declare namespace ECampus {
     };
 
     type ApiResponse<T> = {
-        paging: any;
+        paging: PaginationModel;
         data: T[];
     };
+
+    interface PaginationModel {
+        pageNumber: number;
+        pageCount: number;
+    }
 }
 
 declare namespace Intellect {
