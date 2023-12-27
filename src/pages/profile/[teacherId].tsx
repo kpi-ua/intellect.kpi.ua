@@ -11,6 +11,7 @@ import DataList from '@/components/DataList/DataList';
 import TabList from '@/components/TabList/TabList';
 import Avatar from '@/components/Avatar/Avatar';
 import IProfileDetails from '@/components/I-ProfileDetails/I-ProfileDetails';
+import ShareProfile from '@/components/ShareProfile/ShareProfile';
 
 import useLinkRoute from '@/utils/hooks/useLinkRoute';
 import { experienceTabs, API_BASE_URL } from '@/constants';
@@ -138,7 +139,10 @@ function ITeacherInfo({
             </Head>
             <section className="pt-12 pb-110">
                 <RoutePointer routePath={route} />
-                <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 mt-6">
+                <div className="relative flex flex-col sm:flex-row items-center sm:items-start gap-6 mt-6">
+                    <div className="sm:hidden absolute right-0">
+                        {teacher ? <ShareProfile teacher={teacher} /> : null}
+                    </div>
                     <div>
                         <Avatar img={teacher?.photo} />
                     </div>
