@@ -25,13 +25,13 @@ const Search: React.FC = () => {
     const search = useSearchParams();
 
     const searchStateInput = search.get('state_input');
-    const searchStateMode = search.get('mode');
 
     const inputRef = useRef<HTMLInputElement>(null);
     const searchedValue = useRef('');
 
     const [teachers, setTeachers] = useState<Intellect.Teacher[]>([]);
     const [searchValue, setSearchValue] = useState('');
+    const [inputValue, setInputValue] = useState('');
 
     const { route } = useLinkRoute([{ path: '/search', label: 'Пошук' }]);
 
@@ -47,14 +47,15 @@ const Search: React.FC = () => {
      * Will determine type of search from query params set searched value to the input field.
      */
     useEffect(() => {
-        const searchString = createSearchString(searchStateMode || '', searchStateInput || '');
+        const searchString = searchStateInput?.trim() || '';
 
         setSearchValue(searchString);
+        setInputValue(searchString);
 
         if (inputRef.current) {
             inputRef.current.select();
         }
-    }, [searchStateInput, searchStateMode, router.isReady]);
+    }, [searchStateInput, router.isReady]);
 
     /**
      * @description Search for teachers on every change of search value.
@@ -62,14 +63,9 @@ const Search: React.FC = () => {
      */
     useEffect(() => {
         invalidateCache();
+        fetchTeachers(1);
         return invalidateCache;
     }, [searchValue]);
-
-    useEffect(() => {
-        if (cacheSlice === null) {
-            handlePageChange(1);
-        }
-    }, [cacheSlice]);
 
     const fetchTeachers = async (page: number) => {
         try {
@@ -86,27 +82,6 @@ const Search: React.FC = () => {
         }
     };
 
-    const createSearchString = (mode: string, input: string): string => {
-        let query = '';
-
-        switch (mode) {
-            case 'alphabetic':
-                query = 'startsWith:' + input;
-                break;
-            case 'subdivision':
-                query = 'subdivision:' + input;
-                break;
-            case 'interests':
-                query = 'interests:' + input;
-                break;
-            default:
-                query = input;
-                break;
-        }
-
-        return query !== null ? query.trim() : '';
-    };
-
     /**
      * @description Handle search form submit.
      * Will update URL and update searched value, which expected to trigger search hook.
@@ -115,7 +90,10 @@ const Search: React.FC = () => {
      * @param focus should input element be focused after submit?
      */
     const onSubmit = async (value: string, doSearch = false, focus = true) => {
-        setSearchValue(value);
+        if (doSearch) {
+            setSearchValue(value);
+        }
+        setInputValue(value);
 
         if (focus && inputRef.current) {
             inputRef.current.select();
@@ -155,7 +133,9 @@ const Search: React.FC = () => {
         if (cacheSlice && cacheSlice[newPage]) {
             setTeachers(cacheSlice[newPage]);
         } else {
-            fetchTeachers(newPage);
+            if (searchValue) {
+                fetchTeachers(newPage);
+            }
         }
     };
 
@@ -169,7 +149,7 @@ const Search: React.FC = () => {
                         syntheticRef={inputRef}
                         onSubmit={(e) => onSubmit(e, true, false)}
                         placeholder="Введіть строку пошука"
-                        value={searchValue}
+                        value={inputValue}
                         fieldClass="flex-1"
                         buttonText="Пошук"
                         buttonClass="px-4 py-1 h-40 flex items-center"
@@ -179,13 +159,10 @@ const Search: React.FC = () => {
             <div className="mt-2">
                 <span className="text-primary">Або оберіть режим пошуку:</span>
                 <div className="flex gap-2">
-                    <CommonButton
-                        onClick={() => onSubmit(searchStringParams.SUBDIVISION, false, false)}
-                        className="p-2"
-                    >
+                    <CommonButton onClick={() => onSubmit(searchStringParams.SUBDIVISION, false, true)} className="p-2">
                         За місцем роботи
                     </CommonButton>
-                    <CommonButton onClick={() => onSubmit(searchStringParams.INTERESTS, false, false)} className="p-2">
+                    <CommonButton onClick={() => onSubmit(searchStringParams.INTERESTS, false, true)} className="p-2">
                         За інтересами{' '}
                     </CommonButton>
                 </div>
