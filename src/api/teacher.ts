@@ -1,6 +1,6 @@
 import Http from './index';
-import { parseSearchParams } from '../utils';
-import { API_BASE_URL } from '../constants';
+import { parseSearchParams } from '@/utils';
+import { API_BASE_URL } from '@/constants';
 
 type ExperienceResultPromise = Promise<ECampus.ApiResponse<Intellect.ExperienceItem>>;
 
@@ -70,4 +70,8 @@ export const getTeacherByTeacherId = (teacherId: string): Promise<Intellect.Teac
 export const getInterests = (limit?: number): Promise<string[]> => {
     const param = limit ? `?count=${limit}` : '';
     return Http.get('/v2/scientific-interests' + param);
+};
+
+export const getByQueryString = (q: string): Promise<string[]> => {
+    return Http.get('/v2/persons?q=' + q);
 };

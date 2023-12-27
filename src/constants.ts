@@ -10,7 +10,6 @@ export const searchStringParams = {
     STARTS_WITH: 'startsWith:',
     SUBDIVISION: 'subdivision:',
     INTERESTS: 'interests:',
-    page: 'pageNumber',
 };
 
 export const profileTabs: { [key in string]: { field: keyof Intellect.Teacher; label: string }[] } = {
