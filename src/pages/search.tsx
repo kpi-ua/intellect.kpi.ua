@@ -25,7 +25,6 @@ const Search: React.FC = () => {
     const search = useSearchParams();
 
     const searchStateInput = search.get('state_input');
-    const searchStateMode = search.get('mode');
 
     const inputRef = useRef<HTMLInputElement>(null);
     const searchedValue = useRef('');
@@ -47,14 +46,14 @@ const Search: React.FC = () => {
      * Will determine type of search from query params set searched value to the input field.
      */
     useEffect(() => {
-        const searchString = createSearchString(searchStateMode || '', searchStateInput || '');
+        const searchString = searchStateInput?.trim() || '';
 
         setSearchValue(searchString);
 
         if (inputRef.current) {
             inputRef.current.select();
         }
-    }, [searchStateInput, searchStateMode, router.isReady]);
+    }, [searchStateInput, router.isReady]);
 
     /**
      * @description Search for teachers on every change of search value.
@@ -62,14 +61,12 @@ const Search: React.FC = () => {
      */
     useEffect(() => {
         invalidateCache();
+        console.log('sobaka pisala');
+        if (searchValue.trim()) {
+            fetchTeachers(1);
+        }
         return invalidateCache;
     }, [searchValue]);
-
-    useEffect(() => {
-        if (cacheSlice === null) {
-            handlePageChange(1);
-        }
-    }, [cacheSlice]);
 
     const fetchTeachers = async (page: number) => {
         try {
@@ -84,27 +81,6 @@ const Search: React.FC = () => {
         } finally {
             setLoading(false);
         }
-    };
-
-    const createSearchString = (mode: string, input: string): string => {
-        let query = '';
-
-        switch (mode) {
-            case 'alphabetic':
-                query = 'startsWith:' + input;
-                break;
-            case 'subdivision':
-                query = 'subdivision:' + input;
-                break;
-            case 'interests':
-                query = 'interests:' + input;
-                break;
-            default:
-                query = input;
-                break;
-        }
-
-        return query !== null ? query.trim() : '';
     };
 
     /**
@@ -155,7 +131,9 @@ const Search: React.FC = () => {
         if (cacheSlice && cacheSlice[newPage]) {
             setTeachers(cacheSlice[newPage]);
         } else {
-            fetchTeachers(newPage);
+            if (searchValue) {
+                fetchTeachers(newPage);
+            }
         }
     };
 

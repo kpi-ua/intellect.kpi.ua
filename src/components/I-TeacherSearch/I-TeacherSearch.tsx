@@ -38,7 +38,7 @@ const ITeacherSearch: React.FC = () => {
     const handleSearch = (input: string) => {
         router.push({
             pathname: '/search',
-            query: { state_input: input, mode: activeTab },
+            query: { state_input: input },
         });
     };
 
