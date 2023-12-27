@@ -31,6 +31,7 @@ const Search: React.FC = () => {
 
     const [teachers, setTeachers] = useState<Intellect.Teacher[]>([]);
     const [searchValue, setSearchValue] = useState('');
+    const [inputValue, setInputValue] = useState('');
 
     const { route } = useLinkRoute([{ path: '/search', label: 'Пошук' }]);
 
@@ -49,6 +50,7 @@ const Search: React.FC = () => {
         const searchString = searchStateInput?.trim() || '';
 
         setSearchValue(searchString);
+        setInputValue(searchString);
 
         if (inputRef.current) {
             inputRef.current.select();
@@ -61,6 +63,7 @@ const Search: React.FC = () => {
      */
     useEffect(() => {
         invalidateCache();
+        fetchTeachers(1);
         return invalidateCache;
     }, [searchValue]);
 
@@ -87,7 +90,10 @@ const Search: React.FC = () => {
      * @param focus should input element be focused after submit?
      */
     const onSubmit = async (value: string, doSearch = false, focus = true) => {
-        setSearchValue(value);
+        if (doSearch) {
+            setSearchValue(value);
+        }
+        setInputValue(value);
 
         if (focus && inputRef.current) {
             inputRef.current.select();
@@ -143,7 +149,7 @@ const Search: React.FC = () => {
                         syntheticRef={inputRef}
                         onSubmit={(e) => onSubmit(e, true, false)}
                         placeholder="Введіть строку пошука"
-                        value={searchValue}
+                        value={inputValue}
                         fieldClass="flex-1"
                         buttonText="Пошук"
                         buttonClass="px-4 py-1 h-40 flex items-center"
@@ -153,13 +159,10 @@ const Search: React.FC = () => {
             <div className="mt-2">
                 <span className="text-primary">Або оберіть режим пошуку:</span>
                 <div className="flex gap-2">
-                    <CommonButton
-                        onClick={() => onSubmit(searchStringParams.SUBDIVISION, false, false)}
-                        className="p-2"
-                    >
+                    <CommonButton onClick={() => onSubmit(searchStringParams.SUBDIVISION, false, true)} className="p-2">
                         За місцем роботи
                     </CommonButton>
-                    <CommonButton onClick={() => onSubmit(searchStringParams.INTERESTS, false, false)} className="p-2">
+                    <CommonButton onClick={() => onSubmit(searchStringParams.INTERESTS, false, true)} className="p-2">
                         За інтересами{' '}
                     </CommonButton>
                 </div>
