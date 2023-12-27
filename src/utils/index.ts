@@ -26,11 +26,10 @@ export const parseSearchParams = (searchString: string): { [key in Intellect.Sea
     return paramsObject;
 };
 
-export const debounce = <T>(cb: (param: T) => void, debounceTimeout: number) => {
+export const debounce = <T>(cb: (param?: T) => void, debounceTimeout: number) => {
     let timer: NodeJS.Timeout | null = null;
 
-    return (param: T) => {
-        console.log(param);
+    return (param?: T) => {
         timer && clearTimeout(timer);
         timer = setTimeout(() => {
             timer = null;

@@ -50,10 +50,10 @@ const InputField: React.FC<Props> = ({
         }
     }, []);
 
-    const handleTips = async (value: string) => {
+    const handleTips = async (value: string | undefined) => {
         setShowTips(false);
 
-        if (tipsFetchFunction) {
+        if (tipsFetchFunction && value) {
             try {
                 const tipOptions = (await tipsFetchFunction(value)) as [];
                 setTipOptions(tipOptions);
@@ -97,7 +97,7 @@ const InputField: React.FC<Props> = ({
     };
 
     return (
-        <div className="flex w-full rounded-lg border-1 border-neutral-100 p-1 mt-6 relative">
+        <div className="flex items-center w-full rounded-lg border-1 border-neutral-100 p-1 mt-6 relative">
             {icon ? <FeatherIcon icon={icon} /> : null}
             <input
                 ref={syntheticRef}
