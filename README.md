@@ -42,7 +42,7 @@ docker build ./ --file ./Dockerfile --tag intellect.kpi.ua:test
 ### Run
 
 ```bash
-docker run --rm -it -p 8000:80 intellect.kpi.ua:test
+docker run --rm -it -p 3000:3000 intellect.kpi.ua:test
 ```
 
 ### Debug

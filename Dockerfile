@@ -47,6 +47,9 @@ RUN adduser --system --uid 1001 nextjs
 
 # Set the correct permission for prerender cache
 RUN mkdir .next
+
+RUN npm i sharp
+
 RUN chown nextjs:nodejs .next
 
 # Automatically leverage output traces to reduce image size
