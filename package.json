@@ -14,7 +14,7 @@
         "autoprefixer": "^9.8.8",
         "axios": "^1.6.2",
         "feather-icons": "^4.28.0",
-        "next": "^14.0.3",
+        "next": "^14.0.4",
         "postcss": "^8.4.32",
         "react": "^18.2.0",
         "react-bootstrap-icons": "1.8.4",
