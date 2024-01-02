@@ -1,4 +1,14 @@
-export const experienceTabs: { [key in Intellect.ExperienceType]: string } = {
+import { getByQueryString as searchTeachers } from '@/api/teacher';
+import { getByQueryString as searchDivision } from '@/api/subdivision';
+
+type Tab = {
+    label: string;
+    type: Intellect.SearchMode;
+    placeholder?: string;
+    searchFetchFunction?: (q: string) => Promise<string[]>;
+};
+
+export const experienceTabs: Record<Intellect.ExperienceType, string> = {
     profile: 'Профіль',
     publications: 'Публікації',
     exploration: 'Виконання науково-дослідних та дослідно-конструкторських робіт',
@@ -30,4 +40,24 @@ export const profileTabs: { [key in string]: { field: keyof Intellect.Teacher; l
 };
 
 // export const API_BASE_URL = 'https://dev-api.campus.cloud.kpi.ua';
-export const API_BASE_URL = 'https://api.campus.kpi.ua';
+
+export const tabs = [
+    {
+        label: 'Загальний пошук спiвробiтникiв',
+        type: 'overall',
+        placeholder: 'Введіть ПІБ особи.. (наприклад: Петров Петро Петрович)',
+        searchFetchFunction: (searchField: string) => searchTeachers(searchField),
+    },
+    { label: 'Алфавітний покажчик', type: 'alphabetic' },
+    {
+        label: 'За кафедрами та факультетами',
+        type: 'subdivision',
+        placeholder: 'Введіть кафедру або факультет.. (наприклад: ФІОТ)',
+        searchFetchFunction: (searchField: string) => searchDivision(searchField),
+    },
+    {
+        label: 'За інтересами',
+        type: 'interests',
+        placeholder: 'Введіть можливі інтереси.. (наприклад: програмування)',
+    },
+] as Tab[];

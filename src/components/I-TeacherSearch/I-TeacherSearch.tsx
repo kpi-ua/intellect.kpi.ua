@@ -6,40 +6,39 @@ import ITab from '@/components/I-Tab/I-Tab';
 import InputField from '@/components/InputField/InputField';
 import Alphabet from '@/components/Alphabet/Alphabet';
 
-type Tab = {
-    label: string;
-    type: Intellect.SearchMode;
-    placeholder?: string;
-};
+import { tabs } from '@/constants';
 
 const ITeacherSearch: React.FC = () => {
     const [activeTab, setActiveTab] = useState('overall' as Intellect.SearchMode);
     const router = useRouter();
 
-    const tabs = [
-        {
-            label: 'Загальний пошук спiвробiтникiв',
-            type: 'overall',
-            placeholder: 'Введіть ПІБ особи.. (наприклад: Петров Петро Петрович)',
-        },
-        { label: 'Алфавітний покажчик', type: 'alphabetic' },
-        {
-            label: 'За кафедрами та факультетами',
-            type: 'subdivision',
-            placeholder: 'Введіть кафедру або факультет.. (наприклад: ФІОТ)',
-        },
-        {
-            label: 'За інтересами',
-            type: 'interests',
-            placeholder: 'Введіть можливі інтереси.. (наприклад: програмування)',
-        },
-    ] as Tab[];
+    const handleSearch = (input: string, alphabetic?: boolean) => {
+        const state_input = alphabetic ? `startsWith:${input}` : input;
 
-    const handleSearch = (input: string) => {
         router.push({
             pathname: '/search',
-            query: { state_input: input, mode: activeTab },
+            query: { state_input, mode: activeTab },
         });
+    };
+
+    const renderInputField = (): React.ReactNode => {
+        const currentTab = tabs.find((tab) => tab.type === activeTab);
+
+        if (!currentTab) return null;
+
+        return (
+            <InputField
+                keyField={currentTab.label}
+                buttonText="Пошук"
+                buttonClass="xs:flex hidden p-4 h-40 items-center"
+                icon="search"
+                tipsFetchFunction={currentTab?.searchFetchFunction}
+                tips={!!currentTab?.searchFetchFunction}
+                fieldClass="text-black flex-1 max-h-6 overflow-auto"
+                placeholder={currentTab?.placeholder}
+                onSubmit={handleSearch}
+            />
+        );
     };
 
     return (
@@ -57,16 +56,9 @@ const ITeacherSearch: React.FC = () => {
                 }
             >
                 {activeTab === 'alphabetic' ? (
-                    <Alphabet onLetterSelected={handleSearch} />
+                    <Alphabet onLetterSelected={(e) => handleSearch(e, true)} />
                 ) : (
-                    <InputField
-                        buttonText="Пошук"
-                        buttonClass="xs:flex hidden p-4 h-40 items-center"
-                        icon="search"
-                        fieldClass="text-black flex-1 max-h-6 overflow-auto"
-                        placeholder={tabs.find((tab) => tab.type === activeTab)?.placeholder}
-                        onSubmit={handleSearch}
-                    />
+                    renderInputField()
                 )}
             </div>
         </>
