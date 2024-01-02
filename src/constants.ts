@@ -22,7 +22,7 @@ export const searchStringParams = {
     INTERESTS: 'interests:',
 };
 
-export const profileTabs: { [key in string]: { field: keyof Intellect.Teacher; label: string }[] } = {
+export const profileTabs: Record<string, { field: keyof Intellect.Teacher; label: string }[]> = {
     'Загальна інформація': [
         {
             field: 'scientificInterest' as keyof Intellect.Teacher,
