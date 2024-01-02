@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import feather from 'feather-icons';
 
 import FeatherIcon from '@/components/FeatherIcon/FeatherIcon';
@@ -8,6 +8,7 @@ import { searchStringParams } from '@/constants';
 import { debounce } from '@/utils';
 
 interface Props {
+    keyField: string;
     onInput?: (a: React.SyntheticEvent<HTMLInputElement>) => void;
     onSubmit?: (payload: string) => void;
     buttonText: string;
@@ -24,6 +25,7 @@ interface Props {
 let handleTipsDebounced: (param: string) => void | undefined;
 
 const InputField: React.FC<Props> = ({
+    keyField,
     onInput,
     onSubmit,
     buttonText,
@@ -40,22 +42,31 @@ const InputField: React.FC<Props> = ({
     const [showTips, setShowTips] = useState(false);
     const [tipOptions, setTipOptions] = useState<string[]>([]);
 
+    let tipsMemoizedFunction: null | ((q: string) => Promise<string[]>) = null;
+    if (tipsFetchFunction) {
+        tipsMemoizedFunction = useCallback((q: string) => tipsFetchFunction(q), [keyField]);
+    }
+
     useEffect(() => {
         setUserInput(value);
     }, [value]);
 
     useEffect(() => {
+        setUserInput('');
+    }, [keyField]);
+
+    useEffect(() => {
         if (handleTips) {
             handleTipsDebounced = debounce<string>(handleTips, 1000);
         }
-    }, []);
+    }, [tipsMemoizedFunction]);
 
     const handleTips = async (value: string | undefined) => {
         setShowTips(false);
 
-        if (tipsFetchFunction && value) {
+        if (tipsMemoizedFunction && value) {
             try {
-                const tipOptions = (await tipsFetchFunction(value)) as [];
+                const tipOptions = (await tipsMemoizedFunction(value)) as [];
                 setTipOptions(tipOptions);
             } catch (e) {
                 console.error(e);

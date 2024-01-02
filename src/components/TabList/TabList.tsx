@@ -3,7 +3,7 @@ import React from 'react';
 
 type Props = {
     children: React.ReactNode;
-    tabs: { [key in Intellect.ExperienceType]: string };
+    tabs: Record<Intellect.ExperienceType, string>;
     selectTab?: (a: any) => void;
     className: string;
     tabActive: any;

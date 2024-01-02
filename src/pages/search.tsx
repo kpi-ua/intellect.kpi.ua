@@ -37,8 +37,7 @@ const Search: React.FC = () => {
 
     const [pagingOptions, setPagingOptions] = useState<ECampus.PaginationModel | null>(null);
 
-    const { invalidateCache, cacheSlice, setCache } =
-        useRuntimeCache<{ [key in number]: Intellect.Teacher[] }>(CACHE_KEY);
+    const { invalidateCache, cacheSlice, setCache } = useRuntimeCache<Record<number, Intellect.Teacher[]>>(CACHE_KEY);
 
     const [loading, setLoading] = useState(false);
 
@@ -149,6 +148,7 @@ const Search: React.FC = () => {
             <div className="mt-4">
                 <Alphabet onLetterSelected={(e) => onSubmit(searchStringParams.STARTS_WITH + e, true, false)} />
                 <InputField
+                    keyField=""
                     syntheticRef={inputRef}
                     tips={true}
                     onSubmit={(e) => onSubmit(e, true, false)}

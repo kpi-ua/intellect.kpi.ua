@@ -4,7 +4,7 @@ export const decodeHtmlCharCodes = (str: string): string => {
     return str.replace(/(&#(\d+);)/g, (match, capture, charCode) => String.fromCharCode(charCode));
 };
 
-export const parseSearchParams = (searchString: string): { [key in Intellect.SearchParams]: string } => {
+export const parseSearchParams = (searchString: string): Record<Intellect.SearchParams, string> => {
     const paramsObject: { [key in Intellect.SearchParams]: string } = {
         startsWith: '',
         subdivision: '',

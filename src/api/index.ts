@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { API_BASE_URL } from '../constants';
+
+export const API_BASE_URL = 'https://api.campus.kpi.ua';
 
 const Http = axios.create({
     baseURL: API_BASE_URL + '/intellect/',
