@@ -36,19 +36,20 @@ const InputField: React.FC<Props> = ({
     value = '',
     syntheticRef = null,
     tips,
-    tipsFetchFunction,
+    tipsFetchFunction = null,
 }) => {
     const [userInput, setUserInput] = useState(value);
     const [showTips, setShowTips] = useState(false);
     const [tipOptions, setTipOptions] = useState<string[]>([]);
 
-    let tipsMemoizedFunction: null | ((q: string) => Promise<string[]>) = null;
-    if (tipsFetchFunction) {
-        tipsMemoizedFunction = useCallback((q: string) => tipsFetchFunction(q), [keyField]);
-    }
+    const tipsMemoizedFunction = useCallback(
+        (q: string) => (tipsFetchFunction && tipsFetchFunction(q)) || null,
+        [keyField]
+    );
 
     useEffect(() => {
         setUserInput(value);
+        setTipOptions([]);
     }, [value]);
 
     useEffect(() => {
@@ -125,7 +126,7 @@ const InputField: React.FC<Props> = ({
             >
                 {buttonText}
             </CommonButton>
-            {tips && showTips && tipOptions.length ? (
+            {tips && showTips && tipOptions?.length ? (
                 <div className="absolute bottom-0 left-0 right-0 border-neutral-100 translate-y-full bg-white border-1 border-t-0 rounded-b-8 max-h-200 overflow-auto">
                     {getTipList()}
                 </div>

@@ -7,7 +7,6 @@ import Alphabet from '@/components/Alphabet/Alphabet';
 import InputField from '@/components/InputField/InputField';
 import SearchGrid from '@/components/common/SearchGrid';
 import ITeacherCard from '@/components/I-TeacherCard/I-TeacherCard';
-import CommonButton from '@/components/CommonButton/CommonButton';
 import NotFoundIndicator from '@/components/ContentStubs/NotFoundIndicator';
 import SpinnerIndicator from '@/components/ContentStubs/SpinnerIndicator';
 import Pagination from '@/components/Pagination/Pagination';
@@ -159,17 +158,6 @@ const Search: React.FC = () => {
                     buttonClass="px-4 py-1 h-40 flex items-center"
                     tipsFetchFunction={fetchTeachersForTips}
                 />
-            </div>
-            <div className="mt-2">
-                <span className="text-primary">Або оберіть режим пошуку:</span>
-                <div className="flex gap-2">
-                    <CommonButton onClick={() => onSubmit(searchStringParams.SUBDIVISION, false, true)} className="p-2">
-                        За місцем роботи
-                    </CommonButton>
-                    <CommonButton onClick={() => onSubmit(searchStringParams.INTERESTS, false, true)} className="p-2">
-                        За інтересами{' '}
-                    </CommonButton>
-                </div>
             </div>
             <ShownContent />
             {teachers.length > 0 && pagingOptions && (

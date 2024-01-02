@@ -9,10 +9,6 @@ export const searchByInput = (input: string, currentPage: number): Promise<ECamp
 
     if (params.startsWith) {
         searchString += '&startsWith=' + params.startsWith;
-    } else if (params.subdivision) {
-        searchString += '&subdivision=' + params.subdivision;
-    } else if (params.interests) {
-        searchString += '&interests=' + params.interests;
     } else {
         searchString += '&value=' + input;
     }
