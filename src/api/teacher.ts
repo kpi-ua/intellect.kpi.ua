@@ -1,6 +1,5 @@
-import Http from './index';
+import Http, { API_BASE_URL } from './index';
 import { parseSearchParams } from '@/utils';
-import { API_BASE_URL } from '@/constants';
 
 type ExperienceResultPromise = Promise<ECampus.ApiResponse<Intellect.ExperienceItem>>;
 

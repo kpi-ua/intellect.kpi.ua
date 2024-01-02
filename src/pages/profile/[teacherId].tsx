@@ -14,7 +14,8 @@ import IProfileDetails from '@/components/I-ProfileDetails/I-ProfileDetails';
 import ShareProfile from '@/components/ShareProfile/ShareProfile';
 
 import useLinkRoute from '@/utils/hooks/useLinkRoute';
-import { experienceTabs, API_BASE_URL } from '@/constants';
+import { experienceTabs } from '@/constants';
+import { API_BASE_URL } from '@/api/index';
 
 /**
  * @description Fetches teacher and experience data on server side.
