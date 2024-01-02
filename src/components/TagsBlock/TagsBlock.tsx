@@ -8,14 +8,13 @@ import Tag from '../Tag/Tag';
 type Props = {
     title: string;
     subtitle: string;
-    mode: Intellect.SearchMode;
     fetchFunction: (a?: number) => Promise<{ name: string }[] | string[]>;
     lazy?: boolean;
 };
 
 const LIMIT_TAGS = 12;
 
-const TagsBlock: React.FC<Props> = ({ title, subtitle, mode, fetchFunction, lazy }) => {
+const TagsBlock: React.FC<Props> = ({ title, subtitle, fetchFunction, lazy }) => {
     const [tags, setTags] = useState<string[]>([]);
     const [expanded, setExpanded] = useState(false);
 
@@ -42,7 +41,7 @@ const TagsBlock: React.FC<Props> = ({ title, subtitle, mode, fetchFunction, lazy
     const handleTagSelect = (tagValue: string) => {
         router.push({
             pathname: '/search',
-            query: { state_input: `${mode}:${tagValue}` },
+            query: { state_input: tagValue },
         });
     };
 

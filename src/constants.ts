@@ -1,5 +1,5 @@
-import { getByQueryString as searchTeachers } from '@/api/teacher';
-import { getByQueryString as searchDivision } from '@/api/subdivision';
+import { getByQueryString as searchTeachers, getInterests } from '@/api/teacher';
+import { getByQueryString as searchDivision, getFaculties } from '@/api/subdivision';
 
 type Tab = {
     label: string;
@@ -61,3 +61,18 @@ export const tabs = [
         placeholder: 'Введіть можливі інтереси.. (наприклад: програмування)',
     },
 ] as Tab[];
+
+export const tagsOptions = [
+    {
+        title: 'Список підрозділів',
+        subtitle: 'Список інститутів та факультетів',
+        fetchFunction: getFaculties,
+        lazy: false,
+    },
+    {
+        title: 'Наукові інтереси',
+        subtitle: 'Список можливих інтересів і захоплень викладачів',
+        fetchFunction: getInterests,
+        lazy: true,
+    },
+];
