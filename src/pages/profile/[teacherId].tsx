@@ -185,19 +185,4 @@ function ITeacherInfo({
 }
 
 export default ITeacherInfo;
-function getPublications(teacherId: string): any {
-    throw new Error('Function not implemented.');
-}
-
-function getKRExecutions(teacherId: string): any {
-    throw new Error('Function not implemented.');
-}
-
-function getKRResults(teacherId: string, arg1: string): any {
-    throw new Error('Function not implemented.');
-}
-
-function getConferences(teacherId: string): any {
-    throw new Error('Function not implemented.');
-}
 
