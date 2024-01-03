@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
-
-import { getExperienceByTeacherId, getTeacherByTeacherId } from '@/api/teacher';
-
 import RoutePointer from '@/components/RoutePointer/RoutePointer';
 import SectionTitle from '@/components/common/SectionTitle';
 import JobLabel from '@/components/JobLabel/JobLabel';
@@ -15,7 +12,8 @@ import ShareProfile from '@/components/ShareProfile/ShareProfile';
 
 import useLinkRoute from '@/utils/hooks/useLinkRoute';
 import { experienceTabs } from '@/constants';
-import { API_BASE_URL } from '@/api/index';
+import Http, { API_BASE_URL } from '@/api/index';
+import { getExperienceByTeacherId, getTeacherByTeacherId } from '@/api/teacher';
 
 /**
  * @description Fetches teacher and experience data on server side.
@@ -187,3 +185,4 @@ function ITeacherInfo({
 }
 
 export default ITeacherInfo;
+

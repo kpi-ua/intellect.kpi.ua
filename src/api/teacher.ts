@@ -70,3 +70,10 @@ export const getInterests = (limit?: number): Promise<string[]> => {
 export const getByQueryString = (q: string): Promise<string[]> => {
     return Http.get('/v2/persons?q=' + q);
 };
+
+export default {
+    getExperienceByTeacherId,
+    getTeacherByTeacherId,
+    getInterests,
+    getByQueryString,
+};
