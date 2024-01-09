@@ -5,7 +5,7 @@ import FeatherIcon from '@/components/FeatherIcon/FeatherIcon';
 import CommonButton from '@/components/CommonButton/CommonButton';
 
 import { hintLabels, searchStringParams } from '@/constants';
-import { debounce } from '@/utils';
+import { debounce, sanitizeHTML } from '@/utils';
 import { getHintByQueryString } from '@/api/common';
 
 interface Props {
@@ -57,13 +57,12 @@ const InputField: React.FC<Props> = ({
     }, []);
 
     const handleTips = async (value: string | undefined) => {
-        setShowTips(false);
-
         if (value) {
             try {
                 const tipOptions = (await getHintByQueryString(value)) as Record<string, string[]>;
                 setTipOptions(tipOptions);
             } catch (e) {
+                setShowTips(false);
                 console.error(e);
             }
         }
@@ -120,9 +119,10 @@ const InputField: React.FC<Props> = ({
                     key={tip}
                     onClick={() => handleTipClick(tip)}
                     className="cursor-pointer hover:bg-neutral-200 p-2"
-                >
-                    {tip}
-                </div>
+                    dangerouslySetInnerHTML={{
+                        __html: tip.replace(userInput, `<strong>${sanitizeHTML(userInput)}</strong>`),
+                    }}
+                />
             ));
 
             tipNodes = [...tipNodes, ...mappedNodes];
