@@ -28,12 +28,11 @@ const ITeacherSearch: React.FC = () => {
 
         return (
             <InputField
-                keyField={currentTab.label}
+                keyField={currentTab.type}
                 buttonText="Пошук"
                 buttonClass="xs:flex hidden p-4 h-40 items-center"
                 icon="search"
-                tipsFetchFunction={currentTab?.searchFetchFunction}
-                tips={!!currentTab?.searchFetchFunction}
+                tips={currentTab.tips}
                 fieldClass="text-black flex-1 max-h-6 overflow-auto"
                 placeholder={currentTab?.placeholder}
                 onSubmit={handleSearch}

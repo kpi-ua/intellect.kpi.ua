@@ -66,15 +66,3 @@ export const getInterests = (limit?: number): Promise<string[]> => {
     const param = limit ? `?count=${limit}` : '';
     return Http.get('/v2/scientific-interests' + param);
 };
-
-export const getByQueryString = (q: string): Promise<string[]> => {
-    return Http.get('/v2/hint?q=' + q)
-        .then((response: any) => response.persons);
-};
-
-export default {
-    getExperienceByTeacherId,
-    getTeacherByTeacherId,
-    getInterests,
-    getByQueryString,
-};

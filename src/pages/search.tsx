@@ -11,7 +11,7 @@ import NotFoundIndicator from '@/components/ContentStubs/NotFoundIndicator';
 import SpinnerIndicator from '@/components/ContentStubs/SpinnerIndicator';
 import Pagination from '@/components/Pagination/Pagination';
 
-import { getByQueryString, searchByInput } from '@/api/teacher';
+import { searchByInput } from '@/api/teacher';
 import { searchStringParams } from '@/constants';
 import useLinkRoute from '@/utils/hooks/useLinkRoute';
 import useRuntimeCache from '@/utils/hooks/useRuntimeCache';
@@ -137,17 +137,12 @@ const Search: React.FC = () => {
         }
     };
 
-    const fetchTeachersForTips = (searchField: string) => {
-        return getByQueryString(searchField);
-    };
-
     return (
         <section className="wrapper pt-12 pb-20">
             <RoutePointer routePath={route} />
             <div className="mt-4">
                 <Alphabet onLetterSelected={(e) => onSubmit(searchStringParams.STARTS_WITH + e, true, false)} />
                 <InputField
-                    keyField=""
                     syntheticRef={inputRef}
                     tips={true}
                     onSubmit={(e) => onSubmit(e, true, false)}
@@ -156,7 +151,6 @@ const Search: React.FC = () => {
                     fieldClass="flex-1"
                     buttonText="Пошук"
                     buttonClass="px-4 py-1 h-40 flex items-center"
-                    tipsFetchFunction={fetchTeachersForTips}
                 />
             </div>
             <ShownContent />
