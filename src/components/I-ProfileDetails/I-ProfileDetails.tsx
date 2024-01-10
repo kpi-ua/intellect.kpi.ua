@@ -126,7 +126,6 @@ const IProfileDetails: React.FC<Props> = ({ teacherInfo }) => {
                     <a target="_blank" rel="noopener noreferrer" href={`tel:${record.value}`}>{formatPhoneNumber(record.value)}</a>&nbsp;
                     <i className="fa-solid fa-arrow-up-right-from-square"></i>
                 </span>;
-
             case 'Skype':
                 return <span>{record.value}</span>;
             case 'Адреса за місцем прийому':

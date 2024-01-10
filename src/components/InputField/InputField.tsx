@@ -112,7 +112,7 @@ const InputField: React.FC<Props> = ({
         for (const key in localTipOptions) {
             if (!localTipOptions[key].length) continue;
 
-            !keyField && tipNodes.push(<div className="p-2 font-bold">{hintLabels[key]}</div>);
+            !keyField && tipNodes.push(<div className="p-2 font-bold grey">{hintLabels[key]}</div>);
             const mappedNodes = localTipOptions[key].map((tip) => (
                 <div
                     tabIndex={0}

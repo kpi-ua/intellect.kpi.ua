@@ -15,6 +15,10 @@ html {
     scroll-behavior: smooth;
 }
 
+.grey {
+    color: #999;
+}
+
 .wrapper {
     max-width: 1135px;
     width: 95%;
