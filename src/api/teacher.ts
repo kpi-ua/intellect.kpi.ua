@@ -66,3 +66,9 @@ export const getInterests = (limit?: number): Promise<string[]> => {
     const param = limit ? `?count=${limit}` : '';
     return Http.get('/v2/scientific-interests' + param);
 };
+
+export default {
+    getExperienceByTeacherId,
+    getTeacherByTeacherId,
+    getInterests,
+};
