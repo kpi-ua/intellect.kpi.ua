@@ -9,7 +9,7 @@ export default function Layout({ children }: any) {
     return (
         <>
             <Header scheme="dark" />
-            <div className="wrapper">{children}</div>
+            <div className="wrapper" style={{ minHeight: '1024px' }}>{children}</div>
             <Footer logoSrc={bottomLogo} />
         </>
     );
