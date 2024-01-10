@@ -1,14 +1,15 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import feather from 'feather-icons';
 
 import FeatherIcon from '@/components/FeatherIcon/FeatherIcon';
 import CommonButton from '@/components/CommonButton/CommonButton';
 
-import { searchStringParams } from '@/constants';
-import { debounce } from '@/utils';
+import { hintLabels, searchStringParams } from '@/constants';
+import { debounce, sanitizeHTML } from '@/utils';
+import { getHintByQueryString } from '@/api/common';
 
 interface Props {
-    keyField: string;
+    keyField?: Intellect.SearchMode;
     onInput?: (a: React.SyntheticEvent<HTMLInputElement>) => void;
     onSubmit?: (payload: string) => void;
     buttonText: string;
@@ -19,7 +20,6 @@ interface Props {
     value?: string;
     syntheticRef?: React.RefObject<HTMLInputElement>;
     tips?: boolean;
-    tipsFetchFunction?: (q: string) => Promise<string[]>;
 }
 
 let handleTipsDebounced: (param: string) => void | undefined;
@@ -36,20 +36,14 @@ const InputField: React.FC<Props> = ({
     value = '',
     syntheticRef = null,
     tips,
-    tipsFetchFunction = null,
 }) => {
     const [userInput, setUserInput] = useState(value);
     const [showTips, setShowTips] = useState(false);
-    const [tipOptions, setTipOptions] = useState<string[]>([]);
-
-    const tipsMemoizedFunction = useCallback(
-        (q: string) => (tipsFetchFunction && tipsFetchFunction(q)) || null,
-        [keyField]
-    );
+    const [tipOptions, setTipOptions] = useState<Record<string, string[]>>({});
 
     useEffect(() => {
         setUserInput(value);
-        setTipOptions([]);
+        setTipOptions({});
     }, [value]);
 
     useEffect(() => {
@@ -60,16 +54,15 @@ const InputField: React.FC<Props> = ({
         if (handleTips) {
             handleTipsDebounced = debounce<string>(handleTips, 1000);
         }
-    }, [tipsMemoizedFunction]);
+    }, []);
 
     const handleTips = async (value: string | undefined) => {
-        setShowTips(false);
-
-        if (tipsMemoizedFunction && value) {
+        if (value) {
             try {
-                const tipOptions = (await tipsMemoizedFunction(value)) as [];
+                const tipOptions = (await getHintByQueryString(value)) as Record<string, string[]>;
                 setTipOptions(tipOptions);
             } catch (e) {
+                setShowTips(false);
                 console.error(e);
             }
         }
@@ -101,11 +94,41 @@ const InputField: React.FC<Props> = ({
     };
 
     const getTipList = (): React.ReactNode[] => {
-        return tipOptions.map((tip) => (
-            <div key={tip} onClick={() => handleTipClick(tip)} className="cursor-pointer hover:bg-neutral-200 p-2">
-                {tip}
-            </div>
-        ));
+        let tipNodes: React.ReactNode[] = [];
+        let localTipOptions = tipOptions;
+
+        switch (keyField) {
+            case 'overall':
+                localTipOptions = { persons: localTipOptions.persons };
+                break;
+            case 'subdivision':
+                localTipOptions = { subdivisions: localTipOptions.subdivisions };
+                break;
+            case 'interests':
+                localTipOptions = { interests: localTipOptions.interests };
+                break;
+        }
+
+        for (const key in localTipOptions) {
+            if (!localTipOptions[key].length) continue;
+
+            !keyField && tipNodes.push(<div className="p-2 font-bold">{hintLabels[key]}</div>);
+            const mappedNodes = localTipOptions[key].map((tip) => (
+                <div
+                    tabIndex={0}
+                    key={tip}
+                    onClick={() => handleTipClick(tip)}
+                    className="cursor-pointer hover:bg-neutral-200 p-2"
+                    dangerouslySetInnerHTML={{
+                        __html: tip.replace(userInput, `<strong>${sanitizeHTML(userInput)}</strong>`),
+                    }}
+                />
+            ));
+
+            tipNodes = [...tipNodes, ...mappedNodes];
+        }
+
+        return tipNodes;
     };
 
     return (
@@ -126,7 +149,7 @@ const InputField: React.FC<Props> = ({
             >
                 {buttonText}
             </CommonButton>
-            {tips && showTips && tipOptions?.length ? (
+            {tips && showTips ? (
                 <div className="absolute bottom-0 left-0 right-0 border-neutral-100 translate-y-full bg-white border-1 border-t-0 rounded-b-8 max-h-200 overflow-auto">
                     {getTipList()}
                 </div>

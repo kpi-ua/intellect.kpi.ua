@@ -67,4 +67,11 @@ declare namespace Intellect {
     type TeacherExperience = {
         [key in ExperienceType]: ExperienceItem;
     };
+
+    type Tab = {
+        label: string;
+        type: Intellect.SearchMode;
+        placeholder?: string;
+        tips: boolean;
+    };
 }

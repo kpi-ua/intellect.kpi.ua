@@ -1,12 +1,5 @@
-import { getByQueryString as searchTeachers, getInterests } from '@/api/teacher';
-import { getByQueryString as searchDivision, getFaculties } from '@/api/subdivision';
-
-type Tab = {
-    label: string;
-    type: Intellect.SearchMode;
-    placeholder?: string;
-    searchFetchFunction?: (q: string) => Promise<string[]>;
-};
+import { getInterests } from '@/api/teacher';
+import { getFaculties } from '@/api/subdivision';
 
 export const experienceTabs: Record<Intellect.ExperienceType, string> = {
     profile: 'Профіль',
@@ -46,21 +39,22 @@ export const tabs = [
         label: 'Загальний пошук спiвробiтникiв',
         type: 'overall',
         placeholder: 'Введіть ПІБ особи.. (наприклад: Петров Петро Петрович)',
-        searchFetchFunction: (searchField: string) => searchTeachers(searchField),
+        tips: true,
     },
     { label: 'Алфавітний покажчик', type: 'alphabetic' },
     {
         label: 'За кафедрами та факультетами',
         type: 'subdivision',
         placeholder: 'Введіть кафедру або факультет.. (наприклад: ФІОТ)',
-        searchFetchFunction: (searchField: string) => searchDivision(searchField),
+        tips: true,
     },
     {
         label: 'За інтересами',
         type: 'interests',
         placeholder: 'Введіть можливі інтереси.. (наприклад: програмування)',
+        tips: true,
     },
-] as Tab[];
+] as Intellect.Tab[];
 
 export const tagsOptions = [
     {
@@ -76,3 +70,9 @@ export const tagsOptions = [
         lazy: true,
     },
 ];
+
+export const hintLabels: Record<string, string> = {
+    persons: 'Викладачі',
+    subdivisions: 'Підрозділи',
+    interests: 'Наукові інтереси',
+};
