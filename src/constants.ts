@@ -32,8 +32,6 @@ export const profileTabs: Record<string, { field: keyof Intellect.Teacher; label
     ],
 };
 
-// export const API_BASE_URL = 'https://dev-api.campus.cloud.kpi.ua';
-
 export const tabs = [
     {
         label: 'Загальний пошук спiвробiтникiв',
