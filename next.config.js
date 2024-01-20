@@ -8,15 +8,6 @@ const nextConfig = {
             },
         ],
     },
-    redirects: async () => {
-        return [
-            {
-                source: '/api/:route*',
-                destination: '/:route*',
-                permanent: true,
-            },
-        ];
-    },
     rewrites: async () => {
         return [
             {
