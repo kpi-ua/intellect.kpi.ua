@@ -8,6 +8,14 @@ const nextConfig = {
             },
         ],
     },
+    rewrites: async () => {
+        return [
+            {
+                source: '/intellect/v2/sitemap',
+                destination: `${process.env.NEXT_PUBLIC_API_URL}/intellect/v2/sitemap`,
+            },
+        ];
+    },
 };
 
 module.exports = nextConfig;
