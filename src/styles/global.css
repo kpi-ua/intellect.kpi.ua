@@ -19,6 +19,10 @@ html {
     color: #999;
 }
 
+.whitespace-pre-wrap {
+    word-wrap: anywhere;
+}
+
 .wrapper {
     max-width: 1135px;
     width: 95%;
