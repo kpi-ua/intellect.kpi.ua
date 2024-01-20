@@ -12,10 +12,10 @@ const nextConfig = {
         return [
             {
                 source: '/intellect/v2/sitemap',
-                destination: 'https://api.campus.kpi.ua/intellect/v2/sitemap',
+                destination: `${process.env.NEXT_PUBLIC_API_URL}/intellect/v2/sitemap`,
             },
         ];
-    }
+    },
 };
 
 module.exports = nextConfig;
