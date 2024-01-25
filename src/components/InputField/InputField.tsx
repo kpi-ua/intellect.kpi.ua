@@ -92,6 +92,7 @@ const InputField: React.FC<Props> = ({
 
         if (e.key === 'ArrowDown') {
             const focusableTips = document.querySelectorAll('.focusable-tips');
+            if (!focusableTips.length) return;
 
             if (currentFocused === -1) {
                 if (focusableTips.length) {
@@ -107,17 +108,20 @@ const InputField: React.FC<Props> = ({
             }
 
             setCurrentFocused((prevState) => {
-                focusableTips[prevState + 1].focus();
+                const el = focusableTips[prevState + 1];
+                el && el.focus();
                 return prevState + 1;
             });
         }
 
         if (e.key === 'ArrowUp') {
             const focusableTips = document.querySelectorAll('.focusable-tips');
+            if (!focusableTips.length) return;
 
             if (currentFocused === 0) {
                 setCurrentFocused(() => {
-                    focusableTips[focusableTips.length - 1].focus();
+                    const el = focusableTips[focusableTips.length - 1];
+                    el && el.focus();
                     return focusableTips.length - 1;
                 });
 
@@ -125,7 +129,8 @@ const InputField: React.FC<Props> = ({
             }
 
             setCurrentFocused((currentFocus) => {
-                focusableTips[currentFocus - 1].focus();
+                const el = focusableTips[currentFocus - 1];
+                el && el.focus();
                 return currentFocus - 1;
             });
         }
