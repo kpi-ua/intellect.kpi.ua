@@ -40,6 +40,7 @@ const InputField: React.FC<Props> = ({
     const [userInput, setUserInput] = useState(value);
     const [showTips, setShowTips] = useState(false);
     const [tipOptions, setTipOptions] = useState<Record<string, string[]>>({});
+    const [currentFocused, setCurrentFocused] = useState(-1);
 
     useEffect(() => {
         setUserInput(value);
@@ -84,7 +85,54 @@ const InputField: React.FC<Props> = ({
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement | HTMLDivElement>) => {
         if (e.key === 'Enter') {
-            onSubmit && onSubmit(userInput);
+            const title = e.target.title || '';
+            handleTipClick(title);
+            onSubmit && onSubmit(title);
+        }
+
+        if (e.key === 'ArrowDown') {
+            const focusableTips = document.querySelectorAll('.focusable-tips');
+            if (!focusableTips.length) return;
+
+            if (currentFocused === -1) {
+                if (focusableTips.length) {
+                    setCurrentFocused(0);
+                    focusableTips[0].focus();
+                }
+            }
+
+            if (currentFocused === focusableTips.length - 1) {
+                setCurrentFocused(0);
+                focusableTips[0].focus();
+                return;
+            }
+
+            setCurrentFocused((prevState) => {
+                const el = focusableTips[prevState + 1];
+                el && el.focus();
+                return prevState + 1;
+            });
+        }
+
+        if (e.key === 'ArrowUp') {
+            const focusableTips = document.querySelectorAll('.focusable-tips');
+            if (!focusableTips.length) return;
+
+            if (currentFocused === 0) {
+                setCurrentFocused(() => {
+                    const el = focusableTips[focusableTips.length - 1];
+                    el && el.focus();
+                    return focusableTips.length - 1;
+                });
+
+                return;
+            }
+
+            setCurrentFocused((currentFocus) => {
+                const el = focusableTips[currentFocus - 1];
+                el && el.focus();
+                return currentFocus - 1;
+            });
         }
     };
 
@@ -110,7 +158,7 @@ const InputField: React.FC<Props> = ({
         }
 
         for (const key in localTipOptions) {
-            if (!localTipOptions[key].length) continue;
+            if (!localTipOptions[key]?.length) continue;
 
             !keyField && tipNodes.push(<div className="p-2 font-bold grey">{hintLabels[key]}</div>);
             const mappedNodes = localTipOptions[key].map((tip) => (
@@ -118,7 +166,8 @@ const InputField: React.FC<Props> = ({
                     tabIndex={0}
                     key={tip}
                     onClick={() => handleTipClick(tip)}
-                    className="cursor-pointer hover:bg-neutral-200 p-2"
+                    className="cursor-pointer hover:bg-neutral-200 p-2 focusable-tips"
+                    title={tip}
                     dangerouslySetInnerHTML={{
                         __html: tip.replace(userInput, `<strong>${sanitizeHTML(userInput)}</strong>`),
                     }}
@@ -132,7 +181,10 @@ const InputField: React.FC<Props> = ({
     };
 
     return (
-        <div className="flex items-center w-full rounded-lg border-1 border-neutral-100 p-1 mt-6 relative">
+        <div
+            onKeyDown={handleKeyDown}
+            className="flex items-center w-full rounded-lg border-1 border-neutral-100 p-1 mt-6 relative"
+        >
             {icon ? <FeatherIcon icon={icon} /> : null}
             <input
                 ref={syntheticRef}
@@ -140,7 +192,6 @@ const InputField: React.FC<Props> = ({
                 placeholder={placeholder}
                 value={userInput}
                 onChange={handleInput}
-                onKeyDown={handleKeyDown}
             ></input>
             <CommonButton
                 onClick={() => (onSubmit ? onSubmit(userInput) : undefined)}
