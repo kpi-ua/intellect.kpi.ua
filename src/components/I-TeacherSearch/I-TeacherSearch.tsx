@@ -33,7 +33,7 @@ const ITeacherSearch: React.FC = () => {
                 buttonClass="xs:flex hidden p-4 h-40 items-center"
                 icon="search"
                 tips={currentTab.tips}
-                fieldClass="text-black flex-1 max-h-6 overflow-auto"
+                fieldClass="px-2 py-4 text-black flex-1 max-h-6 overflow-auto"
                 placeholder={currentTab?.placeholder}
                 onSubmit={handleSearch}
             />

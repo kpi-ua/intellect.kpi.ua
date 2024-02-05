@@ -183,7 +183,7 @@ const InputField: React.FC<Props> = ({
     return (
         <div
             onKeyDown={handleKeyDown}
-            className="flex items-center w-full rounded-lg border-1 border-neutral-100 p-1 mt-6 relative"
+            className="gap-10 flex items-center w-full rounded-lg border-1 border-neutral-100 p-1 mt-6 relative"
         >
             {icon ? <FeatherIcon icon={icon} /> : null}
             <input
