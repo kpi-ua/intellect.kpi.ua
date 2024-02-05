@@ -27,7 +27,7 @@ const Footer: React.FC<Props> = ({ logoSrc }) => {
                         <a href="https://kbis.kpi.ua">Розробник – Конструкторське бюро інформаційних систем</a>
                     </p>
                     <p className="mt-2">
-                        Створено в рамках проєкту &quot; <a href="https://ecampus.kpi.ua/home">Електронний кампус КПІ</a>&quot;
+                        Створено в рамках проєкту <a href="https://ecampus.kpi.ua/home">&quot; Електронний кампус КПІ&quot;</a>
                     </p>
                 </section>
                 <section>
