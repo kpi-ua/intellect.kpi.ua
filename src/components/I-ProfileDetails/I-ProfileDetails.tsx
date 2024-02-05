@@ -58,7 +58,7 @@ const IProfileDetails: React.FC<Props> = ({ teacherInfo }) => {
      * Formats a given phone number string to a specific pattern if it meets the criteria.
      * The method first removes any non-digit characters from the input string.
      * If the cleaned number is 12 digits long and starts with '380',
-     * it formats the number into '+XX (XXX) XXX XX XX' pattern.
+     * it formats the number into '+XXX (XX) XXX XX XX' pattern.
      * If the number doesn't meet these conditions, it returns the original input.
      *
      * @param phoneNumber - The phone number string to be formatted.
@@ -71,7 +71,7 @@ const IProfileDetails: React.FC<Props> = ({ teacherInfo }) => {
         // Check if the number matches the expected format
         if (cleanNumber.length === 12 && cleanNumber.startsWith('380')) {
             // Format the number
-            return cleanNumber.replace(/(\d{2})(\d{3})(\d{3})(\d{2})(\d{2})/, '+$1 ($2) $3 $4 $5');
+            return cleanNumber.replace(/(\d{3})(\d{2})(\d{3})(\d{2})(\d{2})/, '+$1 ($2) $3 $4 $5');
         } else {
             // If not, return the original input
             return phoneNumber;
