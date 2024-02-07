@@ -85,7 +85,7 @@ const InputField: React.FC<Props> = ({
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement | HTMLDivElement>) => {
         if (e.key === 'Enter') {
-            const title = e.target.title || '';
+            const title = (e.target as HTMLElement).getAttribute('title') || '';
             handleTipClick(title);
             onSubmit && onSubmit(title);
         }
@@ -97,19 +97,19 @@ const InputField: React.FC<Props> = ({
             if (currentFocused === -1) {
                 if (focusableTips.length) {
                     setCurrentFocused(0);
-                    focusableTips[0].focus();
+                    (focusableTips[0] as HTMLElement).focus();
                 }
             }
 
             if (currentFocused === focusableTips.length - 1) {
                 setCurrentFocused(0);
-                focusableTips[0].focus();
+                (focusableTips[0] as HTMLElement).focus();
                 return;
             }
 
             setCurrentFocused((prevState) => {
                 const el = focusableTips[prevState + 1];
-                el && el.focus();
+                el && (el as HTMLElement).focus();
                 return prevState + 1;
             });
         }
@@ -121,7 +121,7 @@ const InputField: React.FC<Props> = ({
             if (currentFocused === 0) {
                 setCurrentFocused(() => {
                     const el = focusableTips[focusableTips.length - 1];
-                    el && el.focus();
+                    el && (el as HTMLElement).focus();
                     return focusableTips.length - 1;
                 });
 
@@ -130,7 +130,7 @@ const InputField: React.FC<Props> = ({
 
             setCurrentFocused((currentFocus) => {
                 const el = focusableTips[currentFocus - 1];
-                el && el.focus();
+                el && (el as HTMLElement).focus();
                 return currentFocus - 1;
             });
         }
