@@ -85,9 +85,8 @@ const InputField: React.FC<Props> = ({
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement | HTMLDivElement>) => {
         if (e.key === 'Enter') {
-            const title = e.currentTarget.title || '';
-            handleTipClick(title);
-            onSubmit && onSubmit(title);
+            handleTipClick(userInput);
+            onSubmit && onSubmit(userInput);
         }
 
         if (e.key === 'ArrowDown') {
