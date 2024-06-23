@@ -146,9 +146,9 @@ const Search: React.FC = () => {
                     syntheticRef={inputRef}
                     tips={true}
                     onSubmit={(e) => onSubmit(e, true, false)}
-                    placeholder="Введіть строку пошука"
+                    placeholder="Введіть рядок пошуку"
                     value={inputValue}
-                    fieldClass="flex-1"
+                    fieldClass="px-2 py-4 text-black flex-1 max-h-6 overflow-auto"
                     buttonText="Пошук"
                     buttonClass="px-4 py-1 h-40 flex items-center"
                 />
