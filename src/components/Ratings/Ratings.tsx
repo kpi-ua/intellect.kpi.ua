@@ -17,9 +17,9 @@ export const Ratings = ({ ratings }: RatingsProps) => {
                     <thead className="text-sm text-left text-primary">
                         <tr className="border-2 border-solid border-neutral-950">
                             <th>Навчальний рік</th>
-                            <th>Рейтинг з навчально-методичної роботи</th>
-                            <th>Рейтинг з науково-інноваційної роботи</th>
-                            <th>Рейтинг з організаційно-виховної роботи</th>
+                            <th>НМР</th>
+                            <th>НIР</th>
+                            <th>ОВР</th>
                             <th>Загальний рейтинг</th>
                             <th>Кафедра</th>
                         </tr>
@@ -38,6 +38,12 @@ export const Ratings = ({ ratings }: RatingsProps) => {
                     </tbody>
                 </table>
             </div>
+
+            <p className="mt-6">
+                <strong>НМР</strong> – рейтинг з навчально-методичної роботи <br />
+                <strong>НIР</strong> - рейтинг з науково-інноваційної роботи <br />
+                <strong>ОВР</strong> - рейтинг з організаційно-виховної роботи <br />
+            </p>
         </div>
     );
 };
