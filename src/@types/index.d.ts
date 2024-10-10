@@ -24,7 +24,12 @@ declare namespace ECampus {
     interface PaginationModel {
         pageNumber: number;
         pageCount: number;
-    }
+    };
+
+    type Subdivision = {
+        id: number;
+        name: string;
+    };
 }
 
 declare namespace Intellect {
@@ -60,12 +65,22 @@ declare namespace Intellect {
         };
     };
 
-    type ExperienceType = 'publications' | 'exploration' | 'exploration_results' | 'confs' | 'profile';
+    type ExperienceType = 'publications' | 'exploration' | 'exploration_results' | 'confs' | 'profile' | 'rating';
     type SearchMode = 'overall' | 'alphabetic' | 'subdivision' | 'interests';
     type SearchParams = 'startsWith' | 'subdivision' | 'interests';
 
     type TeacherExperience = {
         [key in ExperienceType]: ExperienceItem;
+    };
+
+
+    type Rating = {
+        subdivision: ECampus.Subdivision;
+        overallRating?: number;
+        studyYear: string;
+        educationalMethodologicalRating?: number;
+        scientificInnovativeRating?: number;
+        organizationalEducationalRating?: number;
     };
 
     type Tab = {
