@@ -1,4 +1,5 @@
 import Http, { API_BASE_URL } from './index';
+
 import { parseSearchParams } from '@/utils';
 
 type ExperienceResultPromise = Promise<ECampus.ApiResponse<Intellect.ExperienceItem>>;
@@ -28,7 +29,7 @@ const getKRExecutions = (teacherId: string): ExperienceResultPromise => {
     return Http.get(`/v2/persons/${teacherId}/researches/carrying-out`);
 };
 
-const getKRResults = (teacherId: string, key: Intellect.ExperienceType): ExperienceResultPromise => {
+const getKRResults = (teacherId: string): ExperienceResultPromise => {
     return Http.get(`/v2/persons/${teacherId}/researches/results`);
 };
 
@@ -44,7 +45,7 @@ export const getExperienceByTeacherId = async (teacherId: string): Promise<Intel
         const results = await Promise.all<ExperienceResultPromise>([
             getPublications(teacherId),
             getKRExecutions(teacherId),
-            getKRResults(teacherId, 'exploration_results'),
+            getKRResults(teacherId),
             getConferences(teacherId),
         ]);
 
@@ -67,8 +68,13 @@ export const getInterests = (limit?: number): Promise<string[]> => {
     return Http.get('/v2/scientific-interests' + param);
 };
 
+export const getRatings = (teacherId: string): Promise<Intellect.Rating[]> => {
+    return Http.get(`/v2/persons/${teacherId}/rating`);
+};
+
 export default {
     getExperienceByTeacherId,
     getTeacherByTeacherId,
     getInterests,
+    getRatings,
 };

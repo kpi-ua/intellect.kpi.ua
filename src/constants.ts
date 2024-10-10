@@ -1,5 +1,5 @@
-import { getInterests } from '@/api/teacher';
 import { getFaculties } from '@/api/subdivision';
+import { getInterests } from '@/api/teacher';
 
 export const experienceTabs: Record<Intellect.ExperienceType, string> = {
     profile: 'Профіль',
@@ -7,6 +7,7 @@ export const experienceTabs: Record<Intellect.ExperienceType, string> = {
     exploration: 'Виконання науково-дослідних та дослідно-конструкторських робіт',
     exploration_results: 'Результати виконання науково-дослідних та дослідно-конструкторських робіт',
     confs: 'Конференції, виставки',
+    rating: 'Рейтинг',
 };
 
 export const searchStringParams = {
