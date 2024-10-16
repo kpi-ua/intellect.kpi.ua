@@ -11,17 +11,9 @@ const Contacts: React.FC = () => {
             <div>
                 <SectionTitle>Контакти</SectionTitle>
                 <div className="mt-4">
-                    <div className="leading-6">
-                        <div>
-                            тел.: <a href="tel:380444549845">+380 (44) 454 98 45</a>
-                        </div>
-                        <div>
-                            факс: <a href="tel:380444549845">+380 (44) 454 98 45</a>
-                        </div>
-                    </div>
                     <div className="mt-3">
                         <div>
-                            e-mail:{' '}
+                            E-mail:{' '}
                             <a className="underline" href="mailto:ecampus@kpi.ua">
                                 ecampus@kpi.ua
                             </a>
