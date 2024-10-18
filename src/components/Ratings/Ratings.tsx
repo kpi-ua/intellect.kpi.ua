@@ -1,10 +1,17 @@
 import React from 'react';
+import SectionTitle from '@/components/common/SectionTitle';
 
 interface RatingsProps {
   ratings: Intellect.Rating[];
 }
 
 export const Ratings = ({ ratings }: RatingsProps) => {
+    if (ratings.length === 0) {
+        return (
+            <SectionTitle className="text-primary mt-3">Дані відсутні</SectionTitle>
+        );
+    }
+
     return (
         <div className="w-full overflow-x-scroll">
             <table className="-ml-6 -mr-6 border-separate whitespace-nowrap border-spacing-x-6 border-spacing-y-2">
