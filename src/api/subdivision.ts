@@ -6,6 +6,6 @@ export const getFaculties = (): Promise<{ name: string }[]> => {
 };
 
 export const getByQueryString = (q: string): Promise<string[]> => {
-    return Http.get(API_BASE_URL + '/subdivision?q=' + q)
+    return Http.get(API_BASE_URL + '/subdivision/all?q=' + q)
         .then((response: any) => response.map((department: { name: string; }) => department.name));
 };
