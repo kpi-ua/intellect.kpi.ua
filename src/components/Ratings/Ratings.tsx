@@ -1,10 +1,17 @@
 import React from 'react';
+import SectionTitle from '@/components/common/SectionTitle';
 
 interface RatingsProps {
   ratings: Intellect.Rating[];
 }
 
 export const Ratings = ({ ratings }: RatingsProps) => {
+    if (ratings.length === 0) {
+        return (
+            <SectionTitle className="text-primary mt-3">Дані відсутні</SectionTitle>
+        );
+    }
+
     return (
         <div className="relative justify-between gap-24 mt-4">
             <p className="text-xs text-neutral-600">
