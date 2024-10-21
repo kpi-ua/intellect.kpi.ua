@@ -15,6 +15,7 @@ import useLinkRoute from '@/utils/hooks/useLinkRoute';
 import { experienceTabs } from '@/constants';
 import { API_BASE_URL } from '@/api/index';
 import { getExperienceByTeacherId, getRatings, getTeacherByTeacherId } from '@/api/teacher';
+import { AxiosError } from 'axios';
 
 /**
  * @description Fetches teacher and experience data on server side.
@@ -25,19 +26,27 @@ import { getExperienceByTeacherId, getRatings, getTeacherByTeacherId } from '@/a
 export async function getServerSideProps(context: any) {
     const teacherId = context.params.teacherId;
 
-    const [
-        teacher,
-        experience,
-        ratings
-    ] = await Promise.all([
-        getTeacherByTeacherId(teacherId),
-        getExperienceByTeacherId(teacherId),
-        getRatings(teacherId),
-    ]);
+    try {
+        const [
+            teacher,
+            experience,
+            ratings
+        ] = await Promise.all([
+            getTeacherByTeacherId(teacherId),
+            getExperienceByTeacherId(teacherId),
+            getRatings(teacherId),
+        ]);
 
-    return {
-        props: { teacher, experience, ratings },
-    };
+        return {
+            props: { teacher, experience, ratings },
+        };
+    } catch (error) {
+        if (error instanceof AxiosError && error.status === 404) {
+            return {
+                notFound: true
+            };
+        }
+    }
 }
 
 /**

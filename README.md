@@ -1,10 +1,11 @@
 # intellect.kpi.ua
 
-![example workflow](https://github.com/kpi-ua/intellect.kpi.ua/actions/workflows/workflow.yml/badge.svg)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
+[![Docker Image Version (latest by date)](https://img.shields.io/docker/v/kpiua/intellect.kpi.ua)](https://hub.docker.com/r/kpiua/intellect.kpi.ua)
 
-Available at [Docker hub](https://hub.docker.com/r/kpiua/intellect.kpi.ua)
+Spearheaded by Igor Sikorsky Kyiv Polytechnic Institute, this project unites a diverse group of university professionals, including scientists, teachers, engineers, and post-graduate students. The project is centered around fundamental and applied research, practical implementation of results, and educational activities.
 
-## Available Scripts
+## Run & debug
 
 In the project directory, you can run:
 
