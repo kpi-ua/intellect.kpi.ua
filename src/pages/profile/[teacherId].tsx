@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
+import Error from 'next/error';
 import RoutePointer from '@/components/RoutePointer/RoutePointer';
 import SectionTitle from '@/components/common/SectionTitle';
 import JobLabel from '@/components/JobLabel/JobLabel';
@@ -10,7 +11,6 @@ import Avatar from '@/components/Avatar/Avatar';
 import IProfileDetails from '@/components/I-ProfileDetails/I-ProfileDetails';
 import ShareProfile from '@/components/ShareProfile/ShareProfile';
 import { Ratings } from '@/components/Ratings/Ratings';
-
 import useLinkRoute from '@/utils/hooks/useLinkRoute';
 import { experienceTabs } from '@/constants';
 import { API_BASE_URL } from '@/api/index';
@@ -34,19 +34,24 @@ export async function getServerSideProps(context: any) {
         ] = await Promise.all([
             getTeacherByTeacherId(teacherId),
             getExperienceByTeacherId(teacherId),
-            getRatings(teacherId),
+            getRatings(teacherId)
         ]);
-
+    
         return {
             props: { teacher, experience, ratings },
         };
-    } catch (error) {
-        if (error instanceof AxiosError && error.status === 404) {
-            return {
-                notFound: true
-            };
-        }
+        
+    }  catch (e) {
+        const error = e as AxiosError;
+        const statusCode = error.response ? error.response.status : 500;
+
+        return {
+            props: {
+                statusCode,
+            }
+        };
     }
+
 }
 
 /**
@@ -59,7 +64,7 @@ const generateMetaDescription = (teacher: Intellect.Teacher | null): string => {
     if (!teacher) {
         return '';
     }
-    
+
     const credoOrEmpty = teacher.credo ? `"${teacher.credo}", ` : ''; // with quotes
     const academicDegreeOrEmpty = teacher.academicDegree ? `${teacher.academicDegree}, ` : '';
     const positionsOrEmpty =
@@ -84,11 +89,18 @@ function ITeacherInfo({
     teacher,
     experience,
     ratings,
+    statusCode,
 }: {
     teacher: Intellect.Teacher | null;
     experience: Intellect.TeacherExperience | null;
     ratings: Intellect.Rating[] | null,
+    statusCode?: number
 }) {
+
+    if (statusCode) {
+        return <Error statusCode={statusCode} withDarkMode={false} />;
+    }
+
     const [activeTab, setActiveTab] = useState<Intellect.ExperienceType>(
         Object.keys(experienceTabs)[0] as Intellect.ExperienceType
     );
