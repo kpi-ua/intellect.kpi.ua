@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
+import Error from 'next/error';
 import RoutePointer from '@/components/RoutePointer/RoutePointer';
 import SectionTitle from '@/components/common/SectionTitle';
 import JobLabel from '@/components/JobLabel/JobLabel';
@@ -10,11 +11,11 @@ import Avatar from '@/components/Avatar/Avatar';
 import IProfileDetails from '@/components/I-ProfileDetails/I-ProfileDetails';
 import ShareProfile from '@/components/ShareProfile/ShareProfile';
 import { Ratings } from '@/components/Ratings/Ratings';
-
 import useLinkRoute from '@/utils/hooks/useLinkRoute';
 import { experienceTabs } from '@/constants';
 import { API_BASE_URL } from '@/api/index';
 import { getExperienceByTeacherId, getRatings, getTeacherByTeacherId } from '@/api/teacher';
+import { AxiosError } from 'axios';
 
 /**
  * @description Fetches teacher and experience data on server side.
@@ -25,18 +26,30 @@ import { getExperienceByTeacherId, getRatings, getTeacherByTeacherId } from '@/a
 export async function getServerSideProps(context: any) {
     const teacherId = context.params.teacherId;
 
-    const [
-        teacher,
-        experience,
-        ratings
-    ] = await Promise.all([
-        getTeacherByTeacherId(teacherId),
-        getExperienceByTeacherId(teacherId),
-        getRatings(teacherId),
-    ]);
+    try {
+        const [
+            teacher,
+            experience,
+            ratings
+        ] = await Promise.all([
+            getTeacherByTeacherId(teacherId),
+            getExperienceByTeacherId(teacherId),
+            getRatings(teacherId)
+        ]);
+
+        return {
+            props: { teacher, experience, ratings },
+        };
+    } catch (error) {
+        if (error instanceof AxiosError) {
+            return {
+                props: { errorCode: error.status },
+            };
+        }
+    }
 
     return {
-        props: { teacher, experience, ratings },
+        props:{}
     };
 }
 
@@ -50,7 +63,7 @@ const generateMetaDescription = (teacher: Intellect.Teacher | null): string => {
     if (!teacher) {
         return '';
     }
-    
+
     const credoOrEmpty = teacher.credo ? `"${teacher.credo}", ` : ''; // with quotes
     const academicDegreeOrEmpty = teacher.academicDegree ? `${teacher.academicDegree}, ` : '';
     const positionsOrEmpty =
@@ -72,6 +85,7 @@ const generateMetaDescription = (teacher: Intellect.Teacher | null): string => {
  * @returns
  */
 function ITeacherInfo({
+    errorCode,
     teacher,
     experience,
     ratings,
@@ -79,7 +93,12 @@ function ITeacherInfo({
     teacher: Intellect.Teacher | null;
     experience: Intellect.TeacherExperience | null;
     ratings: Intellect.Rating[] | null,
+    errorCode: number | null | undefined
 }) {
+    if (errorCode) {
+        return <Error statusCode={errorCode} withDarkMode={false} />;
+    }
+
     const [activeTab, setActiveTab] = useState<Intellect.ExperienceType>(
         Object.keys(experienceTabs)[0] as Intellect.ExperienceType
     );
