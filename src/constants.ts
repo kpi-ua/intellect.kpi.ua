@@ -4,8 +4,8 @@ import { getInterests } from '@/api/teacher';
 export const experienceTabs: Record<Intellect.ExperienceType, string> = {
     profile: 'Профіль',
     publications: 'Публікації',
-    exploration: 'Виконання науково-дослідних та дослідно-конструкторських робіт',
-    exploration_results: 'Результати виконання науково-дослідних та дослідно-конструкторських робіт',
+    exploration: 'Виконання НДДКР*',
+    exploration_results: 'Результати виконання НДДКР*',
     confs: 'Конференції, виставки',
     rating: 'Рейтинг',
 };
