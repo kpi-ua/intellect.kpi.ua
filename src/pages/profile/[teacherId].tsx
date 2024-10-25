@@ -36,21 +36,22 @@ export async function getServerSideProps(context: any) {
             getExperienceByTeacherId(teacherId),
             getRatings(teacherId)
         ]);
-
+    
         return {
             props: { teacher, experience, ratings },
         };
-    } catch (error) {
-        if (error instanceof AxiosError) {
-            return {
-                props: { errorCode: error.status },
-            };
-        }
+        
+    }  catch (e) {
+        const error = e as AxiosError;
+        const statusCode = error.response ? error.response.status : 500;
+
+        return {
+            props: {
+                statusCode,
+            }
+        };
     }
 
-    return {
-        props:{}
-    };
 }
 
 /**
@@ -85,18 +86,19 @@ const generateMetaDescription = (teacher: Intellect.Teacher | null): string => {
  * @returns
  */
 function ITeacherInfo({
-    errorCode,
     teacher,
     experience,
     ratings,
+    statusCode,
 }: {
     teacher: Intellect.Teacher | null;
     experience: Intellect.TeacherExperience | null;
     ratings: Intellect.Rating[] | null,
-    errorCode: number | null | undefined
+    statusCode?: number
 }) {
-    if (errorCode) {
-        return <Error statusCode={errorCode} withDarkMode={false} />;
+
+    if (statusCode) {
+        return <Error statusCode={statusCode} withDarkMode={false} />;
     }
 
     const [activeTab, setActiveTab] = useState<Intellect.ExperienceType>(
