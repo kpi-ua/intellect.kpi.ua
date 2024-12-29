@@ -13,17 +13,17 @@ const Home: NextPageWithLayout = () => {
     return <></>;
 };
 
-Home.getLayout = function getLayout(page) {
+Home.getLayout = function getLayout() {
     return (
         <>
-            <div className="header-wrapper text-white">
+            <div className="text-white header-wrapper">
                 <Header underlined={false} scheme="light" />
                 <div className="wrapper">
                     <ISearchBlock />
                 </div>
             </div>
             <div className="wrapper">
-                <div className="min-h-220 mt-16">
+                <div className="mt-16 min-h-220">
                     <TagsSection />
                 </div>
             </div>
