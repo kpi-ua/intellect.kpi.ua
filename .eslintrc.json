@@ -19,7 +19,7 @@
     },
     "ignorePatterns": ["src/assets"],
     "rules": {
-        "indent": ["error", 4, {"SwitchCase": 1}],
+        "indent": ["error", 4, { "SwitchCase": 1 }],
         "linebreak-style": ["error", "unix"],
         "quotes": ["error", "single"],
         "semi": ["error", "always"],
@@ -35,6 +35,9 @@
             }
         ],
         "no-var": "error",
-        "no-console": "warn"
+        "no-console": "warn",
+        "@typescript-eslint/no-explicit-any": "warn",
+        "@typescript-eslint/no-unused-expressions": "warn",
+        "@typescript-eslint/no-unused-vars": "warn"
     }
 }
