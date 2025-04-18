@@ -15,7 +15,7 @@ import { searchByInput } from '@/api/teacher';
 import { searchStringParams } from '@/constants';
 import useLinkRoute from '@/utils/hooks/useLinkRoute';
 import useRuntimeCache from '@/utils/hooks/useRuntimeCache';
-import { Teacher } from '@/types/intellect';
+import { Lecturer } from '@/types/intellect';
 import { PaginationModel } from '@/types/ecampus';
 
 const CACHE_KEY = 'cachedSearch_';
@@ -30,7 +30,7 @@ const Search: React.FC = () => {
     const inputRef = useRef<HTMLInputElement>(null);
     const searchedValue = useRef('');
 
-    const [teachers, setTeachers] = useState<Teacher[]>([]);
+    const [teachers, setTeachers] = useState<Lecturer[]>([]);
     const [searchValue, setSearchValue] = useState('');
     const [inputValue, setInputValue] = useState('');
 
@@ -38,7 +38,7 @@ const Search: React.FC = () => {
 
     const [pagingOptions, setPagingOptions] = useState<PaginationModel | null>(null);
 
-    const { invalidateCache, cacheSlice, setCache } = useRuntimeCache<Record<number, Teacher[]>>(CACHE_KEY);
+    const { invalidateCache, cacheSlice, setCache } = useRuntimeCache<Record<number, Lecturer[]>>(CACHE_KEY);
 
     const [loading, setLoading] = useState(false);
 

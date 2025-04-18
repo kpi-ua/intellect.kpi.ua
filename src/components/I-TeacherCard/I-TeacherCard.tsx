@@ -2,10 +2,10 @@ import Link from 'next/link';
 import React from 'react';
 
 import Avatar from '@/components/Avatar/Avatar';
-import { Teacher } from '@/types/intellect';
+import { Lecturer } from '@/types/intellect';
 
 type Props = {
-    teacherInfo: Teacher;
+    teacherInfo: Lecturer;
     className?: string;
 };
 

@@ -16,7 +16,7 @@ import { experienceTabs } from '@/constants';
 import { API_BASE_URL } from '@/api/index';
 import { getExperienceByTeacherId, getRatings, getTeacherByTeacherId } from '@/api/teacher';
 import { AxiosError } from 'axios';
-import { ExperienceType, Position, Rating, Teacher, TeacherExperience } from '@/types/intellect';
+import { ExperienceType, Position, Rating, Lecturer, TeacherExperience } from '@/types/intellect';
 
 /**
  * @description Fetches teacher and experience data on server side.
@@ -55,7 +55,7 @@ export async function getServerSideProps(context: any) {
  * @param teacher
  * @returns
  */
-const generateMetaDescription = (teacher: Teacher | null): string => {
+const generateMetaDescription = (teacher: Lecturer | null): string => {
     if (!teacher) {
         return '';
     }
@@ -86,7 +86,7 @@ function ITeacherInfo({
     ratings,
     statusCode,
 }: {
-    teacher: Teacher | null;
+    teacher: Lecturer | null;
     experience: TeacherExperience | null;
     ratings: Rating[] | null;
     statusCode?: number;

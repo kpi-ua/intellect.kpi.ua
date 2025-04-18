@@ -3,10 +3,10 @@ import React from 'react';
 import SectionTitle from '@/components/common/SectionTitle';
 
 import { academicDegrees, academicStatuses } from '@/constants';
-import { Teacher } from '@/types/intellect';
+import { Lecturer } from '@/types/intellect';
 
 type Props = {
-    teacherInfo: Teacher;
+    teacherInfo: Lecturer;
 };
 
 const ProfileInfoRow = ({ title, children }: { title: string; children: React.ReactNode }) =>

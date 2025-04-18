@@ -2,11 +2,11 @@ import { ApiResponse } from '@/types/ecampus';
 import Http, { API_BASE_URL } from './index';
 
 import { parseSearchParams } from '@/utils';
-import { ExperienceItem, Rating, Teacher, TeacherExperience } from '@/types/intellect';
+import { ExperienceItem, Rating, Lecturer, TeacherExperience } from '@/types/intellect';
 
 type ExperienceResultPromise = Promise<ApiResponse<ExperienceItem>>;
 
-export const searchByInput = (input: string, currentPage: number): Promise<ApiResponse<Teacher>> => {
+export const searchByInput = (input: string, currentPage: number): Promise<ApiResponse<Lecturer>> => {
     const params = parseSearchParams(input);
     let searchString = '?';
 
@@ -61,7 +61,7 @@ export const getExperienceByTeacherId = async (teacherId: string): Promise<Teach
     return resultObj;
 };
 
-export const getTeacherByTeacherId = (teacherId: string): Promise<Teacher> => {
+export const getTeacherByTeacherId = (teacherId: string): Promise<Lecturer> => {
     return Http.get(API_BASE_URL + '/account/public/' + teacherId);
 };
 

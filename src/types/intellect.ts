@@ -1,20 +1,18 @@
 import { Division, Subdivision } from './ecampus';
 import { AcademicDegree, AcademicStatus } from './enums';
 
-export type Teacher = {
+export type Lecturer = {
     profile: string;
     credo: string;
     photo: string;
     fullName: string;
     userIdentifier: string;
     id: number;
-    isConfirmed: boolean;
     contactRecords: { name: string; value: string }[] | null;
     academicStatus: AcademicStatus;
     academicDegree: AcademicDegree;
     scientificInterest: string;
     items: any[];
-    status: string;
     field: any;
     positions: Position[];
 };

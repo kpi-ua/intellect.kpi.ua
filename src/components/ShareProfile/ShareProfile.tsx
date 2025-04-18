@@ -4,10 +4,10 @@ import { useMemo } from 'react';
 import Image from 'next/image';
 
 import shareIcon from '@/assets/svg/share-fat.svg';
-import { Teacher } from '@/types/intellect';
+import { Lecturer } from '@/types/intellect';
 
 type Props = {
-    teacher: Teacher;
+    teacher: Lecturer;
 };
 
 const ShareProfile: React.FC<Props> = ({ teacher }) => {

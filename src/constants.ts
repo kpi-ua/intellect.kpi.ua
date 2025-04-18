@@ -1,7 +1,7 @@
 import { getFaculties } from '@/api/subdivision';
 import { getInterests } from '@/api/teacher';
 import { AcademicDegree, AcademicStatus } from './types/enums';
-import { ExperienceType, Tab, Teacher } from './types/intellect';
+import { ExperienceType, Tab } from './types/intellect';
 
 export const experienceTabs: Record<ExperienceType, string> = {
     profile: 'Профіль',
