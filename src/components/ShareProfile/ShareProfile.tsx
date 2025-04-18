@@ -4,9 +4,10 @@ import { useMemo } from 'react';
 import Image from 'next/image';
 
 import shareIcon from '@/assets/svg/share-fat.svg';
+import { Lecturer } from '@/types/intellect';
 
 type Props = {
-    teacher: Intellect.Teacher;
+    teacher: Lecturer;
 };
 
 const ShareProfile: React.FC<Props> = ({ teacher }) => {
@@ -24,7 +25,7 @@ const ShareProfile: React.FC<Props> = ({ teacher }) => {
     };
 
     return (
-        <div className="h-9 min-w-9 rounded-8 border-primary border-1 flex items-center justify-center cursor-pointer">
+        <div className="flex items-center justify-center cursor-pointer h-9 min-w-9 rounded-8 border-primary border-1">
             <Image onClick={handleClick} src={shareIcon} alt="share" />
         </div>
     );

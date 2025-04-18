@@ -4,6 +4,7 @@ import TableContent from '@/components/TableContent/TableContent';
 import SectionTitle from '@/components/common/SectionTitle';
 
 import { debounce } from '@/utils';
+import { Anchor } from '@/types/ecampus';
 
 type Props = {
     children: JSX.Element[];
@@ -12,7 +13,7 @@ type Props = {
 };
 
 const ContentMap: React.FC<Props> = ({ children, className = '', anchorsClass = '' }) => {
-    const [anchors, setAnchors] = useState<ECampus.Anchor[]>([]);
+    const [anchors, setAnchors] = useState<Anchor[]>([]);
     const [activeAnchor, setActiveAnchor] = useState<string | null>(null);
     const itemsRef = useRef<HTMLElement[]>([]);
 
@@ -36,8 +37,8 @@ const ContentMap: React.FC<Props> = ({ children, className = '', anchorsClass = 
     };
     const scrollHandler = debounce(scrollHandlerCb, 50);
 
-    const parseAnchors = (): ECampus.Anchor[] => {
-        const anchors: ECampus.Anchor[] = [];
+    const parseAnchors = (): Anchor[] => {
+        const anchors: Anchor[] = [];
         React.Children.forEach(children, (child: JSX.Element) => {
             if (child.props.id && child.props['data-label']) {
                 anchors.push({
@@ -65,7 +66,7 @@ const ContentMap: React.FC<Props> = ({ children, className = '', anchorsClass = 
             </div>
         </div>
     ) : (
-        <SectionTitle className="text-primary mt-3 mb-24">Дані відсутні</SectionTitle>
+        <SectionTitle className="mt-3 mb-24 text-primary">Дані відсутні</SectionTitle>
     );
 };
 

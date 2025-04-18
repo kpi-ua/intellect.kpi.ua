@@ -16,6 +16,7 @@ import { experienceTabs } from '@/constants';
 import { API_BASE_URL } from '@/api/index';
 import { getExperienceByTeacherId, getRatings, getTeacherByTeacherId } from '@/api/teacher';
 import { AxiosError } from 'axios';
+import { ExperienceType, Position, Rating, Lecturer, TeacherExperience } from '@/types/intellect';
 
 /**
  * @description Fetches teacher and experience data on server side.
@@ -27,31 +28,25 @@ export async function getServerSideProps(context: any) {
     const teacherId = context.params.teacherId;
 
     try {
-        const [
-            teacher,
-            experience,
-            ratings
-        ] = await Promise.all([
+        const [teacher, experience, ratings] = await Promise.all([
             getTeacherByTeacherId(teacherId),
             getExperienceByTeacherId(teacherId),
-            getRatings(teacherId)
+            getRatings(teacherId),
         ]);
-    
+
         return {
             props: { teacher, experience, ratings },
         };
-        
-    }  catch (e) {
+    } catch (e) {
         const error = e as AxiosError;
         const statusCode = error.response ? error.response.status : 500;
 
         return {
             props: {
                 statusCode,
-            }
+            },
         };
     }
-
 }
 
 /**
@@ -60,7 +55,7 @@ export async function getServerSideProps(context: any) {
  * @param teacher
  * @returns
  */
-const generateMetaDescription = (teacher: Intellect.Teacher | null): string => {
+const generateMetaDescription = (teacher: Lecturer | null): string => {
     if (!teacher) {
         return '';
     }
@@ -91,19 +86,16 @@ function ITeacherInfo({
     ratings,
     statusCode,
 }: {
-    teacher: Intellect.Teacher | null;
-    experience: Intellect.TeacherExperience | null;
-    ratings: Intellect.Rating[] | null,
-    statusCode?: number
+    teacher: Lecturer | null;
+    experience: TeacherExperience | null;
+    ratings: Rating[] | null;
+    statusCode?: number;
 }) {
-
     if (statusCode) {
         return <Error statusCode={statusCode} withDarkMode={false} />;
     }
 
-    const [activeTab, setActiveTab] = useState<Intellect.ExperienceType>(
-        Object.keys(experienceTabs)[0] as Intellect.ExperienceType
-    );
+    const [activeTab, setActiveTab] = useState<ExperienceType>(Object.keys(experienceTabs)[0] as ExperienceType);
 
     const { addLink, route } = useLinkRoute();
 
@@ -152,7 +144,7 @@ function ITeacherInfo({
 
     const description = generateMetaDescription(teacher);
 
-    const renderTab = (tab: Intellect.ExperienceType) => {
+    const renderTab = (tab: ExperienceType) => {
         switch (tab) {
             case 'profile':
                 return teacher ? <IProfileDetails teacherInfo={teacher} /> : null;
@@ -201,7 +193,7 @@ function ITeacherInfo({
                             </div>
                         ) : null}
                         <div className="flex justify-center gap-3 mt-5 overflow-x-auto sm:justify-start">
-                            {(teacher?.positions || []).map((item: Intellect.Position) => (
+                            {(teacher?.positions || []).map((item: Position) => (
                                 <JobLabel
                                     key={item.subdivision.id}
                                     qualification={item.name}
@@ -225,4 +217,3 @@ function ITeacherInfo({
 }
 
 export default ITeacherInfo;
-
