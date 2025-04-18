@@ -3,9 +3,10 @@ import { useEffect, useMemo } from 'react';
 
 import FeatherIcon from '@/components/FeatherIcon/FeatherIcon';
 import usePaging from '@/utils/hooks/usePaging';
+import { PaginationModel } from '@/types/ecampus';
 
 interface Props {
-    pagination: ECampus.PaginationModel;
+    pagination: PaginationModel;
     onChange: (currentPage: number) => void;
 }
 

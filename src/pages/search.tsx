@@ -15,6 +15,8 @@ import { searchByInput } from '@/api/teacher';
 import { searchStringParams } from '@/constants';
 import useLinkRoute from '@/utils/hooks/useLinkRoute';
 import useRuntimeCache from '@/utils/hooks/useRuntimeCache';
+import { Teacher } from '@/types/intellect';
+import { PaginationModel } from '@/types/ecampus';
 
 const CACHE_KEY = 'cachedSearch_';
 
@@ -28,15 +30,15 @@ const Search: React.FC = () => {
     const inputRef = useRef<HTMLInputElement>(null);
     const searchedValue = useRef('');
 
-    const [teachers, setTeachers] = useState<Intellect.Teacher[]>([]);
+    const [teachers, setTeachers] = useState<Teacher[]>([]);
     const [searchValue, setSearchValue] = useState('');
     const [inputValue, setInputValue] = useState('');
 
     const { route } = useLinkRoute([{ path: '/search', label: 'Пошук' }]);
 
-    const [pagingOptions, setPagingOptions] = useState<ECampus.PaginationModel | null>(null);
+    const [pagingOptions, setPagingOptions] = useState<PaginationModel | null>(null);
 
-    const { invalidateCache, cacheSlice, setCache } = useRuntimeCache<Record<number, Intellect.Teacher[]>>(CACHE_KEY);
+    const { invalidateCache, cacheSlice, setCache } = useRuntimeCache<Record<number, Teacher[]>>(CACHE_KEY);
 
     const [loading, setLoading] = useState(false);
 
@@ -138,7 +140,7 @@ const Search: React.FC = () => {
     };
 
     return (
-        <section className="wrapper pt-12 pb-20">
+        <section className="pt-12 pb-20 wrapper">
             <RoutePointer routePath={route} />
             <div className="mt-4">
                 <Alphabet onLetterSelected={(e) => onSubmit(searchStringParams.STARTS_WITH + e, true, false)} />

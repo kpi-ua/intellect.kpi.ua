@@ -2,32 +2,22 @@ import React from 'react';
 
 import SectionTitle from '@/components/common/SectionTitle';
 
-import { profileTabs } from '@/constants';
-import { reformatLinks } from '@/utils';
+import { academicDegrees, academicStatuses } from '@/constants';
+import { Teacher } from '@/types/intellect';
 
 type Props = {
-    teacherInfo: Intellect.Teacher;
+    teacherInfo: Teacher;
 };
 
-const IProfileDetails: React.FC<Props> = ({ teacherInfo }) => {
-    const generateProfileRows = (): React.JSX.Element[] => {
-        return Object.keys(profileTabs).map((key, idx) => (
-            <div key={idx}>
-                {profileTabs[key].map((row) =>
-                    teacherInfo[row.field] ? (
-                        <div className="flex flex-col xs:flex-row mt-4" key={row.field}>
-                            <span className="text-neutral-500 block basis-1/4">{row.label}: </span>
-                            <span
-                                dangerouslySetInnerHTML={{ __html: reformatLinks(teacherInfo[row.field]) }}
-                                className="basis-3/4"
-                            />
-                        </div>
-                    ) : null
-                )}
-            </div>
-        ));
-    };
+const ProfileInfoRow = ({ title, children }: { title: string; children: React.ReactNode }) =>
+    children ? (
+        <div className="flex flex-col mt-4 xs:flex-row">
+            <span className="block text-neutral-500 basis-1/4">{title}: </span>
+            <span className="basis-3/4">{children}</span>
+        </div>
+    ) : null;
 
+const IProfileDetails: React.FC<Props> = ({ teacherInfo }) => {
     /**
      * Simplifies a given URL by removing 'www.' prefix from the hostname and trailing '/' from the pathname.
      *
@@ -78,7 +68,6 @@ const IProfileDetails: React.FC<Props> = ({ teacherInfo }) => {
         }
     };
 
-
     /**
      * Format link depending on the link's type.
      *
@@ -91,7 +80,7 @@ const IProfileDetails: React.FC<Props> = ({ teacherInfo }) => {
      * It formats each type into a specific hyperlink or text format. The function utilizes
      * the `simplifyUrl` function to display a simplified version of the URL.
      */
-    const formatRecordValue = (record: { name: string; value: string; }) => {
+    const formatRecordValue = (record: { name: string; value: string }) => {
         let url;
         switch (record.name) {
             case 'Orcid ID':
@@ -105,10 +94,12 @@ const IProfileDetails: React.FC<Props> = ({ teacherInfo }) => {
                 break;
             case 'E-mail':
             case 'E-mail 2':
-                return <span>
-                    <a href={`mailto:${record.value}`}>{record.value}</a>&nbsp;
-                    <i className="fa-solid fa-envelope"></i>
-                </span>;
+                return (
+                    <span>
+                        <a href={`mailto:${record.value}`}>{record.value}</a>&nbsp;
+                        <i className="fa-solid fa-envelope"></i>
+                    </span>
+                );
             case 'Google Scholar':
                 url = `https://scholar.google.ru/citations?user=${record.value}`;
                 break;
@@ -119,13 +110,18 @@ const IProfileDetails: React.FC<Props> = ({ teacherInfo }) => {
                 url = record.value;
                 break;
             case 'Телефон робочий':
-            case 'Телефон робочий 2':    
+            case 'Телефон робочий 2':
             case 'Телефон мобільний':
             case 'Телефон мобільний 2':
-                return  <span>
-                    <a target="_blank" rel="noopener noreferrer" href={`tel:${record.value}`}>{formatPhoneNumber(record.value)}</a>&nbsp;
-                    <i className="fa-solid fa-arrow-up-right-from-square"></i>
-                </span>;
+                return (
+                    <span>
+                        <a target="_blank" rel="noopener noreferrer" href={`tel:${record.value}`}>
+                            {formatPhoneNumber(record.value)}
+                        </a>
+                        &nbsp;
+                        <i className="fa-solid fa-arrow-up-right-from-square"></i>
+                    </span>
+                );
             case 'Skype':
                 return <span>{record.value}</span>;
             case 'Адреса за місцем прийому':
@@ -134,24 +130,31 @@ const IProfileDetails: React.FC<Props> = ({ teacherInfo }) => {
                 url = record.value;
         }
 
-        return <span>
-            <a target="_blank" rel="noopener noreferrer" href={url}>{simplifyUrl(record.value)}</a>&nbsp;
-            <i className="fa-solid fa-arrow-up-right-from-square"></i>
-        </span>;
+        return (
+            <span>
+                <a target="_blank" rel="noopener noreferrer" href={url}>
+                    {simplifyUrl(record.value)}
+                </a>
+                &nbsp;
+                <i className="fa-solid fa-arrow-up-right-from-square"></i>
+            </span>
+        );
     };
 
     return (
         <div>
-            <SectionTitle className="uppercase text-primary mt-6">Загальна інформація</SectionTitle>
-            {generateProfileRows()}
-            <SectionTitle className="uppercase text-primary mt-8">Контактні дані</SectionTitle>
+            <SectionTitle className="mt-6 uppercase text-primary">Загальна інформація</SectionTitle>
+            <div>
+                <ProfileInfoRow title="Наукові інтереси">{teacherInfo.scientificInterest}</ProfileInfoRow>
+                <ProfileInfoRow title="Вчене звання">{academicStatuses[teacherInfo.academicStatus]}</ProfileInfoRow>
+                <ProfileInfoRow title="Науковий ступінь">{academicDegrees[teacherInfo.academicDegree]}</ProfileInfoRow>
+            </div>
+            <SectionTitle className="mt-8 uppercase text-primary">Контактні дані</SectionTitle>
             {(teacherInfo.contactRecords || []).map(
                 (record, idx): React.JSX.Element => (
-                    <div className="flex flex-col xs:flex-row mt-4" key={idx}>
-                        <span className="text-neutral-500 block basis-1/4">{record.name}: </span>
-                        <span className="basis-3/4 profile-links">
-                            {formatRecordValue(record)}
-                        </span>
+                    <div className="flex flex-col mt-4 xs:flex-row" key={idx}>
+                        <span className="block text-neutral-500 basis-1/4">{record.name}: </span>
+                        <span className="basis-3/4 profile-links">{formatRecordValue(record)}</span>
                     </div>
                 )
             )}

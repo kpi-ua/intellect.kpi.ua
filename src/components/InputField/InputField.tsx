@@ -7,9 +7,10 @@ import CommonButton from '@/components/CommonButton/CommonButton';
 import { hintLabels, searchStringParams } from '@/constants';
 import { debounce, sanitizeHTML } from '@/utils';
 import { getHintByQueryString } from '@/api/common';
+import { SearchMode } from '@/types/intellect';
 
 interface Props {
-    keyField?: Intellect.SearchMode;
+    keyField?: SearchMode;
     onInput?: (a: React.SyntheticEvent<HTMLInputElement>) => void;
     onSubmit?: (payload: string) => void;
     buttonText: string;
@@ -165,7 +166,7 @@ const InputField: React.FC<Props> = ({
                     tabIndex={0}
                     key={tip}
                     onClick={() => handleTipClick(tip)}
-                    className="cursor-pointer hover:bg-neutral-200 p-2 focusable-tips"
+                    className="p-2 cursor-pointer hover:bg-neutral-200 focusable-tips"
                     title={tip}
                     dangerouslySetInnerHTML={{
                         __html: tip.replace(userInput, `<strong>${sanitizeHTML(userInput)}</strong>`),
@@ -182,7 +183,7 @@ const InputField: React.FC<Props> = ({
     return (
         <div
             onKeyDown={handleKeyDown}
-            className="gap-2 flex items-center w-full rounded-lg border-1 border-neutral-100 p-1 mt-6 relative"
+            className="relative flex items-center w-full gap-2 p-1 mt-6 rounded-lg border-1 border-neutral-100"
         >
             {icon ? <FeatherIcon icon={icon} /> : null}
             <input
@@ -200,7 +201,7 @@ const InputField: React.FC<Props> = ({
                 {buttonText}
             </CommonButton>
             {tips && showTips ? (
-                <div className="absolute bottom-0 left-0 right-0 border-neutral-100 translate-y-full bg-white border-1 border-t-0 rounded-b-8 max-h-200 overflow-auto">
+                <div className="absolute bottom-0 left-0 right-0 overflow-auto translate-y-full bg-white border-t-0 border-neutral-100 border-1 rounded-b-8 max-h-200">
                     {getTipList()}
                 </div>
             ) : null}

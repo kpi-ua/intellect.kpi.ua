@@ -2,20 +2,21 @@ import Link from 'next/link';
 import React from 'react';
 
 import Avatar from '@/components/Avatar/Avatar';
+import { Teacher } from '@/types/intellect';
 
 type Props = {
-    teacherInfo: Intellect.Teacher;
+    teacherInfo: Teacher;
     className?: string;
 };
 
 const ITeacherCard: React.FC<Props> = ({ teacherInfo, className = '' }) => {
     return (
-        <Link className="w-fit mx-auto" href={'/profile/' + teacherInfo.userIdentifier}>
+        <Link className="mx-auto w-fit" href={'/profile/' + teacherInfo.userIdentifier}>
             <div className={'cursor-pointer max-w-160 ' + className}>
                 <Avatar img={teacherInfo.photo} />
                 <div className="text-semibold">{teacherInfo.fullName}</div>
-                <div className="text-neutral-900 text-sm mt-1">{teacherInfo.positions[0].name}</div>
-                <div className="text-neutral-600 text-xs mt-2">{teacherInfo.positions[0].subdivision.name}</div>
+                <div className="mt-1 text-sm text-neutral-900">{teacherInfo.positions[0].name}</div>
+                <div className="mt-2 text-xs text-neutral-600">{teacherInfo.positions[0].subdivision.name}</div>
             </div>
         </Link>
     );

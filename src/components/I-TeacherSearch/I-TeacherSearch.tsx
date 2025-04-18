@@ -7,9 +7,10 @@ import InputField from '@/components/InputField/InputField';
 import Alphabet from '@/components/Alphabet/Alphabet';
 
 import { tabs } from '@/constants';
+import { SearchMode } from '@/types/intellect';
 
 const ITeacherSearch: React.FC = () => {
-    const [activeTab, setActiveTab] = useState('overall' as Intellect.SearchMode);
+    const [activeTab, setActiveTab] = useState('overall' as SearchMode);
     const router = useRouter();
 
     const handleSearch = (input: string, alphabetic?: boolean) => {
@@ -42,7 +43,7 @@ const ITeacherSearch: React.FC = () => {
 
     return (
         <>
-            <div className="flex gap-3 text-xs text-primary mb-3 xs:m-0 overflow-x-auto xs:overflow-x-hidden">
+            <div className="flex gap-3 mb-3 overflow-x-auto text-xs text-primary xs:m-0 xs:overflow-x-hidden">
                 {tabs.map((tab) => (
                     <ITab key={tab.type} isActive={tab.type === activeTab} onClick={() => setActiveTab(tab.type)}>
                         {tab.label}

@@ -1,22 +1,21 @@
 import React from 'react';
 import SectionTitle from '@/components/common/SectionTitle';
+import { Rating } from '@/types/intellect';
 
 interface RatingsProps {
-  ratings: Intellect.Rating[];
+    ratings: Rating[];
 }
 
 export const Ratings = ({ ratings }: RatingsProps) => {
     if (ratings.length === 0) {
-        return (
-            <SectionTitle className="text-primary mt-3">Дані відсутні</SectionTitle>
-        );
+        return <SectionTitle className="mt-3 text-primary">Дані відсутні</SectionTitle>;
     }
 
     return (
         <div className="relative justify-between gap-24 mt-4">
             <p className="text-xs text-neutral-600">
-                Рейтингове оцінювання професійної діяльності науково-педагогічних працівників є складовою
-                внутрішньої системи забезпечення якості вищої освіти та освітньої діяльності університету.
+                Рейтингове оцінювання професійної діяльності науково-педагогічних працівників є складовою внутрішньої
+                системи забезпечення якості вищої освіти та освітньої діяльності університету.
             </p>
 
             <div className="w-full overflow-x-scroll">
@@ -32,7 +31,7 @@ export const Ratings = ({ ratings }: RatingsProps) => {
                         </tr>
                     </thead>
                     <tbody className="text-xs text-neutral-600">
-                        {ratings.map(rating => (
+                        {ratings.map((rating) => (
                             <tr key={rating.studyYear}>
                                 <td>{rating.studyYear}</td>
                                 <td>{rating.educationalMethodologicalRating}</td>

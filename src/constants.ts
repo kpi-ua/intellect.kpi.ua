@@ -1,7 +1,9 @@
 import { getFaculties } from '@/api/subdivision';
 import { getInterests } from '@/api/teacher';
+import { AcademicDegree, AcademicStatus } from './types/enums';
+import { ExperienceType, Tab, Teacher } from './types/intellect';
 
-export const experienceTabs: Record<Intellect.ExperienceType, string> = {
+export const experienceTabs: Record<ExperienceType, string> = {
     profile: 'Профіль',
     publications: 'Публікації',
     exploration: 'Виконання НДДКР*',
@@ -16,21 +18,19 @@ export const searchStringParams = {
     INTERESTS: 'interests:',
 };
 
-export const profileTabs: Record<string, { field: keyof Intellect.Teacher; label: string }[]> = {
-    'Загальна інформація': [
-        {
-            field: 'scientificInterest' as keyof Intellect.Teacher,
-            label: 'Наукові інтереси',
-        },
-        {
-            field: 'academicStatus' as keyof Intellect.Teacher,
-            label: 'Вчене звання',
-        },
-        {
-            field: 'academicDegree' as keyof Intellect.Teacher,
-            label: 'Науковий ступінь',
-        },
-    ],
+export const academicDegrees = {
+    [AcademicDegree.None]: 'Не вказано',
+    [AcademicDegree.CandidateOfSciences]: 'Кандидат наук',
+    [AcademicDegree.DoctorOfSciences]: 'Доктор наук',
+    [AcademicDegree.PhD]: 'Доктор філософії',
+};
+
+export const academicStatuses = {
+    [AcademicStatus.None]: 'Не вказано',
+    [AcademicStatus.Professor]: 'Професор',
+    [AcademicStatus.SeniorResearchAssociate]: 'Старший науковий співробітник',
+    [AcademicStatus.AssociateProfessor]: 'Доцент',
+    [AcademicStatus.SeniorResearcher]: 'Старший дослідник',
 };
 
 export const tabs = [
@@ -53,7 +53,7 @@ export const tabs = [
         placeholder: 'Введіть можливі інтереси, наприклад: програмування',
         tips: true,
     },
-] as Intellect.Tab[];
+] as Tab[];
 
 export const tagsOptions = [
     {
