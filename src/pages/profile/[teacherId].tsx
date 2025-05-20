@@ -9,7 +9,6 @@ import DataList from '@/components/DataList/DataList';
 import TabList from '@/components/TabList/TabList';
 import Avatar from '@/components/Avatar/Avatar';
 import IProfileDetails from '@/components/I-ProfileDetails/I-ProfileDetails';
-import ShareProfile from '@/components/ShareProfile/ShareProfile';
 import { Ratings } from '@/components/Ratings/Ratings';
 import useLinkRoute from '@/utils/hooks/useLinkRoute';
 import { experienceTabs } from '@/constants';
@@ -177,9 +176,6 @@ function ITeacherInfo({
             <section className="pt-12 pb-110">
                 <RoutePointer routePath={route} />
                 <div className="grid grid-cols-[1fr] sm:grid-cols-[170px_1fr] gap-6 mt-6 justify-items-center sm:justify-items-start relative">
-                    <div className="absolute right-0 sm:hidden">
-                        {teacher ? <ShareProfile teacher={teacher} /> : null}
-                    </div>
                     <div>
                         <Avatar img={teacher?.photo} />
                     </div>
