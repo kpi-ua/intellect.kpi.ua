@@ -9,7 +9,7 @@ type Props = {
     teacherInfo: Intellect.Teacher;
 };
 
-const IProfileDetails: React.FC<Props> = ({ teacherInfo }) => {
+export const ProfileDetails: React.FC<Props> = ({ teacherInfo }) => {
     const generateProfileRows = (): React.JSX.Element[] => {
         return Object.keys(profileTabs).map((key, idx) => (
             <div key={idx}>
@@ -126,8 +126,6 @@ const IProfileDetails: React.FC<Props> = ({ teacherInfo }) => {
                     <a target="_blank" rel="noopener noreferrer" href={`tel:${record.value}`}>{formatPhoneNumber(record.value)}</a>&nbsp;
                     <i className="fa-solid fa-arrow-up-right-from-square"></i>
                 </span>;
-            case 'Skype':
-                return <span>{record.value}</span>;
             case 'Адреса за місцем прийому':
                 return <span>{record.value}</span>;
             default:
@@ -158,5 +156,3 @@ const IProfileDetails: React.FC<Props> = ({ teacherInfo }) => {
         </div>
     );
 };
-
-export default IProfileDetails;

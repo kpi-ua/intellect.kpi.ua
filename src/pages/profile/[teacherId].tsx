@@ -3,12 +3,12 @@ import Head from 'next/head';
 import Error from 'next/error';
 import RoutePointer from '@/components/RoutePointer/RoutePointer';
 import SectionTitle from '@/components/common/SectionTitle';
-import JobLabel from '@/components/JobLabel/JobLabel';
+import { JobLabel } from '@/components/JobLabel/JobLabel';
 import ContentMap from '@/components/ContentMap/ContentMap';
 import DataList from '@/components/DataList/DataList';
 import TabList from '@/components/TabList/TabList';
 import Avatar from '@/components/Avatar/Avatar';
-import IProfileDetails from '@/components/I-ProfileDetails/I-ProfileDetails';
+import { ProfileDetails } from '@/components/ProfileDetails/ProfileDetails';
 import ShareProfile from '@/components/ShareProfile/ShareProfile';
 import { Ratings } from '@/components/Ratings/Ratings';
 import useLinkRoute from '@/utils/hooks/useLinkRoute';
@@ -16,76 +16,52 @@ import { experienceTabs } from '@/constants';
 import { API_BASE_URL } from '@/api/index';
 import { getExperienceByTeacherId, getRatings, getTeacherByTeacherId } from '@/api/teacher';
 import { AxiosError } from 'axios';
+import { degreeMap } from '@/utils/maps';
 
-/**
- * @description Fetches teacher and experience data on server side.
- * result.props will be passed to the page component as props arguments.
- * @param context
- * @returns
- */
 export async function getServerSideProps(context: any) {
     const teacherId = context.params.teacherId;
 
     try {
-        const [
-            teacher,
-            experience,
-            ratings
-        ] = await Promise.all([
+        const [teacher, experience, ratings] = await Promise.all([
             getTeacherByTeacherId(teacherId),
             getExperienceByTeacherId(teacherId),
-            getRatings(teacherId)
+            getRatings(teacherId),
         ]);
-    
+
         return {
             props: { teacher, experience, ratings },
         };
-        
-    }  catch (e) {
+    } catch (e) {
         const error = e as AxiosError;
         const statusCode = error.response ? error.response.status : 500;
 
         return {
             props: {
                 statusCode,
-            }
+            },
         };
     }
-
 }
 
-/**
- * @description Generates description for og:description meta tag.
- * Important to keep commas and spaces at the beginning of the each section.
- * @param teacher
- * @returns
- */
+
 const generateMetaDescription = (teacher: Intellect.Teacher | null): string => {
     if (!teacher) {
         return '';
     }
 
     const credoOrEmpty = teacher.credo ? `"${teacher.credo}", ` : ''; // with quotes
-    const academicDegreeOrEmpty = teacher.academicDegree ? `${teacher.academicDegree}, ` : '';
+    const academicDegreeOrEmpty = teacher.academicDegree ? `${degreeMap[teacher.academicDegree]}, ` : '';
+
     const positionsOrEmpty =
         teacher.positions?.length && `${teacher.positions.map((p) => `${p.name}, ${p.subdivision.name}`)}, `;
     const scientificInterestsOrEmpty = teacher.scientificInterest ? `${teacher.scientificInterest}` : '';
 
-    const finalDescription = credoOrEmpty + academicDegreeOrEmpty + positionsOrEmpty + scientificInterestsOrEmpty;
 
-    if (finalDescription.endsWith(', ')) {
-        return finalDescription.slice(0, -2);
-    }
-
-    return finalDescription;
+    return `${credoOrEmpty} ${academicDegreeOrEmpty} ${positionsOrEmpty} ${scientificInterestsOrEmpty}`;
 };
 
-/**
- * @description Argument props are values, returned from getServerSideProps.
- * @param param0
- * @returns
- */
-function ITeacherInfo({
+
+function TeacherInfoPage({
     teacher,
     experience,
     ratings,
@@ -155,7 +131,7 @@ function ITeacherInfo({
     const renderTab = (tab: Intellect.ExperienceType) => {
         switch (tab) {
             case 'profile':
-                return teacher ? <IProfileDetails teacherInfo={teacher} /> : null;
+                return teacher ? <ProfileDetails teacherInfo={teacher} /> : null;
             case 'rating':
                 return ratings ? <Ratings ratings={ratings} /> : null;
             default:
@@ -224,5 +200,5 @@ function ITeacherInfo({
     );
 }
 
-export default ITeacherInfo;
+export default TeacherInfoPage;
 

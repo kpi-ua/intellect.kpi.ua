@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { FC } from 'react';
 
-type Props = {
+interface Props {
     qualification: string;
     workplace: string;
 };
 
-const JobLabel: React.FC<Props> = ({ qualification, workplace }) => {
+export const JobLabel: FC<Props> = ({ qualification, workplace }) => {
     return (
         <div className="inline-block">
             <div className="text-white bg-primary rounded-lg p-0.5 pl-2 flex gap-2 items-center text-xs whitespace-nowrap">
@@ -15,5 +15,3 @@ const JobLabel: React.FC<Props> = ({ qualification, workplace }) => {
         </div>
     );
 };
-
-export default JobLabel;
