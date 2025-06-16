@@ -17,7 +17,7 @@ const ProfileInfoRow = ({ title, children }: { title: string; children: React.Re
         </div>
     ) : null;
 
-const IProfileDetails: React.FC<Props> = ({ teacherInfo }) => {
+export const ProfileDetails: React.FC<Props> = ({ teacherInfo }) => {
     /**
      * Simplifies a given URL by removing 'www.' prefix from the hostname and trailing '/' from the pathname.
      *
@@ -122,8 +122,7 @@ const IProfileDetails: React.FC<Props> = ({ teacherInfo }) => {
                         <i className="fa-solid fa-arrow-up-right-from-square"></i>
                     </span>
                 );
-            case 'Skype':
-                return <span>{record.value}</span>;
+
             case 'Адреса за місцем прийому':
                 return <span>{record.value}</span>;
             default:
@@ -161,5 +160,3 @@ const IProfileDetails: React.FC<Props> = ({ teacherInfo }) => {
         </div>
     );
 };
-
-export default IProfileDetails;

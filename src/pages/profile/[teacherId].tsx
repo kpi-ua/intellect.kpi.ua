@@ -3,26 +3,20 @@ import Head from 'next/head';
 import Error from 'next/error';
 import RoutePointer from '@/components/RoutePointer/RoutePointer';
 import SectionTitle from '@/components/common/SectionTitle';
-import JobLabel from '@/components/JobLabel/JobLabel';
+import { JobLabel } from '@/components/JobLabel/JobLabel';
 import ContentMap from '@/components/ContentMap/ContentMap';
 import DataList from '@/components/DataList/DataList';
 import TabList from '@/components/TabList/TabList';
 import Avatar from '@/components/Avatar/Avatar';
-import IProfileDetails from '@/components/I-ProfileDetails/I-ProfileDetails';
+import { ProfileDetails } from '@/components/ProfileDetails/ProfileDetails';
 import { Ratings } from '@/components/Ratings/Ratings';
 import useLinkRoute from '@/utils/hooks/useLinkRoute';
-import { experienceTabs } from '@/constants';
+import { academicDegrees, experienceTabs } from '@/constants';
 import { API_BASE_URL } from '@/api/index';
 import { getExperienceByTeacherId, getRatings, getTeacherByTeacherId } from '@/api/teacher';
 import { AxiosError } from 'axios';
 import { ExperienceType, Position, Rating, Lecturer, TeacherExperience } from '@/types/intellect';
 
-/**
- * @description Fetches teacher and experience data on server side.
- * result.props will be passed to the page component as props arguments.
- * @param context
- * @returns
- */
 export async function getServerSideProps(context: any) {
     const teacherId = context.params.teacherId;
 
@@ -48,19 +42,14 @@ export async function getServerSideProps(context: any) {
     }
 }
 
-/**
- * @description Generates description for og:description meta tag.
- * Important to keep commas and spaces at the beginning of the each section.
- * @param teacher
- * @returns
- */
 const generateMetaDescription = (teacher: Lecturer | null): string => {
     if (!teacher) {
         return '';
     }
 
     const credoOrEmpty = teacher.credo ? `"${teacher.credo}", ` : ''; // with quotes
-    const academicDegreeOrEmpty = teacher.academicDegree ? `${teacher.academicDegree}, ` : '';
+    const academicDegreeOrEmpty = teacher.academicDegree ? `${academicDegrees[teacher.academicDegree]}, ` : '';
+
     const positionsOrEmpty =
         teacher.positions?.length && `${teacher.positions.map((p) => `${p.name}, ${p.subdivision.name}`)}, `;
     const scientificInterestsOrEmpty = teacher.scientificInterest ? `${teacher.scientificInterest}` : '';
@@ -74,12 +63,8 @@ const generateMetaDescription = (teacher: Lecturer | null): string => {
     return finalDescription;
 };
 
-/**
- * @description Argument props are values, returned from getServerSideProps.
- * @param param0
- * @returns
- */
-function ITeacherInfo({
+
+function TeacherInfoPage({
     teacher,
     experience,
     ratings,
@@ -90,6 +75,7 @@ function ITeacherInfo({
     ratings: Rating[] | null;
     statusCode?: number;
 }) {
+
     if (statusCode) {
         return <Error statusCode={statusCode} withDarkMode={false} />;
     }
@@ -146,7 +132,7 @@ function ITeacherInfo({
     const renderTab = (tab: ExperienceType) => {
         switch (tab) {
             case 'profile':
-                return teacher ? <IProfileDetails teacherInfo={teacher} /> : null;
+                return teacher ? <ProfileDetails teacherInfo={teacher} /> : null;
             case 'rating':
                 return ratings ? <Ratings ratings={ratings} /> : null;
             default:
@@ -212,4 +198,4 @@ function ITeacherInfo({
     );
 }
 
-export default ITeacherInfo;
+export default TeacherInfoPage;
