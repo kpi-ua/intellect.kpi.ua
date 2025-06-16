@@ -9,13 +9,13 @@ import DataList from '@/components/DataList/DataList';
 import TabList from '@/components/TabList/TabList';
 import Avatar from '@/components/Avatar/Avatar';
 import { ProfileDetails } from '@/components/ProfileDetails/ProfileDetails';
-import ShareProfile from '@/components/ShareProfile/ShareProfile';
 import { Ratings } from '@/components/Ratings/Ratings';
 import useLinkRoute from '@/utils/hooks/useLinkRoute';
 import { experienceTabs } from '@/constants';
 import { API_BASE_URL } from '@/api/index';
 import { getExperienceByTeacherId, getRatings, getTeacherByTeacherId } from '@/api/teacher';
 import { AxiosError } from 'axios';
+import { ExperienceType, Position, Rating, Lecturer, TeacherExperience } from '@/types/intellect';
 import { degreeMap } from '@/utils/maps';
 
 export async function getServerSideProps(context: any) {
@@ -43,8 +43,7 @@ export async function getServerSideProps(context: any) {
     }
 }
 
-
-const generateMetaDescription = (teacher: Intellect.Teacher | null): string => {
+const generateMetaDescription = (teacher: Lecturer | null): string => {
     if (!teacher) {
         return '';
     }
@@ -67,19 +66,17 @@ function TeacherInfoPage({
     ratings,
     statusCode,
 }: {
-    teacher: Intellect.Teacher | null;
-    experience: Intellect.TeacherExperience | null;
-    ratings: Intellect.Rating[] | null,
-    statusCode?: number
+    teacher: Lecturer | null;
+    experience: TeacherExperience | null;
+    ratings: Rating[] | null;
+    statusCode?: number;
 }) {
 
     if (statusCode) {
         return <Error statusCode={statusCode} withDarkMode={false} />;
     }
 
-    const [activeTab, setActiveTab] = useState<Intellect.ExperienceType>(
-        Object.keys(experienceTabs)[0] as Intellect.ExperienceType
-    );
+    const [activeTab, setActiveTab] = useState<ExperienceType>(Object.keys(experienceTabs)[0] as ExperienceType);
 
     const { addLink, route } = useLinkRoute();
 
@@ -128,7 +125,7 @@ function TeacherInfoPage({
 
     const description = generateMetaDescription(teacher);
 
-    const renderTab = (tab: Intellect.ExperienceType) => {
+    const renderTab = (tab: ExperienceType) => {
         switch (tab) {
             case 'profile':
                 return teacher ? <ProfileDetails teacherInfo={teacher} /> : null;
@@ -161,9 +158,6 @@ function TeacherInfoPage({
             <section className="pt-12 pb-110">
                 <RoutePointer routePath={route} />
                 <div className="grid grid-cols-[1fr] sm:grid-cols-[170px_1fr] gap-6 mt-6 justify-items-center sm:justify-items-start relative">
-                    <div className="absolute right-0 sm:hidden">
-                        {teacher ? <ShareProfile teacher={teacher} /> : null}
-                    </div>
                     <div>
                         <Avatar img={teacher?.photo} />
                     </div>
@@ -177,7 +171,7 @@ function TeacherInfoPage({
                             </div>
                         ) : null}
                         <div className="flex justify-center gap-3 mt-5 overflow-x-auto sm:justify-start">
-                            {(teacher?.positions || []).map((item: Intellect.Position) => (
+                            {(teacher?.positions || []).map((item: Position) => (
                                 <JobLabel
                                     key={item.subdivision.id}
                                     qualification={item.name}
@@ -201,4 +195,3 @@ function TeacherInfoPage({
 }
 
 export default TeacherInfoPage;
-

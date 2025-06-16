@@ -1,10 +1,12 @@
+import { ApiResponse } from '@/types/ecampus';
 import Http, { API_BASE_URL } from './index';
 
 import { parseSearchParams } from '@/utils';
+import { ExperienceItem, Rating, Lecturer, TeacherExperience } from '@/types/intellect';
 
-type ExperienceResultPromise = Promise<ECampus.ApiResponse<Intellect.ExperienceItem>>;
+type ExperienceResultPromise = Promise<ApiResponse<ExperienceItem>>;
 
-export const searchByInput = (input: string, currentPage: number): Promise<ECampus.ApiResponse<Intellect.Teacher>> => {
+export const searchByInput = (input: string, currentPage: number): Promise<ApiResponse<Lecturer>> => {
     const params = parseSearchParams(input);
     let searchString = '?';
 
@@ -33,7 +35,7 @@ const getKRResults = (teacherId: string): ExperienceResultPromise => {
     return Http.get(`/v2/persons/${teacherId}/researches/results`);
 };
 
-export const getExperienceByTeacherId = async (teacherId: string): Promise<Intellect.TeacherExperience> => {
+export const getExperienceByTeacherId = async (teacherId: string): Promise<TeacherExperience> => {
     const resultObj: any = {
         publications: [],
         exploration: [],
@@ -59,7 +61,7 @@ export const getExperienceByTeacherId = async (teacherId: string): Promise<Intel
     return resultObj;
 };
 
-export const getTeacherByTeacherId = (teacherId: string): Promise<Intellect.Teacher> => {
+export const getTeacherByTeacherId = (teacherId: string): Promise<Lecturer> => {
     return Http.get(API_BASE_URL + '/account/public/' + teacherId);
 };
 
@@ -68,7 +70,7 @@ export const getInterests = (limit?: number): Promise<string[]> => {
     return Http.get('/v2/scientific-interests' + param);
 };
 
-export const getRatings = (teacherId: string): Promise<Intellect.Rating[]> => {
+export const getRatings = (teacherId: string): Promise<Rating[]> => {
     return Http.get(`/v2/persons/${teacherId}/rating`);
 };
 
