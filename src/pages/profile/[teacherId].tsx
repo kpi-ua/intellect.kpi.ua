@@ -54,8 +54,13 @@ const generateMetaDescription = (teacher: Lecturer | null): string => {
         teacher.positions?.length && `${teacher.positions.map((p) => `${p.name}, ${p.subdivision.name}`)}, `;
     const scientificInterestsOrEmpty = teacher.scientificInterest ? `${teacher.scientificInterest}` : '';
 
+    const finalDescription = credoOrEmpty + academicDegreeOrEmpty + positionsOrEmpty + scientificInterestsOrEmpty;
 
-    return `${credoOrEmpty} ${academicDegreeOrEmpty} ${positionsOrEmpty} ${scientificInterestsOrEmpty}`;
+    if (finalDescription.endsWith(', ')) {
+        return finalDescription.slice(0, -2);
+    }
+
+    return finalDescription;
 };
 
 
