@@ -5,7 +5,7 @@
     "dependencies": {
         "@types/axios": "0.14.0",
         "@types/feather-icons": "4.29.3",
-        "@types/node": "^22.10.2",
+        "@types/node": "^24.0.3",
         "@types/react": "18.3.1",
         "@types/react-dom": "18.2.18",
         "autoprefixer": "10.4.20",
