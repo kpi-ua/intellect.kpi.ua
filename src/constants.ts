@@ -35,14 +35,16 @@ export const academicStatuses = {
 
 export const tabs = [
     {
-        label: 'Загальний пошук спiвробiтникiв',
+        label: 'Загальний пошук',
         type: 'overall',
         placeholder: 'Введіть ПІБ особи, наприклад: Петренко Петро Петрович',
         tips: true,
     },
-    { label: 'Алфавітний покажчик', type: 'alphabetic' },
+    {   label: 'За алфавітом',
+        type: 'alphabetic'
+    },
     {
-        label: 'За кафедрами та факультетами',
+        label: 'За підрозділами',
         type: 'subdivision',
         placeholder: 'Введіть кафедру або факультет, наприклад: ФІОТ',
         tips: true,
