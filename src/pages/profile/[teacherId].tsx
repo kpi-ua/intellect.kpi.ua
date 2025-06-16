@@ -11,12 +11,11 @@ import Avatar from '@/components/Avatar/Avatar';
 import { ProfileDetails } from '@/components/ProfileDetails/ProfileDetails';
 import { Ratings } from '@/components/Ratings/Ratings';
 import useLinkRoute from '@/utils/hooks/useLinkRoute';
-import { experienceTabs } from '@/constants';
+import { academicDegrees, experienceTabs } from '@/constants';
 import { API_BASE_URL } from '@/api/index';
 import { getExperienceByTeacherId, getRatings, getTeacherByTeacherId } from '@/api/teacher';
 import { AxiosError } from 'axios';
 import { ExperienceType, Position, Rating, Lecturer, TeacherExperience } from '@/types/intellect';
-import { degreeMap } from '@/utils/maps';
 
 export async function getServerSideProps(context: any) {
     const teacherId = context.params.teacherId;
@@ -49,7 +48,7 @@ const generateMetaDescription = (teacher: Lecturer | null): string => {
     }
 
     const credoOrEmpty = teacher.credo ? `"${teacher.credo}", ` : ''; // with quotes
-    const academicDegreeOrEmpty = teacher.academicDegree ? `${degreeMap[teacher.academicDegree]}, ` : '';
+    const academicDegreeOrEmpty = teacher.academicDegree ? `${academicDegrees[teacher.academicDegree]}, ` : '';
 
     const positionsOrEmpty =
         teacher.positions?.length && `${teacher.positions.map((p) => `${p.name}, ${p.subdivision.name}`)}, `;

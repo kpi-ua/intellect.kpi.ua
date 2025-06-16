@@ -17,7 +17,7 @@ const ProfileInfoRow = ({ title, children }: { title: string; children: React.Re
         </div>
     ) : null;
 
-const IProfileDetails: React.FC<Props> = ({ teacherInfo }) => {
+export const ProfileDetails: React.FC<Props> = ({ teacherInfo }) => {
     /**
      * Simplifies a given URL by removing 'www.' prefix from the hostname and trailing '/' from the pathname.
      *
@@ -160,4 +160,3 @@ const IProfileDetails: React.FC<Props> = ({ teacherInfo }) => {
         </div>
     );
 };
-export default IProfileDetails;
