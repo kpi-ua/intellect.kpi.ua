@@ -9,7 +9,7 @@ import '../styles/global.css';
 import Layout from './layout';
 
 export type NextPageWithLayout<P = any, IP = P> = NextPage<P, IP> & {
-    getLayout?: (page: ReactElement) => ReactNode;
+    getLayout?: (page: ReactElement<any>) => ReactNode;
 };
 
 type AppPropsWithLayout = AppProps & {

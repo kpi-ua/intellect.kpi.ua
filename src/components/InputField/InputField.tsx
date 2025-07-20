@@ -19,7 +19,7 @@ interface Props {
     fieldClass?: string;
     buttonClass?: string;
     value?: string;
-    syntheticRef?: React.RefObject<HTMLInputElement>;
+    syntheticRef?: React.RefObject<HTMLInputElement | null>;
     tips?: boolean;
 }
 
