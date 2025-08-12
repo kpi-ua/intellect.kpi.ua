@@ -19,7 +19,7 @@ const Contacts: React.FC = () => {
                             </a>
                         </div>
                     </div>
-                    <a href="https://ecampus.kpi.ua/feedback" className="block mt-5 text-primary">
+                    <a href="https://ecampus.kpi.ua/uk/suggestions" className="block mt-5 text-primary">
                         Форма скарг та пропозицій
                     </a>
                 </div>
