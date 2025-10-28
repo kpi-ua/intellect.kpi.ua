@@ -3,9 +3,8 @@ const nextConfig = {
     output: 'standalone',
     images: {
         remotePatterns: [
-            {
-                hostname: 'api.campus.kpi.ua',
-            },
+            { hostname: 'api.campus.kpi.ua' },
+            { hostname: 'dlo9mnni15sun.cloudfront.net' }
         ],
     },
     rewrites: async () => {
