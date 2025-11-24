@@ -7,6 +7,7 @@ import 'feather-icons/dist/feather';
 import '../styles/global.css';
 
 import Layout from './layout';
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 export type NextPageWithLayout<P = any, IP = P> = NextPage<P, IP> & {
     getLayout?: (page: ReactElement<any>) => ReactNode;
@@ -67,6 +68,7 @@ export default function Intellect({ Component, pageProps }: AppPropsWithLayout) 
                 <meta property="fb:app_id" content="1214335051921931" />
             </Head>
             <main className="main-layout-wrapper">{getLayout(<Component {...pageProps} />)}</main>
+            <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID!} />
         </>
     );
 }

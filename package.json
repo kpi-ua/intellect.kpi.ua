@@ -3,6 +3,7 @@
     "version": "1.0.1",
     "private": true,
     "dependencies": {
+        "@next/third-parties": "^16.0.4",
         "@types/axios": "0.14.0",
         "@types/feather-icons": "4.29.3",
         "@types/node": "^22.10.2",
