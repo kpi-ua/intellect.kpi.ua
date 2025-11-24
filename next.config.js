@@ -4,7 +4,8 @@ const nextConfig = {
     images: {
         remotePatterns: [
             { hostname: 'api.campus.kpi.ua' },
-            { hostname: 'dlo9mnni15sun.cloudfront.net' }
+            { hostname: 'dlo9mnni15sun.cloudfront.net' },
+            { hostname: 'do4rt9wur3t6m.cloudfront.net' },
         ],
     },
     rewrites: async () => {
