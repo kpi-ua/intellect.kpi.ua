@@ -3,7 +3,7 @@ import React from 'react';
 import InfoBlock from '@/components/InfoBlock/InfoBlock';
 import SectionTitle from '@/components/common/SectionTitle';
 
-import aboutImg from '@/assets/img/sections/about.png';
+import aboutImg from '@/assets/img/about.png';
 
 const IAbout: React.FC = () => {
     return (
