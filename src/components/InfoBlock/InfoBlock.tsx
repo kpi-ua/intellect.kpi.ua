@@ -2,7 +2,7 @@ import React from 'react';
 import Image, { StaticImageData } from 'next/image';
 
 type Props = {
-    sectionImg: StaticImageData;
+    sectionImg: StaticImageData | string;
     children: React.ReactNode;
 };
 
