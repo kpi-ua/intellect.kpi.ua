@@ -2,8 +2,9 @@ import React from 'react';
 
 import InfoBlock from '@/components/InfoBlock/InfoBlock';
 import SectionTitle from '@/components/common/SectionTitle';
+import { CDN_IMG_BASE } from '@/constants';
 
-import aboutImg from '@/assets/img/about.png';
+const aboutImg = `${CDN_IMG_BASE}/about.png`;
 
 const IAbout: React.FC = () => {
     return (
