@@ -36,13 +36,13 @@ html {
 }
 
 .header-wrapper {
-    background: url('../assets/img/main-bg.png') no-repeat;
+    background: url('https://do4rt9wur3t6m.cloudfront.net/intellect.kpi.ua/img/main-bg.png') no-repeat;
     background-size: cover;
 }
 
 @media (max-width: 768px) {
     .header-wrapper {
-        background: url('../assets/img/main-sm.png') no-repeat;
+        background: url('https://do4rt9wur3t6m.cloudfront.net/intellect.kpi.ua/img/main-sm.png') no-repeat;
         background-size: cover;
     }
 }
