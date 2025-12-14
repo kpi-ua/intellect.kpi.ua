@@ -7,10 +7,6 @@ export const CDN_IMG_BASE = 'https://do4rt9wur3t6m.cloudfront.net/intellect.kpi.
 
 export const experienceTabs: Record<ExperienceType, string> = {
     profile: 'Профіль',
-    publications: 'Публікації',
-    exploration: 'Виконання НДДКР*',
-    exploration_results: 'Результати виконання НДДКР*',
-    confs: 'Конференції, виставки',
     rating: 'Рейтинг',
 };
 

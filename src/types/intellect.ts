@@ -21,22 +21,9 @@ export type Position = {
     subdivision: Division;
 };
 
-export type ExperienceItem = {
-    [key in string]: {
-        [key in string]: {
-            key: string;
-            value: string[];
-        }[];
-    };
-};
-
-export type ExperienceType = 'publications' | 'exploration' | 'exploration_results' | 'confs' | 'profile' | 'rating';
+export type ExperienceType = 'profile' | 'rating';
 export type SearchMode = 'overall' | 'alphabetic' | 'subdivision' | 'interests';
 export type SearchParams = 'startsWith' | 'subdivision' | 'interests';
-
-export type TeacherExperience = {
-    [key in ExperienceType]: ExperienceItem;
-};
 
 export type Rating = {
     subdivision: Subdivision;

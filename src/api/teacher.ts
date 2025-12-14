@@ -2,9 +2,7 @@ import { ApiResponse } from '@/types/ecampus';
 import Http, { API_BASE_URL } from './index';
 
 import { parseSearchParams } from '@/utils';
-import { ExperienceItem, Rating, Lecturer, TeacherExperience } from '@/types/intellect';
-
-type ExperienceResultPromise = Promise<ApiResponse<ExperienceItem>>;
+import { Rating, Lecturer } from '@/types/intellect';
 
 export const searchByInput = (input: string, currentPage: number): Promise<ApiResponse<Lecturer>> => {
     const params = parseSearchParams(input);
@@ -17,48 +15,6 @@ export const searchByInput = (input: string, currentPage: number): Promise<ApiRe
     }
 
     return Http.get('/v2/find' + searchString + `&pageNumber=${currentPage}`);
-};
-
-const getPublications = (teacherId: string): ExperienceResultPromise => {
-    return Http.get(`/v2/persons/${teacherId}/publications`);
-};
-
-const getConferences = (teacherId: string): ExperienceResultPromise => {
-    return Http.get(`/v2/persons/${teacherId}/conferences`);
-};
-
-const getKRExecutions = (teacherId: string): ExperienceResultPromise => {
-    return Http.get(`/v2/persons/${teacherId}/researches/carrying-out`);
-};
-
-const getKRResults = (teacherId: string): ExperienceResultPromise => {
-    return Http.get(`/v2/persons/${teacherId}/researches/results`);
-};
-
-export const getExperienceByTeacherId = async (teacherId: string): Promise<TeacherExperience> => {
-    const resultObj: any = {
-        publications: [],
-        exploration: [],
-        exploration_results: [],
-        confs: [],
-    };
-
-    try {
-        const results = await Promise.all<ExperienceResultPromise>([
-            getPublications(teacherId),
-            getKRExecutions(teacherId),
-            getKRResults(teacherId),
-            getConferences(teacherId),
-        ]);
-
-        Object.keys(resultObj).forEach((item, idx) => {
-            resultObj[item] = results[idx];
-        });
-    } catch (e: any) {
-        throw new Error(e);
-    }
-
-    return resultObj;
 };
 
 export const getTeacherByTeacherId = (teacherId: string): Promise<Lecturer> => {
@@ -75,7 +31,6 @@ export const getRatings = (teacherId: string): Promise<Rating[]> => {
 };
 
 export default {
-    getExperienceByTeacherId,
     getTeacherByTeacherId,
     getInterests,
     getRatings,
