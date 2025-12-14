@@ -149,9 +149,6 @@ const InputField: React.FC<Props> = ({
             case 'overall':
                 localTipOptions = { persons: localTipOptions.persons };
                 break;
-            case 'subdivision':
-                localTipOptions = { subdivisions: localTipOptions.subdivisions };
-                break;
             case 'interests':
                 localTipOptions = { interests: localTipOptions.interests };
                 break;
