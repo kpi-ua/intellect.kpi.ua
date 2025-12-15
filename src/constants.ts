@@ -1,4 +1,3 @@
-import { getFaculties } from '@/api/subdivision';
 import { getInterests } from '@/api/teacher';
 import { AcademicDegree, AcademicStatus } from './types/enums';
 import { ExperienceType, Tab } from './types/intellect';
@@ -7,10 +6,6 @@ export const CDN_IMG_BASE = 'https://do4rt9wur3t6m.cloudfront.net/intellect.kpi.
 
 export const experienceTabs: Record<ExperienceType, string> = {
     profile: 'Профіль',
-    publications: 'Публікації',
-    exploration: 'Виконання НДДКР*',
-    exploration_results: 'Результати виконання НДДКР*',
-    confs: 'Конференції, виставки',
     rating: 'Рейтинг',
 };
 
@@ -46,12 +41,6 @@ export const tabs = [
         type: 'alphabetic'
     },
     {
-        label: 'За підрозділами',
-        type: 'subdivision',
-        placeholder: 'Введіть кафедру або факультет, наприклад: ФІОТ',
-        tips: true,
-    },
-    {
         label: 'За інтересами',
         type: 'interests',
         placeholder: 'Введіть можливі інтереси, наприклад: програмування',
@@ -60,12 +49,6 @@ export const tabs = [
 ] as Tab[];
 
 export const tagsOptions = [
-    {
-        title: 'Список підрозділів',
-        subtitle: 'Список інститутів та факультетів',
-        fetchFunction: getFaculties,
-        lazy: false,
-    },
     {
         title: 'Наукові інтереси',
         subtitle: 'Список можливих інтересів і захоплень викладачів',

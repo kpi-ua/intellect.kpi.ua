@@ -4,8 +4,6 @@ import Error from 'next/error';
 import RoutePointer from '@/components/RoutePointer/RoutePointer';
 import SectionTitle from '@/components/common/SectionTitle';
 import { JobLabel } from '@/components/JobLabel/JobLabel';
-import ContentMap from '@/components/ContentMap/ContentMap';
-import DataList from '@/components/DataList/DataList';
 import TabList from '@/components/TabList/TabList';
 import Avatar from '@/components/Avatar/Avatar';
 import { ProfileDetails } from '@/components/ProfileDetails/ProfileDetails';
@@ -13,22 +11,21 @@ import { Ratings } from '@/components/Ratings/Ratings';
 import useLinkRoute from '@/utils/hooks/useLinkRoute';
 import { academicDegrees, experienceTabs } from '@/constants';
 import { API_BASE_URL } from '@/api/index';
-import { getExperienceByTeacherId, getRatings, getTeacherByTeacherId } from '@/api/teacher';
+import { getRatings, getTeacherByTeacherId } from '@/api/teacher';
 import { AxiosError } from 'axios';
-import { ExperienceType, Position, Rating, Lecturer, TeacherExperience } from '@/types/intellect';
+import { ExperienceType, Position, Rating, Lecturer } from '@/types/intellect';
 
 export async function getServerSideProps(context: any) {
     const teacherId = context.params.teacherId;
 
     try {
-        const [teacher, experience, ratings] = await Promise.all([
+        const [teacher, ratings] = await Promise.all([
             getTeacherByTeacherId(teacherId),
-            getExperienceByTeacherId(teacherId),
             getRatings(teacherId),
         ]);
 
         return {
-            props: { teacher, experience, ratings },
+            props: { teacher, ratings },
         };
     } catch (e) {
         const error = e as AxiosError;
@@ -66,12 +63,10 @@ const generateMetaDescription = (teacher: Lecturer | null): string => {
 
 function TeacherInfoPage({
     teacher,
-    experience,
     ratings,
     statusCode,
 }: {
     teacher: Lecturer | null;
-    experience: TeacherExperience | null;
     ratings: Rating[] | null;
     statusCode?: number;
 }) {
@@ -88,44 +83,7 @@ function TeacherInfoPage({
         if (teacher && route.length === 1) {
             addLink({ path: '/search', label: teacher.fullName });
         }
-    }, [teacher, experience]);
-
-    const generateDataPerTab = (): React.JSX.Element[] => {
-        if (!experience) {
-            return [];
-        }
-
-        const selectedExperience = experience[activeTab];
-        const experienceItemKeys = Object.keys(selectedExperience) || [];
-
-        return (experienceItemKeys || []).map((experienceItemKey: string, idx: number) => (
-            <article className="mt-3 first:mt-0" key={idx} id={String(idx + 1)} data-label={experienceItemKey}>
-                <h1 className="mt-2 font-semibold uppercase text-primary">{experienceItemKey}</h1>
-                {Object.keys(selectedExperience[experienceItemKey]).map((key, idx) => (
-                    <div key={idx}>
-                        <h2 className="text-primary text-md uppercase mt-2.5">{key}</h2>
-                        <DataList>
-                            {(selectedExperience[experienceItemKey][key] || []).map((data) => {
-                                return (
-                                    <div key={idx} className="text-xs text-neutral-600" data-title={data.key}>
-                                        {(data.value || []).map((publication: string, idx: number) => (
-                                            <p
-                                                className="mt-3 whitespace-pre-wrap first:mt-0"
-                                                key={idx}
-                                                dangerouslySetInnerHTML={{
-                                                    __html: publication.replaceAll('\n', '<br />'),
-                                                }}
-                                            />
-                                        ))}
-                                    </div>
-                                );
-                            })}
-                        </DataList>
-                    </div>
-                ))}
-            </article>
-        ));
-    };
+    }, [teacher]);
 
     const description = generateMetaDescription(teacher);
 
@@ -135,12 +93,6 @@ function TeacherInfoPage({
                 return teacher ? <ProfileDetails teacherInfo={teacher} /> : null;
             case 'rating':
                 return ratings ? <Ratings ratings={ratings} /> : null;
-            default:
-                return (
-                    <ContentMap anchorsClass="hidden sm:block" className="gap-24 mt-4">
-                        {generateDataPerTab()}
-                    </ContentMap>
-                );
         }
     };
 

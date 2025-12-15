@@ -12,7 +12,7 @@ type Props = {
     lazy?: boolean;
 };
 
-const LIMIT_TAGS = 12;
+const LIMIT_TAGS = 24;
 
 const TagsBlock: React.FC<Props> = ({ title, subtitle, fetchFunction, lazy }) => {
     const [tags, setTags] = useState<string[]>([]);
