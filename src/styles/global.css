@@ -3,79 +3,79 @@
 @tailwind utilities;
 
 * {
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
 }
 
 :root {
-    @apply text-sm xs:text-base;
+  @apply text-sm xs:text-base;
 }
 
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 .main-layout-wrapper {
-    min-height: 100dvh;
-    display: flex;
-    flex-direction: column;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
 }
 
 .grey {
-    color: #999;
+  color: #999;
 }
 
 .whitespace-pre-wrap {
-    word-wrap: anywhere;
+  word-wrap: anywhere;
 }
 
 .wrapper {
-    max-width: 1135px;
-    width: 95%;
-    margin: 0 auto;
+  max-width: 1135px;
+  width: 95%;
+  margin: 0 auto;
 }
 
 .header-wrapper {
-    background: url('https://do4rt9wur3t6m.cloudfront.net/intellect.kpi.ua/img/main-bg.png') no-repeat;
-    background-size: cover;
+  background: url('https://do4rt9wur3t6m.cloudfront.net/intellect.kpi.ua/img/main-bg.png') no-repeat;
+  background-size: cover;
 }
 
 @media (max-width: 768px) {
-    .header-wrapper {
-        background: url('https://do4rt9wur3t6m.cloudfront.net/intellect.kpi.ua/img/main-sm.png') no-repeat;
-        background-size: cover;
-    }
+  .header-wrapper {
+    background: url('https://do4rt9wur3t6m.cloudfront.net/intellect.kpi.ua/img/main-sm.png') no-repeat;
+    background-size: cover;
+  }
 }
 
 [contenteditable='true']:empty:not(:focus):before {
-    @apply text-neutral-500;
-    content: attr(data-placeholder);
-    cursor: text;
+  @apply text-neutral-500;
+  content: attr(data-placeholder);
+  cursor: text;
 }
 
 #root {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 footer {
-    margin-top: auto;
+  margin-top: auto;
 }
 
 .scrollbar-hidden {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .scrollbar-hidden::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 footer a {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .profile-links a {
-    text-decoration: underline;
+  text-decoration: underline;
 }
