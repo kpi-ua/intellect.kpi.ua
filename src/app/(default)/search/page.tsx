@@ -1,6 +1,6 @@
+'use client';
 import React, { useEffect, useRef, useState } from 'react';
-import { usePathname, useSearchParams } from 'next/navigation';
-import { useRouter } from 'next/router';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import RoutePointer from '@/components/RoutePointer/RoutePointer';
 import Alphabet from '@/components/Alphabet/Alphabet';
@@ -55,7 +55,7 @@ const Search: React.FC = () => {
         if (inputRef.current) {
             inputRef.current.select();
         }
-    }, [searchStateInput, router.isReady]);
+    }, [searchStateInput]);
 
     /**
      * @description Search for teachers on every change of search value.
@@ -102,10 +102,9 @@ const Search: React.FC = () => {
         if (doSearch) {
             setPagingOptions(null);
 
-            router.push({
-                pathname,
-                query: { ...router.query, state_input: value },
-            });
+            const params = new URLSearchParams(search.toString());
+            params.set('state_input', value);
+            router.push(`${pathname}?${params.toString()}`);
         }
     };
 

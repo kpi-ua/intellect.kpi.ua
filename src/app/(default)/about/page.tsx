@@ -1,12 +1,12 @@
-import React from 'react';
-
-import InfoBlock from '@/components/InfoBlock/InfoBlock';
 import SectionTitle from '@/components/common/SectionTitle';
+import InfoBlock from '@/components/InfoBlock/InfoBlock';
 import { CDN_IMG_BASE } from '@/constants';
+import React from 'react';
 
 const aboutImg = `${CDN_IMG_BASE}/about.png`;
 
-const IAbout: React.FC = () => {
+
+export default function About() {
     return (
         <InfoBlock sectionImg={aboutImg}>
             <article>
@@ -23,6 +23,4 @@ const IAbout: React.FC = () => {
             </article>
         </InfoBlock>
     );
-};
-
-export default IAbout;
+}

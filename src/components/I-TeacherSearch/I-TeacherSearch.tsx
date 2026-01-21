@@ -1,6 +1,7 @@
+'use client';
 import React, { useState } from 'react';
 import styles from './I-TeacherSearch.module.css';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 import ITab from '@/components/I-Tab/I-Tab';
 import InputField from '@/components/InputField/InputField';
@@ -16,10 +17,9 @@ const ITeacherSearch: React.FC = () => {
     const handleSearch = (input: string, alphabetic?: boolean) => {
         const state_input = alphabetic ? `startsWith:${input}` : input;
 
-        router.push({
-            pathname: '/search',
-            query: { state_input },
-        });
+        const params = new URLSearchParams();
+        params.set('state_input', state_input);
+        router.push(`/search?${params.toString()}`);
     };
 
     const renderInputField = (): React.ReactNode => {
