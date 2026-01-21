@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { Suspense, useEffect, useRef, useState } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import RoutePointer from '@/components/RoutePointer/RoutePointer';
@@ -20,7 +20,7 @@ import { PaginationModel } from '@/types/ecampus';
 
 const CACHE_KEY = 'cachedSearch_';
 
-const Search: React.FC = () => {
+const SearchContent: React.FC = () => {
     const router = useRouter();
     const pathname = usePathname();
     const search = useSearchParams();
@@ -159,6 +159,14 @@ const Search: React.FC = () => {
                 <Pagination onChange={(newPage) => handlePageChange(newPage)} pagination={pagingOptions} />
             )}
         </section>
+    );
+};
+
+const Search: React.FC = () => {
+    return (
+        <Suspense fallback={<SpinnerIndicator className="mx-auto w-fit" />}>
+            <SearchContent />
+        </Suspense>
     );
 };
 
