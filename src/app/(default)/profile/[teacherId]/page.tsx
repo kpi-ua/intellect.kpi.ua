@@ -20,24 +20,24 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const generateMetaDescription = (teacher: Lecturer | null): string => {
-  if (!teacher) {
-    return '';
-  }
+    if (!teacher) {
+        return '';
+    }
 
-  const credoOrEmpty = teacher.credo ? `"${teacher.credo}", ` : '';
-  const academicDegreeOrEmpty = teacher.academicDegree ? `${academicDegrees[teacher.academicDegree]}, ` : '';
+    const credoOrEmpty = teacher.credo ? `"${teacher.credo}", ` : '';
+    const academicDegreeOrEmpty = teacher.academicDegree ? `${academicDegrees[teacher.academicDegree]}, ` : '';
 
-  const positionsOrEmpty =
-    teacher.positions?.length && `${teacher.positions.map((p) => `${p.name}, ${p.subdivision.name}`)}, `;
-  const scientificInterestsOrEmpty = teacher.scientificInterest ? `${teacher.scientificInterest}` : '';
+    const positionsOrEmpty =
+        teacher.positions?.length && `${teacher.positions.map((p) => `${p.name}, ${p.subdivision.name}`)}, `;
+    const scientificInterestsOrEmpty = teacher.scientificInterest ? `${teacher.scientificInterest}` : '';
 
-  const finalDescription = credoOrEmpty + academicDegreeOrEmpty + positionsOrEmpty + scientificInterestsOrEmpty;
+    const finalDescription = credoOrEmpty + academicDegreeOrEmpty + positionsOrEmpty + scientificInterestsOrEmpty;
 
-  if (finalDescription.endsWith(', ')) {
-    return finalDescription.slice(0, -2);
-  }
+    if (finalDescription.endsWith(', ')) {
+        return finalDescription.slice(0, -2);
+    }
 
-  return finalDescription;
+    return finalDescription;
 };
 
 export async function generateMetadata({ params }: { params: Promise<{ teacherId: string }> }): Promise<Metadata> {
