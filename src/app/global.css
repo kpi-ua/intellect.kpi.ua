@@ -1,6 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@config '../../tailwind.config.js';
 
 * {
     font-family: 'Inter', sans-serif;
@@ -8,7 +8,15 @@
 }
 
 :root {
-    @apply text-sm xs:text-base;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+}
+
+@media (min-width: 450px) {
+    :root {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
 }
 
 html {
@@ -48,7 +56,7 @@ html {
 }
 
 [contenteditable='true']:empty:not(:focus):before {
-    @apply text-neutral-500;
+    color: #9798a8;
     content: attr(data-placeholder);
     cursor: text;
 }

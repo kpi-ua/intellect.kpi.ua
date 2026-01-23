@@ -1,8 +1,16 @@
 import React from 'react';
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import 'feather-icons/dist/feather';
-import '../styles/global.css';
+import './global.css';
+
+export const viewport: Viewport = {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+    themeColor: '#1f4d80',
+};
 
 export const metadata: Metadata = {
     metadataBase: new URL('https://intellect.kpi.ua'),
@@ -11,22 +19,13 @@ export const metadata: Metadata = {
         'Проект об′єднує вчених, викладачів, інженерів та аспірантів університету, які займаються інтелектуальною творчою діяльністю, проводять фундаментальні та прикладні наукові дослідження, впроваджують отримані результати в виробництво, займаються навчальною, методичною і організаційною роботою.',
     keywords: 'система Інтелект, НТУУ КПІ, Київський політехнічний інститут, викладачі КПІ, Intellect',
     authors: [{ name: 'НТУУ КПІ ім. Ігоря Сікорського' }],
-    themeColor: '#1f4d80',
-    viewport: {
-        width: 'device-width',
-        initialScale: 1,
-        maximumScale: 1,
-        userScalable: false,
-    },
     icons: {
         icon: [
             { url: '/favicon-48x48.png', sizes: '48x48', type: 'image/png' },
             { url: '/favicon.svg', type: 'image/svg+xml' },
             { url: '/favicon.ico', type: 'image/x-icon' },
         ],
-        apple: [
-            { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
-        ],
+        apple: [{ url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
     },
     manifest: '/site.webmanifest',
     openGraph: {
@@ -67,11 +66,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 />
             </head>
             <body>
-                <main className="main-layout-wrapper">
-                    {children}</main>
-                {process.env.NEXT_PUBLIC_GA_ID && (
-                    <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
-                )}
+                <main className="main-layout-wrapper">{children}</main>
+                {process.env.NEXT_PUBLIC_GA_ID && <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />}
             </body>
         </html>
     );

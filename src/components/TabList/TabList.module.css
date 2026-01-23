@@ -8,12 +8,12 @@
 }
 
 .active-tab {
-    @apply text-primary;
+    color: #1f4d80;
     position: relative;
 }
 
 .active-tab:before {
-    @apply bg-primary;
+    background-color: #1f4d80;
     content: '';
     height: 2px;
     position: absolute;

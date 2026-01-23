@@ -14,12 +14,12 @@ const Footer: React.FC<Props> = ({ logoSrc }) => {
                 <Image className="max-w-120 mx-auto" src={logoSrc} alt="logo" />
                 <section>
                     <p>
-                        Національний технічний університет України &quot;Київський
-                        політехнічний інститут імені Ігоря Сікорського&quot; &copy;
-                        1998-{currentYear}
+                        Національний технічний університет України &quot;Київський політехнічний інститут імені Ігоря
+                        Сікорського&quot; &copy; 1998-{currentYear}
                     </p>
                     <p className="mt-2">
-                        Адреса: <a href="https://kpi.ua/location">Україна, 03056 м.Київ-56, проспект Берестейський,&nbsp;37</a>
+                        Адреса:{' '}
+                        <a href="https://kpi.ua/location">Україна, 03056 м.Київ-56, проспект Берестейський,&nbsp;37</a>
                     </p>
                 </section>
                 <section>
@@ -27,13 +27,15 @@ const Footer: React.FC<Props> = ({ logoSrc }) => {
                         <a href="https://kbis.kpi.ua">Розробник – Конструкторське бюро інформаційних систем</a>
                     </p>
                     <p className="mt-2">
-                        Створено в рамках проєкту<br/><a href="https://ecampus.kpi.ua">&quot;Електронний кампус КПІ&quot;</a>
+                        Створено в рамках проєкту
+                        <br />
+                        <a href="https://ecampus.kpi.ua">&quot;Електронний кампус КПІ&quot;</a>
                     </p>
                 </section>
                 <section>
                     <p>
-                        Використання матеріалу сайту тільки з обов’язковим
-                        посиланням на <a href="https://intellect.kpi.ua">intellect.kpi.ua</a>
+                        Використання матеріалу сайту тільки з обов’язковим посиланням на{' '}
+                        <a href="https://intellect.kpi.ua">intellect.kpi.ua</a>
                     </p>
                 </section>
             </div>
