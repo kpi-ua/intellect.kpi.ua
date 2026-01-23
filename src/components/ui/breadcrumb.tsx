@@ -6,88 +6,93 @@ import { cn } from '@/lib/utils';
 import Link from 'next/link';
 
 const Breadcrumb = ({
-  ref,
-  ...props
+    ref,
+    ...props
 }: React.ComponentProps<'nav'> & {
-  separator?: React.ReactNode;
+    separator?: React.ReactNode;
 }) => <nav ref={ref} aria-label="breadcrumb" {...props} />;
 Breadcrumb.displayName = 'Breadcrumb';
 
 const BreadcrumbList = ({ className, ref, ...props }: React.ComponentProps<'ol'>) => (
-  <ol
-    ref={ref}
-    className={cn(
-      'text-muted-foreground flex flex-wrap items-center gap-1.5 text-sm break-words sm:gap-2.5',
-      className,
-    )}
-    {...props}
-  />
+    <ol
+        ref={ref}
+        className={cn(
+            'text-muted-foreground flex flex-wrap items-center gap-1.5 text-sm break-words sm:gap-2.5',
+            className
+        )}
+        {...props}
+    />
 );
 BreadcrumbList.displayName = 'BreadcrumbList';
 
 const BreadcrumbItem = ({ className, ref, ...props }: React.ComponentProps<'li'>) => (
-  <li ref={ref} className={cn('inline-flex items-center gap-1.5', className)} {...props} />
+    <li ref={ref} className={cn('inline-flex items-center gap-1.5', className)} {...props} />
 );
 BreadcrumbItem.displayName = 'BreadcrumbItem';
 
 const BreadcrumbLink = ({
-  asChild,
-  className,
-  ref,
-  ...props
+    asChild,
+    className,
+    ref,
+    ...props
 }: React.ComponentProps<typeof Link> & {
-  asChild?: boolean;
+    asChild?: boolean;
 }) => {
-  const Comp = asChild ? Slot : Link;
+    const Comp = asChild ? Slot : Link;
 
-  return (
-    <Comp
-      ref={ref}
-      className={cn('hover:text-foreground text-neutral-600 transition-colors text-base', className)}
-      {...props}
-    />
-  );
+    return (
+        <Comp
+            ref={ref}
+            className={cn('hover:text-foreground text-neutral-600 transition-colors text-base', className)}
+            {...props}
+        />
+    );
 };
 BreadcrumbLink.displayName = 'BreadcrumbLink';
 
 const BreadcrumbPage = ({ className, ref, ...props }: React.ComponentProps<'span'>) => (
-  <span
-    ref={ref}
-    role="link"
-    aria-disabled="true"
-    aria-current="page"
-    className={cn('font-semibold text-neutral-900 text-base', className)}
-    {...props}
-  />
+    <span
+        ref={ref}
+        role="link"
+        aria-disabled="true"
+        aria-current="page"
+        className={cn('font-semibold text-neutral-900 text-base', className)}
+        {...props}
+    />
 );
 BreadcrumbPage.displayName = 'BreadcrumbPage';
 
 const BreadcrumbSeparator = ({ children, className, ...props }: React.ComponentProps<'li'>) => (
-  <li role="presentation" aria-hidden="true" className={cn('[&>svg]:h-[20px] [&>svg]:w-[20px]', className)} {...props}>
-    {children ?? <ChevronRight className="h-4 w-4 text-neutral-600" />}
-  </li>
+    <li
+        role="presentation"
+        aria-hidden="true"
+        className={cn('[&>svg]:h-[20px] [&>svg]:w-[20px]', className)}
+        {...props}
+    >
+        {children ?? <ChevronRight className="h-4 w-4 text-neutral-600" />}
+    </li>
 );
 BreadcrumbSeparator.displayName = 'BreadcrumbSeparator';
 
 const BreadcrumbEllipsis = ({ className, ...props }: React.ComponentProps<'span'>) => (
-  <span
-    role="presentation"
-    aria-hidden="true"
-    className={cn('flex h-9 w-9 items-center justify-center', className)}
-    {...props}
-  >
-    <MoreHorizontal className="h-4 w-4" />
-    <span className="sr-only">More</span>
-  </span>
+    <span
+        role="presentation"
+        aria-hidden="true"
+        className={cn('flex h-9 w-9 items-center justify-center', className)}
+        {...props}
+    >
+        <MoreHorizontal className="h-4 w-4" />
+        <span className="sr-only">More</span>
+    </span>
 );
 BreadcrumbEllipsis.displayName = 'BreadcrumbElipssis';
 
 export {
-  Breadcrumb,
-  BreadcrumbList,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-  BreadcrumbEllipsis,
+    Breadcrumb,
+    BreadcrumbList,
+    BreadcrumbItem,
+    BreadcrumbLink,
+    BreadcrumbPage,
+    BreadcrumbSeparator,
+    BreadcrumbEllipsis,
 };
