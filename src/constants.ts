@@ -36,9 +36,7 @@ export const tabs = [
         placeholder: 'Введіть ПІБ особи, наприклад: Петренко Петро Петрович',
         tips: true,
     },
-    {   label: 'За алфавітом',
-        type: 'alphabetic'
-    },
+    { label: 'За алфавітом', type: 'alphabetic' },
     {
         label: 'За інтересами',
         type: 'interests',

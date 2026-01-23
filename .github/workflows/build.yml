@@ -1,37 +1,36 @@
 name: Build PR intellect.kpi.ua
 
 permissions:
-  contents: read
+    contents: read
 
 on:
-  pull_request:
-    types:
-      - opened
-      - reopened
-      - synchronize
-    branches:
-      - master
-  push:
-    branches:
-      - master
-
+    pull_request:
+        types:
+            - opened
+            - reopened
+            - synchronize
+        branches:
+            - master
+    push:
+        branches:
+            - master
 
 jobs:
-  build:
-    if: ${{ !github.event.pull_request.draft }}
-    runs-on: ubuntu-latest
+    build:
+        if: ${{ !github.event.pull_request.draft }}
+        runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v5
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v5
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v5
-        with:
-          node-version: '20'
+            - name: Set up Node.js
+              uses: actions/setup-node@v5
+              with:
+                  node-version: '20'
 
-      - name: Install Dependencies
-        run: npm install
+            - name: Install Dependencies
+              run: npm install
 
-      - name: Build Application
-        run: npm run build
+            - name: Build Application
+              run: npm run build

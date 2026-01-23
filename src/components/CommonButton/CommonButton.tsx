@@ -7,22 +7,11 @@ type Props = {
     children: React.ReactNode;
 };
 
-const CommonButton: React.FC<Props> = ({
-    className = '',
-    children,
-    onClick,
-    onKeyDown,
-}) => {
-    const defaultClasses =
-        'text-white bg-primary rounded-lg text-center cursor-pointer text-sm ';
+const CommonButton: React.FC<Props> = ({ className = '', children, onClick, onKeyDown }) => {
+    const defaultClasses = 'text-white bg-primary rounded-lg text-center cursor-pointer text-sm ';
 
     return (
-        <div
-            tabIndex={0}
-            onClick={onClick}
-            onKeyDown={onKeyDown}
-            className={defaultClasses + className}
-        >
+        <div tabIndex={0} onClick={onClick} onKeyDown={onKeyDown} className={defaultClasses + className}>
             {children}
         </div>
     );

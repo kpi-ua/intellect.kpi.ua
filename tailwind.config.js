@@ -100,6 +100,15 @@ module.exports = {
             gridTemplateColumns: {
                 teachers: 'repeat(auto-fill, minmax(140px, 1fr))',
             },
+            keyframes: {
+                fadeInLeft: {
+                    from: { width: '0' },
+                    to: { width: '100%' },
+                },
+            },
+            animation: {
+                fadeInLeft: 'fadeInLeft 0.15s ease-in',
+            },
         },
     },
     plugins: [],
