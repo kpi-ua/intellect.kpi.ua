@@ -1,4 +1,3 @@
-import { getInterests } from '@/api/teacher';
 import { AcademicDegree, AcademicStatus } from './types/enums';
 import { ExperienceType, Tab } from './types/intellect';
 
@@ -47,15 +46,6 @@ export const tabs = [
         tips: true,
     },
 ] as Tab[];
-
-export const tagsOptions = [
-    {
-        title: 'Наукові інтереси',
-        subtitle: 'Список можливих інтересів і захоплень викладачів',
-        fetchFunction: getInterests,
-        lazy: true,
-    },
-];
 
 export const hintLabels: Record<string, string> = {
     persons: 'Викладачі',

@@ -5,7 +5,7 @@ import Header from '@/components/Header/Header';
 
 import bottomLogo from '@/assets/svg/kpi-logo.svg';
 
-export default function Layout({ children }: any) {
+export default function DefaultLayout({ children }: { children: React.ReactNode }) {
     return (
         <>
             <Header scheme="dark" />

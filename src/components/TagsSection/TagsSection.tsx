@@ -1,20 +1,13 @@
 import React from 'react';
 import TagsBlock from '@/components/TagsBlock/TagsBlock';
 
-import { tagsOptions } from '@/constants';
+import { getInterests } from '@/api/teacher';
 
-const TagsSection: React.FC = () => {
+const TagsSection: React.FC = async () => {
+    const interests = await getInterests();
     return (
         <section className="pb-5">
-            {tagsOptions.map((item) => (
-                <TagsBlock
-                    key={item.title}
-                    fetchFunction={item.fetchFunction}
-                    title={item.title}
-                    lazy={item.lazy}
-                    subtitle={item.subtitle}
-                />
-            ))}
+            <TagsBlock interests={interests} />
         </section>
     );
 };

@@ -20,7 +20,7 @@
     "ignorePatterns": ["src/assets"],
     "rules": {
         "indent": ["error", 4, { "SwitchCase": 1 }],
-        "linebreak-style": ["error", "unix"],
+        "linebreak-style": "off",
         "quotes": ["error", "single"],
         "semi": ["error", "always"],
         "import/extensions": [

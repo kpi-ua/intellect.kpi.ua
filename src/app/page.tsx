@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { NextPageWithLayout } from './_app';
-
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
 import ISearchBlock from '@/components/I-SearchBlock/I-SearchBlock';
@@ -9,11 +7,7 @@ import TagsSection from '@/components/TagsSection/TagsSection';
 
 import bottomLogo from '@/assets/svg/kpi-logo.svg';
 
-const Home: NextPageWithLayout = () => {
-    return <></>;
-};
-
-Home.getLayout = function getLayout() {
+export default function Home() {
     return (
         <>
             <div className="text-white header-wrapper">
@@ -30,6 +24,4 @@ Home.getLayout = function getLayout() {
             <Footer logoSrc={bottomLogo} />
         </>
     );
-};
-
-export default Home;
+}

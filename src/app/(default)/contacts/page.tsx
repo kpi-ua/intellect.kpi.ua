@@ -6,7 +6,7 @@ import { CDN_IMG_BASE } from '@/constants';
 
 const sectionImg = `${CDN_IMG_BASE}/contacts.png`;
 
-const Contacts: React.FC = () => {
+export default function Contacts() {
     return (
         <InfoBlock sectionImg={sectionImg}>
             <div>
@@ -24,6 +24,4 @@ const Contacts: React.FC = () => {
             </div>
         </InfoBlock>
     );
-};
-
-export default Contacts;
+}
