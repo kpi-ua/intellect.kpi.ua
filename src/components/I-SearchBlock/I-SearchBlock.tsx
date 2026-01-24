@@ -7,7 +7,7 @@ const ISearchBlock: React.FC = () => {
         <main>
             <section className="pt-18">
                 <div className="text-5xl flex items-center">
-                    <h1 className="font-semibold leading-100">Інтелект</h1>
+                    <h1 className="font-semibold text-5xl">Інтелект</h1>
                     <h2 className="border-l text-xl ml-3 pl-3 leading-5">
                         Викладачі
                         <br /> та науковці

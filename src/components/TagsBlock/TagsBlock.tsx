@@ -7,11 +7,11 @@ import Tag from '../Tag/Tag';
 
 interface Props {
     interests: string[];
-};
+}
 
 const LIMIT_TAGS = 24;
 
-const TagsBlock: React.FC<Props> = ({  interests }) => {
+const TagsBlock: React.FC<Props> = ({ interests }) => {
     const [expanded, setExpanded] = useState(false);
     const router = useRouter();
 

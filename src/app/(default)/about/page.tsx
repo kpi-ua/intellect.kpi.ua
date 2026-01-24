@@ -5,7 +5,6 @@ import React from 'react';
 
 const aboutImg = `${CDN_IMG_BASE}/about.png`;
 
-
 export default function About() {
     return (
         <InfoBlock sectionImg={aboutImg}>

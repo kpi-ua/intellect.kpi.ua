@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 interface Props {
     qualification: string;
     workplace: string;
-};
+}
 
 export const JobLabel: FC<Props> = ({ qualification, workplace }) => {
     return (
