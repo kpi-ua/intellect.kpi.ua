@@ -2,9 +2,135 @@
 @import 'tw-animate-css';
 @config '../../tailwind.config.js';
 
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+@layer base {
+  :root {
+    --radius: 8px;
+    --background: 0 0% 100%;
+    --foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 47.4% 11.2%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 47.4% 11.2%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --primary: 16 98 163;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 248 59 81;
+    --destructive-foreground: 210 40% 98%;
+    --ring: 215 20.2% 65.1%;
+
+    --uncategorized-main: 249 249 255;
+    --basic-black: 0 0 0;
+    --basic-blue: 16 98 163;
+    --basic-white: 255 255 255;
+    --basic-grey: 187 187 187;
+
+    --brand-900: 0 69 113;
+    --brand-800: 0 84 139;
+    --brand-700: 0 97 160;
+    --brand-600: 0 109 179;
+    --brand-500: 114 150 197;
+    --brand-400: 161 182 213;
+    --brand-300: 198 209 228;
+    --brand-200: 228 233 242;
+    --brand-100: 242 244 248;
+    --brand-00: 245 251 255;
+
+    --neutral-divider: 229 231 239;
+    --neutral-900: 64 65 77;
+    --neutral-800: 84 85 100;
+    --neutral-700: 106 107 122;
+    --neutral-600: 128 129 145;
+    --neutral-500: 151 152 168;
+    --neutral-400: 175 176 190;
+    --neutral-300: 199 200 213;
+    --neutral-200: 225 225 236;
+    --neutral-100: 238 238 247;
+    --neutral-50: 248 248 255;
+
+    --status-danger-300: 248 59 81;
+    --status-danger-200: 255 148 160;
+    --status-danger-100: 255 235 238;
+    --status-warning-300: 190 81 0;
+    --status-warning-200: 251 219 100;
+    --status-warning-100: 253 246 202;
+    --status-success-300: 0 134 54;
+    --status-success-200: 162 255 199;
+    --status-success-100: 238 255 245;
+
+    --other-purple: 95 104 198;
+    --other-purple-10: 95 104 198 0.01;
+    --other-red: 226 0 41;
+    --other-red-10: 226 0 41 0.1;
+    --other-orange: 190 81 0;
+    --other-orange-10: 190 81 0 0.1;
+    --other-blue: 0 101 253;
+    --other-blue-10: 0 101 253 0.1;
+
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@custom-variant tall (@media (min-height: 933px));
+
+@layer utilities {
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
+  html body[data-scroll-locked] {
+    --removed-body-scroll-bar-size: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  * {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+  }
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-weight: 500;
+  }
+}
+
 * {
     font-family: 'Inter', sans-serif;
-    font-weight: 500;
 }
 
 :root {
