@@ -1,6 +1,82 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
-@config '../../tailwind.config.js';
+
+@theme {
+  --breakpoint-xs: 450px;
+  --breakpoint-sm: 920px;
+
+  --radius-8: 8px;
+  --radius-24: 24px;
+
+  --color-primary: #1f4d80;
+  --color-inactive: rgba(255, 255, 255, 0.4);
+  --color-gray: #bbb;
+
+  --grid-cols-teachers: repeat(auto-fill, minmax(140px, 1fr));
+
+  --spacing-72: 72px;
+  --spacing-140: 140px;
+  --spacing-18: 4.5rem;
+  --spacing-160: 160px;
+  --spacing-110: 110px;
+  --spacing-90: 90px;
+  --spacing-170: 170px;
+  --spacing-200: 200px;
+  --spacing-120: 120px;
+  --spacing-100: 100px;
+  --spacing-40: 40px;
+  --spacing-225: 225px;
+  --spacing-220: 220px;
+  --spacing-42: 42px;
+  --spacing-550: 550px;
+  --spacing-350: 350px;
+  --spacing-480: 480px;
+  --spacing-500: 300px;
+  --spacing-600: 600px;
+  --spacing-700: 700px;
+  --spacing-1200: 1200px;
+  --spacing-9: 2.25rem;
+  --spacing-95vh: 95vh;
+  --spacing-50: 50px;
+  --spacing-17: 3.25rem;
+  --spacing-1px: 1px;
+  --spacing-2px: 2px;
+  --spacing-5px: 5px;
+  --spacing-7px: 7px;
+  --spacing-10px: 10px;
+  --spacing-80pct: 80%;
+  --spacing-2\/5: 40%;
+
+  --border-width-1: 1px;
+
+  --animate-fadeInLeft: fadeInLeft 0.15s ease-in;
+  @keyframes fadeInLeft {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+}
 
 @layer base {
   *,
@@ -90,6 +166,77 @@
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
+}
+
+@theme inline {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: rgb(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-ring: hsl(var(--ring));
+  --color-uncategorized-main: rgb(var(--uncategorized-main));
+  --color-basic-black: rgb(var(--basic-black));
+  --color-basic-blue: rgb(var(--basic-blue));
+  --color-basic-white: rgb(var(--basic-white));
+  --color-basic-grey: rgb(var(--basic-grey));
+  --color-brand-900: rgb(var(--brand-900));
+  --color-brand-800: rgb(var(--brand-800));
+  --color-brand-700: rgb(var(--brand-700));
+  --color-brand-600: rgb(var(--brand-600));
+  --color-brand-500: rgb(var(--brand-500));
+  --color-brand-400: rgb(var(--brand-400));
+  --color-brand-300: rgb(var(--brand-300));
+  --color-brand-200: rgb(var(--brand-200));
+  --color-brand-100: rgb(var(--brand-100));
+  --color-brand-0: rgb(var(--brand-00));
+  --color-neutral-divider: rgb(var(--neutral-divider));
+  --color-neutral-50: rgb(var(--neutral-50));
+  --color-neutral-100: rgb(var(--neutral-100));
+  --color-neutral-200: rgb(var(--neutral-200));
+  --color-neutral-300: rgb(var(--neutral-300));
+  --color-neutral-400: rgb(var(--neutral-400));
+  --color-neutral-500: rgb(var(--neutral-500));
+  --color-neutral-600: rgb(var(--neutral-600));
+  --color-neutral-700: rgb(var(--neutral-700));
+  --color-neutral-800: rgb(var(--neutral-800));
+  --color-neutral-900: rgb(var(--neutral-900));
+  --color-status-danger-300: rgb(var(--status-danger-300));
+  --color-status-danger-200: rgb(var(--status-danger-200));
+  --color-status-danger-100: rgb(var(--status-danger-100));
+  --color-status-warning-300: rgb(var(--status-warning-300));
+  --color-status-warning-200: rgb(var(--status-warning-200));
+  --color-status-warning-100: rgb(var(--status-warning-100));
+  --color-status-success-300: rgb(var(--status-success-300));
+  --color-status-success-200: rgb(var(--status-success-200));
+  --color-status-success-100: rgb(var(--status-success-100));
+  --color-other-purple: rgb(var(--other-purple));
+  --color-other-purple-10: rgba(var(--other-purple-10));
+  --color-other-red: rgb(var(--other-red));
+  --color-other-red-10: rgba(var(--other-red-10));
+  --color-other-orange: rgb(var(--other-orange));
+  --color-other-orange-10: rgba(var(--other-orange-10));
+  --color-other-blue: rgb(var(--other-blue));
+  --color-other-blue-10: rgba(var(--other-blue-10));
+  --color-sidebar: hsl(var(--sidebar-background));
+  --color-sidebar-foreground: hsl(var(--sidebar-foreground));
+  --color-sidebar-primary: hsl(var(--sidebar-primary));
+  --color-sidebar-primary-foreground: hsl(var(--sidebar-primary-foreground));
+  --color-sidebar-accent: rgb(var(--basic-blue));
+  --color-sidebar-accent-foreground: rgb(var(--basic-white));
+  --color-sidebar-border: hsl(var(--sidebar-border));
+  --color-sidebar-ring: hsl(var(--sidebar-ring));
 }
 
 @custom-variant tall (@media (min-height: 933px));
