@@ -2,7 +2,15 @@ import React from 'react';
 import type { Metadata, Viewport } from 'next';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import 'feather-icons/dist/feather';
-import '../styles/global.css';
+import './global.css';
+
+export const viewport: Viewport = {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+    themeColor: '#1f4d80',
+};
 
 export const viewport: Viewport = {
     width: 'device-width',

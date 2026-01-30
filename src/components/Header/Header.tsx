@@ -26,7 +26,7 @@ const Header: React.FC<Props> = ({ scheme = 'dark', underlined = true }) => {
     const logoSrc = scheme === 'dark' ? darkLogo : lightLogo;
 
     const navigation = (
-        <nav className="flex flex-col xs:flex-row gap-10 xs:gap-5 text-4xl xs:text-base leading-none">
+        <nav className="flex flex-col xs:flex-row gap-10 xs:gap-5 text-4xl xs:text-base leading-none font-medium">
             {links.map((link) => (
                 <Link onClick={() => !burgerCollapsed && toggleCollapse(true)} key={link.to} href={link.to || '/'}>
                     {link.label}
