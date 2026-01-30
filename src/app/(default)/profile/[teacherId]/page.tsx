@@ -28,11 +28,7 @@ const generateMetaDescription = (teacher: Lecturer | null): string => {
     return finalDescription;
 };
 
-export async function generateMetadata({
-    params,
-}: {
-    params: Promise<{ teacherId: string }>;
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ teacherId: string }> }): Promise<Metadata> {
     try {
         const { teacherId } = await params;
         const teacher = await getTeacherByTeacherId(teacherId);
@@ -46,10 +42,10 @@ export async function generateMetadata({
                 description,
                 images: teacher?.userIdentifier
                     ? [
-                        {
-                            url: `${API_BASE_URL}/intellect/v2/persons/${teacher.userIdentifier}/page-preview`,
-                        },
-                    ]
+                          {
+                              url: `${API_BASE_URL}/intellect/v2/persons/${teacher.userIdentifier}/page-preview`,
+                          },
+                      ]
                     : [],
             },
         };
@@ -60,17 +56,10 @@ export async function generateMetadata({
     }
 }
 
-export default async function TeacherProfilePage({
-    params,
-}: {
-    params: Promise<{ teacherId: string }>;
-}) {
+export default async function TeacherProfilePage({ params }: { params: Promise<{ teacherId: string }> }) {
     try {
         const { teacherId } = await params;
-        const [teacher, ratings] = await Promise.all([
-            getTeacherByTeacherId(teacherId),
-            getRatings(teacherId),
-        ]);
+        const [teacher, ratings] = await Promise.all([getTeacherByTeacherId(teacherId), getRatings(teacherId)]);
 
         return <TeacherProfileClient teacher={teacher} ratings={ratings} />;
     } catch (error) {

@@ -7,15 +7,9 @@ interface TabListProps<T extends string> {
     selectTab: (tab: T) => void;
     className: string;
     tabActive: T;
-};
+}
 
-const TabList = <T extends string>({
-    children,
-    tabs,
-    selectTab,
-    className = '',
-    tabActive,
-}: TabListProps<T>) => {
+const TabList = <T extends string>({ children, tabs, selectTab, className = '', tabActive }: TabListProps<T>) => {
     return (
         <div className={className}>
             <div className="overflow-x-auto overflow-y-hidden scrollbar-hidden">

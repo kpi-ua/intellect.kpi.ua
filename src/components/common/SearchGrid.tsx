@@ -6,11 +6,7 @@ type Props = {
 };
 
 const SearchGrid: React.FC<Props> = ({ children, className = '' }) => {
-    return (
-        <div className={'grid grid-cols-teachers gap-6 ' + className}>
-            {children}
-        </div>
-    );
+    return <div className={'grid grid-cols-(--grid-cols-teachers) gap-6 ' + className}>{children}</div>;
 };
 
 export default SearchGrid;
