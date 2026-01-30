@@ -1,11 +1,29 @@
 import React from 'react';
-import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
-import { getRatings, getTeacherByTeacherId } from '@/api/teacher';
+import { getEvaluationWorkloads, getRatings, getTeacherByTeacherId } from '@/api/teacher';
 import { API_BASE_URL } from '@/api/index';
 import { academicDegrees } from '@/constants';
-import { Lecturer } from '@/types/intellect';
-import TeacherProfileClient from './TeacherProfileClient';
+import SectionTitle from '@/components/common/SectionTitle';
+import { JobLabel } from '@/components/JobLabel/JobLabel';
+import Avatar from '@/components/Avatar/Avatar';
+import { ProfileDetails } from '@/app/(default)/profile/[teacherId]/components/ProfileDetails/ProfileDetails';
+import { Ratings } from '@/app/(default)/profile/[teacherId]/components/Ratings';
+import { Position, Lecturer } from '@/types/intellect';
+import {
+    Breadcrumb,
+    BreadcrumbList,
+    BreadcrumbItem,
+    BreadcrumbLink,
+    BreadcrumbSeparator,
+    BreadcrumbPage,
+} from '@/components/ui/breadcrumb';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { WorkloadDetails } from '@/app/(default)/profile/[teacherId]/components/WorkloadDetails/WorkloadDetails';
+import {
+    getDefaultYear,
+    getDefaultPeriod,
+    getDefaultDepartment,
+} from '@/app/(default)/profile/[teacherId]/components/WorkloadDetails/utils';
 
 const generateMetaDescription = (teacher: Lecturer | null): string => {
     if (!teacher) {
@@ -57,12 +75,73 @@ export async function generateMetadata({ params }: { params: Promise<{ teacherId
 }
 
 export default async function TeacherProfilePage({ params }: { params: Promise<{ teacherId: string }> }) {
-    try {
-        const { teacherId } = await params;
-        const [teacher, ratings] = await Promise.all([getTeacherByTeacherId(teacherId), getRatings(teacherId)]);
+    const { teacherId } = await params;
+    const [teacher, ratings, workloads] = await Promise.all([
+        getTeacherByTeacherId(teacherId),
+        getRatings(teacherId),
+        getEvaluationWorkloads(teacherId),
+    ]);
 
-        return <TeacherProfileClient teacher={teacher} ratings={ratings} />;
-    } catch (error) {
-        notFound();
-    }
+    const workloadList = workloads || [];
+    const defaultYear = getDefaultYear(workloadList);
+    const defaultPeriod = getDefaultPeriod(workloadList);
+    const defaultDepartment = getDefaultDepartment(workloadList);
+
+    return (
+        <section className="pt-12 pb-110">
+            <Breadcrumb className="mb-8">
+                <BreadcrumbList>
+                    <BreadcrumbItem>
+                        <BreadcrumbLink href="/">Головна</BreadcrumbLink>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator />
+                    <BreadcrumbItem>
+                        <BreadcrumbPage>{teacher?.fullName}</BreadcrumbPage>
+                    </BreadcrumbItem>
+                </BreadcrumbList>
+            </Breadcrumb>
+            <div className="grid grid-cols-[1fr] sm:grid-cols-[170px_1fr] gap-6 mt-6 justify-items-center sm:justify-items-start relative">
+                <div>
+                    <Avatar img={teacher?.photo} />
+                </div>
+                <div className="w-full overflow-x-hidden">
+                    <SectionTitle className="text-3xl text-center sm:text-5xl sm:text-left" isPrimary={false}>
+                        {teacher?.fullName}
+                    </SectionTitle>
+                    {teacher?.credo ? (
+                        <div className="inline-block p-1 mt-5 text-neutral-600 bg-neutral-100 rounded-8">
+                            <i>{teacher?.credo}</i>
+                        </div>
+                    ) : null}
+                    <div className="flex justify-center gap-3 mt-5 overflow-x-auto sm:justify-start">
+                        {(teacher?.positions || []).map((item: Position) => (
+                            <JobLabel
+                                key={item.subdivision.id}
+                                qualification={item.name}
+                                workplace={item.subdivision.name}
+                            />
+                        ))}
+                    </div>
+                    <Tabs defaultValue="profile">
+                        <TabsList>
+                            <TabsTrigger value="profile">Профіль</TabsTrigger>
+                            <TabsTrigger value="rating">Оцінювання НПП</TabsTrigger>
+                        </TabsList>
+                        <TabsContent value="profile">
+                            <ProfileDetails teacherInfo={teacher} />
+                        </TabsContent>
+                        <TabsContent value="rating">
+                            <WorkloadDetails
+                                workloads={workloadList}
+                                ratings={ratings || []}
+                                defaultYear={defaultYear}
+                                defaultPeriod={defaultPeriod}
+                                defaultDepartment={defaultDepartment}
+                            />
+                        </TabsContent>
+                    </Tabs>
+                </div>
+            </div>
+        </section>
+    );
 }

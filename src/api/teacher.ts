@@ -2,7 +2,7 @@ import { ApiResponse } from '@/types/ecampus';
 import Http, { API_BASE_URL } from './index';
 
 import { parseSearchParams } from '@/utils';
-import { Rating, Lecturer } from '@/types/intellect';
+import { Rating, Lecturer, EvaluationWorkload } from '@/types/intellect';
 
 export const searchByInput = (input: string, currentPage: number): Promise<ApiResponse<Lecturer>> => {
     const params = parseSearchParams(input);
@@ -30,8 +30,6 @@ export const getRatings = (teacherId: string): Promise<Rating[]> => {
     return Http.get(`/v2/persons/${teacherId}/rating`);
 };
 
-export default {
-    getTeacherByTeacherId,
-    getInterests,
-    getRatings,
+export const getEvaluationWorkloads = (userIdentifier: string): Promise<EvaluationWorkload[]> => {
+    return Http.get(`/v2/persons/${userIdentifier}/evaluation-workloads`);
 };

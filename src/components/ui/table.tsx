@@ -65,9 +65,7 @@ const TableHead = React.forwardRef<HTMLTableCellElement, TableHeadProps>(
                 onClick={isSortable ? sortHandlers![sortHeader!].onClick : undefined}
                 {...props}
             >
-                <span className="flex items-center gap-3">
-                    {children}
-                </span>
+                <span className="flex items-center gap-3">{children}</span>
             </th>
         );
     }

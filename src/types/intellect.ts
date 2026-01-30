@@ -40,3 +40,28 @@ export type Tab = {
     placeholder?: string;
     tips: boolean;
 };
+
+export type EvaluationWorkload = {
+    employeeId: string;
+    fullName: string;
+    department: Division;
+    year: number;
+    semester: number;
+    salary: number;
+    educational: number;
+    scientific: number;
+    methodical: number;
+    organizational: number;
+    other: number;
+    totalHours: number;
+    totalWorkload: number;
+    educationalPercentage: number;
+    scientificPercentage: number;
+    methodicalPercentage: number;
+    organizationalPercentage: number;
+    otherPercentage: number;
+    isEducationalValid: boolean;
+    isScientificValid: boolean;
+    isOtherValid: boolean;
+    isValid: boolean;
+};
