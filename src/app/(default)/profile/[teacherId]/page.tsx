@@ -87,6 +87,8 @@ export default async function TeacherProfilePage({ params }: { params: Promise<{
     const defaultPeriod = getDefaultPeriod(workloadList);
     const defaultDepartment = getDefaultDepartment(workloadList);
 
+    console.log(teacher.positions);
+
     return (
         <section className="pt-12 pb-110">
             <Breadcrumb className="mb-8">
@@ -131,13 +133,17 @@ export default async function TeacherProfilePage({ params }: { params: Promise<{
                             <ProfileDetails teacherInfo={teacher} />
                         </TabsContent>
                         <TabsContent value="rating">
-                            <WorkloadDetails
-                                workloads={workloadList}
-                                ratings={ratings || []}
-                                defaultYear={defaultYear}
-                                defaultPeriod={defaultPeriod}
-                                defaultDepartment={defaultDepartment}
-                            />
+                            {workloadList.length !== 0 ? (
+                                <WorkloadDetails
+                                    workloads={workloadList}
+                                    ratings={ratings}
+                                    defaultYear={defaultYear}
+                                    defaultPeriod={defaultPeriod}
+                                    defaultDepartment={defaultDepartment}
+                                />
+                            ) : (
+                                <p>дані відсутні</p>
+                            )}
                         </TabsContent>
                     </Tabs>
                 </div>

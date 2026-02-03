@@ -73,6 +73,7 @@ export const Filters = ({
                             <SelectValue placeholder="Оберіть підрозділ" />
                         </SelectTrigger>
                         <SelectContent>
+                            <SelectItem value="all">Загальне</SelectItem>
                             {uniqueDepartments.map((dept) => (
                                 <SelectItem key={dept.value} value={dept.value}>
                                     {dept.label}

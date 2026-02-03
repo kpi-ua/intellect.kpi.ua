@@ -45,6 +45,7 @@ export type EvaluationWorkload = {
     employeeId: string;
     fullName: string;
     department: Division;
+    departmentAbbreviation: string;
     year: number;
     semester: number;
     salary: number;

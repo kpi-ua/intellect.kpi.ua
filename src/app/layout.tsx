@@ -12,14 +12,6 @@ export const viewport: Viewport = {
     themeColor: '#1f4d80',
 };
 
-export const viewport: Viewport = {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
-    themeColor: '#1f4d80',
-};
-
 export const metadata: Metadata = {
     metadataBase: new URL('https://intellect.kpi.ua'),
     title: 'Інтелект | Викладачі та науковці',

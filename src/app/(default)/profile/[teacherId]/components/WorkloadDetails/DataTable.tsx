@@ -3,6 +3,7 @@ import SectionTitle from '@/components/common/SectionTitle';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { EvaluationWorkload } from '@/types/intellect';
 import { formatYear, formatSemester } from './utils';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
 interface Props {
     workloads: EvaluationWorkload[];
@@ -32,7 +33,16 @@ export const DataTable = ({ workloads }: Props) => {
                             <TableRow key={`${workload.year}-${workload.semester}-${workload.department?.id || idx}`}>
                                 <TableCell>{formatYear(workload.year)}</TableCell>
                                 <TableCell>{formatSemester(workload.semester)}</TableCell>
-                                <TableCell>{workload.department?.name || '-'}</TableCell>
+                                <TableCell>
+                                    <Tooltip>
+                                        <TooltipTrigger asChild>
+                                            <span>{workload.departmentAbbreviation}</span>
+                                        </TooltipTrigger>
+                                        <TooltipContent>
+                                            <p>{workload.department?.name}</p>
+                                        </TooltipContent>
+                                    </Tooltip>
+                                </TableCell>
                                 <TableCell style={{ backgroundColor: '#1C396E', color: 'white' }}>
                                     {workload.educational.toFixed(2)}
                                 </TableCell>

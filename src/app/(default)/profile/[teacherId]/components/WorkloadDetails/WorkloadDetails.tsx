@@ -29,22 +29,79 @@ export const WorkloadDetails = ({
     const [selectedDepartment, setSelectedDepartment] = useState<string>(defaultDepartment);
     const [selectedPeriod, setSelectedPeriod] = useState<string>(defaultPeriod);
 
-    // Filter workloads based on selections
-    const filteredWorkloads = useMemo(() => {
-        // First, filter by year and department
-        let filtered = workloads.filter((workload) => {
+    // Filter by year and department only (no period) - used for chart and as base for table
+    const workloadsByYearAndDepartment = useMemo(() => {
+        return workloads.filter((workload) => {
             const yearMatch = !selectedYear || workload.year.toString() === selectedYear;
-            const departmentMatch = !selectedDepartment || workload.department?.id.toString() === selectedDepartment;
+            const departmentMatch =
+                selectedDepartment === 'all' ||
+                !selectedDepartment ||
+                workload.department?.id.toString() === selectedDepartment;
             return yearMatch && departmentMatch;
         });
+    }, [workloads, selectedYear, selectedDepartment]);
 
-        // Handle period filter
+    // Chart data: full year (semesters 1+2 aggregated) for selected year and department only – ignores period filter
+    const chartWorkloads = useMemo(() => {
+        const filtered = workloadsByYearAndDepartment.filter((w) => w.semester === 1 || w.semester === 2);
+        const grouped = new Map<string, EvaluationWorkload>();
+
+        filtered.forEach((workload) => {
+            const key = `${workload.year}-${workload.department?.id || 'none'}`;
+            const existing = grouped.get(key);
+
+            if (existing) {
+                const educational = (existing.educational || 0) + (workload.educational || 0);
+                const scientific = (existing.scientific || 0) + (workload.scientific || 0);
+                const methodical = (existing.methodical || 0) + (workload.methodical || 0);
+                const organizational = (existing.organizational || 0) + (workload.organizational || 0);
+                const other = (existing.other || 0) + (workload.other || 0);
+                const totalHours = (existing.totalHours || 0) + (workload.totalHours || 0);
+                const totalWorkload = (existing.totalWorkload || 0) + (workload.totalWorkload || 0);
+                const total = educational + scientific + methodical + organizational + other;
+
+                grouped.set(key, {
+                    ...existing,
+                    educational,
+                    scientific,
+                    methodical,
+                    organizational,
+                    other,
+                    totalHours,
+                    totalWorkload,
+                    educationalPercentage: total > 0 ? (educational / total) * 100 : 0,
+                    scientificPercentage: total > 0 ? (scientific / total) * 100 : 0,
+                    methodicalPercentage: total > 0 ? (methodical / total) * 100 : 0,
+                    organizationalPercentage: total > 0 ? (organizational / total) * 100 : 0,
+                    otherPercentage: total > 0 ? (other / total) * 100 : 0,
+                    semester: 0,
+                });
+            } else {
+                grouped.set(key, { ...workload, semester: 0 });
+            }
+        });
+
+        return Array.from(grouped.values());
+    }, [workloadsByYearAndDepartment]);
+
+    const chartYearRange = useMemo(() => {
+        if (chartWorkloads.length === 0) return '';
+        const years = chartWorkloads.map((w) => w.year);
+        const minYear = Math.min(...years);
+        const maxYear = Math.max(...years);
+        if (minYear === maxYear) {
+            return `${minYear}-${minYear + 1}`;
+        }
+        return `${minYear}-${maxYear + 1}`;
+    }, [chartWorkloads]);
+
+    // Table data: filter by period (semester) as well
+    const filteredWorkloads = useMemo(() => {
+        let filtered = workloadsByYearAndDepartment;
+
         if (selectedPeriod) {
             if (selectedPeriod === '0') {
-                // For "Рік", aggregate semester 1 and 2
                 filtered = filtered.filter((w) => w.semester === 1 || w.semester === 2);
-
-                // Group by year and department, then sum
                 const grouped = new Map<string, EvaluationWorkload>();
 
                 filtered.forEach((workload) => {
@@ -52,7 +109,6 @@ export const WorkloadDetails = ({
                     const existing = grouped.get(key);
 
                     if (existing) {
-                        // Sum the values
                         const educational = (existing.educational || 0) + (workload.educational || 0);
                         const scientific = (existing.scientific || 0) + (workload.scientific || 0);
                         const methodical = (existing.methodical || 0) + (workload.methodical || 0);
@@ -60,8 +116,6 @@ export const WorkloadDetails = ({
                         const other = (existing.other || 0) + (workload.other || 0);
                         const totalHours = (existing.totalHours || 0) + (workload.totalHours || 0);
                         const totalWorkload = (existing.totalWorkload || 0) + (workload.totalWorkload || 0);
-
-                        // Recalculate percentages
                         const total = educational + scientific + methodical + organizational + other;
 
                         grouped.set(key, {
@@ -78,26 +132,21 @@ export const WorkloadDetails = ({
                             methodicalPercentage: total > 0 ? (methodical / total) * 100 : 0,
                             organizationalPercentage: total > 0 ? (organizational / total) * 100 : 0,
                             otherPercentage: total > 0 ? (other / total) * 100 : 0,
-                            semester: 0, // Mark as "Рік"
-                        });
-                    } else {
-                        // Create new entry with semester 0
-                        grouped.set(key, {
-                            ...workload,
                             semester: 0,
                         });
+                    } else {
+                        grouped.set(key, { ...workload, semester: 0 });
                     }
                 });
 
                 filtered = Array.from(grouped.values());
             } else {
-                // For specific semesters, filter by exact match
                 filtered = filtered.filter((w) => w.semester.toString() === selectedPeriod);
             }
         }
 
         return filtered;
-    }, [workloads, selectedYear, selectedDepartment, selectedPeriod]);
+    }, [workloadsByYearAndDepartment, selectedPeriod]);
 
     const yearRange = useMemo(() => {
         if (filteredWorkloads.length === 0) return '';
@@ -131,22 +180,15 @@ export const WorkloadDetails = ({
         );
     }
 
-    console.log('selectedYear', selectedYear);
-    console.log('selectedDepartment', selectedDepartment);
-    console.log('selectedPeriod', selectedPeriod);
-
     return (
         <div className="mt-4">
-            <div className="flex justify-between items-center mb-6">
-                <div></div>
-                {ratings && ratings.length > 0 && (
+            <div className="flex justify-end items-center mb-6">
                     <button
                         onClick={() => setShowRatingsArchive(true)}
                         className="text-sm text-neutral-600 underline hover:text-primary transition-colors"
                     >
                         Архів рейтингу (до 2024)
                     </button>
-                )}
             </div>
             <Filters
                 workloads={workloads}
@@ -160,7 +202,7 @@ export const WorkloadDetails = ({
 
             <DataTable workloads={filteredWorkloads} />
 
-            <StackedBarChart workloads={filteredWorkloads} yearRange={yearRange} />
+            <StackedBarChart selectedYear={selectedYear} workloads={workloads} yearRange={chartYearRange} />
         </div>
     );
 };

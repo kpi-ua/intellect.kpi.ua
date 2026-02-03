@@ -7,9 +7,10 @@ import { EvaluationWorkload } from '@/types/intellect';
 interface Props {
     workloads: EvaluationWorkload[];
     yearRange: string;
+    selectedYear: string;
 }
 
-export const StackedBarChart = ({ workloads, yearRange }: Props) => {
+export const StackedBarChart = ({ workloads, yearRange, selectedYear }: Props) => {
     const workloadSummary = useMemo(() => {
         const totals = workloads.reduce(
             (acc, workload) => ({
@@ -27,7 +28,6 @@ export const StackedBarChart = ({ workloads, yearRange }: Props) => {
 
         return {
             ...totals,
-            total,
             percentages: {
                 educational: total > 0 ? (totals.educational / total) * 100 : 0,
                 scientific: total > 0 ? (totals.scientific / total) * 100 : 0,
@@ -37,6 +37,9 @@ export const StackedBarChart = ({ workloads, yearRange }: Props) => {
             },
         };
     }, [workloads]);
+
+    const thours = workloads.find((w) => w.year === Number(selectedYear))?.totalHours;
+    console.log('thours', thours);
 
     return (
         <div className="mt-8">
@@ -87,7 +90,7 @@ export const StackedBarChart = ({ workloads, yearRange }: Props) => {
                     )}
                 </div>
                 <div className="mt-2 text-right text-sm font-semibold text-neutral-700">
-                    {workloadSummary.totalHours.toFixed(2)} год
+                    {thours?.toFixed(2)} год
                 </div>
             </div>
 
