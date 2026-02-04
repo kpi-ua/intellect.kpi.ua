@@ -18,7 +18,9 @@ export type Lecturer = {
 
 export type Position = {
     name: string;
+    subdivisionAbbreviation: string;
     subdivision: Division;
+    employment: number;
 };
 
 export type ExperienceType = 'profile' | 'rating';
@@ -44,8 +46,8 @@ export type Tab = {
 export type EvaluationWorkload = {
     employeeId: string;
     fullName: string;
-    department: Division;
-    departmentAbbreviation: string;
+    subdivision: Division;
+    subdivisionAbbreviation: string;
     year: number;
     semester: number;
     salary: number;

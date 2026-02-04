@@ -7,7 +7,6 @@ import SectionTitle from '@/components/common/SectionTitle';
 import { JobLabel } from '@/components/JobLabel/JobLabel';
 import Avatar from '@/components/Avatar/Avatar';
 import { ProfileDetails } from '@/app/(default)/profile/[teacherId]/components/ProfileDetails/ProfileDetails';
-import { Ratings } from '@/app/(default)/profile/[teacherId]/components/Ratings';
 import { Position, Lecturer } from '@/types/intellect';
 import {
     Breadcrumb,
@@ -20,9 +19,9 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { WorkloadDetails } from '@/app/(default)/profile/[teacherId]/components/WorkloadDetails/WorkloadDetails';
 import {
-    getDefaultYear,
-    getDefaultPeriod,
+    getDefaultYearFromGrouped,
     getDefaultDepartment,
+    groupWorkloadsByYearRange,
 } from '@/app/(default)/profile/[teacherId]/components/WorkloadDetails/utils';
 
 const generateMetaDescription = (teacher: Lecturer | null): string => {
@@ -83,11 +82,13 @@ export default async function TeacherProfilePage({ params }: { params: Promise<{
     ]);
 
     const workloadList = workloads || [];
-    const defaultYear = getDefaultYear(workloadList);
-    const defaultPeriod = getDefaultPeriod(workloadList);
-    const defaultDepartment = getDefaultDepartment(workloadList);
 
-    console.log(teacher.positions);
+    // Group workloads by academic year range
+    // Example: { "2024-2025": [{ year: 2024, semester: 1, ... }, { year: 2025, semester: 2, ... }], ... }
+    const workloadsByYearRange = groupWorkloadsByYearRange(workloadList);
+
+    const defaultYear = getDefaultYearFromGrouped(workloadsByYearRange);
+    const defaultDepartment = getDefaultDepartment(workloadList);
 
     return (
         <section className="pt-12 pb-110">
@@ -117,11 +118,7 @@ export default async function TeacherProfilePage({ params }: { params: Promise<{
                     ) : null}
                     <div className="flex justify-center gap-3 mt-5 overflow-x-auto sm:justify-start">
                         {(teacher?.positions || []).map((item: Position) => (
-                            <JobLabel
-                                key={item.subdivision.id}
-                                qualification={item.name}
-                                workplace={item.subdivision.name}
-                            />
+                            <JobLabel key={item.subdivision.id} position={item} />
                         ))}
                     </div>
                     <Tabs defaultValue="profile">
@@ -133,17 +130,13 @@ export default async function TeacherProfilePage({ params }: { params: Promise<{
                             <ProfileDetails teacherInfo={teacher} />
                         </TabsContent>
                         <TabsContent value="rating">
-                            {workloadList.length !== 0 ? (
-                                <WorkloadDetails
-                                    workloads={workloadList}
-                                    ratings={ratings}
-                                    defaultYear={defaultYear}
-                                    defaultPeriod={defaultPeriod}
-                                    defaultDepartment={defaultDepartment}
-                                />
-                            ) : (
-                                <p>дані відсутні</p>
-                            )}
+                            <WorkloadDetails
+                                workloadsByYearRange={workloadsByYearRange}
+                                workloads={workloadList}
+                                ratings={ratings}
+                                defaultYear={defaultYear}
+                                defaultDepartment={defaultDepartment}
+                            />
                         </TabsContent>
                     </Tabs>
                 </div>

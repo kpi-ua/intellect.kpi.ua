@@ -4,9 +4,10 @@ import React, { useMemo } from 'react';
 import SectionTitle from '@/components/common/SectionTitle';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { EvaluationWorkload } from '@/types/intellect';
-import { formatYear } from './utils';
+import { getYearOptionsFromGrouped } from './utils';
 
 interface FiltersProps {
+    workloadsByYearRange: Record<string, EvaluationWorkload[]>;
     workloads: EvaluationWorkload[];
     selectedYear: string;
     selectedDepartment: string;
@@ -16,7 +17,14 @@ interface FiltersProps {
     onPeriodChange: (value: string) => void;
 }
 
+const PERIOD_OPTIONS = [
+    { value: '0', label: 'Рік' },
+    { value: '1', label: '1 семестр' },
+    { value: '2', label: '2 семестр' },
+];
+
 export const Filters = ({
+    workloadsByYearRange,
     workloads,
     selectedYear,
     selectedDepartment,
@@ -25,31 +33,18 @@ export const Filters = ({
     onDepartmentChange,
     onPeriodChange,
 }: FiltersProps) => {
-    const uniqueYears = useMemo(() => {
-        const years = Array.from(new Set(workloads.map((w) => w.year))).sort((a, b) => b - a);
-        return years.map((year) => ({ value: year.toString(), label: formatYear(year) }));
-    }, [workloads]);
+    const uniqueYears = useMemo(() => getYearOptionsFromGrouped(workloadsByYearRange), [workloadsByYearRange]);
 
     const uniqueDepartments = useMemo(() => {
-        const departments = Array.from(new Set(workloads.map((w) => w.department?.id).filter(Boolean))).map((id) => {
-            const workload = workloads.find((w) => w.department?.id === id);
-            return { id, name: workload?.department?.name || '' };
+        const departments = Array.from(new Set(workloads.map((w) => w.subdivision?.id).filter(Boolean))).map((id) => {
+            const workload = workloads.find((w) => w.subdivision?.id === id);
+            return { id, name: workload?.subdivision?.name || '' };
         });
         return departments.map((dept) => ({ value: dept.id.toString(), label: dept.name }));
     }, [workloads]);
 
-    const uniquePeriods = useMemo(() => {
-        const periods = Array.from(new Set(workloads.map((w) => w.semester))).sort();
-        const periodOptions = [
-            { value: '0', label: 'Рік' },
-            ...periods.filter((p) => p !== 0).map((p) => ({ value: p.toString(), label: `${p} семестр` })),
-        ];
-        return periodOptions;
-    }, [workloads]);
-
     return (
         <div className="mb-6">
-            <SectionTitle className="mb-4 uppercase text-primary">Період оцінювання</SectionTitle>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
                     <label className="block text-sm font-medium text-neutral-700 mb-2">Навчальний рік</label>
@@ -89,7 +84,7 @@ export const Filters = ({
                             <SelectValue placeholder="Оберіть період" />
                         </SelectTrigger>
                         <SelectContent>
-                            {uniquePeriods.map((period) => (
+                            {PERIOD_OPTIONS.map((period) => (
                                 <SelectItem key={period.value} value={period.value}>
                                     {period.label}
                                 </SelectItem>

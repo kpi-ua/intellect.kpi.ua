@@ -30,34 +30,30 @@ export const DataTable = ({ workloads }: Props) => {
                     </TableHeader>
                     <TableBody>
                         {workloads.map((workload, idx) => (
-                            <TableRow key={`${workload.year}-${workload.semester}-${workload.department?.id || idx}`}>
-                                <TableCell>{formatYear(workload.year)}</TableCell>
+                            <TableRow key={`${workload.year}-${workload.semester}-${workload.subdivision?.id || idx}`}>
+                                <TableCell>{formatYear(workload.year, workload.semester)}</TableCell>
                                 <TableCell>{formatSemester(workload.semester)}</TableCell>
                                 <TableCell>
                                     <Tooltip>
                                         <TooltipTrigger asChild>
-                                            <span>{workload.departmentAbbreviation}</span>
+                                            <span>{workload.subdivisionAbbreviation}</span>
                                         </TooltipTrigger>
                                         <TooltipContent>
-                                            <p>{workload.department?.name}</p>
+                                            <p>{workload.subdivision?.name}</p>
                                         </TooltipContent>
                                     </Tooltip>
                                 </TableCell>
-                                <TableCell style={{ backgroundColor: '#1C396E', color: 'white' }}>
+                                <TableCell className="bg-[#1C396E] text-white">
                                     {workload.educational.toFixed(2)}
                                 </TableCell>
-                                <TableCell style={{ backgroundColor: '#2D5A9E', color: 'white' }}>
+                                <TableCell className="bg-[#2D5A9E] text-white">
                                     {workload.scientific.toFixed(2)}
                                 </TableCell>
-                                <TableCell style={{ backgroundColor: '#4A7AC7', color: 'white' }}>
+                                <TableCell className="bg-[#4A7AC7] text-white">
                                     {workload.methodical.toFixed(2)}
                                 </TableCell>
-                                <TableCell style={{ backgroundColor: '#7BA3E0', color: 'white' }}>
-                                    {workload.organizational.toFixed(2)}
-                                </TableCell>
-                                <TableCell style={{ backgroundColor: '#B0C9F0', color: 'white' }}>
-                                    {workload.other.toFixed(2)}
-                                </TableCell>
+                                <TableCell className="bg-[#7BA3E0]">{workload.organizational.toFixed(2)}</TableCell>
+                                <TableCell className="bg-[#B0C9F0]">{workload.other.toFixed(2)}</TableCell>
                                 <TableCell className="font-semibold">{workload.totalWorkload.toFixed(2)}</TableCell>
                             </TableRow>
                         ))}
