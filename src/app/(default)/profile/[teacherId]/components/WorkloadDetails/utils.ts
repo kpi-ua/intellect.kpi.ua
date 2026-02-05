@@ -23,7 +23,13 @@ export const getDefaultDepartment = (workloads: EvaluationWorkload[]): string =>
     return departments.length > 0 ? departments[0].toString() : '';
 };
 
-export const groupWorkloadsByYearRange = (workloads: EvaluationWorkload[]): Record<string, EvaluationWorkload[]> => {
+export const groupWorkloadsByYearRange = (
+    workloads: EvaluationWorkload[]
+): Record<string, EvaluationWorkload[]> | null => {
+    if (workloads.length === 0) {
+        return null;
+    }
+
     const grouped: Record<string, EvaluationWorkload[]> = {};
 
     workloads.forEach((workload) => {

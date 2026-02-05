@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useMemo } from 'react';
-import SectionTitle from '@/components/common/SectionTitle';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { EvaluationWorkload } from '@/types/intellect';
 import { getYearOptionsFromGrouped } from './utils';

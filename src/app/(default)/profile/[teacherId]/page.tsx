@@ -18,11 +18,6 @@ import {
 } from '@/components/ui/breadcrumb';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { WorkloadDetails } from '@/app/(default)/profile/[teacherId]/components/WorkloadDetails/WorkloadDetails';
-import {
-    getDefaultYearFromGrouped,
-    getDefaultDepartment,
-    groupWorkloadsByYearRange,
-} from '@/app/(default)/profile/[teacherId]/components/WorkloadDetails/utils';
 
 const generateMetaDescription = (teacher: Lecturer | null): string => {
     if (!teacher) {
@@ -59,10 +54,10 @@ export async function generateMetadata({ params }: { params: Promise<{ teacherId
                 description,
                 images: teacher?.userIdentifier
                     ? [
-                          {
-                              url: `${API_BASE_URL}/intellect/v2/persons/${teacher.userIdentifier}/page-preview`,
-                          },
-                      ]
+                        {
+                            url: `${API_BASE_URL}/intellect/v2/persons/${teacher.userIdentifier}/page-preview`,
+                        },
+                    ]
                     : [],
             },
         };
@@ -80,15 +75,6 @@ export default async function TeacherProfilePage({ params }: { params: Promise<{
         getRatings(teacherId),
         getEvaluationWorkloads(teacherId),
     ]);
-
-    const workloadList = workloads || [];
-
-    // Group workloads by academic year range
-    // Example: { "2024-2025": [{ year: 2024, semester: 1, ... }, { year: 2025, semester: 2, ... }], ... }
-    const workloadsByYearRange = groupWorkloadsByYearRange(workloadList);
-
-    const defaultYear = getDefaultYearFromGrouped(workloadsByYearRange);
-    const defaultDepartment = getDefaultDepartment(workloadList);
 
     return (
         <section className="pt-12 pb-110">
@@ -130,13 +116,7 @@ export default async function TeacherProfilePage({ params }: { params: Promise<{
                             <ProfileDetails teacherInfo={teacher} />
                         </TabsContent>
                         <TabsContent value="rating">
-                            <WorkloadDetails
-                                workloadsByYearRange={workloadsByYearRange}
-                                workloads={workloadList}
-                                ratings={ratings}
-                                defaultYear={defaultYear}
-                                defaultDepartment={defaultDepartment}
-                            />
+                            <WorkloadDetails workloads={workloads} ratings={ratings} />
                         </TabsContent>
                     </Tabs>
                 </div>

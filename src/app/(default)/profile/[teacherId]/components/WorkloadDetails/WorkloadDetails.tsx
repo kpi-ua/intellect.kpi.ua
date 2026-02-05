@@ -6,23 +6,24 @@ import { EvaluationWorkload, Rating } from '@/types/intellect';
 import { Filters } from './Filters';
 import { DataTable } from './DataTable';
 import { Ratings } from '../Ratings';
-import { filterWorkloadsByPeriod } from './utils';
+import {
+    filterWorkloadsByPeriod,
+    getDefaultDepartment,
+    getDefaultYearFromGrouped,
+    groupWorkloadsByYearRange,
+} from './utils';
+import { StackedBarChart } from './StackedBarChart';
 
 interface Props {
-    workloadsByYearRange: Record<string, EvaluationWorkload[]>;
     workloads: EvaluationWorkload[];
     ratings?: Rating[];
-    defaultYear: string;
-    defaultDepartment: string;
 }
 
-export const WorkloadDetails: FC<Props> = ({
-    workloadsByYearRange,
-    workloads,
-    ratings = [],
-    defaultYear,
-    defaultDepartment,
-}) => {
+export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [] }) => {
+    const workloadsByYearRange = groupWorkloadsByYearRange(workloads);
+    const defaultYear = getDefaultYearFromGrouped(workloadsByYearRange || {});
+    const defaultDepartment = getDefaultDepartment(workloads);
+
     const [showRatingsArchive, setShowRatingsArchive] = useState(false);
 
     const [selectedYear, setSelectedYear] = useState(defaultYear);
@@ -30,10 +31,11 @@ export const WorkloadDetails: FC<Props> = ({
     const [selectedPeriod, setSelectedPeriod] = useState('0');
 
     const filteredWorkloads = useMemo(() => {
-        return filterWorkloadsByPeriod(workloadsByYearRange[selectedYear], selectedPeriod, selectedDepartment);
+        const currentWorkloads = workloadsByYearRange ? workloadsByYearRange[selectedYear] : [];
+        return filterWorkloadsByPeriod(currentWorkloads, selectedPeriod, selectedDepartment);
     }, [workloadsByYearRange, selectedPeriod, selectedYear, selectedDepartment]);
 
-    if (workloads.length === 0 && (!ratings || ratings.length === 0)) {
+    if (workloads.length === 0 || ratings.length === 0 || !workloadsByYearRange) {
         return <SectionTitle className="mt-3 text-primary">Дані відсутні</SectionTitle>;
     }
 
@@ -57,7 +59,7 @@ export const WorkloadDetails: FC<Props> = ({
     return (
         <div className="mt-4">
             <div className="flex justify-between items-start mb-6">
-            <SectionTitle className="mb-4 uppercase text-primary">Період оцінювання</SectionTitle>
+                <SectionTitle className="mb-4 uppercase text-primary">Період оцінювання</SectionTitle>
 
                 <button
                     onClick={() => setShowRatingsArchive(true)}
@@ -78,6 +80,13 @@ export const WorkloadDetails: FC<Props> = ({
             />
 
             <DataTable workloads={filteredWorkloads} />
+            <StackedBarChart
+                workloadsByYearRange={workloadsByYearRange}
+                yearRange={selectedYear}
+                selectedYear={selectedYear}
+                selectedPeriod={selectedPeriod}
+                selectedDepartment={selectedDepartment}
+            />
         </div>
     );
 };
