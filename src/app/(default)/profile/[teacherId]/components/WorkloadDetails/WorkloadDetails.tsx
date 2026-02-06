@@ -35,15 +35,10 @@ export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [] }) => {
         return filterWorkloadsByPeriod(currentWorkloads, selectedPeriod, selectedDepartment);
     }, [workloadsByYearRange, selectedPeriod, selectedYear, selectedDepartment]);
 
-    if (workloads.length === 0 || ratings.length === 0 || !workloadsByYearRange) {
-        return <SectionTitle className="mt-3 text-primary">Дані відсутні</SectionTitle>;
-    }
-
     if (showRatingsArchive) {
         return (
             <div className="mt-4">
-                <div className="flex justify-between items-center mb-6">
-                    <SectionTitle className="mb-0 uppercase text-primary">Період оцінювання</SectionTitle>
+                <div className="flex justify-end items-center mb-6">
                     <button
                         onClick={() => setShowRatingsArchive(false)}
                         className="text-sm text-neutral-600 underline hover:text-primary transition-colors"
@@ -52,6 +47,20 @@ export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [] }) => {
                     </button>
                 </div>
                 <Ratings ratings={ratings} />
+            </div>
+        );
+    }
+
+    if (workloads.length === 0 || !workloadsByYearRange) {
+        return (
+            <div className="flex justify-between">
+                <SectionTitle className="mt-3 text-primary">Дані відсутні</SectionTitle>
+                <button
+                    onClick={() => setShowRatingsArchive(true)}
+                    className="text-sm text-neutral-600 underline hover:text-primary transition-colors"
+                >
+                    Архів рейтингу (до 2024)
+                </button>
             </div>
         );
     }

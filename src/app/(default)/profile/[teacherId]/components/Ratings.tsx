@@ -7,6 +7,13 @@ interface RatingsProps {
 }
 
 export const Ratings = ({ ratings }: RatingsProps) => {
+    if (ratings.length === 0) {
+        return (
+            <div className="flex justify-between">
+                <SectionTitle className="mt-3 text-primary">Дані відсутні</SectionTitle>
+            </div>
+        );
+    }
     return (
         <div className="relative justify-between gap-24 mt-4">
             <p className="text-xs text-neutral-600">

@@ -54,10 +54,10 @@ export async function generateMetadata({ params }: { params: Promise<{ teacherId
                 description,
                 images: teacher?.userIdentifier
                     ? [
-                        {
-                            url: `${API_BASE_URL}/intellect/v2/persons/${teacher.userIdentifier}/page-preview`,
-                        },
-                    ]
+                          {
+                              url: `${API_BASE_URL}/intellect/v2/persons/${teacher.userIdentifier}/page-preview`,
+                          },
+                      ]
                     : [],
             },
         };
