@@ -93,7 +93,7 @@ export const StackedBarChart = ({
     return (
         <div className="mt-8">
             <SectionTitle className="mb-4 uppercase text-primary">
-                ВИКОНАННЯ НОРМИ: {yearRange} (ПОВНА СТАВКА)
+                ВИКОНАННЯ НОРМИ: {yearRange} ({workloadsByYearRange[selectedYear][0].salary.toFixed(2)})
             </SectionTitle>
             <div className="relative">
                 <div className="flex overflow-hidden rounded-md h-12">
