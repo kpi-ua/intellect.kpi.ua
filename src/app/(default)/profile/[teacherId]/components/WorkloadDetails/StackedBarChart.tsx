@@ -90,10 +90,12 @@ export const StackedBarChart = ({
         },
     ] as const;
 
+    const salary = workloadsByYearRange[selectedYear].toSorted((a,b)=>b.salary - a.salary)[0].salary.toFixed(2)
+
     return (
         <div className="mt-8">
             <SectionTitle className="mb-4 uppercase text-primary">
-                ВИКОНАННЯ НОРМИ: {yearRange} ({workloadsByYearRange[selectedYear][0].salary.toFixed(2)})
+                ВИКОНАННЯ НОРМИ: {yearRange} ({salary})
             </SectionTitle>
             <div className="relative">
                 <div className="flex overflow-hidden rounded-md h-12">
