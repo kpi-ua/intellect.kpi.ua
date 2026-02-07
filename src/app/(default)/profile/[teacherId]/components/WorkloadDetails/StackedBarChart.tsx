@@ -4,7 +4,7 @@ import React, { useMemo } from 'react';
 import SectionTitle from '@/components/common/SectionTitle';
 import { EvaluationWorkload } from '@/types/intellect';
 import { LegendItem } from './LegendItem';
-import { filterWorkloadsByPeriod } from './utils';
+import { filterWorkloadsByPeriod, getSalaryLabel } from './utils';
 
 interface Props {
     workloadsByYearRange: Record<string, EvaluationWorkload[]>;
@@ -90,12 +90,12 @@ export const StackedBarChart = ({
         },
     ] as const;
 
-    const salary = workloadsByYearRange[selectedYear].toSorted((a,b)=>b.salary - a.salary)[0].salary.toFixed(2)
-
+    const salary = workloadsByYearRange[selectedYear].toSorted((a, b) => b.salary - a.salary)[0].salary.toFixed(2);
+    const salaryLabel = getSalaryLabel(parseFloat(salary));
     return (
         <div className="mt-8">
             <SectionTitle className="mb-4 uppercase text-primary">
-                ВИКОНАННЯ НОРМИ: {yearRange} ({salary})
+                ВИКОНАННЯ НОРМИ: {yearRange} ({salaryLabel})
             </SectionTitle>
             <div className="relative">
                 <div className="flex overflow-hidden rounded-md h-12">

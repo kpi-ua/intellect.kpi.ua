@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { getEvaluationWorkloads, getRatings, getTeacherByTeacherId } from '@/api/teacher';
 import { API_BASE_URL } from '@/api/index';
@@ -18,6 +18,8 @@ import {
 } from '@/components/ui/breadcrumb';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { WorkloadDetails } from '@/app/(default)/profile/[teacherId]/components/WorkloadDetails/WorkloadDetails';
+import { WorkloadContainer } from '@/app/(default)/profile/[teacherId]/components/WorkloadDetails/WorkloadContainer';
+import { Loader } from 'lucide-react';
 
 const generateMetaDescription = (teacher: Lecturer | null): string => {
     if (!teacher) {
@@ -70,11 +72,7 @@ export async function generateMetadata({ params }: { params: Promise<{ teacherId
 
 export default async function TeacherProfilePage({ params }: { params: Promise<{ teacherId: string }> }) {
     const { teacherId } = await params;
-    const [teacher, ratings, workloads] = await Promise.all([
-        getTeacherByTeacherId(teacherId),
-        getRatings(teacherId),
-        getEvaluationWorkloads(teacherId),
-    ]);
+    const teacher = await getTeacherByTeacherId(teacherId)
 
     return (
         <section className="pt-12 pb-110">
@@ -116,7 +114,9 @@ export default async function TeacherProfilePage({ params }: { params: Promise<{
                             <ProfileDetails teacherInfo={teacher} />
                         </TabsContent>
                         <TabsContent value="rating">
-                            <WorkloadDetails workloads={workloads} ratings={ratings} />
+                            <Suspense fallback={<Loader />}>
+                                <WorkloadContainer teacherId={teacherId} />
+                            </Suspense>
                         </TabsContent>
                     </Tabs>
                 </div>

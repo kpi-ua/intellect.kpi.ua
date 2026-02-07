@@ -95,3 +95,11 @@ export const filterWorkloadsByPeriod = (
 
     return workloads;
 };
+
+export const getSalaryLabel = (salary: number) => {
+    if (salary === 1) {
+        return "Повна ставка"
+    }
+
+    return `${salary} ставки`
+}
