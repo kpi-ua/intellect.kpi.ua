@@ -11,7 +11,7 @@
         "@radix-ui/react-tooltip": "^1.2.8",
         "@types/axios": "0.14.0",
         "@types/feather-icons": "4.29.3",
-        "@types/node": "^22.10.2",
+        "@types/node": "^25.2.2",
         "@types/react": "19.1.8",
         "@types/react-dom": "19.1.6",
         "autoprefixer": "10.4.20",
