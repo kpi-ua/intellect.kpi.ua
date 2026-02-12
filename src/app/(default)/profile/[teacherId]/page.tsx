@@ -114,7 +114,13 @@ export default async function TeacherProfilePage({ params }: { params: Promise<{
                             <ProfileDetails teacherInfo={teacher} />
                         </TabsContent>
                         <TabsContent value="rating">
-                            <Suspense fallback={<Loader />}>
+                            <Suspense
+                                fallback={
+                                    <div className="w-full flex justify-center">
+                                        <Loader className="animate-spin" />
+                                    </div>
+                                }
+                            >
                                 <WorkloadContainer teacherId={teacherId} />
                             </Suspense>
                         </TabsContent>
