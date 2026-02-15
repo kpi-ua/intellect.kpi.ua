@@ -253,7 +253,7 @@
   }
 
   body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Exo 2', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -274,10 +274,6 @@
     color: hsl(var(--foreground));
     font-weight: 500;
   }
-}
-
-* {
-    font-family: 'Inter', sans-serif;
 }
 
 :root {
