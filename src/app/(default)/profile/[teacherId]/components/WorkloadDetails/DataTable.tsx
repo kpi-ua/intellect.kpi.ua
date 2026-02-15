@@ -20,11 +20,11 @@ export const DataTable = ({ workloads }: Props) => {
                             <TableHead>Навч. рік</TableHead>
                             <TableHead>Семестр</TableHead>
                             <TableHead>Підрозділ</TableHead>
-                            <TableHead>Навчальна</TableHead>
-                            <TableHead>Наукова</TableHead>
-                            <TableHead>Методична</TableHead>
-                            <TableHead>Організаційна</TableHead>
-                            <TableHead>Інше</TableHead>
+                            <TableHead className="bg-[#1C396E] text-white">Навчальна</TableHead>
+                            <TableHead className="bg-[#2D5A9E] text-white">Наукова</TableHead>
+                            <TableHead className="bg-[#4A7AC7] text-white">Методична</TableHead>
+                            <TableHead className="bg-[#7BA3E0] text-black">Організаційна</TableHead>
+                            <TableHead className="bg-[#B0C9F0] text-black">Інше</TableHead>
                             <TableHead>Всього</TableHead>
                         </TableRow>
                     </TableHeader>
@@ -36,24 +36,18 @@ export const DataTable = ({ workloads }: Props) => {
                                 <TableCell>
                                     <Tooltip>
                                         <TooltipTrigger asChild>
-                                            <span>{workload.subdivisionAbbreviation}</span>
+                                            <span className="underline">{workload.subdivisionAbbreviation}</span>
                                         </TooltipTrigger>
                                         <TooltipContent>
                                             <p>{workload.subdivision?.name}</p>
                                         </TooltipContent>
                                     </Tooltip>
                                 </TableCell>
-                                <TableCell className="bg-[#1C396E] text-white">
-                                    {workload.educational.toFixed(2)}
-                                </TableCell>
-                                <TableCell className="bg-[#2D5A9E] text-white">
-                                    {workload.scientific.toFixed(2)}
-                                </TableCell>
-                                <TableCell className="bg-[#4A7AC7] text-white">
-                                    {workload.methodical.toFixed(2)}
-                                </TableCell>
-                                <TableCell className="bg-[#7BA3E0]">{workload.organizational.toFixed(2)}</TableCell>
-                                <TableCell className="bg-[#B0C9F0]">{workload.other.toFixed(2)}</TableCell>
+                                <TableCell>{workload.educational.toFixed(2)}</TableCell>
+                                <TableCell>{workload.scientific.toFixed(2)}</TableCell>
+                                <TableCell>{workload.methodical.toFixed(2)}</TableCell>
+                                <TableCell>{workload.organizational.toFixed(2)}</TableCell>
+                                <TableCell>{workload.other.toFixed(2)}</TableCell>
                                 <TableCell className="font-semibold">{workload.totalWorkload.toFixed(2)}</TableCell>
                             </TableRow>
                         ))}
