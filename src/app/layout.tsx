@@ -42,7 +42,7 @@ export const metadata: Metadata = {
             'Проект об′єднує вчених, викладачів, інженерів та аспірантів університету, які займаються інтелектуальною творчою діяльністю, проводять фундаментальні та прикладні наукові дослідження, впроваджують отримані результати в виробництво, займаються навчальною, методичною і організаційною роботою.',
         images: [
             {
-                url: 'https://do4rt9wur3t6m.cloudfront.net/intellect/intellect-preview.jpeg',
+                url: 'https://cdn.cloud.kpi.ua/public/intellect/intellect-preview.jpeg',
             },
         ],
     },
