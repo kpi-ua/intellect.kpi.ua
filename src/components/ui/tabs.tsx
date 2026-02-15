@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils';
 const Tabs = TabsPrimitive.Root;
 
 const tabsListVariants = cva(
-    'inline-flex items-center justify-center rounded-md border border-neutral-400 p-[3px] text-muted-foreground',
+    'overflow-x-auto overflow-y-hidden scrollbar-hidden flex items-end pb-2 text-xs text-neutral-400 border-b-1 border-neutral-200 gap-17 min-w-700',
     {
         variants: {
             size: {
@@ -35,7 +35,7 @@ const TabsTrigger = ({ className, ref, ...props }: React.ComponentProps<typeof T
     <TabsPrimitive.Trigger
         ref={ref}
         className={cn(
-            'ring-offset-background focus-visible:ring-ring data-[state=active]:bg-basic-blue data-[state=active]:text-basic-white inline-flex cursor-pointer items-center justify-center rounded-sm bg-white px-3 py-1.5 text-sm font-medium whitespace-nowrap text-neutral-700 transition-all focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50',
+            'cursor-pointer text-neutral-400 relative transition-all focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50 data-[state=active]:text-primary data-[state=active]:before:content-[""] data-[state=active]:before:absolute data-[state=active]:before:bottom-[-9px] data-[state=active]:before:left-0 data-[state=active]:before:w-full data-[state=active]:before:h-[2px] data-[state=active]:before:bg-primary data-[state=active]:before:animate-fadeInLeft',
             className
         )}
         {...props}
