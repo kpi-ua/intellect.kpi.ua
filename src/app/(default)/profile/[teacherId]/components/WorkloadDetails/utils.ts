@@ -1,14 +1,6 @@
 import { EvaluationWorkload } from '@/types/intellect';
 
-export const formatYear = (year: number, semester?: number): string => {
-    // Semester 1 (fall) of calendar year Y → academic year Y-(Y+1)
-    // Semester 2 (spring) of calendar year Y → academic year (Y-1)-Y
-    if (semester === 1) {
-        return `${year}-${year + 1}`;
-    } else if (semester === 2) {
-        return `${year - 1}-${year}`;
-    }
-    // Default fallback (for semester 0 or undefined)
+export const formatYear = (year: number): string => {
     return `${year}-${year + 1}`;
 };
 
@@ -33,7 +25,7 @@ export const groupWorkloadsByYearRange = (
     const grouped: Record<string, EvaluationWorkload[]> = {};
 
     workloads.forEach((workload) => {
-        const academicYearRange = formatYear(workload.year, workload.semester);
+        const academicYearRange = formatYear(workload.year);
         if (!grouped[academicYearRange]) {
             grouped[academicYearRange] = [];
         }

@@ -132,7 +132,6 @@ export const StackedBarChart = ({
                         key={item.key}
                         color={item.color}
                         label={item.label}
-                        hours={item.hours}
                         percentage={item.percentage}
                     />
                 ))}
