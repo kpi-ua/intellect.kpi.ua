@@ -31,7 +31,7 @@ export const DataTable = ({ workloads }: Props) => {
                     <TableBody>
                         {workloads.map((workload, idx) => (
                             <TableRow key={`${workload.year}-${workload.semester}-${workload.subdivision?.id || idx}`}>
-                                <TableCell>{formatYear(workload.year, workload.semester)}</TableCell>
+                                <TableCell>{formatYear(workload.year)}</TableCell>
                                 <TableCell>{formatSemester(workload.semester)}</TableCell>
                                 <TableCell>
                                     <Tooltip>
