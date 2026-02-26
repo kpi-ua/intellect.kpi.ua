@@ -46,21 +46,6 @@ export const Filters = ({
         <div className="mb-6">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
-                    <label className="block text-sm font-medium text-neutral-700 mb-2">Навчальний рік</label>
-                    <Select value={selectedYear} onValueChange={onYearChange}>
-                        <SelectTrigger>
-                            <SelectValue placeholder="Оберіть рік" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            {uniqueYears.map((year) => (
-                                <SelectItem key={year.value} value={year.value}>
-                                    {year.label}
-                                </SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
-                </div>
-                <div>
                     <label className="block text-sm font-medium text-neutral-700 mb-2">Підрозділ</label>
                     <Select value={selectedDepartment} onValueChange={onDepartmentChange}>
                         <SelectTrigger>
@@ -71,6 +56,21 @@ export const Filters = ({
                             {uniqueDepartments.map((dept) => (
                                 <SelectItem key={dept.value} value={dept.value}>
                                     {dept.label}
+                                </SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                </div>
+                <div>
+                    <label className="block text-sm font-medium text-neutral-700 mb-2">Навчальний рік</label>
+                    <Select value={selectedYear} onValueChange={onYearChange}>
+                        <SelectTrigger>
+                            <SelectValue placeholder="Оберіть рік" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {uniqueYears.map((year) => (
+                                <SelectItem key={year.value} value={year.value}>
+                                    {year.label}
                                 </SelectItem>
                             ))}
                         </SelectContent>
