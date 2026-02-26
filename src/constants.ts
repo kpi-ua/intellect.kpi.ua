@@ -1,7 +1,7 @@
 import { AcademicDegree, AcademicStatus } from './types/enums';
 import { ExperienceType, Tab } from './types/intellect';
 
-export const CDN_IMG_BASE = 'https://do4rt9wur3t6m.cloudfront.net/intellect.kpi.ua/img';
+export const CDN_IMG_BASE = 'https://cdn.cloud.kpi.ua/public/intellect.kpi.ua/img';
 
 export const experienceTabs: Record<ExperienceType, string> = {
     profile: 'Профіль',
