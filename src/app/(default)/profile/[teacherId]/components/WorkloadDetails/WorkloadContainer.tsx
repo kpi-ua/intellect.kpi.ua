@@ -1,6 +1,6 @@
 import { WorkloadDetails } from '@/app/(default)/profile/[teacherId]/components/WorkloadDetails/WorkloadDetails';
 import React, { FC } from 'react';
-import { getEvaluationWorkloads, getRatings, getTeacherByTeacherId } from '@/api/teacher';
+import { getEvaluationWorkloads, getRatings } from '@/api/teacher';
 
 interface Props {
     teacherId: string;

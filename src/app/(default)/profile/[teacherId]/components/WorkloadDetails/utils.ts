@@ -1,4 +1,9 @@
 import { EvaluationWorkload } from '@/types/intellect';
+import {
+    WorkloadCategory,
+    WorkloadSummary,
+    WorkloadTotals,
+} from '@/app/(default)/profile/[teacherId]/components/WorkloadDetails/types';
 
 export const formatYear = (year: number): string => {
     return `${year}-${year + 1}`;
@@ -94,4 +99,37 @@ export const getSalaryLabel = (salary: number) => {
     }
 
     return `${salary} ставки`
+}
+
+export const getHighestSalaryLabel = (workloads: EvaluationWorkload[]): string => {
+    const highestSalary = workloads.toSorted((a, b) => b.salary - a.salary)[0].salary;
+    return getSalaryLabel(parseFloat(highestSalary.toFixed(2)));
+}
+
+export const computeWorkloadSummary = (workloads: EvaluationWorkload[]): WorkloadSummary => {
+    const totals = workloads.reduce<WorkloadTotals>(
+        (acc, workload) => ({
+            educational: acc.educational + workload.educational,
+            scientific: acc.scientific + workload.scientific,
+            methodical: acc.methodical + workload.methodical,
+            organizational: acc.organizational + workload.organizational,
+            other: acc.other + workload.other,
+        }),
+        { educational: 0, scientific: 0, methodical: 0, organizational: 0, other: 0 }
+    );
+
+    const total = (Object.keys(totals) as WorkloadCategory[]).reduce((sum, key) => sum + totals[key], 0);
+
+    const toPercent = (value: number) => (total > 0 ? (value / total) * 100 : 0);
+
+    return {
+        ...totals,
+        percentages: {
+            educational: toPercent(totals.educational),
+            scientific: toPercent(totals.scientific),
+            methodical: toPercent(totals.methodical),
+            organizational: toPercent(totals.organizational),
+            other: toPercent(totals.other),
+        },
+    };
 }
