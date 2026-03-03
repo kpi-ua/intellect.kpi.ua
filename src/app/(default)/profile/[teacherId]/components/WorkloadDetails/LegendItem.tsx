@@ -12,7 +12,7 @@ export const LegendItem = ({ color, label, percentage }: LegendItemProps) => (
                 {label}
             </div>
             <div className="mt-0.5">
-                <span style={{ color: '#99A1AF' }}>{percentage.toFixed(2)}%</span>
+                <span style={{ color: '#99A1AF' }}>({percentage.toFixed(2)}%)</span>
             </div>
         </div>
     </div>

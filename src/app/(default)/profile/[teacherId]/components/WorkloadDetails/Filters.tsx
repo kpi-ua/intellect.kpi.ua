@@ -16,12 +16,6 @@ interface FiltersProps {
     onPeriodChange: (value: string) => void;
 }
 
-const PERIOD_OPTIONS = [
-    { value: '0', label: 'Рік' },
-    { value: '1', label: '1 семестр' },
-    { value: '2', label: '2 семестр' },
-];
-
 export const Filters = ({
     workloadsByYearRange,
     workloads,
@@ -83,11 +77,11 @@ export const Filters = ({
                             <SelectValue placeholder="Оберіть період" />
                         </SelectTrigger>
                         <SelectContent>
-                            {PERIOD_OPTIONS.map((period) => (
-                                <SelectItem key={period.value} value={period.value}>
-                                    {period.label}
-                                </SelectItem>
-                            ))}
+                            <SelectItem disabled={selectedYear === '2024-2025'} value="0">
+                                1 семестр
+                            </SelectItem>
+                            <SelectItem value="1">2 семестр</SelectItem>
+                            <SelectItem value="2">Рік</SelectItem>
                         </SelectContent>
                     </Select>
                 </div>

@@ -16,11 +16,18 @@ export type Lecturer = {
     positions: Position[];
 };
 
+export enum EmploymentType {
+    FullTime = 'FullTime',
+    PartTimeInternal = 'PartTimeInternal',
+    Hourly = 'Hourly',
+    Unknown = 'Unknown',
+}
+
 export type Position = {
     name: string;
     subdivisionAbbreviation: string;
     subdivision: Division;
-    employment: number;
+    employment: EmploymentType;
 };
 
 export type ExperienceType = 'profile' | 'rating';
