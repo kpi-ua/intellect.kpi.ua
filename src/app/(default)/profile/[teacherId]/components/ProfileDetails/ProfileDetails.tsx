@@ -5,6 +5,8 @@ import SectionTitle from '@/components/common/SectionTitle';
 import { academicDegrees, academicStatuses } from '@/constants';
 import { Lecturer } from '@/types/intellect';
 import { formatRecordValue } from './utils';
+import { CircleQuestionMark } from 'lucide-react';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
 type Props = {
     teacherInfo: Lecturer;
@@ -27,7 +29,17 @@ export const ProfileDetails: React.FC<Props> = ({ teacherInfo }) => {
                 <ProfileInfoRow title="Вчене звання">{academicStatuses[teacherInfo.academicStatus]}</ProfileInfoRow>
                 <ProfileInfoRow title="Науковий ступінь">{academicDegrees[teacherInfo.academicDegree]}</ProfileInfoRow>
             </div>
-            <SectionTitle className="mt-8 uppercase text-primary">Контактні дані</SectionTitle>
+            <SectionTitle className="flex gap-1 items-center mt-8 text-primary">
+                <p className="uppercase">Контактні дані</p>
+                <Tooltip>
+                    <TooltipTrigger asChild>
+                        <CircleQuestionMark width={14} />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                        <p>Відображаються лише корпоративні засоби зв`язку</p>
+                    </TooltipContent>
+                </Tooltip>
+            </SectionTitle>
             {(teacherInfo.contactRecords || []).map((record, idx) => (
                 <div className="flex flex-col mt-4 xs:flex-row" key={idx}>
                     <span className="block text-neutral-500 basis-1/4">{record.name}: </span>
