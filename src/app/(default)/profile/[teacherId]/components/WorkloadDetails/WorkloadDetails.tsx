@@ -41,7 +41,7 @@ export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [] }) => {
                 <div className="flex justify-end items-center mb-6">
                     <button
                         onClick={() => setShowRatingsArchive(false)}
-                        className="text-sm text-neutral-600 underline hover:text-primary transition-colors"
+                        className="text-base text-neutral-600 underline hover:text-primary transition-colors"
                     >
                         Деталізація навантаження
                     </button>
@@ -57,7 +57,7 @@ export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [] }) => {
                 <SectionTitle className="mt-3 text-primary">Дані відсутні</SectionTitle>
                 <button
                     onClick={() => setShowRatingsArchive(true)}
-                    className="text-sm text-black underline hover:text-primary transition-colors"
+                    className="text-base text-black underline hover:text-primary transition-colors"
                 >
                     Архів рейтингу (до 2024)
                 </button>
@@ -72,7 +72,7 @@ export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [] }) => {
 
                 <button
                     onClick={() => setShowRatingsArchive(true)}
-                    className="text-sm text-black underline hover:text-primary transition-colors"
+                    className="text-base text-black underline hover:text-primary transition-colors"
                 >
                     Архів рейтингу (до 2024)
                 </button>
