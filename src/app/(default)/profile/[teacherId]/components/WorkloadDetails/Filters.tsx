@@ -77,11 +77,11 @@ export const Filters = ({
                             <SelectValue placeholder="Оберіть період" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem disabled={selectedYear === '2024-2025'} value="0">
+                            <SelectItem disabled={selectedYear === '2024-2025'} value="1">
                                 1 семестр
                             </SelectItem>
-                            <SelectItem value="1">2 семестр</SelectItem>
-                            <SelectItem value="2">Рік</SelectItem>
+                            <SelectItem value="2">2 семестр</SelectItem>
+                            <SelectItem value="0">Рік</SelectItem>
                         </SelectContent>
                     </Select>
                 </div>

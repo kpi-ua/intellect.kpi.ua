@@ -10,6 +10,63 @@ interface Props {
 }
 
 export const DataTable = ({ workloads }: Props) => {
+    const groupedWorkloads = React.useMemo(() => {
+        const groups: Record<string, { main?: EvaluationWorkload; hourly?: EvaluationWorkload }> = {};
+
+        workloads.forEach((w) => {
+            const key = `${w.year}-${w.semester}-${w.subdivision?.id || 'no-sub'}`;
+            if (!groups[key]) {
+                groups[key] = {};
+            }
+
+            if (w.salary === 0) {
+                if (!groups[key].hourly) {
+                    groups[key].hourly = { ...w };
+                } else {
+                    const h = groups[key].hourly!;
+                    h.educational += w.educational;
+                    h.scientific += w.scientific;
+                    h.methodical += w.methodical;
+                    h.organizational += w.organizational;
+                    h.other += w.other;
+                    h.totalWorkload += w.totalWorkload;
+                }
+            } else {
+                if (!groups[key].main) {
+                    groups[key].main = { ...w };
+                } else {
+                    const m = groups[key].main!;
+                    m.educational += w.educational;
+                    m.scientific += w.scientific;
+                    m.methodical += w.methodical;
+                    m.organizational += w.organizational;
+                    m.other += w.other;
+                    m.totalWorkload += w.totalWorkload;
+                }
+            }
+        });
+
+        return Object.values(groups);
+    }, [workloads]);
+
+    const renderCell = (mainValue?: number, hourlyValue?: number) => {
+        const main = mainValue || 0;
+        const hourly = hourlyValue || 0;
+
+        if (main === 0 && hourly === 0) return <TableCell className="font-bold">0.00</TableCell>;
+
+        return (
+            <TableCell>
+                <div className="flex flex-col">
+                    <span className="font-bold">{main.toFixed(2)}</span>
+                    {hourly > 0 && (
+                        <span className="text-xs font-normal text-muted-foreground">+{hourly.toFixed(2)} пог.</span>
+                    )}
+                </div>
+            </TableCell>
+        );
+    };
+
     return (
         <>
             <SectionTitle className="mb-4 uppercase text-primary">Деталізація навантаження</SectionTitle>
@@ -29,28 +86,35 @@ export const DataTable = ({ workloads }: Props) => {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {workloads.map((workload, idx) => (
-                            <TableRow key={`${workload.year}-${workload.semester}-${workload.subdivision?.id || idx}`}>
-                                <TableCell>{formatYear(workload.year)}</TableCell>
-                                <TableCell>{formatSemester(workload.semester)}</TableCell>
-                                <TableCell>
-                                    <Tooltip>
-                                        <TooltipTrigger asChild>
-                                            <span className="underline">{workload.subdivisionAbbreviation}</span>
-                                        </TooltipTrigger>
-                                        <TooltipContent>
-                                            <p>{workload.subdivision?.name}</p>
-                                        </TooltipContent>
-                                    </Tooltip>
-                                </TableCell>
-                                <TableCell>{workload.educational.toFixed(2)}</TableCell>
-                                <TableCell>{workload.scientific.toFixed(2)}</TableCell>
-                                <TableCell>{workload.methodical.toFixed(2)}</TableCell>
-                                <TableCell>{workload.organizational.toFixed(2)}</TableCell>
-                                <TableCell>{workload.other.toFixed(2)}</TableCell>
-                                <TableCell className="font-semibold">{workload.totalWorkload.toFixed(2)}</TableCell>
-                            </TableRow>
-                        ))}
+                        {groupedWorkloads.map((group, idx) => {
+                            const workload = group.main || group.hourly!;
+                            return (
+                                <TableRow key={`${workload.year}-${workload.semester}-${workload.subdivision?.id || idx}`}>
+                                    <TableCell>{formatYear(workload.year)}</TableCell>
+                                    <TableCell>{formatSemester(workload.semester)}</TableCell>
+                                    <TableCell>
+                                        <Tooltip>
+                                            <TooltipTrigger asChild>
+                                                <span className="underline cursor-help">
+                                                    {workload.subdivisionAbbreviation}
+                                                </span>
+                                            </TooltipTrigger>
+                                            <TooltipContent>
+                                                <p>{workload.subdivision?.name}</p>
+                                            </TooltipContent>
+                                        </Tooltip>
+                                    </TableCell>
+                                    {renderCell(group.main?.educational, group.hourly?.educational)}
+                                    {renderCell(group.main?.scientific, group.hourly?.scientific)}
+                                    {renderCell(group.main?.methodical, group.hourly?.methodical)}
+                                    {renderCell(group.main?.organizational, group.hourly?.organizational)}
+                                    {renderCell(group.main?.other, group.hourly?.other)}
+                                    {renderCell(
+                                        (group.main?.totalWorkload || 0) + (group.hourly?.totalWorkload || 0),
+                                    )}
+                                </TableRow>
+                            );
+                        })}
                     </TableBody>
                 </Table>
             </div>
