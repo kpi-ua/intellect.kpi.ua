@@ -41,7 +41,7 @@ const ContactValue: React.FC<{ record: ContactRecord }> = ({ record }) => {
             return (
                 <span>
                     <a target="_blank" rel="noopener noreferrer" href={record.value}>
-                        {record.value}
+                        {record.label || record.value}
                     </a>
                     &nbsp;
                     <i className="fa-solid fa-arrow-up-right-from-square"></i>

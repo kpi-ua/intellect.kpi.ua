@@ -24,6 +24,7 @@ export type Position = {
 export type ContactRecord = {
     name: string;
     value: string;
+    label: string;
     type: ContactType;
 };
 
