@@ -1,5 +1,5 @@
 import { Division, Subdivision } from './ecampus';
-import { AcademicDegree, AcademicStatus } from './enums';
+import { AcademicDegree, AcademicStatus, ContactType } from './enums';
 
 export type Lecturer = {
     credo: string;
@@ -7,7 +7,7 @@ export type Lecturer = {
     fullName: string;
     userIdentifier: string;
     id: number;
-    contactRecords: { name: string; value: string }[] | null;
+    contactRecords: ContactRecord[] | null;
     academicStatus: AcademicStatus;
     academicDegree: AcademicDegree;
     scientificInterest: string;
@@ -19,6 +19,12 @@ export type Lecturer = {
 export type Position = {
     name: string;
     subdivision: Division;
+};
+
+export type ContactRecord = {
+    name: string;
+    value: string;
+    type: ContactType;
 };
 
 export type ExperienceType = 'profile' | 'rating';
