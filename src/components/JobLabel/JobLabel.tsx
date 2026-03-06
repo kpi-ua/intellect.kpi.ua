@@ -26,7 +26,7 @@ const COLOR_MAP: Record<EmploymentType, Record<string, string>> = {
 };
 
 export const JobLabel: FC<Props> = ({ position }) => {
-    const { backgroundColor, textColor } = COLOR_MAP[position.employment];
+    const { backgroundColor, textColor } = COLOR_MAP[position.employment] ?? COLOR_MAP[EmploymentType.Unknown];
     return (
         <div className="inline-block">
             <div
