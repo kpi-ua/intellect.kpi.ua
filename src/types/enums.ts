@@ -5,6 +5,16 @@ export enum AcademicDegree {
     PhD = 'PhD',
 }
 
+export enum ContactType {
+    WorkPhone = 'WorkPhone',
+    Email = 'Email',
+    OrcidId = 'OrcidId',
+    ScopusId = 'ScopusId',
+    ResearchId = 'ResearchId',
+    GoogleScholar = 'GoogleScholar',
+    ResearchGate = 'ResearchGate',
+}
+
 export enum AcademicStatus {
     None = 'None',
     Professor = 'Professor',
