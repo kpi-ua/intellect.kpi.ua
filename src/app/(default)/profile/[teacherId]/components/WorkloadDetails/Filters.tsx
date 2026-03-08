@@ -29,8 +29,8 @@ export const Filters = ({
     const uniqueYears = useMemo(() => getYearOptionsFromGrouped(workloadsByYearRange), [workloadsByYearRange]);
 
     const uniqueDepartments = useMemo(() => {
-        const departments = Array.from(new Set(workloads.map((w) => w.subdivision?.id).filter(Boolean))).map((id) => {
-            const workload = workloads.find((w) => w.subdivision?.id === id);
+        const departments = Array.from(new Set(workloads.map((w) => w.subdivision?.bravoId).filter(Boolean))).map((id) => {
+            const workload = workloads.find((w) => w.subdivision?.bravoId === id);
             return { id, name: workload?.subdivision?.name || '' };
         });
         return departments.map((dept) => ({ value: dept.id.toString(), label: dept.name }));

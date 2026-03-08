@@ -14,7 +14,7 @@ export const DataTable = ({ workloads }: Props) => {
         const groups: Record<string, { main?: EvaluationWorkload; hourly?: EvaluationWorkload }> = {};
 
         workloads.forEach((w) => {
-            const key = `${w.year}-${w.semester}-${w.subdivision?.id || 'no-sub'}`;
+            const key = `${w.year}-${w.semester}-${w.subdivision?.bravoId || 'no-sub'}`;
             if (!groups[key]) {
                 groups[key] = {};
             }
@@ -23,25 +23,25 @@ export const DataTable = ({ workloads }: Props) => {
                 if (!groups[key].hourly) {
                     groups[key].hourly = { ...w };
                 } else {
-                    const h = groups[key].hourly!;
-                    h.educational += w.educational;
-                    h.scientific += w.scientific;
-                    h.methodical += w.methodical;
-                    h.organizational += w.organizational;
-                    h.other += w.other;
-                    h.totalWorkload += w.totalWorkload;
+                    const hourly = groups[key].hourly;
+                    hourly.educational += w.educational;
+                    hourly.scientific += w.scientific;
+                    hourly.methodical += w.methodical;
+                    hourly.organizational += w.organizational;
+                    hourly.other += w.other;
+                    hourly.totalWorkload += w.totalWorkload;
                 }
             } else {
                 if (!groups[key].main) {
                     groups[key].main = { ...w };
                 } else {
-                    const m = groups[key].main!;
-                    m.educational += w.educational;
-                    m.scientific += w.scientific;
-                    m.methodical += w.methodical;
-                    m.organizational += w.organizational;
-                    m.other += w.other;
-                    m.totalWorkload += w.totalWorkload;
+                    const main = groups[key].main;
+                    main.educational += w.educational;
+                    main.scientific += w.scientific;
+                    main.methodical += w.methodical;
+                    main.organizational += w.organizational;
+                    main.other += w.other;
+                    main.totalWorkload += w.totalWorkload;
                 }
             }
         });
@@ -89,14 +89,14 @@ export const DataTable = ({ workloads }: Props) => {
                         {groupedWorkloads.map((group, idx) => {
                             const workload = group.main || group.hourly!;
                             return (
-                                <TableRow key={`${workload.year}-${workload.semester}-${workload.subdivision?.id || idx}`}>
+                                <TableRow key={`${workload.year}-${workload.semester}-${workload.subdivision?.bravoId || idx}`}>
                                     <TableCell>{formatYear(workload.year)}</TableCell>
                                     <TableCell>{formatSemester(workload.semester)}</TableCell>
                                     <TableCell>
                                         <Tooltip>
                                             <TooltipTrigger asChild>
                                                 <span className="underline cursor-help">
-                                                    {workload.subdivisionAbbreviation}
+                                                    {workload.subdivision.abbreviation}
                                                 </span>
                                             </TooltipTrigger>
                                             <TooltipContent>

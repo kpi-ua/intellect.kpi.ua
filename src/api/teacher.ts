@@ -18,7 +18,7 @@ export const searchByInput = (input: string, currentPage: number): Promise<ApiRe
 };
 
 export const getTeacherByTeacherId = (teacherId: string): Promise<Lecturer> => {
-    return Http.get(API_BASE_URL + '/account/public/' + teacherId);
+    return Http.get(`/v2/profile/${teacherId}`);
 };
 
 export const getInterests = (limit?: number): Promise<string[]> => {
