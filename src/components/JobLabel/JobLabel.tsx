@@ -1,32 +1,16 @@
-import { EmploymentType, Position } from '@/types/intellect';
+import { EvaluationWorkload, Position } from '@/types/intellect';
 import React, { FC } from 'react';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
+import { useLabelColor } from '@/components/JobLabel/useLabelColor';
 
 interface Props {
     position: Position;
+    workloads: EvaluationWorkload[];
 }
 
-const COLOR_MAP: Record<EmploymentType, Record<string, string>> = {
-    [EmploymentType.FullTime]: {
-        backgroundColor: 'bg-primary',
-        textColor: 'text-primary',
-    },
-    [EmploymentType.PartTimeInternal]: {
-        backgroundColor: 'bg-green-600',
-        textColor: 'text-green-600',
-    },
-    [EmploymentType.Hourly]: {
-        backgroundColor: 'bg-pink-600',
-        textColor: 'text-pink-600',
-    },
-    [EmploymentType.Unknown]: {
-        backgroundColor: 'bg-primary',
-        textColor: 'text-primary',
-    },
-};
+export const JobLabel: FC<Props> = ({ position, workloads }) => {
+    const {backgroundColor, textColor} = useLabelColor(position, workloads);
 
-export const JobLabel: FC<Props> = ({ position }) => {
-    const { backgroundColor, textColor } = COLOR_MAP[position.employment] ?? COLOR_MAP[EmploymentType.Unknown];
     return (
         <div className="inline-block">
             <div
@@ -35,8 +19,8 @@ export const JobLabel: FC<Props> = ({ position }) => {
                 {position.name}
                 <Tooltip>
                     <TooltipTrigger asChild>
-                        <div className={`${textColor} rounded-md p-1 bg-white w-full`}>
-                            {position.subdivisionAbbreviation}
+                        <div className={`${textColor} rounded-md p-1 bg-white w-full text-center min-w-[32px]`}>
+                            {position.subdivision.abbreviation}
                         </div>
                     </TooltipTrigger>
                     <TooltipContent side="bottom">

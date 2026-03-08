@@ -16,7 +16,7 @@ export const formatSemester = (semester: number): string => {
 
 export const getDefaultDepartment = (workloads: EvaluationWorkload[]): string => {
     if (workloads.length === 0) return '';
-    const departments = Array.from(new Set(workloads.map((w) => w.subdivision?.id).filter(Boolean)));
+    const departments = Array.from(new Set(workloads.map((w) => w.subdivision?.bravoId).filter(Boolean)));
     return departments.length > 0 ? departments[0].toString() : '';
 };
 
@@ -87,7 +87,7 @@ export const filterWorkloadsByPeriod = (
     }
 
     if (selectedSubdivision !== 'all') {
-        return workloads.filter((w) => w.subdivision?.id.toString() === selectedSubdivision);
+        return workloads.filter((w) => w.subdivision?.bravoId.toString() === selectedSubdivision);
     }
 
     return workloads;
