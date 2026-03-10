@@ -4,9 +4,7 @@ import SectionTitle from '@/components/common/SectionTitle';
 
 import { academicDegrees, academicStatuses } from '@/constants';
 import { Lecturer } from '@/types/intellect';
-import { formatRecordValue } from './utils';
-import { CircleQuestionMark } from 'lucide-react';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { ContactValue } from './utils';
 
 type Props = {
     teacherInfo: Lecturer;
@@ -36,7 +34,9 @@ export const ProfileDetails: React.FC<Props> = ({ teacherInfo }) => {
             {(teacherInfo.contactRecords || []).map((record, idx) => (
                 <div className="flex flex-col mt-4 xs:flex-row" key={idx}>
                     <span className="block text-neutral-500 basis-1/4">{record.name}: </span>
-                    <span className="basis-3/4 profile-links">{formatRecordValue(record)}</span>
+                    <span className="basis-3/4 profile-links">
+                        <ContactValue record={record} />
+                    </span>
                 </div>
             ))}
         </div>
