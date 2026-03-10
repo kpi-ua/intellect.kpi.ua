@@ -1,4 +1,4 @@
-import { EvaluationWorkload, Position } from '@/types/intellect';
+import { EmploymentType, EvaluationWorkload, Position } from '@/types/intellect';
 import React, { FC } from 'react';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
 import { useLabelColor } from '@/components/JobLabel/useLabelColor';
@@ -7,6 +7,14 @@ interface Props {
     position: Position;
     workloads: EvaluationWorkload[];
 }
+
+const EMPLOYMENT_TYPE = {
+    [EmploymentType.Unknown]: 'Інформації немає',
+    [EmploymentType.FullTime]: 'Основне місце роботи',
+    [EmploymentType.PartTime]: 'Сумісник',
+    [EmploymentType.PartTimeInternal]: 'Внутрішній сумісник',
+    [EmploymentType.PartTimeExternal]: 'Зовнішній сумісник',
+};
 
 export const JobLabel: FC<Props> = ({ position, workloads }) => {
     const {backgroundColor, textColor} = useLabelColor(position, workloads);
@@ -24,7 +32,9 @@ export const JobLabel: FC<Props> = ({ position, workloads }) => {
                         </div>
                     </TooltipTrigger>
                     <TooltipContent side="bottom">
-                        <p>{position.subdivision.name}</p>
+                        <p>
+                            {position.subdivision.name} — <br/> {EMPLOYMENT_TYPE[position.employment]}
+                        </p>
                     </TooltipContent>
                 </Tooltip>
             </div>
