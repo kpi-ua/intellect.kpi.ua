@@ -31,7 +31,7 @@
         "@tailwindcss/postcss": "4.1.15",
         "@types/bootstrap": "^5.2.10",
         "@typescript-eslint/eslint-plugin": "8.34.0",
-        "@typescript-eslint/parser": "^8.34.0",
+        "@typescript-eslint/parser": "^8.57.1",
         "eslint": "^9.39.2",
         "prettier": "3.4.2",
         "prettier-plugin-tailwindcss": "^0.7.1",
