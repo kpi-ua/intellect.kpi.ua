@@ -36,7 +36,7 @@ export const StackedBarChart = ({
     return (
         <div className="mt-8">
             <SectionTitle className="mb-4 uppercase text-primary">
-                ВИКОНАННЯ НОРМИ: {yearRange} ({salaryLabel})
+                RELEVANCE: {yearRange} н.р. ({salaryLabel})
             </SectionTitle>
 
             <div className="flex overflow-hidden rounded-md h-12">

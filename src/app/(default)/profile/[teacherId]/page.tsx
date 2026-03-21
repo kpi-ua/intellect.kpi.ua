@@ -17,7 +17,6 @@ import {
     BreadcrumbPage,
 } from '@/components/ui/breadcrumb';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { WorkloadDetails } from '@/app/(default)/profile/[teacherId]/components/WorkloadDetails/WorkloadDetails';
 import { WorkloadContainer } from '@/app/(default)/profile/[teacherId]/components/WorkloadDetails/WorkloadContainer';
 import { Loader } from 'lucide-react';
 
