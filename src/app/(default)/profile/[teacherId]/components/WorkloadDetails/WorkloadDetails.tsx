@@ -5,11 +5,14 @@ import SectionTitle from '@/components/common/SectionTitle';
 import { EvaluationWorkload, Rating } from '@/types/intellect';
 import { Filters } from './Filters';
 import { DataTable } from './DataTable';
+import { HourlyDataTable } from './HourlyDataTable';
 import { Ratings } from '../Ratings';
 import {
+    computeWorkloadSummary,
     filterWorkloadsByPeriod,
     getDefaultDepartment,
     getDefaultYearFromGrouped,
+    getHighestSalaryLabel,
     groupWorkloadsByYearRange,
 } from './utils';
 import { StackedBarChart } from './StackedBarChart';
@@ -20,6 +23,8 @@ interface Props {
 }
 
 export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [] }) => {
+    console.log(workloads);
+
     const workloadsByYearRange = groupWorkloadsByYearRange(workloads);
     const defaultYear = getDefaultYearFromGrouped(workloadsByYearRange || {});
     const defaultDepartment = getDefaultDepartment(workloads);
@@ -34,6 +39,36 @@ export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [] }) => {
         const currentWorkloads = workloadsByYearRange ? workloadsByYearRange[selectedYear] : [];
         return filterWorkloadsByPeriod(currentWorkloads, selectedPeriod, selectedDepartment);
     }, [workloadsByYearRange, selectedPeriod, selectedYear, selectedDepartment]);
+
+    const groupedWorkloads = useMemo(() => {
+        const byDept: Record<string, EvaluationWorkload[]> = {};
+
+        filteredWorkloads.forEach((w) => {
+            const key = w.subdivision?.bravoId || 'no-sub';
+            if (!byDept[key]) byDept[key] = [];
+            byDept[key].push(w);
+        });
+
+        const main: EvaluationWorkload[] = [];
+        const mixed: EvaluationWorkload[] = [];
+        const hourly: EvaluationWorkload[] = [];
+
+        Object.values(byDept).forEach((deptWorkloads) => {
+            const hasMain = deptWorkloads.some(w => w.salary >= 1);
+            const hasMixed = deptWorkloads.some(w => w.salary > 0 && w.salary < 1);
+
+            if (hasMain) {
+                main.push(...deptWorkloads);
+            } else if (hasMixed) {
+                mixed.push(...deptWorkloads);
+            } else {
+                hourly.push(...deptWorkloads);
+            }
+        });
+
+        return { main, mixed, hourly };
+    }, [filteredWorkloads]);
+
 
     if (showRatingsArchive) {
         return (
@@ -64,7 +99,6 @@ export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [] }) => {
             </div>
         );
     }
-
     return (
         <div className="mt-4">
             <div className="flex justify-between items-start mb-6">
@@ -88,14 +122,41 @@ export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [] }) => {
                 onPeriodChange={setSelectedPeriod}
             />
 
-            <DataTable workloads={filteredWorkloads} />
-            <StackedBarChart
-                workloadsByYearRange={workloadsByYearRange}
-                yearRange={selectedYear}
-                selectedYear={selectedYear}
-                selectedPeriod={selectedPeriod}
-                selectedDepartment={selectedDepartment}
-            />
+            {groupedWorkloads.main.length > 0 && (
+                <div className="mt-8">
+                    <SectionTitle className="mb-4 uppercase text-primary">Основна ставка (1.0)</SectionTitle>
+                    <DataTable workloads={groupedWorkloads.main} selectedPeriod={selectedPeriod} hideTitle />
+                    <StackedBarChart
+                        yearRange={selectedYear}
+                        summary={computeWorkloadSummary(groupedWorkloads.main)}
+                        rate={getHighestSalaryLabel(groupedWorkloads.main)}
+                    />
+                </div>
+            )}
+
+            {groupedWorkloads.mixed.length > 0 && (
+                <div className="mt-8">
+                    <SectionTitle className="mb-4 uppercase text-primary">Сумісництво</SectionTitle>
+                    <DataTable workloads={groupedWorkloads.mixed} selectedPeriod={selectedPeriod} hideTitle />
+                    <StackedBarChart
+                        yearRange={selectedYear}
+                        summary={computeWorkloadSummary(groupedWorkloads.mixed)}
+                        rate={getHighestSalaryLabel(groupedWorkloads.mixed)}
+                    />
+                </div>
+            )}
+
+            {groupedWorkloads.hourly.length > 0 && (
+                <div className="mt-8">
+                    <SectionTitle className="mb-4 uppercase text-primary">Погодинна оплата</SectionTitle>
+                    <HourlyDataTable workloads={groupedWorkloads.hourly} selectedPeriod={selectedPeriod} hideTitle />
+                    <StackedBarChart
+                        yearRange={selectedYear}
+                        summary={computeWorkloadSummary(groupedWorkloads.hourly)}
+                        rate={getHighestSalaryLabel(groupedWorkloads.hourly)}
+                    />
+                </div>
+            )}
         </div>
     );
 };

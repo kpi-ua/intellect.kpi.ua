@@ -12,33 +12,19 @@ interface Props {
     selectedPeriod: string;
 }
 
-export const DataTable = ({ workloads, selectedPeriod, hideTitle }: Props) => {
+export const HourlyDataTable = ({ workloads, selectedPeriod, hideTitle }: Props) => {
 
     const allGroupedWorkloads = useGroupedWorkloads(workloads, selectedPeriod);
 
     const groupedWorkloads = React.useMemo(() => {
-        return allGroupedWorkloads.filter(g => g.normative);
+        return allGroupedWorkloads
+            .filter((g) => g.hourly)
+            .map((g) => g.hourly!);
     }, [allGroupedWorkloads]);
 
     const renderValueCell = (value: number, isBold: boolean) => (
         <TableCell className={isBold ? "font-bold" : ""}>{value.toFixed(2)}</TableCell>
     );
-
-    const renderMixedCell = (normativeValue: number, isBold: boolean, hourlyValue?: number) => {
-        if (!normativeValue && !hourlyValue) {
-            return <TableCell className={isBold ? "font-bold" : ""}>0.00</TableCell>;
-        }
-
-        if (hourlyValue && hourlyValue > 0) {
-            return (
-                <TableCell className={`whitespace-nowrap flex flex-col text-right ${isBold ? "font-bold" : "font-semibold"}`}>
-                    {(normativeValue || 0).toFixed(2)}<span className="font-medium text-sm text-neutral-500">+ {hourlyValue.toFixed(2)} пог.</span>
-                </TableCell>
-            );
-        }
-
-        return <TableCell className={isBold ? "font-bold text-right" : "font-medium text-right"}>{(normativeValue || 0).toFixed(2)}</TableCell>;
-    };
 
     return (
         <>
@@ -53,16 +39,11 @@ export const DataTable = ({ workloads, selectedPeriod, hideTitle }: Props) => {
                             <TableHead>Семестр</TableHead>
                             <TableHead>Підрозділ</TableHead>
                             <TableHead className="bg-[#1C396E] text-white">Навчальна</TableHead>
-                            <TableHead className="bg-[#2D5A9E] text-white">Наукова</TableHead>
-                            <TableHead className="bg-[#4A7AC7] text-white">Методична</TableHead>
-                            <TableHead className="bg-[#7BA3E0] text-black">Організаційна</TableHead>
-                            <TableHead className="bg-[#B0C9F0] text-black">Інше</TableHead>
                             <TableHead>Всього</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {groupedWorkloads.map((group, idx) => {
-                            const workload = group.normative!;
+                        {groupedWorkloads.map((workload, idx) => {
                             const isTotalsRow = workload.semester === 0;
                             return (
                                 <TableRow
@@ -75,7 +56,7 @@ export const DataTable = ({ workloads, selectedPeriod, hideTitle }: Props) => {
                                         <Tooltip>
                                             <TooltipTrigger asChild>
                                                 <span className="underline cursor-help">
-                                                    Кафедра {workload.subdivision.abbreviation}
+                                                    {workload.subdivision.abbreviation}
                                                 </span>
                                             </TooltipTrigger>
                                             <TooltipContent>
@@ -84,12 +65,8 @@ export const DataTable = ({ workloads, selectedPeriod, hideTitle }: Props) => {
                                         </Tooltip>
                                     </TableCell>
 
-                                    {renderMixedCell(workload.educational, isTotalsRow, group.hourly?.educational)}
-                                    {renderValueCell(workload.scientific, isTotalsRow)}
-                                    {renderValueCell(workload.methodical, isTotalsRow)}
-                                    {renderValueCell(workload.organizational, isTotalsRow)}
-                                    {renderValueCell(workload.other, isTotalsRow)}
-                                    {renderMixedCell(workload.totalWorkload, isTotalsRow, group.hourly?.totalWorkload)}
+                                    {renderValueCell(workload.educational, isTotalsRow)}
+                                    {renderValueCell(workload.totalWorkload, isTotalsRow)}
                                 </TableRow>
                             );
                         })}

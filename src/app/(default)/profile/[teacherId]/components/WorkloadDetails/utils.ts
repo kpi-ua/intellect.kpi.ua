@@ -9,9 +9,15 @@ export const formatYear = (year: number): string => {
     return `${year}-${year + 1}`;
 };
 
+export const formatYearShort = (year: number): string => {
+    const start = year.toString().slice(-2);
+    const end = (year + 1).toString().slice(-2);
+    return `${start}/${end}`;
+};
+
 export const formatSemester = (semester: number): string => {
     if (semester === 0) return 'Рік';
-    return `${semester} семестр`;
+    return `${semester} Семестр`;
 };
 
 export const getDefaultDepartment = (workloads: EvaluationWorkload[]): string => {
@@ -82,20 +88,26 @@ export const filterWorkloadsByPeriod = (
     selectedPeriod: string,
     selectedSubdivision: string
 ): EvaluationWorkload[] => {
+    let filtered = workloads;
+
     if (selectedPeriod !== '0') {
-        return workloads.filter((w) => w.semester.toString() === selectedPeriod);
+        filtered = filtered.filter((w) => w.semester.toString() === selectedPeriod);
     }
 
     if (selectedSubdivision !== 'all') {
-        return workloads.filter((w) => w.subdivision?.bravoId.toString() === selectedSubdivision);
+        filtered = filtered.filter((w) => w.subdivision?.bravoId.toString() === selectedSubdivision);
     }
 
-    return workloads;
+    return filtered;
 };
 
 export const getSalaryLabel = (salary: number) => {
     if (salary === 1) {
         return "Повна ставка"
+    }
+
+    if (salary === 0) {
+        return "ПОГОДИННЕ НАВАНТАЖЕННЯ"
     }
 
     return `${salary} ставки`

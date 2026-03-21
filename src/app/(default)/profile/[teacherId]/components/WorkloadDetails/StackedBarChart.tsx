@@ -1,42 +1,25 @@
-'use client';
-
-import React, { useMemo } from 'react';
+import React from 'react';
 import SectionTitle from '@/components/common/SectionTitle';
-import { EvaluationWorkload } from '@/types/intellect';
 import { LegendItem } from './LegendItem';
-import { computeWorkloadSummary, filterWorkloadsByPeriod, getHighestSalaryLabel, getSalaryLabel } from './utils';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { WORKLOAD_CATEGORIES } from '@/app/(default)/profile/[teacherId]/components/WorkloadDetails/constants';
 import { BarSegment } from '@/app/(default)/profile/[teacherId]/components/WorkloadDetails/BarSegment';
+import { WorkloadSummary } from './types';
 
 interface Props {
-    workloadsByYearRange: Record<string, EvaluationWorkload[]>;
     yearRange: string;
-    selectedYear: string;
-    selectedPeriod: string;
-    selectedDepartment: string;
+    rate: string;
+    summary: WorkloadSummary;
 }
 
 export const StackedBarChart = ({
-    workloadsByYearRange,
     yearRange,
-    selectedYear,
-    selectedPeriod,
-    selectedDepartment,
+    rate,
+    summary,
 }: Props) => {
-    const workloads = useMemo(
-        () => filterWorkloadsByPeriod(workloadsByYearRange[selectedYear], selectedPeriod, selectedDepartment),
-        [workloadsByYearRange, selectedYear, selectedPeriod, selectedDepartment]
-    );
-
-    const summary = useMemo(() => computeWorkloadSummary(workloads), [workloads]);
-
-    const salaryLabel = getHighestSalaryLabel(workloadsByYearRange[selectedYear]);
-
     return (
-        <div className="mt-8">
+        <div className="mt-8 p-6 border rounded-xl border-text-neutral-900">
             <SectionTitle className="mb-4 uppercase text-primary">
-                RELEVANCE: {yearRange} н.р. ({salaryLabel})
+                RELEVANCE: {yearRange} н.р. ({rate})
             </SectionTitle>
 
             <div className="flex overflow-hidden rounded-md h-12">

@@ -12,7 +12,7 @@ const EMPLOYMENT_TYPE = {
     [EmploymentType.Unknown]: 'Інформації немає',
     [EmploymentType.FullTime]: 'Основне місце роботи',
     [EmploymentType.PartTime]: 'Сумісник',
-    [EmploymentType.PartTimeInternal]: 'Внутрішній сумісник',
+    [EmploymentType.PartTimeInternal]: 'Внутрішнє сумісництво',
     [EmploymentType.PartTimeExternal]: 'Зовнішній сумісник',
 };
 

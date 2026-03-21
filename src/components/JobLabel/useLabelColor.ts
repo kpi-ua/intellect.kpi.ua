@@ -13,8 +13,8 @@ export const useLabelColor = (position: Position, workloads: EvaluationWorkload[
         null as { year: number; semester: number } | null
     );
 
-    let backgroundColor = 'bg-primary';
-    let textColor = 'text-primary';
+    let backgroundColor = 'bg-brand-600';
+    let textColor = 'text-brand-600';
 
     if (latest) {
         const currentWorkloads = relevantWorkloads.filter(
@@ -25,14 +25,14 @@ export const useLabelColor = (position: Position, workloads: EvaluationWorkload[
         const totalEducational = currentWorkloads.reduce((sum, w) => sum + w.educational, 0);
 
         if (totalSalary === 1) {
-            backgroundColor = 'bg-primary';
-            textColor = 'text-primary';
+            backgroundColor = 'bg-brand-600';
+            textColor = 'text-brand-600';
         } else if (totalSalary > 0 && totalSalary < 1) {
-            backgroundColor = 'bg-green-600';
-            textColor = 'text-green-600';
+            backgroundColor = 'bg-[#52A076]';
+            textColor = 'text-[#52A076]';
         } else if (totalSalary === 0 && totalEducational > 0) {
-            backgroundColor = 'bg-pink-600';
-            textColor = 'text-pink-600';
+            backgroundColor = 'bg-[#C75E72]';
+            textColor = 'text-[#C75E72]';
         }
     }
     return { backgroundColor, textColor };
