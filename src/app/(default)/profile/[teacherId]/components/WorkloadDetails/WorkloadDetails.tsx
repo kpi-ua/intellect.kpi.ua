@@ -154,6 +154,7 @@ export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [] }) => {
                         yearRange={selectedYear}
                         summary={computeWorkloadSummary(groupedWorkloads.hourly)}
                         rate={getHighestSalaryLabel(groupedWorkloads.hourly)}
+                        onlyEducational
                     />
                 </div>
             )}

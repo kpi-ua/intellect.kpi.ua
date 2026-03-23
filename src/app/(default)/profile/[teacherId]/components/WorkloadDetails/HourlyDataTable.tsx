@@ -23,7 +23,7 @@ export const HourlyDataTable = ({ workloads, selectedPeriod, hideTitle }: Props)
     }, [allGroupedWorkloads]);
 
     const renderValueCell = (value: number, isBold: boolean) => (
-        <TableCell className={isBold ? "font-bold" : ""}>{value.toFixed(2)}</TableCell>
+        <TableCell className={isBold ? "font-bold text-right" : "text-right"}>{value.toFixed(2)}</TableCell>
     );
 
     return (
@@ -38,8 +38,8 @@ export const HourlyDataTable = ({ workloads, selectedPeriod, hideTitle }: Props)
                             <TableHead>Навч. рік</TableHead>
                             <TableHead>Семестр</TableHead>
                             <TableHead>Підрозділ</TableHead>
-                            <TableHead className="bg-[#1C396E] text-white">Навчальна</TableHead>
-                            <TableHead>Всього</TableHead>
+                            <TableHead className="bg-[#1C396E] text-white text-right">Навчальне</TableHead>
+                            <TableHead className="text-right">Всього</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>

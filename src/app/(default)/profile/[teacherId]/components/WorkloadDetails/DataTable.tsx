@@ -21,12 +21,12 @@ export const DataTable = ({ workloads, selectedPeriod, hideTitle }: Props) => {
     }, [allGroupedWorkloads]);
 
     const renderValueCell = (value: number, isBold: boolean) => (
-        <TableCell className={isBold ? "font-bold" : ""}>{value.toFixed(2)}</TableCell>
+        <TableCell className={isBold ? "font-bold text-right" : "text-right"}>{value.toFixed(2)}</TableCell>
     );
 
     const renderMixedCell = (normativeValue: number, isBold: boolean, hourlyValue?: number) => {
         if (!normativeValue && !hourlyValue) {
-            return <TableCell className={isBold ? "font-bold" : ""}>0.00</TableCell>;
+            return <TableCell className={isBold ? "font-bold text-right" : "text-right"}>0.00</TableCell>;
         }
 
         if (hourlyValue && hourlyValue > 0) {
@@ -52,12 +52,12 @@ export const DataTable = ({ workloads, selectedPeriod, hideTitle }: Props) => {
                             <TableHead>Навч. рік</TableHead>
                             <TableHead>Семестр</TableHead>
                             <TableHead>Підрозділ</TableHead>
-                            <TableHead className="bg-[#1C396E] text-white">Навчальна</TableHead>
-                            <TableHead className="bg-[#2D5A9E] text-white">Наукова</TableHead>
-                            <TableHead className="bg-[#4A7AC7] text-white">Методична</TableHead>
-                            <TableHead className="bg-[#7BA3E0] text-black">Організаційна</TableHead>
-                            <TableHead className="bg-[#B0C9F0] text-black">Інше</TableHead>
-                            <TableHead>Всього</TableHead>
+                            <TableHead className="bg-[#1C396E] text-white text-right ">Навчальне</TableHead>
+                            <TableHead className="bg-[#2D5A9E] text-white text-right">Наукове</TableHead>
+                            <TableHead className="bg-[#4A7AC7] text-white text-right">Методичне</TableHead>
+                            <TableHead className="bg-[#7BA3E0] text-black text-right">Організаційне</TableHead>
+                            <TableHead className="bg-[#B0C9F0] text-black text-right">Інше</TableHead>
+                            <TableHead className="text-right">Всього</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>

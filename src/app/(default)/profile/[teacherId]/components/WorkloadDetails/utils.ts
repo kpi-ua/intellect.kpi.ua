@@ -58,21 +58,17 @@ export const groupWorkloadsByYearRange = (
 export const getYearOptionsFromGrouped = (
     workloadsByYearRange: Record<string, EvaluationWorkload[]>
 ): Array<{ value: string; label: string }> => {
-    const yearRanges = Object.keys(workloadsByYearRange).sort((a, b) => {
-        const aStart = parseInt(a.split('-')[0]);
-        const bStart = parseInt(b.split('-')[0]);
-        return bStart - aStart;
-    });
-
-    return yearRanges.map((range) => ({
-        value: range,
-        label: range,
-    }));
-};
-
-export const getDefaultYearFromGrouped = (workloadsByYearRange: Record<string, EvaluationWorkload[]>): string => {
     const yearRanges = Object.keys(workloadsByYearRange);
-    if (yearRanges.length === 0) return '';
+
+    const now = new Date();
+    const currentYearValue = now.getFullYear();
+    const currentMonth = now.getMonth();
+    const startYear = currentMonth >= 8 ? currentYearValue : currentYearValue - 1;
+    const currentRange = `${startYear}-${startYear + 1}`;
+
+    if (!yearRanges.includes(currentRange)) {
+        yearRanges.push(currentRange);
+    }
 
     const sortedRanges = yearRanges.sort((a, b) => {
         const aStart = parseInt(a.split('-')[0]);
@@ -80,7 +76,20 @@ export const getDefaultYearFromGrouped = (workloadsByYearRange: Record<string, E
         return bStart - aStart;
     });
 
-    return sortedRanges[0];
+    return sortedRanges.map((range) => ({
+        value: range,
+        label: range,
+    }));
+};
+
+export const getDefaultYearFromGrouped = (workloadsByYearRange: Record<string, EvaluationWorkload[]>): string => {
+    const now = new Date();
+    const currentYearValue = now.getFullYear();
+    const currentMonth = now.getMonth();
+    const startYear = currentMonth >= 8 ? currentYearValue : currentYearValue - 1;
+    const currentRange = `${startYear}-${startYear + 1}`;
+
+    return currentRange;
 };
 
 export const filterWorkloadsByPeriod = (
