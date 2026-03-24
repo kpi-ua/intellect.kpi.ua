@@ -1,5 +1,7 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
 @theme {
   --breakpoint-xs: 450px;
@@ -50,28 +52,35 @@
   --border-width-1: 1px;
 
   --animate-fadeInLeft: fadeInLeft 0.15s ease-in;
+
   @keyframes fadeInLeft {
     from {
       width: 0;
     }
+
     to {
       width: 100%;
     }
   }
+
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
+
   @keyframes accordion-down {
     from {
       height: 0;
     }
+
     to {
       height: var(--radix-accordion-content-height);
     }
   }
+
   @keyframes accordion-up {
     from {
       height: var(--radix-accordion-content-height);
     }
+
     to {
       height: 0;
     }
@@ -79,12 +88,25 @@
 }
 
 @layer base {
+
   *,
   ::after,
   ::before,
   ::backdrop,
   ::file-selector-button {
     border-color: var(--color-gray-200, currentcolor);
+  }
+
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  html {
+    @apply font-sans;
   }
 }
 
@@ -242,6 +264,7 @@
 @custom-variant tall (@media (min-height: 933px));
 
 @layer utilities {
+
   html,
   body {
     overflow-x: hidden;
@@ -269,6 +292,7 @@
   * {
     border-color: hsl(var(--border));
   }
+
   body {
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
@@ -277,82 +301,84 @@
 }
 
 :root {
-    font-size: 0.875rem;
-    line-height: 1.25rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
 }
 
 @media (min-width: 450px) {
-    :root {
-        font-size: 1rem;
-        line-height: 1.5rem;
-    }
+  :root {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
 }
 
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 .main-layout-wrapper {
-    min-height: 100dvh;
-    display: flex;
-    flex-direction: column;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
 }
 
 .grey {
-    color: #999;
+  color: #999;
 }
 
 .whitespace-pre-wrap {
-    word-wrap: anywhere;
+  word-wrap: anywhere;
 }
 
 .wrapper {
-    max-width: 1135px;
-    width: 95%;
-    margin: 0 auto;
+  max-width: 1135px;
+  width: 95%;
+  margin: 0 auto;
 }
 
 .header-wrapper {
-    background: url('https://cdn.cloud.kpi.ua/public/intellect.kpi.ua/img/main-bg.png') no-repeat;
-    background-size: cover;
+  background: url('https://cdn.cloud.kpi.ua/public/intellect.kpi.ua/img/main-bg.png') no-repeat;
+  background-size: cover;
 }
 
 @media (max-width: 768px) {
-    .header-wrapper {
-        background: url('https://cdn.cloud.kpi.ua/public/intellect.kpi.ua/img/main-sm.png') no-repeat;
-        background-size: cover;
-    }
+  .header-wrapper {
+    background: url('https://cdn.cloud.kpi.ua/public/intellect.kpi.ua/img/main-sm.png') no-repeat;
+    background-size: cover;
+  }
 }
 
 [contenteditable='true']:empty:not(:focus):before {
-    color: #9798a8;
-    content: attr(data-placeholder);
-    cursor: text;
+  color: #9798a8;
+  content: attr(data-placeholder);
+  cursor: text;
 }
 
 #root {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 footer {
-    margin-top: auto;
+  margin-top: auto;
 }
 
 .scrollbar-hidden {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 .scrollbar-hidden::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 footer a {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .profile-links a {
-    text-decoration: underline;
+  text-decoration: underline;
 }

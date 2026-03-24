@@ -41,12 +41,3 @@ export const debounce = <T>(cb: (param?: T) => void, debounceTimeout: number) =>
         }, debounceTimeout);
     };
 };
-
-export const sanitizeHTML = (text: string): TrustedHTML & string => {
-    return text
-        .replace(/&/g, '&amp;')
-        .replace(/"/g, '&quot;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/'/g, '&#039;');
-};

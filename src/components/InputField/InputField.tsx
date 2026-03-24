@@ -1,47 +1,36 @@
-import React, { useEffect, useState } from 'react';
-import feather from 'feather-icons';
+'use client';
+import React, { useEffect, useState, useMemo } from 'react';
 
-import FeatherIcon from '@/components/FeatherIcon/FeatherIcon';
 import CommonButton from '@/components/CommonButton/CommonButton';
 
 import { hintLabels, searchStringParams } from '@/constants';
-import { debounce, sanitizeHTML } from '@/utils';
+import { debounce } from '@/utils';
 import { getHintByQueryString } from '@/api/common';
 import { SearchMode } from '@/types/intellect';
+import {
+    Command,
+    CommandInput,
+    CommandList,
+    CommandEmpty,
+    CommandGroup,
+    CommandItem,
+} from '@/components/ui/command';
 
 interface Props {
-    keyField?: SearchMode;
-    onInput?: (a: React.SyntheticEvent<HTMLInputElement>) => void;
+    keyField: SearchMode;
     onSubmit?: (payload: string) => void;
-    buttonText: string;
-    icon?: feather.FeatherIconNames;
     placeholder?: string;
-    fieldClass?: string;
-    buttonClass?: string;
     value?: string;
-    syntheticRef?: React.RefObject<HTMLInputElement | null>;
-    tips?: boolean;
 }
-
-let handleTipsDebounced: (param: string) => void | undefined;
 
 const InputField: React.FC<Props> = ({
     keyField,
-    onInput,
     onSubmit,
-    buttonText,
-    icon = '' as feather.FeatherIconNames,
     placeholder = '',
-    fieldClass = '',
-    buttonClass = '',
     value = '',
-    syntheticRef = null,
-    tips,
 }) => {
     const [userInput, setUserInput] = useState(value);
-    const [showTips, setShowTips] = useState(false);
     const [tipOptions, setTipOptions] = useState<Record<string, string[]>>({});
-    const [currentFocused, setCurrentFocused] = useState(-1);
 
     useEffect(() => {
         setUserInput(value);
@@ -52,157 +41,85 @@ const InputField: React.FC<Props> = ({
         setUserInput('');
     }, [keyField]);
 
-    useEffect(() => {
-        if (handleTips) {
-            handleTipsDebounced = debounce<string>(handleTips, 1000);
-        }
-    }, []);
-
     const handleTips = async (value: string | undefined) => {
         if (value) {
             try {
-                const tipOptions = (await getHintByQueryString(value)) as Record<string, string[]>;
-                setTipOptions(tipOptions);
+                const response = (await getHintByQueryString(value)) as Record<string, string[]>;
+                setTipOptions(response);
             } catch (e) {
-                setShowTips(false);
                 console.error(e);
             }
         }
-
-        setShowTips(true);
     };
 
-    const handleInput = (e: React.SyntheticEvent<HTMLInputElement>) => {
-        onInput && onInput(e);
-        const value = e.currentTarget.value;
-        setUserInput(value);
+    const handleTipsDebounced = useMemo(() => debounce<string>(handleTips, 1000), []);
 
-        if (value.length >= 3 && Object.values(searchStringParams).every((param) => !value.startsWith(param))) {
-            handleTipsDebounced && handleTipsDebounced(value);
-        } else {
-            setShowTips(false);
+    const handleInput = (val: string) => {
+        setUserInput(val);
+
+        if (val.length >= 3 && Object.values(searchStringParams).every((param) => !val.startsWith(param))) {
+            handleTipsDebounced(val);
         }
     };
 
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement | HTMLDivElement>) => {
-        if (e.key === 'Enter') {
-            handleTipClick(userInput);
-            onSubmit && onSubmit(userInput);
-        }
-
-        if (e.key === 'ArrowDown') {
-            const focusableTips = document.querySelectorAll('.focusable-tips');
-            if (!focusableTips.length) return;
-
-            if (currentFocused === -1) {
-                if (focusableTips.length) {
-                    setCurrentFocused(0);
-                    (focusableTips[0] as HTMLElement).focus();
-                }
-            }
-
-            if (currentFocused === focusableTips.length - 1) {
-                setCurrentFocused(0);
-                (focusableTips[0] as HTMLElement).focus();
-                return;
-            }
-
-            setCurrentFocused((prevState) => {
-                const el = focusableTips[prevState + 1];
-                el && (el as HTMLElement).focus();
-                return prevState + 1;
-            });
-        }
-
-        if (e.key === 'ArrowUp') {
-            const focusableTips = document.querySelectorAll('.focusable-tips');
-            if (!focusableTips.length) return;
-
-            if (currentFocused === 0) {
-                setCurrentFocused(() => {
-                    const el = focusableTips[focusableTips.length - 1];
-                    el && (el as HTMLElement).focus();
-                    return focusableTips.length - 1;
-                });
-
-                return;
-            }
-
-            setCurrentFocused((currentFocus) => {
-                const el = focusableTips[currentFocus - 1];
-                el && (el as HTMLElement).focus();
-                return currentFocus - 1;
-            });
-        }
+    const handleTipSelect = (val: string) => {
+        setUserInput(val);
+        onSubmit?.(val);
     };
 
-    const handleTipClick = (value: string) => {
-        setUserInput(value);
-        setShowTips(false);
-    };
-
-    const getTipList = (): React.ReactNode[] => {
-        let tipNodes: React.ReactNode[] = [];
-        let localTipOptions = tipOptions;
-
-        switch (keyField) {
-            case 'overall':
-                localTipOptions = { persons: localTipOptions.persons };
-                break;
-            case 'interests':
-                localTipOptions = { interests: localTipOptions.interests };
-                break;
+    const filteredTipOptions = useMemo(() => {
+        if (keyField === 'all') {
+            return tipOptions;
         }
+        return { [keyField]: tipOptions[keyField] };
+    }, [tipOptions, keyField]);
 
-        for (const key in localTipOptions) {
-            if (!localTipOptions[key]?.length) continue;
-
-            !keyField && tipNodes.push(<div className="p-2 font-bold grey">{hintLabels[key]}</div>);
-            const mappedNodes = localTipOptions[key].map((tip) => (
-                <div
-                    tabIndex={0}
-                    key={tip}
-                    onClick={() => handleTipClick(tip)}
-                    className="p-2 cursor-pointer hover:bg-neutral-200 focusable-tips"
-                    title={tip}
-                    dangerouslySetInnerHTML={{
-                        __html: tip.replace(userInput, `<strong>${sanitizeHTML(userInput)}</strong>`),
-                    }}
-                />
-            ));
-
-            tipNodes = [...tipNodes, ...mappedNodes];
-        }
-
-        return tipNodes;
-    };
+    const hasTips = Object.values(filteredTipOptions).some((arr) => arr?.length > 0);
 
     return (
-        <div
-            onKeyDown={handleKeyDown}
-            className="relative flex items-center w-full gap-2 p-1 mt-6 rounded-lg border-1 border-neutral-100"
+        <Command
+            className="flex-1 overflow-visible bg-transparent h-fit"
+            shouldFilter={false}
         >
-            {icon ? <FeatherIcon icon={icon} /> : null}
-            <input
-                ref={syntheticRef}
-                className={fieldClass}
-                placeholder={placeholder}
-                value={userInput}
-                onChange={handleInput}
-            ></input>
-            <CommonButton
-                onClick={() => (onSubmit ? onSubmit(userInput) : undefined)}
-                onKeyDown={handleKeyDown}
-                className={buttonClass}
-            >
-                {buttonText}
-            </CommonButton>
-            {tips && showTips ? (
-                <div className="absolute bottom-0 left-0 right-0 overflow-auto translate-y-full bg-white border-t-0 border-neutral-100 border-1 rounded-b-8 max-h-200">
-                    {getTipList()}
-                </div>
-            ) : null}
-        </div>
+            <div className={`relative flex items-center w-full gap-2`}>
+                <CommandInput
+                    placeholder={placeholder}
+                    value={userInput}
+                    onValueChange={handleInput}
+                    className="px-2 w-full text-black flex-1 border-none outline-none shadow-none focus-visible:ring-0 h-[50px]"
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                            onSubmit?.(userInput);
+                        }
+                    }}
+                />
+                <CommonButton
+                    onClick={() => onSubmit?.(userInput)}
+                    className="px-4 py-1 h-40 flex items-center"
+                >
+                    Пошук
+                </CommonButton>
+
+                {hasTips && (
+                    <CommandList className="absolute top-full left-0 right-0 mt-2 bg-white border border-neutral-100 rounded-lg shadow-xl z-50 overflow-hidden max-h-80 w-card min-w-full lg:min-w-fit">
+                        <CommandEmpty>Нічого не знайдено</CommandEmpty>
+                        {Object.entries(filteredTipOptions).map(([key, list]) =>
+                            <CommandGroup key={key} heading={!keyField ? hintLabels[key] : undefined}>
+                                {list.map((tip) => (
+                                    <CommandItem
+                                        key={tip}
+                                        onSelect={() => handleTipSelect(tip)}
+                                        className="px-4 py-2 cursor-pointer hover:bg-neutral-50 aria-selected:bg-neutral-50"
+                                    >
+                                        {tip}
+                                    </CommandItem>
+                                ))}
+                            </CommandGroup>
+                        )}
+                    </CommandList>
+                )}
+            </div>
+        </Command>
     );
 };
 

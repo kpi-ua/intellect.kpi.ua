@@ -10,8 +10,8 @@ import Alphabet from '@/components/Alphabet/Alphabet';
 import { tabs } from '@/constants';
 import { SearchMode } from '@/types/intellect';
 
-const ITeacherSearch: React.FC = () => {
-    const [activeTab, setActiveTab] = useState('overall' as SearchMode);
+const ITeacherSearch = () => {
+    const [activeTab, setActiveTab] = useState<SearchMode>('persons');
     const router = useRouter();
 
     const handleSearch = (input: string, alphabetic?: boolean) => {
@@ -30,11 +30,6 @@ const ITeacherSearch: React.FC = () => {
         return (
             <InputField
                 keyField={currentTab.type}
-                buttonText="Пошук"
-                buttonClass="xs:flex hidden p-4 h-40 items-center"
-                icon="search"
-                tips={currentTab.tips}
-                fieldClass="px-2 py-4 text-black flex-1 max-h-6 overflow-auto"
                 placeholder={currentTab?.placeholder}
                 onSubmit={handleSearch}
             />
