@@ -6,21 +6,20 @@ import { formatYearShort, formatSemester } from './utils';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { useGroupedWorkloads } from './useGroupedWorkloads';
 
+import { WorkloadGroupType } from './useGroupedWorkloads';
+
 interface Props {
     hideTitle?: boolean;
-    workloads: EvaluationWorkload[];
-    selectedPeriod: string;
+    groupedWorkloads: WorkloadGroupType[];
 }
 
-export const HourlyDataTable = ({ workloads, selectedPeriod, hideTitle }: Props) => {
+export const HourlyDataTable = ({ groupedWorkloads, hideTitle }: Props) => {
 
-    const allGroupedWorkloads = useGroupedWorkloads(workloads, selectedPeriod);
-
-    const groupedWorkloads = React.useMemo(() => {
-        return allGroupedWorkloads
+    const workloads = React.useMemo(() => {
+        return groupedWorkloads
             .filter((g) => g.hourly)
             .map((g) => g.hourly!);
-    }, [allGroupedWorkloads]);
+    }, [groupedWorkloads]);
 
     const renderValueCell = (value: number, isBold: boolean) => (
         <TableCell className={isBold ? "font-bold text-right" : "text-right"}>{value.toFixed(2)}</TableCell>
@@ -43,7 +42,7 @@ export const HourlyDataTable = ({ workloads, selectedPeriod, hideTitle }: Props)
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {groupedWorkloads.map((workload, idx) => {
+                        {workloads.map((workload, idx) => {
                             const isTotalsRow = workload.semester === 0;
                             return (
                                 <TableRow

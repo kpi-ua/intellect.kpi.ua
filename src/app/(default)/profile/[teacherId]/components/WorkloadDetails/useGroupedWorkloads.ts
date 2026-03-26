@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { EvaluationWorkload } from '@/types/intellect';
 
-export type WorkloadGroupType = { normative?: EvaluationWorkload; hourly?: EvaluationWorkload };
+export type WorkloadGroupType = { normative?: EvaluationWorkload; mixed?: EvaluationWorkload; hourly?: EvaluationWorkload };
 
 export const useGroupedWorkloads = (workloads: EvaluationWorkload[], selectedPeriod: string) => {
     return useMemo(() => {
@@ -42,12 +42,18 @@ export const useGroupedWorkloads = (workloads: EvaluationWorkload[], selectedPer
 
                 if (!group.total.hourly) group.total.hourly = { ...w, semester: 0 };
                 else accumulate(group.total.hourly, w);
-            } else {
+            } else if (w.salary >= 1) {
                 if (!semGroup.normative) semGroup.normative = { ...w };
                 else accumulate(semGroup.normative, w);
 
                 if (!group.total.normative) group.total.normative = { ...w, semester: 0 };
                 else accumulate(group.total.normative, w);
+            } else {
+                if (!semGroup.mixed) semGroup.mixed = { ...w };
+                else accumulate(semGroup.mixed, w);
+
+                if (!group.total.mixed) group.total.mixed = { ...w, semester: 0 };
+                else accumulate(group.total.mixed, w);
             }
         });
 
@@ -56,16 +62,30 @@ export const useGroupedWorkloads = (workloads: EvaluationWorkload[], selectedPer
         for (const key in subgroups) {
             const group = subgroups[key];
             const semKeys = Object.keys(group.semesters).map(Number).sort((a, b) => a - b);
-            semKeys.forEach((sem) => {
+            semKeys.forEach((sem: number) => {
                 const sGroup = group.semesters[sem];
-                if (sGroup.normative || sGroup.hourly) {
-                    result.push(sGroup);
+                if (sGroup.normative) {
+                    result.push({ normative: sGroup.normative, hourly: sGroup.hourly });
+                    if (sGroup.mixed) {
+                        result.push({ mixed: sGroup.mixed });
+                    }
+                } else if (sGroup.mixed) {
+                    result.push({ mixed: sGroup.mixed, hourly: sGroup.hourly });
+                } else if (sGroup.hourly) {
+                    result.push({ hourly: sGroup.hourly });
                 }
             });
 
             if (selectedPeriod === '0') {
-                if (group.total.normative || group.total.hourly) {
-                    result.push(group.total);
+                if (group.total.normative) {
+                    result.push({ normative: group.total.normative, hourly: group.total.hourly });
+                    if (group.total.mixed) {
+                        result.push({ mixed: group.total.mixed });
+                    }
+                } else if (group.total.mixed) {
+                    result.push({ mixed: group.total.mixed, hourly: group.total.hourly });
+                } else if (group.total.hourly) {
+                    result.push({ hourly: group.total.hourly });
                 }
             }
         }

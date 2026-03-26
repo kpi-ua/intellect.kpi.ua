@@ -5,7 +5,9 @@ import SectionTitle from '@/components/common/SectionTitle';
 import { EvaluationWorkload, Rating } from '@/types/intellect';
 import { Filters } from './Filters';
 import { DataTable } from './DataTable';
+import { MixedDataTable } from './MixedDataTable';
 import { HourlyDataTable } from './HourlyDataTable';
+import { useGroupedWorkloads, WorkloadGroupType } from './useGroupedWorkloads';
 import { Ratings } from '../Ratings';
 import {
     computeWorkloadSummary,
@@ -23,8 +25,6 @@ interface Props {
 }
 
 export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [] }) => {
-    console.log(workloads);
-
     const workloadsByYearRange = groupWorkloadsByYearRange(workloads);
     const defaultYear = getDefaultYearFromGrouped(workloadsByYearRange || {});
     const defaultDepartment = getDefaultDepartment(workloads);
@@ -40,34 +40,28 @@ export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [] }) => {
         return filterWorkloadsByPeriod(currentWorkloads, selectedPeriod, selectedDepartment);
     }, [workloadsByYearRange, selectedPeriod, selectedYear, selectedDepartment]);
 
-    const groupedWorkloads = useMemo(() => {
-        const byDept: Record<string, EvaluationWorkload[]> = {};
+    const allGroupedWorkloads = useGroupedWorkloads(filteredWorkloads, selectedPeriod);
 
-        filteredWorkloads.forEach((w) => {
-            const key = w.subdivision?.bravoId || 'no-sub';
-            if (!byDept[key]) byDept[key] = [];
-            byDept[key].push(w);
-        });
+    const sections = useMemo(() => {
+        const main = allGroupedWorkloads.filter(g => g.normative);
+        const mixed = allGroupedWorkloads.filter(g => g.mixed);
+        const hourly = allGroupedWorkloads.filter(g => !g.normative && !g.mixed && g.hourly);
 
-        const main: EvaluationWorkload[] = [];
-        const mixed: EvaluationWorkload[] = [];
-        const hourly: EvaluationWorkload[] = [];
-
-        Object.values(byDept).forEach((deptWorkloads) => {
-            const hasMain = deptWorkloads.some(w => w.salary >= 1);
-            const hasMixed = deptWorkloads.some(w => w.salary > 0 && w.salary < 1);
-
-            if (hasMain) {
-                main.push(...deptWorkloads);
-            } else if (hasMixed) {
-                mixed.push(...deptWorkloads);
-            } else {
-                hourly.push(...deptWorkloads);
+        return {
+            main: {
+                grouped: main,
+                workloads: main.flatMap((g: WorkloadGroupType) => [g.normative, g.hourly].filter(Boolean) as EvaluationWorkload[])
+            },
+            mixed: {
+                grouped: mixed,
+                workloads: mixed.flatMap((g: WorkloadGroupType) => [g.mixed, g.hourly].filter(Boolean) as EvaluationWorkload[])
+            },
+            hourly: {
+                grouped: hourly,
+                workloads: hourly.flatMap((g: WorkloadGroupType) => [g.hourly].filter(Boolean) as EvaluationWorkload[])
             }
-        });
-
-        return { main, mixed, hourly };
-    }, [filteredWorkloads]);
+        };
+    }, [allGroupedWorkloads]);
 
 
     if (showRatingsArchive) {
@@ -99,6 +93,7 @@ export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [] }) => {
             </div>
         );
     }
+
     return (
         <div className="mt-4">
             <div className="flex justify-between items-start mb-6">
@@ -122,38 +117,38 @@ export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [] }) => {
                 onPeriodChange={setSelectedPeriod}
             />
 
-            {groupedWorkloads.main.length > 0 && (
+            {sections.main.grouped.length > 0 && (
                 <div className="mt-8">
                     <SectionTitle className="mb-4 uppercase text-primary">Основна ставка (1.0)</SectionTitle>
-                    <DataTable workloads={groupedWorkloads.main} selectedPeriod={selectedPeriod} hideTitle />
+                    <DataTable groupedWorkloads={sections.main.grouped} hideTitle />
                     <StackedBarChart
                         yearRange={selectedYear}
-                        summary={computeWorkloadSummary(groupedWorkloads.main)}
-                        rate={getHighestSalaryLabel(groupedWorkloads.main)}
+                        summary={computeWorkloadSummary(sections.main.workloads)}
+                        rate={getHighestSalaryLabel(sections.main.workloads)}
                     />
                 </div>
             )}
 
-            {groupedWorkloads.mixed.length > 0 && (
+            {sections.mixed.grouped.length > 0 && (
                 <div className="mt-8">
                     <SectionTitle className="mb-4 uppercase text-primary">Сумісництво</SectionTitle>
-                    <DataTable workloads={groupedWorkloads.mixed} selectedPeriod={selectedPeriod} hideTitle />
+                    <MixedDataTable groupedWorkloads={sections.mixed.grouped} hideTitle />
                     <StackedBarChart
                         yearRange={selectedYear}
-                        summary={computeWorkloadSummary(groupedWorkloads.mixed)}
-                        rate={getHighestSalaryLabel(groupedWorkloads.mixed)}
+                        summary={computeWorkloadSummary(sections.mixed.workloads)}
+                        rate={getHighestSalaryLabel(sections.mixed.workloads)}
                     />
                 </div>
             )}
 
-            {groupedWorkloads.hourly.length > 0 && (
+            {sections.hourly.grouped.length > 0 && (
                 <div className="mt-8">
                     <SectionTitle className="mb-4 uppercase text-primary">Погодинна оплата</SectionTitle>
-                    <HourlyDataTable workloads={groupedWorkloads.hourly} selectedPeriod={selectedPeriod} hideTitle />
+                    <HourlyDataTable groupedWorkloads={sections.hourly.grouped} hideTitle />
                     <StackedBarChart
                         yearRange={selectedYear}
-                        summary={computeWorkloadSummary(groupedWorkloads.hourly)}
-                        rate={getHighestSalaryLabel(groupedWorkloads.hourly)}
+                        summary={computeWorkloadSummary(sections.hourly.workloads)}
+                        rate={getHighestSalaryLabel(sections.hourly.workloads)}
                         onlyEducational
                     />
                 </div>

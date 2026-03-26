@@ -1,9 +1,9 @@
 import React from 'react';
 import SectionTitle from '@/components/common/SectionTitle';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { EvaluationWorkload } from '@/types/intellect';
 import { formatYearShort, formatSemester } from './utils';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+
 import { WorkloadGroupType } from './useGroupedWorkloads';
 
 interface Props {
@@ -11,26 +11,26 @@ interface Props {
     groupedWorkloads: WorkloadGroupType[];
 }
 
-export const DataTable = ({ groupedWorkloads, hideTitle }: Props) => {
+export const MixedDataTable = ({ groupedWorkloads, hideTitle }: Props) => {
 
     const renderValueCell = (value: number, isBold: boolean) => (
         <TableCell className={isBold ? "font-bold text-right" : "text-right"}>{value.toFixed(2)}</TableCell>
     );
 
-    const renderMixedCell = (normativeValue: number, isBold: boolean, hourlyValue?: number) => {
-        if (!normativeValue && !hourlyValue) {
+    const renderMixedCell = (mixedValue: number, isBold: boolean, hourlyValue?: number) => {
+        if (!mixedValue && !hourlyValue) {
             return <TableCell className={isBold ? "font-bold text-right" : "text-right"}>0.00</TableCell>;
         }
 
         if (hourlyValue && hourlyValue > 0) {
             return (
                 <TableCell className={`whitespace-nowrap flex flex-col text-right ${isBold ? "font-bold" : "font-semibold"}`}>
-                    {(normativeValue || 0).toFixed(2)}<span className="font-medium text-sm text-neutral-500">+ {hourlyValue.toFixed(2)} пог.</span>
+                    {(mixedValue || 0).toFixed(2)}<span className="font-medium text-sm text-neutral-500">+ {hourlyValue.toFixed(2)} пог.</span>
                 </TableCell>
             );
         }
 
-        return <TableCell className={isBold ? "font-bold text-right" : "font-medium text-right"}>{(normativeValue || 0).toFixed(2)}</TableCell>;
+        return <TableCell className={isBold ? "font-bold text-right" : "font-medium text-right"}>{(mixedValue || 0).toFixed(2)}</TableCell>;
     };
 
     return (
@@ -55,7 +55,7 @@ export const DataTable = ({ groupedWorkloads, hideTitle }: Props) => {
                     </TableHeader>
                     <TableBody>
                         {groupedWorkloads.map((group, idx) => {
-                            const workload = group.normative!;
+                            const workload = group.mixed!;
                             const isTotalsRow = workload.semester === 0;
                             return (
                                 <TableRow
