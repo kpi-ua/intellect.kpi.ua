@@ -3,8 +3,6 @@ import React from 'react';
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
 import ISearchBlock from '@/components/I-SearchBlock/I-SearchBlock';
-import TagsSection from '@/components/TagsSection/TagsSection';
-
 import bottomLogo from '@/assets/svg/kpi-logo.svg';
 
 export default function Home() {
@@ -17,9 +15,7 @@ export default function Home() {
                 </div>
             </div>
             <div className="wrapper">
-                <div className="mt-16 min-h-220">
-                    <TagsSection />
-                </div>
+                <div className="mt-16 min-h-20"></div>
             </div>
             <Footer logoSrc={bottomLogo} />
         </>
