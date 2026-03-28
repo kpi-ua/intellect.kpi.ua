@@ -1,5 +1,5 @@
 import { ApiResponse } from '@/types/ecampus';
-import Http, { API_BASE_URL } from './index';
+import Http from './index';
 
 import { parseSearchParams } from '@/utils';
 import { Rating, Lecturer, EvaluationWorkload } from '@/types/intellect';
