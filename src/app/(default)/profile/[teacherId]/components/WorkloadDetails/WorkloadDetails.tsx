@@ -5,8 +5,6 @@ import SectionTitle from '@/components/common/SectionTitle';
 import { EvaluationWorkload, Rating } from '@/types/intellect';
 import { Filters } from './Filters';
 import { DataTable } from './DataTable';
-import { MixedDataTable } from './MixedDataTable';
-import { HourlyDataTable } from './HourlyDataTable';
 import { useGroupedWorkloads, WorkloadGroupType } from './useGroupedWorkloads';
 import { Ratings } from '../Ratings';
 import {
@@ -132,7 +130,7 @@ export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [] }) => {
             {sections.mixed.grouped.length > 0 && (
                 <div className="mt-8">
                     <SectionTitle className="mb-4 uppercase text-primary">SECONDARY APPOINTMENT (SA)</SectionTitle>
-                    <MixedDataTable groupedWorkloads={sections.mixed.grouped} hideTitle />
+                    <DataTable groupedWorkloads={sections.mixed.grouped} hideTitle variant="mixed" />
                     <StackedBarChart
                         yearRange={selectedYear}
                         summary={computeWorkloadSummary(sections.mixed.workloads)}
@@ -144,7 +142,7 @@ export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [] }) => {
             {sections.hourly.grouped.length > 0 && (
                 <div className="mt-8">
                     <SectionTitle className="mb-4 uppercase text-primary">HOURLY APPOINTMENT (HA)</SectionTitle>
-                    <HourlyDataTable groupedWorkloads={sections.hourly.grouped} hideTitle />
+                    <DataTable groupedWorkloads={sections.hourly.grouped} hideTitle variant="hourly" />
                     <StackedBarChart
                         yearRange={selectedYear}
                         summary={computeWorkloadSummary(sections.hourly.workloads)}
