@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import type { Metadata } from 'next';
-import { getEvaluationWorkloads, getRatings, getTeacherByTeacherId } from '@/api/teacher';
+import { getTeacherByTeacherId } from '@/api/teacher';
 import { API_BASE_URL } from '@/api/index';
 import { academicDegrees } from '@/constants';
 import SectionTitle from '@/components/common/SectionTitle';
