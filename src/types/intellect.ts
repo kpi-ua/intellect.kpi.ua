@@ -38,6 +38,13 @@ export enum EmploymentType {
     HourlyPay = 'HourlyPay'
 };
 
+export type ContactRecord = {
+    name: string;
+    value: string;
+    label: string;
+    type: ContactType;
+};
+
 export type ExperienceType = 'profile' | 'rating';
 export type SearchMode = 'overall' | 'alphabetic' | 'interests';
 export type SearchParams = 'startsWith' | 'subdivision' | 'interests';

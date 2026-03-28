@@ -21,11 +21,6 @@ export const getTeacherByTeacherId = (teacherId: string): Promise<Lecturer> => {
     return Http.get(`/v2/profile/${teacherId}`);
 };
 
-export const getInterests = (limit?: number): Promise<string[]> => {
-    const param = limit ? `?count=${limit}` : '';
-    return Http.get('/v2/scientific-interests' + param);
-};
-
 export const getRatings = (teacherId: string): Promise<Rating[]> => {
     return Http.get(`/v2/persons/${teacherId}/rating`);
 };
