@@ -1,8 +1,7 @@
 import React from 'react';
 import SectionTitle from '@/components/common/SectionTitle';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { EvaluationWorkload } from '@/types/intellect';
-import { formatYearShort, formatSemester } from './utils';
+import { formatYear, formatSemester } from './utils';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { WorkloadGroupType } from './useGroupedWorkloads';
 
@@ -62,7 +61,7 @@ export const DataTable = ({ groupedWorkloads, hideTitle }: Props) => {
                                     key={`${workload.year}-${workload.semester}-${workload.salary}-${workload.subdivision?.bravoId || idx}`}
                                     className={isTotalsRow ? "bg-slate-50/80" : ""}
                                 >
-                                    <TableCell>{formatYearShort(workload.year)}</TableCell>
+                                    <TableCell>{formatYear(workload.year)}</TableCell>
                                     <TableCell>{formatSemester(workload.semester)}</TableCell>
                                     <TableCell>
                                         <Tooltip>

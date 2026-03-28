@@ -25,7 +25,7 @@ export const StackedBarChart = ({
     return (
         <div className="mt-8 p-6 border rounded-xl border-text-neutral-900">
             <SectionTitle className="mb-4 uppercase text-primary">
-                RELEVANCE: {yearRange} н.р. ({rate})
+                RELEVANCE: {yearRange} ({rate})
             </SectionTitle>
 
             <div className="flex overflow-hidden rounded-md h-12">

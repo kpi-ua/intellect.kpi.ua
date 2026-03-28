@@ -30,11 +30,12 @@ export type ContactRecord = {
 };
 
 export enum EmploymentType {
-    Unknown = 'Unknown ',
+    Unknown = 'Unknown',
     FullTime = 'FullTime',
     PartTime = 'PartTime',
     PartTimeInternal = 'PartTimeInternal',
-    PartTimeExternal = 'PartTimeExternal ',
+    PartTimeExternal = 'PartTimeExternal',
+    HourlyPay = 'HourlyPay'
 };
 
 export type ExperienceType = 'profile' | 'rating';

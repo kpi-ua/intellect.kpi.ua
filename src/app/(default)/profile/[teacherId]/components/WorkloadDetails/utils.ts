@@ -112,14 +112,14 @@ export const filterWorkloadsByPeriod = (
 
 export const getSalaryLabel = (salary: number) => {
     if (salary === 1) {
-        return "Повна ставка"
+        return "1.0 PA"
     }
 
     if (salary === 0) {
-        return "ПОГОДИННЕ НАВАНТАЖЕННЯ"
+        return "HA"
     }
 
-    return `${salary} ставки`
+    return `${salary} SA`
 }
 
 export const getHighestSalaryLabel = (workloads: EvaluationWorkload[]): string => {

@@ -119,7 +119,7 @@ export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [] }) => {
 
             {sections.main.grouped.length > 0 && (
                 <div className="mt-8">
-                    <SectionTitle className="mb-4 uppercase text-primary">Основна ставка (1.0)</SectionTitle>
+                    <SectionTitle className="mb-4 uppercase text-primary">PRIMARY APPOINTMENT (PA)</SectionTitle>
                     <DataTable groupedWorkloads={sections.main.grouped} hideTitle />
                     <StackedBarChart
                         yearRange={selectedYear}
@@ -131,7 +131,7 @@ export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [] }) => {
 
             {sections.mixed.grouped.length > 0 && (
                 <div className="mt-8">
-                    <SectionTitle className="mb-4 uppercase text-primary">Сумісництво</SectionTitle>
+                    <SectionTitle className="mb-4 uppercase text-primary">SECONDARY APPOINTMENT (SA)</SectionTitle>
                     <MixedDataTable groupedWorkloads={sections.mixed.grouped} hideTitle />
                     <StackedBarChart
                         yearRange={selectedYear}
@@ -143,7 +143,7 @@ export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [] }) => {
 
             {sections.hourly.grouped.length > 0 && (
                 <div className="mt-8">
-                    <SectionTitle className="mb-4 uppercase text-primary">Погодинна оплата</SectionTitle>
+                    <SectionTitle className="mb-4 uppercase text-primary">HOURLY APPOINTMENT (HA)</SectionTitle>
                     <HourlyDataTable groupedWorkloads={sections.hourly.grouped} hideTitle />
                     <StackedBarChart
                         yearRange={selectedYear}
@@ -153,6 +153,10 @@ export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [] }) => {
                     />
                 </div>
             )}
+
+            <div className="mt-8 text-sm text-neutral-500">
+                Оновлення даних відбувається раз на Х днів
+            </div>
         </div>
     );
 };

@@ -71,10 +71,7 @@ export async function generateMetadata({ params }: { params: Promise<{ teacherId
 
 export default async function TeacherProfilePage({ params }: { params: Promise<{ teacherId: string }> }) {
     const { teacherId } = await params;
-    const [teacher, workloads] = await Promise.all([
-        getTeacherByTeacherId(teacherId),
-        getEvaluationWorkloads(teacherId),
-    ]);
+    const teacher = await getTeacherByTeacherId(teacherId);
 
     return (
         <section className="pt-12 pb-110">
@@ -104,7 +101,7 @@ export default async function TeacherProfilePage({ params }: { params: Promise<{
                     ) : null}
                     <div className="flex justify-center gap-3 mt-5 overflow-x-auto sm:justify-start">
                         {(teacher?.positions || []).map((item: Position) => (
-                            <JobLabel key={item.subdivision.id} position={item} workloads={workloads} />
+                            <JobLabel key={item.subdivision.id} position={item} />
                         ))}
                     </div>
                     <Tabs defaultValue="profile">
