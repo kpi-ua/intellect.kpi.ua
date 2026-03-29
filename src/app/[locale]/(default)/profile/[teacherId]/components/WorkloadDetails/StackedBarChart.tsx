@@ -27,7 +27,7 @@ export const StackedBarChart = ({
         : WORKLOAD_CATEGORIES;
 
     return (
-        <div className="mt-8 p-6 border rounded-xl border-neutral-900">
+        <div className="mt-8 p-6 border rounded-xl border-text-neutral-900">
             <SectionTitle className="mb-4 uppercase text-primary">
                 RELEVANCE: {yearRange} ({rate})
             </SectionTitle>
