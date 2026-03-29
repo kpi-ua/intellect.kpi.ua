@@ -21,9 +21,9 @@ export const formatSemester = (semester: number): string => {
 };
 
 export const getDefaultDepartment = (workloads: EvaluationWorkload[]): string => {
-    if (workloads.length === 0) return '';
+    if (workloads.length === 0) return 'all';
     const departments = Array.from(new Set(workloads.map((w) => w.subdivision?.bravoId).filter(Boolean)));
-    return departments.length > 0 ? departments[0].toString() : '';
+    return departments.length > 0 ? departments[0].toString() : 'all';
 };
 
 export const groupWorkloadsByYearRange = (
