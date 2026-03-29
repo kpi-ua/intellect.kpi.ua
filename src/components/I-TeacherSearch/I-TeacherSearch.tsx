@@ -68,7 +68,7 @@ const ITeacherSearch: React.FC = () => {
         <>
             <div className="flex gap-3 mb-3 overflow-x-auto text-xs text-primary xs:m-0 xs:overflow-x-hidden">
                 {tabs.map((tab) => (
-                    <ITab key={tab.type} isActive={tab.type === activeTab} onClick={() => setActiveTab(tab.type as SearchMode)}>
+                    <ITab key={tab.type} isActive={tab.type === activeTab} onClick={() => setActiveTab(tab.type)}>
                         {tab.label}
                     </ITab>
                 ))}
