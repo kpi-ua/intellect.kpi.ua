@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import type { Metadata } from 'next';
-import { getEvaluationWorkloads, getRatings, getTeacherByTeacherId } from '@/api/teacher';
+import { getTeacherByTeacherId } from '@/api/teacher';
 import { API_BASE_URL } from '@/api/index';
 import { academicDegrees } from '@/constants';
 import SectionTitle from '@/components/common/SectionTitle';
@@ -19,6 +19,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { WorkloadContainer } from '@/app/(default)/profile/[teacherId]/components/WorkloadDetails/WorkloadContainer';
 import { Loader } from 'lucide-react';
+import { notFound } from 'next/navigation';
 
 const generateMetaDescription = (teacher: Lecturer | null): string => {
     if (!teacher) {
@@ -70,62 +71,68 @@ export async function generateMetadata({ params }: { params: Promise<{ teacherId
 }
 
 export default async function TeacherProfilePage({ params }: { params: Promise<{ teacherId: string }> }) {
-    const { teacherId } = await params;
-    const teacher = await getTeacherByTeacherId(teacherId);
+    try {
 
-    return (
-        <section className="pt-12 pb-110">
-            <Breadcrumb className="mb-8">
-                <BreadcrumbList>
-                    <BreadcrumbItem>
-                        <BreadcrumbLink href="/">Головна</BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem>
-                        <BreadcrumbPage>{teacher?.fullName}</BreadcrumbPage>
-                    </BreadcrumbItem>
-                </BreadcrumbList>
-            </Breadcrumb>
-            <div className="grid grid-cols-[1fr] sm:grid-cols-[170px_1fr] gap-6 mt-6 justify-items-center sm:justify-items-start relative">
-                <div>
-                    <Avatar img={teacher?.photo} />
-                </div>
-                <div className="w-full overflow-x-hidden">
-                    <SectionTitle className="text-3xl text-center sm:text-5xl sm:text-left" isPrimary={false}>
-                        {teacher?.fullName}
-                    </SectionTitle>
-                    {teacher?.credo ? (
-                        <div className="inline-block p-1 mt-5 text-neutral-600 bg-neutral-100 rounded-8">
-                            <i>{teacher?.credo}</i>
-                        </div>
-                    ) : null}
-                    <div className="flex justify-center gap-3 mt-5 overflow-x-auto sm:justify-start">
-                        {(teacher?.positions || []).map((item: Position) => (
-                            <JobLabel key={item.subdivision.id} position={item} />
-                        ))}
+        const { teacherId } = await params;
+        const teacher = await getTeacherByTeacherId(teacherId);
+
+        return (
+            <section className="pt-12 pb-110">
+                <Breadcrumb className="mb-8">
+                    <BreadcrumbList>
+                        <BreadcrumbItem>
+                            <BreadcrumbLink href="/">Головна</BreadcrumbLink>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator />
+                        <BreadcrumbItem>
+                            <BreadcrumbPage>{teacher?.fullName}</BreadcrumbPage>
+                        </BreadcrumbItem>
+                    </BreadcrumbList>
+                </Breadcrumb>
+                <div className="grid grid-cols-[1fr] sm:grid-cols-[170px_1fr] gap-6 mt-6 justify-items-center sm:justify-items-start relative">
+                    <div>
+                        <Avatar img={teacher?.photo} />
                     </div>
-                    <Tabs defaultValue="profile">
-                        <TabsList>
-                            <TabsTrigger value="profile">Профіль</TabsTrigger>
-                            <TabsTrigger value="rating">Оцінювання НПП</TabsTrigger>
-                        </TabsList>
-                        <TabsContent value="profile">
-                            <ProfileDetails teacherInfo={teacher} />
-                        </TabsContent>
-                        <TabsContent value="rating">
-                            <Suspense
-                                fallback={
-                                    <div className="w-full flex justify-center">
-                                        <Loader className="animate-spin" />
-                                    </div>
-                                }
-                            >
-                                <WorkloadContainer teacherId={teacherId} />
-                            </Suspense>
-                        </TabsContent>
-                    </Tabs>
+                    <div className="w-full overflow-x-hidden">
+                        <SectionTitle className="text-3xl text-center sm:text-5xl sm:text-left" isPrimary={false}>
+                            {teacher?.fullName}
+                        </SectionTitle>
+                        {teacher?.credo ? (
+                            <div className="inline-block p-1 mt-5 text-neutral-600 bg-neutral-100 rounded-8">
+                                <i>{teacher?.credo}</i>
+                            </div>
+                        ) : null}
+                        <div className="flex justify-center gap-3 mt-5 overflow-x-auto sm:justify-start">
+                            {(teacher?.positions || []).map((item: Position) => (
+                                <JobLabel key={item.subdivision.id} position={item} />
+                            ))}
+                        </div>
+                        <Tabs defaultValue="profile">
+                            <TabsList>
+                                <TabsTrigger value="profile">Профіль</TabsTrigger>
+                                <TabsTrigger value="rating">Оцінювання НПП</TabsTrigger>
+                            </TabsList>
+                            <TabsContent value="profile">
+                                <ProfileDetails teacherInfo={teacher} />
+                            </TabsContent>
+                            <TabsContent value="rating">
+                                <Suspense
+                                    fallback={
+                                        <div className="w-full flex justify-center">
+                                            <Loader className="animate-spin" />
+                                        </div>
+                                    }
+                                >
+                                    <WorkloadContainer teacherId={teacherId} />
+                                </Suspense>
+                            </TabsContent>
+                        </Tabs>
+                    </div>
                 </div>
-            </div>
-        </section>
-    );
+            </section>
+        );
+
+    } catch (error) {
+        notFound()
+    }
 }
