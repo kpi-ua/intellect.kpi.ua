@@ -153,7 +153,7 @@ export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [] }) => {
             )}
 
             <div className="mt-8 text-sm text-neutral-500">
-                Оновлення даних відбувається раз на Х днів
+                Оновлення даних відбувається раз на 3 дні
             </div>
         </div>
     );
