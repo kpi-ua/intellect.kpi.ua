@@ -1,13 +1,9 @@
-export type Anchor = {
-    id: string;
-    path: string;
-    label: string;
-};
-
 export type Division = {
     id: number;
     name: string;
     url: string;
+    abbreviation: string;
+    bravoId: number;
     logo: string | null;
     address: string | null;
 };
