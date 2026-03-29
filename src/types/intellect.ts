@@ -19,6 +19,7 @@ export type Lecturer = {
 export type Position = {
     name: string;
     subdivision: Division;
+    employment: EmploymentType;
 };
 
 export type ContactRecord = {
@@ -26,6 +27,15 @@ export type ContactRecord = {
     value: string;
     label: string;
     type: ContactType;
+};
+
+export enum EmploymentType {
+    Unknown = 'Unknown',
+    FullTime = 'FullTime',
+    PartTime = 'PartTime',
+    PartTimeInternal = 'PartTimeInternal',
+    PartTimeExternal = 'PartTimeExternal',
+    HourlyPay = 'HourlyPay'
 };
 
 export type ExperienceType = 'profile' | 'rating';
@@ -46,4 +56,29 @@ export type Tab = {
     type: SearchMode;
     placeholder?: string;
     tips: boolean;
+};
+
+export type EvaluationWorkload = {
+    employeeId: string;
+    fullName: string;
+    subdivision: Division;
+    year: number;
+    semester: number;
+    salary: number;
+    educational: number;
+    scientific: number;
+    methodical: number;
+    organizational: number;
+    other: number;
+    totalHours: number;
+    totalWorkload: number;
+    educationalPercentage: number;
+    scientificPercentage: number;
+    methodicalPercentage: number;
+    organizationalPercentage: number;
+    otherPercentage: number;
+    isEducationalValid: boolean;
+    isScientificValid: boolean;
+    isOtherValid: boolean;
+    isValid: boolean;
 };

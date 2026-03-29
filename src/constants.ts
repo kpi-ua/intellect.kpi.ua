@@ -48,5 +48,4 @@ export const tabs: Tab[] = [
 export const hintLabels: Record<string, string> = {
     persons: 'Викладачі',
     subdivisions: 'Підрозділи',
-    interests: 'Наукові інтереси',
 };

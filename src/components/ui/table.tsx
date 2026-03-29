@@ -18,7 +18,7 @@ interface TableHeadProps extends React.ComponentProps<'th'> {
 }
 
 const Table = ({ className, ref, ...props }: React.ComponentProps<'table'>) => (
-    <div className="relative w-full overflow-auto rounded-[12px]">
+    <div className="relative w-full overflow-auto rounded-xl border border-text-neutral-900">
         <table ref={ref} className={cn('w-full caption-bottom overflow-hidden text-sm', className)} {...props} />
     </div>
 );
@@ -65,7 +65,13 @@ const TableHead = React.forwardRef<HTMLTableCellElement, TableHeadProps>(
                 onClick={isSortable ? sortHandlers![sortHeader!].onClick : undefined}
                 {...props}
             >
-                <span className="flex items-center gap-3">
+                <span
+                    className={cn(
+                        'flex items-center gap-3',
+                        className?.includes('text-right') && 'justify-end',
+                        className?.includes('text-center') && 'justify-center'
+                    )}
+                >
                     {children}
                 </span>
             </th>

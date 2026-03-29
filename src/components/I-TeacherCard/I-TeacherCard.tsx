@@ -15,8 +15,6 @@ const ITeacherCard: React.FC<Props> = ({ teacherInfo, className = '' }) => {
             <div className={'cursor-pointer max-w-160 ' + className}>
                 <Avatar img={teacherInfo.photo} />
                 <div className="text-semibold">{teacherInfo.fullName}</div>
-                <div className="mt-1 text-sm text-neutral-900">{teacherInfo.positions[0].name}</div>
-                <div className="mt-2 text-xs text-neutral-600">{teacherInfo.positions[0].subdivision.name}</div>
             </div>
         </Link>
     );

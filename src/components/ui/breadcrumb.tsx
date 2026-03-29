@@ -43,7 +43,7 @@ const BreadcrumbLink = ({
     return (
         <Comp
             ref={ref}
-            className={cn('hover:text-foreground text-neutral-600 transition-colors', className)}
+            className={cn('hover:text-foreground text-neutral-600 transition-colors text-base', className)}
             {...props}
         />
     );
@@ -56,7 +56,7 @@ const BreadcrumbPage = ({ className, ref, ...props }: React.ComponentProps<'span
         role="link"
         aria-disabled="true"
         aria-current="page"
-        className={cn('font-semibold text-neutral-900', className)}
+        className={cn('font-semibold text-neutral-900 text-base', className)}
         {...props}
     />
 );
@@ -66,7 +66,7 @@ const BreadcrumbSeparator = ({ children, className, ...props }: React.ComponentP
     <li
         role="presentation"
         aria-hidden="true"
-        className={cn('[&>svg]:h-[16px] [&>svg]:w-[16px]', className)}
+        className={cn('[&>svg]:h-[20px] [&>svg]:w-[20px]', className)}
         {...props}
     >
         {children ?? <ChevronRight className="h-4 w-4 text-neutral-600" />}
