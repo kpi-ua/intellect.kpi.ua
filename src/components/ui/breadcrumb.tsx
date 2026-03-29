@@ -3,7 +3,7 @@ import { Slot } from '@radix-ui/react-slot';
 import { ChevronRight, MoreHorizontal } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 
 const Breadcrumb = ({
     ref,
@@ -38,7 +38,7 @@ const BreadcrumbLink = ({
 }: React.ComponentProps<typeof Link> & {
     asChild?: boolean;
 }) => {
-    const Comp = asChild ? Slot : Link;
+    const Comp = asChild ? Slot : (Link as any);
 
     return (
         <Comp
