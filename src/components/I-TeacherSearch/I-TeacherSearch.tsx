@@ -25,7 +25,13 @@ const ITeacherSearch: React.FC = () => {
     const renderInputField = (): React.ReactNode => {
         const currentTab = tabs.find((tab) => tab.type === activeTab);
 
-        if (!currentTab) return null;
+        if (!currentTab) {
+            return null;
+        }
+
+        if (activeTab === 'interests') {
+            return <p>Функціонал знаходиться у розробці</p>
+        }
 
         return (
             <InputField
