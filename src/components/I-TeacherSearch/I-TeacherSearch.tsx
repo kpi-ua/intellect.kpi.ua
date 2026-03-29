@@ -2,17 +2,34 @@
 import React, { useState } from 'react';
 import styles from './I-TeacherSearch.module.css';
 import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 import ITab from '@/components/I-Tab/I-Tab';
 import InputField from '@/components/InputField/InputField';
 import Alphabet from '@/components/Alphabet/Alphabet';
 
-import { tabs } from '@/constants';
 import { SearchMode } from '@/types/intellect';
 
 const ITeacherSearch: React.FC = () => {
+    const t = useTranslations('search');
     const [activeTab, setActiveTab] = useState('overall' as SearchMode);
     const router = useRouter();
+
+    const tabs = [
+        {
+            label: t('overall.label'),
+            type: 'overall' as const,
+            placeholder: t('overall.placeholder'),
+            tips: true,
+        },
+        { label: t('alphabetic.label'), type: 'alphabetic' as const },
+        {
+            label: t('interests.label'),
+            type: 'interests' as const,
+            placeholder: t('interests.placeholder'),
+            tips: true,
+        },
+    ];
 
     const handleSearch = (input: string, alphabetic?: boolean) => {
         const state_input = alphabetic ? `startsWith:${input}` : input;
@@ -30,13 +47,13 @@ const ITeacherSearch: React.FC = () => {
         }
 
         if (activeTab === 'interests') {
-            return <p>Функціонал знаходиться у розробці</p>
+            return <p>{t('interests.in_development')}</p>
         }
 
         return (
             <InputField
-                keyField={currentTab.type}
-                buttonText="Пошук"
+                keyField={currentTab.type as any}
+                buttonText={t('button')}
                 buttonClass="xs:flex hidden p-4 h-40 items-center"
                 icon="search"
                 tips={currentTab.tips}
@@ -51,7 +68,7 @@ const ITeacherSearch: React.FC = () => {
         <>
             <div className="flex gap-3 mb-3 overflow-x-auto text-xs text-primary xs:m-0 xs:overflow-x-hidden">
                 {tabs.map((tab) => (
-                    <ITab key={tab.type} isActive={tab.type === activeTab} onClick={() => setActiveTab(tab.type)}>
+                    <ITab key={tab.type} isActive={tab.type === activeTab} onClick={() => setActiveTab(tab.type as SearchMode)}>
                         {tab.label}
                     </ITab>
                 ))}

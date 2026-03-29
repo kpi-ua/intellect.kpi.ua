@@ -2,20 +2,22 @@ import SectionTitle from '@/components/common/SectionTitle';
 import InfoBlock from '@/components/InfoBlock/InfoBlock';
 import { CDN_IMG_BASE } from '@/constants';
 import React from 'react';
+import { getTranslations } from 'next-intl/server';
 
 const aboutImg = `${CDN_IMG_BASE}/about.png`;
 
-export default function About() {
+export default async function About() {
+    const t = await getTranslations('about');
+
     return (
         <InfoBlock sectionImg={aboutImg}>
             <article>
-                <SectionTitle>Про проєкт</SectionTitle>
+                <SectionTitle>{t('title')}</SectionTitle>
                 <p className="mt-4">
-                    Відкритий простір академічних досягнень. Уся ключова інформація про викладачів, їхню наукову діяльність та професійні здобутки зібрана в єдиній системі.
+                    {t('description_1')}
                 </p>
                 <p className="mt-3">
-                    Має за мету поширення знань на державному та світовому рівнях про досягнення співробітників
-                    університету в науковій і навчальній роботі, обмін досвідом та сприяння спілкуванню.
+                    {t('description_2')}
                 </p>
             </article>
         </InfoBlock>

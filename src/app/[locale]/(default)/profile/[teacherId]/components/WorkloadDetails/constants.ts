@@ -1,4 +1,4 @@
-import { WorkloadCategory } from '@/app/(default)/profile/[teacherId]/components/WorkloadDetails/types';
+import { WorkloadCategory } from './types';
 
 export const WORKLOAD_CATEGORIES: Array<{
     key: WorkloadCategory;

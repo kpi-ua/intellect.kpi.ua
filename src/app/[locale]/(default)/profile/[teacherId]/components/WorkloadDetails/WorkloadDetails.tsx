@@ -16,6 +16,7 @@ import {
     groupWorkloadsByYearRange,
 } from './utils';
 import { StackedBarChart } from './StackedBarChart';
+import { useTranslations } from 'next-intl';
 
 interface Props {
     workloads: EvaluationWorkload[];
@@ -23,6 +24,7 @@ interface Props {
 }
 
 export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [] }) => {
+    const t = useTranslations('profile.workload');
     const workloadsByYearRange = groupWorkloadsByYearRange(workloads);
     const defaultYear = getDefaultYearFromGrouped(workloadsByYearRange || {});
     const defaultDepartment = getDefaultDepartment(workloads);
@@ -70,7 +72,7 @@ export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [] }) => {
                         onClick={() => setShowRatingsArchive(false)}
                         className="text-base text-neutral-600 underline hover:text-primary transition-colors"
                     >
-                        Деталізація навантаження
+                        {t('details_button')}
                     </button>
                 </div>
                 <Ratings ratings={ratings} />
@@ -81,12 +83,12 @@ export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [] }) => {
     if (workloads.length === 0 || !workloadsByYearRange) {
         return (
             <div className="flex justify-between">
-                <SectionTitle className="mt-3 text-primary">Дані відсутні</SectionTitle>
+                <SectionTitle className="mt-3 text-primary">{t('no_data')}</SectionTitle>
                 <button
                     onClick={() => setShowRatingsArchive(true)}
                     className="text-base text-black underline hover:text-primary transition-colors"
                 >
-                    Архів рейтингу (до 2024)
+                    {t('archive_button')}
                 </button>
             </div>
         );
@@ -95,13 +97,13 @@ export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [] }) => {
     return (
         <div className="mt-4">
             <div className="flex justify-between items-start mb-6">
-                <SectionTitle className="mb-4 uppercase text-primary">Період оцінювання</SectionTitle>
+                <SectionTitle className="mb-4 uppercase text-primary">{t('evaluation_period')}</SectionTitle>
 
                 <button
                     onClick={() => setShowRatingsArchive(true)}
                     className="text-base text-black underline hover:text-primary transition-colors"
                 >
-                    Архів рейтингу (до 2024)
+                    {t('archive_button')}
                 </button>
             </div>
             <Filters
@@ -117,7 +119,7 @@ export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [] }) => {
 
             {sections.main.grouped.length > 0 && (
                 <div className="mt-8">
-                    <SectionTitle className="mb-4 uppercase text-primary">PRIMARY APPOINTMENT (PA)</SectionTitle>
+                    <SectionTitle className="mb-4 uppercase text-primary">{t('sections.pa')}</SectionTitle>
                     <DataTable groupedWorkloads={sections.main.grouped} hideTitle />
                     <StackedBarChart
                         yearRange={selectedYear}
@@ -129,7 +131,7 @@ export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [] }) => {
 
             {sections.mixed.grouped.length > 0 && (
                 <div className="mt-8">
-                    <SectionTitle className="mb-4 uppercase text-primary">SECONDARY APPOINTMENT (SA)</SectionTitle>
+                    <SectionTitle className="mb-4 uppercase text-primary">{t('sections.sa')}</SectionTitle>
                     <DataTable groupedWorkloads={sections.mixed.grouped} hideTitle variant="mixed" />
                     <StackedBarChart
                         yearRange={selectedYear}
@@ -141,7 +143,7 @@ export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [] }) => {
 
             {sections.hourly.grouped.length > 0 && (
                 <div className="mt-8">
-                    <SectionTitle className="mb-4 uppercase text-primary">HOURLY APPOINTMENT (HA)</SectionTitle>
+                    <SectionTitle className="mb-4 uppercase text-primary">{t('sections.ha')}</SectionTitle>
                     <DataTable groupedWorkloads={sections.hourly.grouped} hideTitle variant="hourly" />
                     <StackedBarChart
                         yearRange={selectedYear}
@@ -153,7 +155,7 @@ export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [] }) => {
             )}
 
             <div className="mt-8 text-sm text-neutral-500">
-                Оновлення даних відбувається раз на 3 дні
+                {t('update_info')}
             </div>
         </div>
     );
