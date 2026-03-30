@@ -4,6 +4,7 @@ import React, { useMemo } from 'react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { EvaluationWorkload } from '@/types/intellect';
 import { getYearOptionsFromGrouped } from './utils';
+import { useTranslations } from 'next-intl';
 
 interface FiltersProps {
     workloadsByYearRange: Record<string, EvaluationWorkload[]>;
@@ -26,6 +27,7 @@ export const Filters = ({
     onDepartmentChange,
     onPeriodChange,
 }: FiltersProps) => {
+    const t = useTranslations('profile.workload.filters');
     const uniqueYears = useMemo(() => getYearOptionsFromGrouped(workloadsByYearRange), [workloadsByYearRange]);
 
     const uniqueDepartments = useMemo(() => {
@@ -40,13 +42,13 @@ export const Filters = ({
         <div className="mb-6">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
-                    <label className="block text-sm font-medium text-neutral-700 mb-2">Підрозділ</label>
+                    <label className="block text-sm font-medium text-neutral-700 mb-2">{t('subdivision')}</label>
                     <Select value={selectedDepartment} onValueChange={onDepartmentChange}>
                         <SelectTrigger>
-                            <SelectValue placeholder="Оберіть підрозділ" />
+                            <SelectValue placeholder={t('subdivision_placeholder')} />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="all">Загальне</SelectItem>
+                            <SelectItem value="all">{t('all_subdivisions')}</SelectItem>
                             {uniqueDepartments.map((dept) => (
                                 <SelectItem key={dept.value} value={dept.value}>
                                     {dept.label}
@@ -56,10 +58,10 @@ export const Filters = ({
                     </Select>
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-neutral-700 mb-2">Навчальний рік</label>
+                    <label className="block text-sm font-medium text-neutral-700 mb-2">{t('year')}</label>
                     <Select value={selectedYear} onValueChange={onYearChange}>
                         <SelectTrigger>
-                            <SelectValue placeholder="Оберіть рік" />
+                            <SelectValue placeholder={t('year_placeholder')} />
                         </SelectTrigger>
                         <SelectContent>
                             {uniqueYears.map((year) => (
@@ -71,15 +73,15 @@ export const Filters = ({
                     </Select>
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-neutral-700 mb-2">Період</label>
+                    <label className="block text-sm font-medium text-neutral-700 mb-2">{t('period')}</label>
                     <Select value={selectedPeriod} onValueChange={onPeriodChange}>
                         <SelectTrigger>
-                            <SelectValue placeholder="Оберіть період" />
+                            <SelectValue placeholder={t('period_placeholder')} />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="1">1 семестр</SelectItem>
-                            <SelectItem value="2">2 семестр</SelectItem>
-                            <SelectItem value="0">Рік</SelectItem>
+                            <SelectItem value="1">{t('semester_1')}</SelectItem>
+                            <SelectItem value="2">{t('semester_2')}</SelectItem>
+                            <SelectItem value="0">{t('year_full')}</SelectItem>
                         </SelectContent>
                     </Select>
                 </div>

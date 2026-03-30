@@ -1,11 +1,14 @@
 import React from 'react';
-
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
 import ISearchBlock from '@/components/I-SearchBlock/I-SearchBlock';
 import bottomLogo from '@/assets/svg/kpi-logo.svg';
+import { setRequestLocale } from 'next-intl/server';
 
-export default function Home() {
+export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
+    const { locale } = await params;
+    setRequestLocale(locale);
+
     return (
         <>
             <div className="text-white header-wrapper">

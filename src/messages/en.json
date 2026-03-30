@@ -1,0 +1,149 @@
+{
+    "global": {
+        "metadata": {
+            "title": "Intellect | Igor Sikorsky Kyiv Polytechnic Institute",
+            "description": "An open space for academic achievements. All key information about teachers, their scientific activities, and professional achievements is collected in a single system.",
+            "keywords": "Intellect system, NTUU KPI, Igor Sikorsky Kyiv Polytechnic Institute, KPI teachers, Intellect",
+            "author": "Igor Sikorsky NTUU KPI"
+        }
+    },
+    "header": {
+        "search": "Search",
+        "about": "About the Project",
+        "contacts": "Contacts"
+    },
+    "home": {
+        "title": "Intellect",
+        "subtitle": "Lecturers and Scientists",
+        "description": "An open space for academic achievements. All key information about lecturers, their scientific activities and professional accomplishments is collected in a single system."
+    },
+    "footer": {
+        "copy": "© Igor Sikorsky NTUU KPI",
+        "university": "National Technical University of Ukraine \"Igor Sikorsky Kyiv Polytechnic Institute\"",
+        "address_label": "Address",
+        "address": "Ukraine, 03056 Kyiv-56, Brest State Avenue, 37",
+        "developer": "Developer – Design Bureau of Information Systems",
+        "project_prefix": "Created within the framework of the project",
+        "project_name": "\"KPI Electronic Campus\"",
+        "usage_terms": "Use of site material only with the mandatory link to"
+    },
+    "search": {
+        "title": "Search",
+        "placeholder": "Enter search string",
+        "button": "Search",
+        "no_results": "No results found",
+        "overall": {
+            "label": "General Search",
+            "placeholder": "Enter full name, for example: Petrenko Petro Petrovych"
+        },
+        "alphabetic": {
+            "label": "By Alphabet"
+        },
+        "interests": {
+            "label": "By Interests",
+            "placeholder": "Enter possible interests, for example: programming",
+            "in_development": "Feature is currently in development"
+        },
+        "hints": {
+            "persons": "Lecturers",
+            "subdivisions": "Subdivisions"
+        }
+    },
+    "profile": {
+        "tabs": {
+            "profile": "Profile",
+            "rating": "NPP Evaluation"
+        },
+        "not_found": "User not found",
+        "back_to_main": "Main",
+        "academic_degree_label": "Academic Degree",
+        "academic_degree": {
+            "None": "Not specified",
+            "CandidateOfSciences": "Candidate of Sciences",
+            "DoctorOfSciences": "Doctor of Sciences",
+            "PhD": "Doctor of Philosophy"
+        },
+        "academic_status_label": "Academic Title",
+        "academic_status": {
+            "None": "Not specified",
+            "Professor": "Professor",
+            "SeniorResearchAssociate": "Senior Research Associate",
+            "AssociateProfessor": "Associate Professor",
+            "SeniorResearcher": "Senior Researcher"
+        },
+        "general_info": "General Information",
+        "scientific_interests": "Research Interests",
+        "contacts_title": "Contact Details",
+        "contacts_tooltip": "Only corporate communication means are displayed",
+        "ratings": {
+            "no_data": "No data available",
+            "description": "The evaluation of the professional activities of scientific and pedagogical workers is a component of the internal system for ensuring the quality of higher education and educational activities of the university.",
+            "table": {
+                "year": "Academic year",
+                "emr": "EMR",
+                "sir": "SIR",
+                "oer": "OER",
+                "overall": "Overall Rating",
+                "subdivision": "Department"
+            },
+            "legend": {
+                "emr": "educational and methodological rating",
+                "sir": "scientific and innovative rating",
+                "oer": "organizational and educational rating"
+            }
+        },
+        "workload": {
+            "details_button": "Workload Details",
+            "archive_button": "Rating Archive (to 2024)",
+            "no_data": "No data available",
+            "evaluation_period": "Evaluation Period",
+            "update_info": "Data is updated once every 3 days",
+            "sections": {
+                "pa": "PRIMARY APPOINTMENT (PA)",
+                "sa": "SECONDARY APPOINTMENT (SA)",
+                "ha": "HOURLY APPOINTMENT (HA)"
+            },
+            "filters": {
+                "subdivision": "Subdivision",
+                "subdivision_placeholder": "Select subdivision",
+                "all_subdivisions": "General",
+                "year": "Academic year",
+                "year_placeholder": "Select year",
+                "period": "Period",
+                "period_placeholder": "Select period",
+                "semester_1": "1st semester",
+                "semester_2": "2nd semester",
+                "year_full": "Year"
+            },
+            "table": {
+                "year": "Acad. year",
+                "semester": "Semester",
+                "subdivision": "Subdivision",
+                "educational": "Educational",
+                "scientific": "Scientific",
+                "methodical": "Methodical",
+                "organizational": "Organizational",
+                "other": "Other",
+                "total": "Total",
+                "hourly": "hr.",
+                "department_prefix": "Department",
+                "detail_title": "Workload Details"
+            },
+            "categories": {
+                "educational": "Educational",
+                "scientific": "Scientific",
+                "methodical": "Methodical",
+                "organizational": "Organizational",
+                "other": "Other"
+            }
+        }
+    },
+    "about": {
+        "title": "About the Project",
+        "description_1": "An open space for academic achievements. All key information about lecturers, their scientific activities and professional accomplishments is collected in a single system.",
+        "description_2": "It aims to disseminate knowledge at the national and world levels about the achievements of university staff in scientific and educational work, exchange experience and promote communication."
+    },
+    "contacts": {
+        "title": "Contacts"
+    }
+}

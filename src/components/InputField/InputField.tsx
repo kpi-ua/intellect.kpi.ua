@@ -4,10 +4,11 @@ import feather from 'feather-icons';
 import FeatherIcon from '@/components/FeatherIcon/FeatherIcon';
 import CommonButton from '@/components/CommonButton/CommonButton';
 
-import { hintLabels, searchStringParams } from '@/constants';
+import { searchStringParams } from '@/constants';
 import { debounce, sanitizeHTML } from '@/utils';
 import { getHintByQueryString } from '@/api/common';
 import { SearchMode } from '@/types/intellect';
+import { useTranslations } from 'next-intl';
 
 interface Props {
     keyField?: SearchMode;
@@ -38,6 +39,7 @@ const InputField: React.FC<Props> = ({
     syntheticRef = null,
     tips,
 }) => {
+    const t = useTranslations('search.hints');
     const [userInput, setUserInput] = useState(value);
     const [showTips, setShowTips] = useState(false);
     const [tipOptions, setTipOptions] = useState<Record<string, string[]>>({});
@@ -157,7 +159,7 @@ const InputField: React.FC<Props> = ({
         for (const key in localTipOptions) {
             if (!localTipOptions[key]?.length) continue;
 
-            !keyField && tipNodes.push(<div className="p-2 font-bold grey">{hintLabels[key]}</div>);
+            !keyField && tipNodes.push(<div className="p-2 font-bold grey">{t(key)}</div>);
             const mappedNodes = localTipOptions[key].map((tip) => (
                 <div
                     tabIndex={0}

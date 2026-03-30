@@ -1,9 +1,10 @@
 import React from 'react';
 import SectionTitle from '@/components/common/SectionTitle';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { formatYear, formatSemester } from './utils';
+import { formatYear } from './utils';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { WorkloadGroupType } from './useGroupedWorkloads';
+import { useTranslations } from 'next-intl';
 
 interface Props {
     hideTitle?: boolean;
@@ -12,6 +13,13 @@ interface Props {
 }
 
 export const DataTable = ({ groupedWorkloads, hideTitle, variant = 'normative' }: Props) => {
+    const t = useTranslations('profile.workload.table');
+    const filterT = useTranslations('profile.workload.filters');
+
+    const formatSemesterLocal = (semester: number): string => {
+        if (semester === 0) return filterT('year_full');
+        return `${semester} ${t('semester')}`;
+    };
 
     const renderValueCell = (value: number, isBold: boolean) => (
         <TableCell className={isBold ? "font-bold text-right" : "text-right"}>{value.toFixed(2)}</TableCell>
@@ -25,7 +33,7 @@ export const DataTable = ({ groupedWorkloads, hideTitle, variant = 'normative' }
         if (hourlyValue && hourlyValue > 0) {
             return (
                 <TableCell className={`whitespace-nowrap flex flex-col text-right ${isBold ? "font-bold" : "font-semibold"}`}>
-                    {(primaryValue || 0).toFixed(2)}<span className="font-medium text-sm text-neutral-500">+ {hourlyValue.toFixed(2)} пог.</span>
+                    {(primaryValue || 0).toFixed(2)}<span className="font-medium text-sm text-neutral-500">+ {hourlyValue.toFixed(2)} {t('hourly')}</span>
                 </TableCell>
             );
         }
@@ -45,25 +53,25 @@ export const DataTable = ({ groupedWorkloads, hideTitle, variant = 'normative' }
     return (
         <>
             {!hideTitle && (
-                <SectionTitle className="mb-4 uppercase text-primary">Деталізація навантаження</SectionTitle>
+                <SectionTitle className="mb-4 uppercase text-primary">{t('detail_title')}</SectionTitle>
             )}
             <div className="w-full overflow-x-auto">
                 <Table>
                     <TableHeader>
                         <TableRow>
-                            <TableHead>Навч. рік</TableHead>
-                            <TableHead>Семестр</TableHead>
-                            <TableHead>Підрозділ</TableHead>
-                            <TableHead className="bg-[#1C396E] text-white text-right">Навчальне</TableHead>
+                            <TableHead>{t('year')}</TableHead>
+                            <TableHead>{t('semester')}</TableHead>
+                            <TableHead>{t('subdivision')}</TableHead>
+                            <TableHead className="bg-[#1C396E] text-white text-right">{t('educational')}</TableHead>
                             {variant !== 'hourly' && (
                                 <>
-                                    <TableHead className="bg-[#2D5A9E] text-white text-right">Наукове</TableHead>
-                                    <TableHead className="bg-[#4A7AC7] text-white text-right">Методичне</TableHead>
-                                    <TableHead className="bg-[#7BA3E0] text-black text-right">Організаційне</TableHead>
-                                    <TableHead className="bg-[#B0C9F0] text-black text-right">Інше</TableHead>
+                                    <TableHead className="bg-[#2D5A9E] text-white text-right">{t('scientific')}</TableHead>
+                                    <TableHead className="bg-[#4A7AC7] text-white text-right">{t('methodical')}</TableHead>
+                                    <TableHead className="bg-[#7BA3E0] text-black text-right">{t('organizational')}</TableHead>
+                                    <TableHead className="bg-[#B0C9F0] text-black text-right">{t('other')}</TableHead>
                                 </>
                             )}
-                            <TableHead className="text-right">Всього</TableHead>
+                            <TableHead className="text-right">{t('total')}</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -78,12 +86,12 @@ export const DataTable = ({ groupedWorkloads, hideTitle, variant = 'normative' }
                                     className={isTotalsRow ? "bg-slate-50/80" : ""}
                                 >
                                     <TableCell>{formatYear(workload.year)}</TableCell>
-                                    <TableCell>{formatSemester(workload.semester)}</TableCell>
+                                    <TableCell>{formatSemesterLocal(workload.semester)}</TableCell>
                                     <TableCell>
                                         <Tooltip>
                                             <TooltipTrigger asChild>
                                                 <span className="underline cursor-help">
-                                                    Кафедра {workload.subdivision.abbreviation}
+                                                    {t('department_prefix')} {workload.subdivision.abbreviation}
                                                 </span>
                                             </TooltipTrigger>
                                             <TooltipContent>

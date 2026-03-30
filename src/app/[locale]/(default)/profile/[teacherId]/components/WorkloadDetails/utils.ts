@@ -3,7 +3,7 @@ import {
     WorkloadCategory,
     WorkloadSummary,
     WorkloadTotals,
-} from '@/app/(default)/profile/[teacherId]/components/WorkloadDetails/types';
+} from './types';
 
 export const formatYear = (year: number): string => {
     return `${year}-${year + 1}`;

@@ -1,4 +1,4 @@
-import { WorkloadDetails } from '@/app/(default)/profile/[teacherId]/components/WorkloadDetails/WorkloadDetails';
+import { WorkloadDetails } from './WorkloadDetails';
 import React, { FC } from 'react';
 import { getEvaluationWorkloads, getRatings } from '@/api/teacher';
 

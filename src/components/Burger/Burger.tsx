@@ -7,7 +7,7 @@ import logoDark from '@/assets/svg/intellect-logo-dark.svg';
 
 type Props = {
     children: React.ReactNode;
-    className: string;
+    className?: string;
     scheme: string;
     collapsed: boolean;
     onBurgerClick: (a: boolean) => void;

@@ -1,12 +1,10 @@
 import React from 'react';
-
 import SectionTitle from '@/components/common/SectionTitle';
-
-import { academicDegrees, academicStatuses } from '@/constants';
 import { Lecturer } from '@/types/intellect';
 import { ContactValue } from './utils';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { CircleQuestionMark } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 type Props = {
     teacherInfo: Lecturer;
@@ -21,22 +19,28 @@ const ProfileInfoRow = ({ title, children }: { title: string; children: React.Re
     ) : null;
 
 export const ProfileDetails: React.FC<Props> = ({ teacherInfo }) => {
+    const t = useTranslations('profile');
+
     return (
         <div>
-            <SectionTitle className="mt-6 uppercase text-primary">Загальна інформація</SectionTitle>
+            <SectionTitle className="mt-6 uppercase text-primary">{t('general_info')}</SectionTitle>
             <div>
-                <ProfileInfoRow title="Наукові інтереси">{teacherInfo.scientificInterest}</ProfileInfoRow>
-                <ProfileInfoRow title="Вчене звання">{academicStatuses[teacherInfo.academicStatus]}</ProfileInfoRow>
-                <ProfileInfoRow title="Науковий ступінь">{academicDegrees[teacherInfo.academicDegree]}</ProfileInfoRow>
+                <ProfileInfoRow title={t('scientific_interests')}>{teacherInfo.scientificInterest}</ProfileInfoRow>
+                <ProfileInfoRow title={t('academic_status_label')}>
+                    {t(`academic_status.${teacherInfo.academicStatus}`)}
+                </ProfileInfoRow>
+                <ProfileInfoRow title={t('academic_degree_label')}>
+                    {t(`academic_degree.${teacherInfo.academicDegree}`)}
+                </ProfileInfoRow>
             </div>
             <SectionTitle className="flex gap-1 items-center mt-8 text-primary">
-                <p className="uppercase">Контактні дані</p>
+                <p className="uppercase">{t('contacts_title')}</p>
                 <Tooltip>
                     <TooltipTrigger asChild>
                         <CircleQuestionMark width={14} />
                     </TooltipTrigger>
                     <TooltipContent>
-                        <p>Відображаються лише корпоративні засоби зв`язку</p>
+                        <p>{t('contacts_tooltip')}</p>
                     </TooltipContent>
                 </Tooltip>
             </SectionTitle>
