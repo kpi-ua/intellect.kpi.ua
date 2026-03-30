@@ -35,8 +35,8 @@ export async function generateMetadata({ params }: LocaleProps): Promise<Metadat
         metadataBase: new URL('https://intellect.kpi.ua'),
         title: t('title'),
         description: t('description'),
-        keywords: 'система Інтелект, НТУУ КПІ, Київський політехнічний інститут, викладачі КПІ, Intellect',
-        authors: [{ name: 'НТУУ КПІ ім. Ігоря Сікорського' }],
+        keywords: t('keywords'),
+        authors: [{ name: t('author') }],
         icons: {
             icon: [
                 { url: '/favicon-48x48.png', sizes: '48x48', type: 'image/png' },
