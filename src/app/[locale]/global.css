@@ -331,9 +331,9 @@ html {
 }
 
 .wrapper {
-    max-width: 1235px;
-    width: 95%;
-    margin: 0 auto;
+  max-width: 1235px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .header-wrapper {

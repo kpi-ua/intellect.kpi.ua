@@ -17,10 +17,12 @@ import useLinkRoute from '@/utils/hooks/useLinkRoute';
 import useRuntimeCache from '@/utils/hooks/useRuntimeCache';
 import { Lecturer } from '@/types/intellect';
 import { PaginationModel } from '@/types/ecampus';
+import { useTranslations } from 'next-intl';
 
 const CACHE_KEY = 'cachedSearch_';
 
 const SearchContent: React.FC = () => {
+    const t = useTranslations('search');
     const router = useRouter();
     const pathname = usePathname();
     const search = useSearchParams();
@@ -34,7 +36,7 @@ const SearchContent: React.FC = () => {
     const [searchValue, setSearchValue] = useState('');
     const [inputValue, setInputValue] = useState('');
 
-    const { route } = useLinkRoute([{ path: '/search', label: 'Пошук' }]);
+    const { route } = useLinkRoute([{ path: '/search', label: t('title') }]);
 
     const [pagingOptions, setPagingOptions] = useState<PaginationModel | null>(null);
 
@@ -124,7 +126,7 @@ const SearchContent: React.FC = () => {
         }
 
         if (!teachers.length) {
-            return <NotFoundIndicator className="mx-auto w-fit" />;
+            return <NotFoundIndicator className="mx-auto w-fit" title={t('no_results')} />;
         }
     };
 

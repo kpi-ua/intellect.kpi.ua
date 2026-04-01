@@ -1,11 +1,14 @@
+'use client';
 import React from 'react';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 type Props = {
     logoSrc: string;
 };
 
 const Footer: React.FC<Props> = ({ logoSrc }) => {
+    const t = useTranslations('footer');
     const currentYear = new Date().getFullYear();
 
     return (
@@ -14,27 +17,26 @@ const Footer: React.FC<Props> = ({ logoSrc }) => {
                 <Image className="max-w-120 mx-auto" src={logoSrc} alt="logo" />
                 <section>
                     <p>
-                        Національний технічний університет України &quot;Київський політехнічний інститут імені Ігоря
-                        Сікорського&quot; &copy; 1998-{currentYear}
+                        {t('university')} &copy; 1998-{currentYear}
                     </p>
                     <p className="mt-2">
-                        Адреса:{' '}
-                        <a href="https://kpi.ua/location">Україна, 03056 м.Київ-56, проспект Берестейський,&nbsp;37</a>
+                        {t('address_label')}:{' '}
+                        <a href="https://kpi.ua/location">{t('address')}</a>
                     </p>
                 </section>
                 <section>
                     <p>
-                        <a href="https://kbis.kpi.ua">Розробник – Конструкторське бюро інформаційних систем</a>
+                        <a href="https://kbis.kpi.ua">{t('developer')}</a>
                     </p>
                     <p className="mt-2">
-                        Створено в рамках проєкту
+                        {t('project_prefix')}
                         <br />
-                        <a href="https://ecampus.kpi.ua">&quot;Електронний кампус КПІ&quot;</a>
+                        <a href="https://ecampus.kpi.ua">{t('project_name')}</a>
                     </p>
                 </section>
                 <section>
                     <p>
-                        Використання матеріалу сайту тільки з обов’язковим посиланням на{' '}
+                        {t('usage_terms')}{' '}
                         <a href="https://intellect.kpi.ua">intellect.kpi.ua</a>
                     </p>
                 </section>

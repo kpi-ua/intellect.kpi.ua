@@ -2,17 +2,34 @@
 import React, { useState } from 'react';
 import styles from './I-TeacherSearch.module.css';
 import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 import ITab from '@/components/I-Tab/I-Tab';
 import InputField from '@/components/InputField/InputField';
 import Alphabet from '@/components/Alphabet/Alphabet';
 
-import { tabs } from '@/constants';
 import { SearchMode } from '@/types/intellect';
 
-const ITeacherSearch = () => {
-    const [activeTab, setActiveTab] = useState<SearchMode>('persons');
+const ITeacherSearch: React.FC = () => {
+    const t = useTranslations('search');
+    const [activeTab, setActiveTab] = useState('overall' as SearchMode);
     const router = useRouter();
+
+    const tabs = [
+        {
+            label: t('overall.label'),
+            type: 'overall' as const,
+            placeholder: t('overall.placeholder'),
+            tips: true,
+        },
+        { label: t('alphabetic.label'), type: 'alphabetic' as const },
+        {
+            label: t('interests.label'),
+            type: 'interests' as const,
+            placeholder: t('interests.placeholder'),
+            tips: true,
+        },
+    ];
 
     const handleSearch = (input: string, alphabetic?: boolean) => {
         const state_input = alphabetic ? `startsWith:${input}` : input;
@@ -25,7 +42,13 @@ const ITeacherSearch = () => {
     const renderInputField = (): React.ReactNode => {
         const currentTab = tabs.find((tab) => tab.type === activeTab);
 
-        if (!currentTab) return null;
+        if (!currentTab) {
+            return null;
+        }
+
+        if (activeTab === 'interests') {
+            return <p>{t('interests.in_development')}</p>
+        }
 
         return (
             <InputField
