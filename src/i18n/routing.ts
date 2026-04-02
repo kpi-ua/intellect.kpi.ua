@@ -13,6 +13,7 @@ export const DEFAULT_LOCALE = 'uk';
 export const routing = defineRouting({
     locales: LOCALES,
     defaultLocale: DEFAULT_LOCALE,
+    localeDetection: false,
 });
 
 export const { Link, redirect, usePathname, useRouter } = createNavigation(routing);

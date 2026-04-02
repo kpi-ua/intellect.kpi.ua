@@ -5,7 +5,8 @@
             "description": "An open space for academic achievements. All key information about teachers, their scientific activities, and professional achievements is collected in a single system.",
             "keywords": "Intellect system, NTUU KPI, Igor Sikorsky Kyiv Polytechnic Institute, KPI teachers, Intellect",
             "author": "Igor Sikorsky NTUU KPI"
-        }
+        },
+        "back_to_main": "Main"
     },
     "header": {
         "search": "Search",
@@ -52,7 +53,7 @@
     "profile": {
         "tabs": {
             "profile": "Profile",
-            "rating": "NPP Evaluation"
+            "rating": "Academic Staff Evaluation"
         },
         "not_found": "User not found",
         "back_to_main": "Main",

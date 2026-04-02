@@ -1,9 +1,12 @@
 import React from 'react';
+import { useLocale } from 'next-intl';
 
 import { decodeHtmlCharCodes } from '@/utils';
+import { LOCALE } from '@/i18n/routing';
 
 const htmlCodeStart = '&#';
-const indexes = [
+
+const ukIndexes = [
     [1040, 1043],
     [1168],
     [1044, 1045],
@@ -15,11 +18,18 @@ const indexes = [
     [1070, 1071],
 ];
 
+const enIndexes = [
+    [65, 90],
+];
+
 type Props = {
     onLetterSelected?: (a: string) => void;
 };
 
 const Alphabet: React.FC<Props> = ({ onLetterSelected = null }) => {
+    const locale = useLocale();
+    const indexes = locale === LOCALE.EN ? enIndexes : ukIndexes;
+
     const LetterElement = (letterFullCode: string): React.JSX.Element => (
         <span
             key={letterFullCode}
