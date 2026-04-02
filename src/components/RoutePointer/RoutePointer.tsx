@@ -1,6 +1,7 @@
 import React from 'react';
 
 import FeatherIcon from '@/components/FeatherIcon/FeatherIcon';
+import { Link } from '@/i18n/routing';
 
 type Props = {
     // TODO types for linked routes
@@ -11,9 +12,9 @@ const RoutePointer: React.FC<Props> = ({ routePath = [] }) => {
     const route = routePath.map((item, idx) => {
         return (
             <div key={idx} className={'flex items-center ' + (idx === routePath.length - 1 ? '' : 'text-neutral-600')}>
-                <a className="cursor-pointer" href={item.path}>
+                <Link className="cursor-pointer" href={item.path}>
                     {item.label}
-                </a>
+                </Link>
                 {idx !== routePath.length - 1 ? (
                     <FeatherIcon width={40} className="inline fill-none text-neutral-600" icon="chevron-right" />
                 ) : (
