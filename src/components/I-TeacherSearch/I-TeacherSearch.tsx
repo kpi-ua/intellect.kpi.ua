@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import styles from './I-TeacherSearch.module.css';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/i18n/routing';
 import { useTranslations } from 'next-intl';
 
 import ITab from '@/components/I-Tab/I-Tab';

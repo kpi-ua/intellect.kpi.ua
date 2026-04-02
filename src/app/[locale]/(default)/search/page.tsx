@@ -1,6 +1,7 @@
 'use client';
 import React, { Suspense, useEffect, useRef, useState } from 'react';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
+import { usePathname, useRouter } from '@/i18n/routing';
 
 import RoutePointer from '@/components/RoutePointer/RoutePointer';
 import Alphabet from '@/components/Alphabet/Alphabet';
