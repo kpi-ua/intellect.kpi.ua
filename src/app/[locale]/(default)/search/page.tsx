@@ -148,7 +148,7 @@ const SearchContent: React.FC = () => {
                 <InputField
                     onSubmit={(e) => onSubmit(e, true, false)}
                     onTipClick={(v) => router.push(`/profile/${v}`)}
-                    placeholder="Введіть рядок пошуку"
+                    placeholder={t('placeholder')}
                     value={inputValue} />
             </div>
             <ShownContent />

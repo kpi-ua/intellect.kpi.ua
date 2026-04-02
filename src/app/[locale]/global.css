@@ -104,10 +104,6 @@
   body {
     @apply bg-background text-foreground;
   }
-
-  html {
-    @apply font-sans;
-  }
 }
 
 @layer base {

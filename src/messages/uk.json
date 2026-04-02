@@ -5,7 +5,8 @@
             "description": "Відкритий простір академічних досягнень. Уся ключова інформація про викладачів, їхню наукову діяльність та професійні здобутки зібрана в єдиній системі.",
             "keywords": "система Інтелект, НТУУ КПІ, Київський політехнічний інститут, викладачі КПІ, Intellect",
             "author": "НТУУ КПІ ім. Ігоря Сікорського"
-        }
+        },
+        "not_found": "Результатів не знайдено"
     },
     "header": {
         "search": "Пошук",
@@ -47,6 +48,9 @@
         "hints": {
             "persons": "Викладачі",
             "subdivisions": "Підрозділи"
+        },
+        "tips": {
+            "empty": "Нічого не знайдено"
         }
     },
     "profile": {
@@ -135,6 +139,14 @@
                 "methodical": "Методичне",
                 "organizational": "Організаційне",
                 "other": "Інше"
+            },
+            "employment_types": {
+                "Unknown": "Інформації немає",
+                "FullTime": "PRIMARY APPOINTMENT (PA)",
+                "PartTime": "SECONDARY APPOINTMENT (SA)",
+                "PartTimeInternal": "SECONDARY APPOINTMENT (SA)",
+                "PartTimeExternal": "SECONDARY APPOINTMENT (SA)",
+                "HourlyPay": "HOURLY APPOINTMENT (HA)"
             }
         }
     },

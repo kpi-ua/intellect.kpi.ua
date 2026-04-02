@@ -1,4 +1,5 @@
 'use client';
+import { useTranslations } from 'next-intl';
 import React, { useEffect, useState, useMemo } from 'react';
 
 import CommonButton from '@/components/CommonButton/CommonButton';
@@ -30,6 +31,7 @@ const InputField: React.FC<Props> = ({
     placeholder = '',
     value = '',
 }) => {
+    const t = useTranslations('search');
     const [userInput, setUserInput] = useState(value);
     const [tipOptions, setTipOptions] = useState<Lecturer[]>([]);
     const [isTipsVisible, setIsTipsVisible] = useState(false);
@@ -97,12 +99,12 @@ const InputField: React.FC<Props> = ({
                     setIsTipsVisible(false);
                     onSubmit?.(userInput);
                 }} className="px-4 py-1 h-40 flex items-center">
-                    Пошук
+                    {t('button')}
                 </CommonButton>
 
                 {isTipsVisible && tipOptions && tipOptions.length > 0 && (
                     <CommandList className="absolute top-full left-0 right-0 mt-2 bg-white border border-neutral-100 rounded-lg shadow-xl z-50 overflow-hidden max-h-80 w-card min-w-full lg:min-w-fit">
-                        <CommandEmpty>Нічого не знайдено</CommandEmpty>
+                        <CommandEmpty>{t('tips.empty')}</CommandEmpty>
                         <CommandGroup>
                             {tipOptions.map((lecturer) => (
                                 <CommandItem
