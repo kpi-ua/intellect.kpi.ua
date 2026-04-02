@@ -147,6 +147,7 @@ const SearchContent: React.FC = () => {
                 <Alphabet onLetterSelected={(e) => onSubmit(searchStringParams.STARTS_WITH + e, true, false)} />
                 <InputField
                     onSubmit={(e) => onSubmit(e, true, false)}
+                    onTipClick={(v) => router.push(`/profile/${v}`)}
                     placeholder="Введіть рядок пошуку"
                     value={inputValue} />
             </div>

@@ -15,6 +15,7 @@ import {
     CommandItem,
 } from '@/components/ui/command';
 import { searchByInput } from '@/api/teacher';
+import useClickOutside from '@/utils/hooks/useClickOutside';
 
 interface Props {
     onSubmit?: (payload: string) => void;
@@ -25,23 +26,29 @@ interface Props {
 
 const InputField: React.FC<Props> = ({
     onSubmit,
-                                         onTipClick,
+    onTipClick,
     placeholder = '',
     value = '',
 }) => {
     const [userInput, setUserInput] = useState(value);
-    const [tipOptions, setTipOptions] = useState<Lecturer[]>();
+    const [tipOptions, setTipOptions] = useState<Lecturer[]>([]);
+    const [isTipsVisible, setIsTipsVisible] = useState(false);
+    const containerRef = React.useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         setUserInput(value);
         setTipOptions([]);
+        setIsTipsVisible(false);
     }, [value]);
+
+    useClickOutside(containerRef, () => setIsTipsVisible(false), isTipsVisible);
 
     const handleTips = async (value: string | undefined) => {
         if (value) {
             try {
                 const response = (await searchByInput(value, 1));
                 setTipOptions(response.data);
+                setIsTipsVisible(true);
             } catch (e) {
                 console.error(e);
             }
@@ -53,35 +60,47 @@ const InputField: React.FC<Props> = ({
     const handleInput = (val: string) => {
         setUserInput(val);
 
+        if (val.length < 3) {
+            setIsTipsVisible(false);
+        }
+
         if (val.length >= 3 && Object.values(searchStringParams).every((param) => !val.startsWith(param))) {
             handleTipsDebounced(val);
         }
     };
 
     const handleTipSelect = (val: string) => {
+        setIsTipsVisible(false);
         onTipClick?.(val);
     };
 
 
     return (
         <Command className="flex-1 overflow-visible bg-transparent h-fit" shouldFilter={false}>
-            <div className={`relative flex items-center w-full gap-2`}>
+            <div ref={containerRef} className={`relative flex items-center w-full gap-2`}>
                 <CommandInput
                     placeholder={placeholder}
                     value={userInput}
                     onValueChange={handleInput}
                     className="px-2 w-full text-black flex-1 border-none outline-none shadow-none focus-visible:ring-0 h-[50px]"
+                    onFocus={() => {
+                        if (tipOptions.length > 0) setIsTipsVisible(true);
+                    }}
                     onKeyDown={(e) => {
                         if (e.key === 'Enter') {
+                            setIsTipsVisible(false);
                             onSubmit?.(userInput);
                         }
                     }}
                 />
-                <CommonButton onClick={() => onSubmit?.(userInput)} className="px-4 py-1 h-40 flex items-center">
+                <CommonButton onClick={() => {
+                    setIsTipsVisible(false);
+                    onSubmit?.(userInput);
+                }} className="px-4 py-1 h-40 flex items-center">
                     Пошук
                 </CommonButton>
 
-                {tipOptions?.length && (
+                {isTipsVisible && tipOptions && tipOptions.length > 0 && (
                     <CommandList className="absolute top-full left-0 right-0 mt-2 bg-white border border-neutral-100 rounded-lg shadow-xl z-50 overflow-hidden max-h-80 w-card min-w-full lg:min-w-fit">
                         <CommandEmpty>Нічого не знайдено</CommandEmpty>
                         <CommandGroup>
