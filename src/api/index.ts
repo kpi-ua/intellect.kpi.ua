@@ -1,32 +1,27 @@
 import axios from 'axios';
-import { DEFAULT_LOCALE, LOCALES } from '@/i18n/routing';
+import { getLocale } from 'next-intl/server';
+import { DEFAULT_LOCALE } from '@/i18n/routing';
 
 export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL!;
+
+const getLocaleSafe = async () => {
+    try {
+        return await getLocale();
+    } catch {
+        return DEFAULT_LOCALE;
+    }
+};
 
 const Http = axios.create({
     baseURL: API_BASE_URL + '/intellect/',
 });
 
-Http.interceptors.request.use((config) => {
-    if (config.headers?.['Accept-Language']) {
-        return config;
-    }
-
-    let locale = DEFAULT_LOCALE;
-
-    if (typeof window !== 'undefined') {
-        const pathSegment = window.location.pathname.split('/')[1];
-        if (LOCALES.includes(pathSegment)) {
-            locale = pathSegment;
-        }
-    }
-
+Http.interceptors.request.use(async (config) => {
+    const locale = await getLocaleSafe();
     config.headers.set('Accept-Language', locale);
     return config;
 });
 
 Http.interceptors.response.use((res) => res.data);
-
-export const withLocale = (locale: string) => ({ headers: { 'Accept-Language': locale } });
 
 export default Http;
