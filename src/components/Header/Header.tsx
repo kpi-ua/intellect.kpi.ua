@@ -71,11 +71,11 @@ const Header: React.FC<Props> = ({ scheme = 'dark', underlined = true }) => {
                 <div className="flex items-center gap-6 h-full">
                     <div className="hidden xs:flex items-center gap-6">
                         {navigation}
-                        <LocaleSwitcher />
+                        {/* <LocaleSwitcher /> */}
                     </div>
 
                     <div className="xs:hidden flex items-center gap-4">
-                        <LocaleSwitcher />
+                        {/* <LocaleSwitcher /> */}
                         <Burger
                             onBurgerClick={(value) => toggleCollapse(value)}
                             collapsed={burgerCollapsed}
