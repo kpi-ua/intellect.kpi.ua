@@ -8,6 +8,10 @@ const Http = axios.create({
 });
 
 Http.interceptors.request.use((config) => {
+    if (config.headers?.['Accept-Language']) {
+        return config;
+    }
+
     let locale = DEFAULT_LOCALE;
 
     if (typeof window !== 'undefined') {
@@ -22,5 +26,7 @@ Http.interceptors.request.use((config) => {
 });
 
 Http.interceptors.response.use((res) => res.data);
+
+export const withLocale = (locale: string) => ({ headers: { 'Accept-Language': locale } });
 
 export default Http;

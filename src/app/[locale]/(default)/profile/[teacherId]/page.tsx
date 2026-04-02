@@ -48,7 +48,7 @@ export async function generateMetadata({ params }: { params: Promise<{ teacherId
     const commonT = await getTranslations({ locale, namespace: 'global.metadata' });
 
     try {
-        const teacher = await getTeacherByTeacherId(teacherId);
+        const teacher = await getTeacherByTeacherId(teacherId, locale);
         const description = generateMetaDescription(teacher, await getTranslations({ locale }));
 
         return {
@@ -78,7 +78,7 @@ export default async function TeacherProfilePage({ params }: { params: Promise<{
     const t = await getTranslations({ locale, namespace: 'profile' });
 
     try {
-        const teacher = await getTeacherByTeacherId(teacherId);
+        const teacher = await getTeacherByTeacherId(teacherId, locale);
 
         return (
             <section className="pt-12 pb-110">
@@ -127,7 +127,7 @@ export default async function TeacherProfilePage({ params }: { params: Promise<{
                                         </div>
                                     }
                                 >
-                                    <WorkloadContainer teacherId={teacherId} />
+                                    <WorkloadContainer teacherId={teacherId} locale={locale} />
                                 </Suspense>
                             </TabsContent>
                         </Tabs>
