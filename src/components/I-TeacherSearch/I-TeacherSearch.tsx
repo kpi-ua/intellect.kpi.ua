@@ -12,13 +12,13 @@ import { SearchMode } from '@/types/intellect';
 
 const ITeacherSearch: React.FC = () => {
     const t = useTranslations('search');
-    const [activeTab, setActiveTab] = useState('overall' as SearchMode);
+    const [activeTab, setActiveTab] = useState('persons' as SearchMode);
     const router = useRouter();
 
     const tabs = [
         {
             label: t('overall.label'),
-            type: 'overall' as const,
+            type: 'persons' as const,
             placeholder: t('overall.placeholder'),
             tips: true,
         },
@@ -52,9 +52,9 @@ const ITeacherSearch: React.FC = () => {
 
         return (
             <InputField
-                keyField={currentTab.type}
                 placeholder={currentTab?.placeholder}
                 onSubmit={handleSearch}
+                onTipClick={(v) => router.push(`/profile/${v}`)}
             />
         );
     };

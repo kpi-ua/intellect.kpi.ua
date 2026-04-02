@@ -38,6 +38,7 @@
         "next": "^15.5.9",
         "next-intl": "^4.4.0",
         "postcss": "8.5.0",
+        "radix-ui": "^1.4.3",
         "react": "19.1.0",
         "react-dom": "19.1.0",
         "react-hook-form": "^7.71.1",

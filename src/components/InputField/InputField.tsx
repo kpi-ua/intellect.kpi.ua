@@ -3,10 +3,9 @@ import React, { useEffect, useState, useMemo } from 'react';
 
 import CommonButton from '@/components/CommonButton/CommonButton';
 
-import { hintLabels, searchStringParams } from '@/constants';
+import { searchStringParams } from '@/constants';
 import { debounce } from '@/utils';
-import { getHintByQueryString } from '@/api/common';
-import { SearchMode } from '@/types/intellect';
+import { Lecturer } from '@/types/intellect';
 import {
     Command,
     CommandInput,
@@ -15,37 +14,34 @@ import {
     CommandGroup,
     CommandItem,
 } from '@/components/ui/command';
+import { searchByInput } from '@/api/teacher';
 
 interface Props {
-    keyField: SearchMode;
     onSubmit?: (payload: string) => void;
+    onTipClick?: (payload: string) => void;
     placeholder?: string;
     value?: string;
 }
 
 const InputField: React.FC<Props> = ({
-    keyField,
     onSubmit,
+                                         onTipClick,
     placeholder = '',
     value = '',
 }) => {
     const [userInput, setUserInput] = useState(value);
-    const [tipOptions, setTipOptions] = useState<Record<string, string[]>>({});
+    const [tipOptions, setTipOptions] = useState<Lecturer[]>();
 
     useEffect(() => {
         setUserInput(value);
-        setTipOptions({});
+        setTipOptions([]);
     }, [value]);
-
-    useEffect(() => {
-        setUserInput('');
-    }, [keyField]);
 
     const handleTips = async (value: string | undefined) => {
         if (value) {
             try {
-                const response = (await getHintByQueryString(value)) as Record<string, string[]>;
-                setTipOptions(response);
+                const response = (await searchByInput(value, 1));
+                setTipOptions(response.data);
             } catch (e) {
                 console.error(e);
             }
@@ -63,24 +59,12 @@ const InputField: React.FC<Props> = ({
     };
 
     const handleTipSelect = (val: string) => {
-        setUserInput(val);
-        onSubmit?.(val);
+        onTipClick?.(val);
     };
 
-    const filteredTipOptions = useMemo(() => {
-        if (keyField === 'all') {
-            return tipOptions;
-        }
-        return { [keyField]: tipOptions[keyField] };
-    }, [tipOptions, keyField]);
-
-    const hasTips = Object.values(filteredTipOptions).some((arr) => arr?.length > 0);
 
     return (
-        <Command
-            className="flex-1 overflow-visible bg-transparent h-fit"
-            shouldFilter={false}
-        >
+        <Command className="flex-1 overflow-visible bg-transparent h-fit" shouldFilter={false}>
             <div className={`relative flex items-center w-full gap-2`}>
                 <CommandInput
                     placeholder={placeholder}
@@ -93,29 +77,24 @@ const InputField: React.FC<Props> = ({
                         }
                     }}
                 />
-                <CommonButton
-                    onClick={() => onSubmit?.(userInput)}
-                    className="px-4 py-1 h-40 flex items-center"
-                >
+                <CommonButton onClick={() => onSubmit?.(userInput)} className="px-4 py-1 h-40 flex items-center">
                     Пошук
                 </CommonButton>
 
-                {hasTips && (
+                {tipOptions?.length && (
                     <CommandList className="absolute top-full left-0 right-0 mt-2 bg-white border border-neutral-100 rounded-lg shadow-xl z-50 overflow-hidden max-h-80 w-card min-w-full lg:min-w-fit">
                         <CommandEmpty>Нічого не знайдено</CommandEmpty>
-                        {Object.entries(filteredTipOptions).map(([key, list]) =>
-                            <CommandGroup key={key} heading={!keyField ? hintLabels[key] : undefined}>
-                                {list.map((tip) => (
-                                    <CommandItem
-                                        key={tip}
-                                        onSelect={() => handleTipSelect(tip)}
-                                        className="px-4 py-2 cursor-pointer hover:bg-neutral-50 aria-selected:bg-neutral-50"
-                                    >
-                                        {tip}
-                                    </CommandItem>
-                                ))}
-                            </CommandGroup>
-                        )}
+                        <CommandGroup>
+                            {tipOptions.map((lecturer) => (
+                                <CommandItem
+                                    key={lecturer.id}
+                                    onSelect={() => handleTipSelect(lecturer.userIdentifier)}
+                                    className="px-4 py-2 cursor-pointer hover:bg-neutral-50 aria-selected:bg-neutral-50"
+                                >
+                                    {lecturer.fullName}
+                                </CommandItem>
+                            ))}
+                        </CommandGroup>
                     </CommandList>
                 )}
             </div>

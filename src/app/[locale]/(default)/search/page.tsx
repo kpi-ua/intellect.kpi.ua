@@ -148,7 +148,7 @@ const SearchContent: React.FC = () => {
                 <InputField
                     onSubmit={(e) => onSubmit(e, true, false)}
                     placeholder="Введіть рядок пошуку"
-                    value={inputValue} keyField="all" />
+                    value={inputValue} />
             </div>
             <ShownContent />
             {teachers.length > 0 && pagingOptions && (
