@@ -6,7 +6,8 @@
             "keywords": "Intellect system, NTUU KPI, Igor Sikorsky Kyiv Polytechnic Institute, KPI teachers, Intellect",
             "author": "Igor Sikorsky NTUU KPI"
         },
-        "not_found": "No results found"
+        "not_found": "No results found",
+        "back_to_main": "Main"
     },
     "header": {
         "search": "Search",
@@ -56,7 +57,7 @@
     "profile": {
         "tabs": {
             "profile": "Profile",
-            "rating": "NPP Evaluation"
+            "rating": "Academic Staff Evaluation"
         },
         "not_found": "User not found",
         "back_to_main": "Main",

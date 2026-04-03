@@ -1,6 +1,7 @@
 'use client';
 import React, { Suspense, useEffect, useRef, useState } from 'react';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
+import { usePathname, useRouter } from '@/i18n/routing';
 
 import RoutePointer from '@/components/RoutePointer/RoutePointer';
 import Alphabet from '@/components/Alphabet/Alphabet';
@@ -23,6 +24,7 @@ const CACHE_KEY = 'cachedSearch_';
 
 const SearchContent: React.FC = () => {
     const t = useTranslations('search');
+    const globalT = useTranslations('global');
     const router = useRouter();
     const pathname = usePathname();
     const search = useSearchParams();
@@ -36,7 +38,7 @@ const SearchContent: React.FC = () => {
     const [searchValue, setSearchValue] = useState('');
     const [inputValue, setInputValue] = useState('');
 
-    const { route } = useLinkRoute([{ path: '/search', label: t('title') }]);
+    const { route } = useLinkRoute([{ path: '/search', label: t('title') }], globalT('back_to_main'));
 
     const [pagingOptions, setPagingOptions] = useState<PaginationModel | null>(null);
 
