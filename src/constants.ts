@@ -29,10 +29,10 @@ export const academicStatuses = {
     [AcademicStatus.SeniorResearcher]: 'Старший дослідник',
 };
 
-export const tabs = [
+export const tabs: Tab[] = [
     {
         label: 'Загальний пошук',
-        type: 'overall',
+        type: 'persons',
         placeholder: 'Введіть ПІБ особи, наприклад: Петренко Петро Петрович',
         tips: true,
     },

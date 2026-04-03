@@ -6,6 +6,7 @@
             "keywords": "система Інтелект, НТУУ КПІ, Київський політехнічний інститут, викладачі КПІ, Intellect",
             "author": "НТУУ КПІ ім. Ігоря Сікорського"
         },
+        "not_found": "Результатів не знайдено",
         "back_to_main": "Головна"
     },
     "header": {
@@ -48,6 +49,9 @@
         "hints": {
             "persons": "Викладачі",
             "subdivisions": "Підрозділи"
+        },
+        "tips": {
+            "empty": "Нічого не знайдено"
         }
     },
     "profile": {
@@ -136,6 +140,14 @@
                 "methodical": "Методичне",
                 "organizational": "Організаційне",
                 "other": "Інше"
+            },
+            "employment_types": {
+                "Unknown": "Інформації немає",
+                "FullTime": "PRIMARY APPOINTMENT (PA)",
+                "PartTime": "SECONDARY APPOINTMENT (SA)",
+                "PartTimeInternal": "SECONDARY APPOINTMENT (SA)",
+                "PartTimeExternal": "SECONDARY APPOINTMENT (SA)",
+                "HourlyPay": "HOURLY APPOINTMENT (HA)"
             }
         }
     },

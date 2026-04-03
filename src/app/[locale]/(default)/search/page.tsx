@@ -148,15 +148,10 @@ const SearchContent: React.FC = () => {
             <div className="mt-4">
                 <Alphabet onLetterSelected={(e) => onSubmit(searchStringParams.STARTS_WITH + e, true, false)} />
                 <InputField
-                    syntheticRef={inputRef}
-                    tips={true}
                     onSubmit={(e) => onSubmit(e, true, false)}
+                    onTipClick={(v) => router.push(`/profile/${v}`)}
                     placeholder={t('placeholder')}
-                    value={inputValue}
-                    fieldClass="px-2 py-4 text-black flex-1 max-h-6 overflow-auto"
-                    buttonText={t('button')}
-                    buttonClass="px-4 py-1 h-40 flex items-center"
-                />
+                    value={inputValue} />
             </div>
             <ShownContent />
             {teachers.length > 0 && pagingOptions && (

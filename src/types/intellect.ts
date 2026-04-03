@@ -39,7 +39,7 @@ export enum EmploymentType {
 };
 
 export type ExperienceType = 'profile' | 'rating';
-export type SearchMode = 'overall' | 'alphabetic' | 'interests';
+export type SearchMode = 'all' | 'persons' | 'alphabetic' | 'interests';
 export type SearchParams = 'startsWith' | 'subdivision' | 'interests';
 
 export type Rating = {
