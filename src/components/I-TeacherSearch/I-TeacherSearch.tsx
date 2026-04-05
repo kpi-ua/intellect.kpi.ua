@@ -4,7 +4,7 @@ import styles from './I-TeacherSearch.module.css';
 import { useRouter } from '@/i18n/routing';
 import { useTranslations } from 'next-intl';
 
-import ITab from '@/components/I-Tab/I-Tab';
+import { Tabs, TabsList, TabsContent, TabSheetTrigger } from '@/components/ui/tabs';
 import InputField from '@/components/InputField/InputField';
 import Alphabet from '@/components/Alphabet/Alphabet';
 
@@ -39,47 +39,39 @@ const ITeacherSearch: React.FC = () => {
         router.push(`/search?${params.toString()}`);
     };
 
-    const renderInputField = (): React.ReactNode => {
-        const currentTab = tabs.find((tab) => tab.type === activeTab);
-
-        if (!currentTab) {
-            return null;
-        }
-
-        if (activeTab === 'interests') {
-            return <p>{t('interests.in_development')}</p>
-        }
-
-        return (
-            <InputField
-                placeholder={currentTab?.placeholder}
-                onSubmit={handleSearch}
-                onTipClick={(v) => router.push(`/profile/${v}`)}
-            />
-        );
-    };
-
     return (
-        <>
-            <div className="flex gap-3 mb-3 overflow-x-auto text-xs text-primary xs:m-0 xs:overflow-x-hidden">
+        <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as SearchMode)}>
+            <TabsList className="mb-3 flex flex-nowrap w-full gap-3 overflow-x-auto bg-transparent border-none min-w-0 scrollbar-hidden pb-1 md:pb-0 md:mb-[-1px]">
                 {tabs.map((tab) => (
-                    <ITab key={tab.type} isActive={tab.type === activeTab} onClick={() => setActiveTab(tab.type)}>
+                    <TabSheetTrigger
+                        key={tab.type}
+                        value={tab.type}
+                        className="min-w-100 w-200"
+                    >
                         {tab.label}
-                    </ITab>
+                    </TabSheetTrigger>
                 ))}
-            </div>
+            </TabsList>
             <div
                 className={
-                    'bg-white flex gap-3 h-100 items-center px-8 rounded-lg rounded-tl-none ' + styles['field-shadow']
+                    'bg-white flex gap-3 h-100 items-center px-8 rounded-[4px] md:rounded-tl-none ' + styles['field-shadow']
                 }
             >
-                {activeTab === 'alphabetic' ? (
+                <TabsContent value="persons" className="w-full">
+                    <InputField
+                        placeholder={tabs[0].placeholder}
+                        onSubmit={handleSearch}
+                        onTipClick={(v) => router.push(`/profile/${v}`)}
+                    />
+                </TabsContent>
+                <TabsContent value="alphabetic" className="w-full">
                     <Alphabet onLetterSelected={(e) => handleSearch(e, true)} />
-                ) : (
-                    renderInputField()
-                )}
+                </TabsContent>
+                <TabsContent value="interests" className="w-full">
+                    <p>{t('interests.in_development')}</p>
+                </TabsContent>
             </div>
-        </>
+        </Tabs>
     );
 };
 
