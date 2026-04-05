@@ -79,7 +79,7 @@ const InputField: React.FC<Props> = ({
     const handleSubmit = () => {
         setIsTipsVisible(false);
         onSubmit?.(userInput);
-    }
+    };
 
 
     return (
