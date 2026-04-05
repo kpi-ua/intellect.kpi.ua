@@ -8,6 +8,8 @@ import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server
 import { routing } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
+import Footer from '@/components/Footer/Footer';
+import bottomLogo from '@/assets/svg/kpi-logo.svg';
 
 export const viewport: Viewport = {
     width: 'device-width',
@@ -89,6 +91,8 @@ export default async function RootLayout({ children, params }: { children: React
             <body>
                 <NextIntlClientProvider messages={messages}>
                     <main className="main-layout-wrapper">{children}</main>
+                    <Footer logoSrc={bottomLogo} />
+
                     {process.env.NEXT_PUBLIC_GA_ID && <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />}
                 </NextIntlClientProvider>
             </body>
