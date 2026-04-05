@@ -90,8 +90,10 @@ export default async function RootLayout({ children, params }: { children: React
             </head>
             <body>
                 <NextIntlClientProvider messages={messages}>
-                    <main className="main-layout-wrapper">{children}</main>
-                    <Footer logoSrc={bottomLogo} />
+                    <main className="main-layout-wrapper">
+                        {children}
+                        <Footer logoSrc={bottomLogo} />
+                    </main>
 
                     {process.env.NEXT_PUBLIC_GA_ID && <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />}
                 </NextIntlClientProvider>
