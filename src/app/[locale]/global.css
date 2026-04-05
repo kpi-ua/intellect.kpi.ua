@@ -316,6 +316,7 @@ html {
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
+  @apply gap-100;
 }
 
 .grey {
