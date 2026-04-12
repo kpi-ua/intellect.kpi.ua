@@ -158,6 +158,30 @@
         "description_2": "It aims to disseminate knowledge at the national and world levels about the achievements of university staff in scientific and educational work, exchange experience and promote communication."
     },
     "contacts": {
-        "title": "Contacts"
+        "title": "Contacts",
+        "support": {
+            "title": "How can we help you?",
+            "intro": "The automated information system \"Web-pages of scientific and pedagogical workers\" (\"Intellect\") automatically aggregates data from various University services. To ensure your question is resolved as quickly as possible, please address it to the relevant specialists:",
+            "bibliometrics": {
+                "title": "Bibliometric databases and profiles",
+                "description": "If you notice discrepancies in the links to your bibliometric profiles (Scopus, Web of Science, Google Scholar, ORCID), please contact the Bibliometrics Department of the Library:",
+                "email_label": "Email",
+                "email_subject": "Profile update",
+                "phone_label": "Phone"
+            },
+            "load": {
+                "title": "Academic load and positions",
+                "description": "If you see inaccuracies, please contact support:",
+                "email_label": "Email",
+                "email_subject": "Intellect"
+            },
+            "important": {
+                "title": "📌 Important to know:",
+                "item_1": "The platform displays exclusively verified achievements from the Goal Setting module in the \"my.kpi.ua\" IS.",
+                "item_2": "Data in the system is updated once every 3 days. If you have just made changes to the primary source, please wait for the update.",
+                "item_3": "For security reasons and according to University policy, only corporate communication means are displayed in public profiles."
+            },
+            "support_email_label": "Intellect Support E-mail:"
+        }
     }
 }
