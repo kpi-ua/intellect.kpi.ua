@@ -128,7 +128,7 @@ const SearchContent: React.FC = () => {
         }
 
         if (!teachers.length) {
-            return <NotFoundIndicator className="mx-auto w-fit" title={t('no_results')} />;
+            return <NotFoundIndicator className="mt-5 mx-auto w-fit" title={t('no_results')} />;
         }
     };
 
