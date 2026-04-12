@@ -1,14 +1,16 @@
 'use client';
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Link } from '@/i18n/routing';
+import { Link, LOCALE } from '@/i18n/routing';
 import './Header.module.css';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 
 import Burger from '../Burger/Burger';
 
-import darkLogo from '@/assets/svg/intellect-logo-dark.svg';
-import lightLogo from '@/assets/svg/intellect-logo-light.svg';
+import darkLogoUk from '@/assets/svg/intellect-logo-dark-uk.svg';
+import darkLogoEn from '@/assets/svg/intellect-logo-dark-en.svg';
+import lightLogoUk from '@/assets/svg/intellect-logo-light-uk.svg';
+import lightLogoEn from '@/assets/svg/intellect-logo-light-en.svg';
 
 import LocaleSwitcher from '../LocaleSwitcher/LocaleSwitcher';
 
@@ -19,6 +21,7 @@ type Props = {
 
 const Header: React.FC<Props> = ({ scheme = 'dark', underlined = true }) => {
     const t = useTranslations('header');
+    const locale = useLocale();
     const [burgerCollapsed, setBurgerCollapsed] = useState(true);
 
     const links = [
@@ -27,7 +30,14 @@ const Header: React.FC<Props> = ({ scheme = 'dark', underlined = true }) => {
         { to: '/contacts', label: t('contacts') },
     ];
 
-    const logoSrc = scheme === 'dark' ? darkLogo : lightLogo;
+    const logoSrc =
+        scheme === 'dark'
+            ? locale === LOCALE.EN
+                ? darkLogoEn
+                : darkLogoUk
+            : locale === LOCALE.EN
+                ? lightLogoEn
+                : lightLogoUk;
 
     const navigation = (
         <nav className="flex flex-col xs:flex-row gap-10 xs:gap-5 text-4xl xs:text-base leading-none font-medium items-center">
@@ -54,7 +64,7 @@ const Header: React.FC<Props> = ({ scheme = 'dark', underlined = true }) => {
         <header className={'h-100 ' + (underlined ? 'header' : '')}>
             <div className="flex justify-between wrapper h-full items-center">
                 <Link className="cursor-pointer" href="/">
-                    <Image src={logoSrc} alt="logo" />
+                    <Image src={logoSrc} alt={t('logo')} />
                 </Link>
 
                 <div className="flex items-center gap-6 h-full">

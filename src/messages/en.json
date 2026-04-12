@@ -10,6 +10,7 @@
         "back_to_main": "Main"
     },
     "header": {
+        "logo": "Intellect Logo",
         "search": "Search",
         "about": "About the Project",
         "contacts": "Contacts"
