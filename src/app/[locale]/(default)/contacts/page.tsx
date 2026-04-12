@@ -4,6 +4,8 @@ import SectionTitle from '@/components/common/SectionTitle';
 import { CDN_IMG_BASE } from '@/constants';
 import { getTranslations } from 'next-intl/server';
 
+import SupportSection from '@/components/SupportSection/SupportSection';
+
 const sectionImg = `${CDN_IMG_BASE}/contacts.png`;
 
 export default async function Contacts() {
@@ -11,17 +13,14 @@ export default async function Contacts() {
 
     return (
         <InfoBlock sectionImg={sectionImg}>
-            <div>
+            <div className="flex flex-col">
                 <SectionTitle>{t('title')}</SectionTitle>
-                <div className="mt-4">
-                    <div className="mt-3">
-                        <div>
-                            E-mail:{' '}
-                            <a className="underline" href="mailto:ecampus@kpi.ua">
-                                ecampus@kpi.ua
-                            </a>
-                        </div>
-                    </div>
+                <SupportSection />
+                <div className="mt-10 pt-6 border-t border-neutral-200">
+                    <p className="font-semibold mb-2">{t('support.support_email_label')}</p>
+                    <a className="text-primary hover:underline" href="mailto:ecampus@kpi.ua">
+                        ecampus@kpi.ua
+                    </a>
                 </div>
             </div>
         </InfoBlock>
