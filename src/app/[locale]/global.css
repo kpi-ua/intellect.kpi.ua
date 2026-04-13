@@ -316,6 +316,7 @@ html {
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
+  @apply gap-100;
 }
 
 .grey {
@@ -330,6 +331,10 @@ html {
   max-width: 1235px;
   width: 100%;
   margin: 0 auto;
+
+  @media (max-width: 768px) {
+    padding: 0 18px 0;
+  }
 }
 
 .header-wrapper {

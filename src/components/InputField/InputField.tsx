@@ -2,7 +2,7 @@
 import { useTranslations } from 'next-intl';
 import React, { useEffect, useState, useMemo } from 'react';
 
-import CommonButton from '@/components/CommonButton/CommonButton';
+import { Button } from '@/components/ui/button';
 
 import { searchStringParams } from '@/constants';
 import { debounce } from '@/utils';
@@ -76,6 +76,11 @@ const InputField: React.FC<Props> = ({
         onTipClick?.(val);
     };
 
+    const handleSubmit = () => {
+        setIsTipsVisible(false);
+        onSubmit?.(userInput);
+    };
+
 
     return (
         <Command className="flex-1 overflow-visible bg-transparent h-fit" shouldFilter={false}>
@@ -95,12 +100,9 @@ const InputField: React.FC<Props> = ({
                         }
                     }}
                 />
-                <CommonButton onClick={() => {
-                    setIsTipsVisible(false);
-                    onSubmit?.(userInput);
-                }} className="px-4 py-1 h-40 flex items-center">
+                <Button onClick={handleSubmit} className="px-4 py-1 h-[40px] flex items-center text-sm font-medium">
                     {t('button')}
-                </CommonButton>
+                </Button>
 
                 {isTipsVisible && tipOptions && tipOptions.length > 0 && (
                     <CommandList className="absolute top-full left-0 right-0 mt-2 bg-white border border-neutral-100 rounded-lg shadow-xl z-50 overflow-hidden max-h-80 w-card min-w-full lg:min-w-fit">
