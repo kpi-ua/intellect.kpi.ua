@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils';
 const Tabs = TabsPrimitive.Root;
 
 const tabsListVariants = cva(
-    'overflow-x-auto overflow-y-hidden scrollbar-hidden flex items-end pb-2 text-xs text-neutral-400 border-b-1 border-neutral-200 gap-17 min-w-700',
+    'overflow-x-auto overflow-y-hidden pb-[1px] scrollbar-hidden flex items-end text-xs text-neutral-400 border-b-1 border-neutral-200 gap-17 min-w-700',
     {
         variants: {
             size: {
@@ -35,7 +35,7 @@ const TabsTrigger = ({ className, ref, ...props }: React.ComponentProps<typeof T
     <TabsPrimitive.Trigger
         ref={ref}
         className={cn(
-            'cursor-pointer text-neutral-400 relative transition-all focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50 data-[state=active]:text-primary data-[state=active]:before:content-[""] data-[state=active]:before:absolute data-[state=active]:before:bottom-[-9px] data-[state=active]:before:left-0 data-[state=active]:before:w-full data-[state=active]:before:h-[2px] data-[state=active]:before:bg-primary data-[state=active]:before:animate-fadeInLeft',
+            'cursor-pointer text-neutral-400 relative transition-all focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50 data-[state=active]:text-primary whitespace-nowrap',
             className
         )}
         {...props}
@@ -47,7 +47,10 @@ const TabSheetTrigger = ({ className, ref, ...props }: React.ComponentProps<type
     return (
         <TabsTrigger
             {...props}
-            className="data-[state=active]:bg-basic-white data-[state=active]:text-basic-blue h-12 rounded-t-[8px] rounded-b-none px-3 py-0 text-base font-semibold data-[state=inactive]:bg-transparent data-[state=inactive]:text-neutral-700 md:px-8"
+            className={cn(
+                'data-[state=active]:bg-basic-white data-[state=active]:text-primary h-9 rounded-[4px] md:rounded-t-[4px] md:rounded-b-none px-3 py-0 text-[10px] font-semibold md:h-[42px] md:text-[14px] data-[state=inactive]:bg-basic-white/30 data-[state=inactive]:backdrop-blur-[2px] data-[state=inactive]:text-basic-white md:px-8',
+                className
+            )}
         />
     );
 };
