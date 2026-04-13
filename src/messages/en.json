@@ -179,8 +179,7 @@
                 "item_1": "The platform displays exclusively verified achievements from the Goal Setting module in the \"my.kpi.ua\" IS.",
                 "item_2": "Data in the system is updated once every 3 days. If you have just made changes to the primary source, please wait for the update.",
                 "item_3": "For security reasons and according to University policy, only corporate communication means are displayed in public profiles."
-            },
-            "support_email_label": "Intellect Support E-mail:"
+            }
         }
     }
 }
