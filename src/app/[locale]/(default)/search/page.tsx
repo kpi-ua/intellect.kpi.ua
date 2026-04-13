@@ -128,7 +128,7 @@ const SearchContent: React.FC = () => {
         }
 
         if (!teachers.length) {
-            return <NotFoundIndicator className="mx-auto w-fit" title={t('no_results')} />;
+            return <NotFoundIndicator className="mt-5 mx-auto w-fit" title={t('no_results')} />;
         }
     };
 
@@ -143,7 +143,7 @@ const SearchContent: React.FC = () => {
     };
 
     return (
-        <section className="pt-12 pb-20 wrapper">
+        <section className="pt-12 pb-20 px-4 wrapper">
             <RoutePointer routePath={route} />
             <div className="mt-4">
                 <Alphabet onLetterSelected={(e) => onSubmit(searchStringParams.STARTS_WITH + e, true, false)} />
