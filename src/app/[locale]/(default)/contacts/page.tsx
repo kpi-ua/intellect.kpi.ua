@@ -16,12 +16,6 @@ export default async function Contacts() {
             <div className="flex flex-col">
                 <SectionTitle>{t('title')}</SectionTitle>
                 <SupportSection />
-                <div className="mt-10 pt-6 border-t border-neutral-200">
-                    <p className="font-semibold mb-2">{t('support.support_email_label')}</p>
-                    <a className="text-primary hover:underline" href="mailto:ecampus@kpi.ua">
-                        ecampus@kpi.ua
-                    </a>
-                </div>
             </div>
         </InfoBlock>
     );
