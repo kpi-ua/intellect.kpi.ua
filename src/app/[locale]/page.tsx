@@ -8,11 +8,14 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
     setRequestLocale(locale);
 
     return (
-        <div className="text-white header-wrapper">
-            <Header underlined={false} scheme="light" />
-            <div className="wrapper">
-                <ISearchBlock />
+        <>
+            <div className="text-white header-wrapper">
+                <Header underlined={false} scheme="light" />
+                <div className="wrapper">
+                    <ISearchBlock />
+                </div>
             </div>
-        </div>
+            <div className="min-h-[100px]" />
+        </>
     );
 }

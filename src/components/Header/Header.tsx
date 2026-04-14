@@ -6,6 +6,7 @@ import './Header.module.css';
 import { useTranslations, useLocale } from 'next-intl';
 
 import Burger from '../Burger/Burger';
+import { cn } from '@/lib/utils';
 
 import darkLogoUk from '@/assets/svg/intellect-logo-dark-uk.svg';
 import darkLogoEn from '@/assets/svg/intellect-logo-dark-en.svg';
@@ -61,7 +62,7 @@ const Header: React.FC<Props> = ({ scheme = 'dark', underlined = true }) => {
     };
 
     return (
-        <header className={'h-100 ' + (underlined ? 'header' : '')}>
+        <header className={cn('h-100 px-4', underlined && 'header')}>
             <div className="flex justify-between wrapper h-full items-center">
                 <Link className="cursor-pointer" href="/">
                     <Image src={logoSrc} alt={t('logo')} />

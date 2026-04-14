@@ -121,7 +121,7 @@ const SearchContent: React.FC = () => {
             return (
                 <SearchGrid className="mt-6">
                     {teachers.map((item, idx) => (
-                        <ITeacherCard className="justify-self-center" key={idx} teacherInfo={item} />
+                        <ITeacherCard key={idx} teacherInfo={item} />
                     ))}
                 </SearchGrid>
             );
@@ -143,7 +143,7 @@ const SearchContent: React.FC = () => {
     };
 
     return (
-        <section className="pt-12 pb-20 px-4 wrapper">
+        <section className="pt-12 pb-20 wrapper">
             <RoutePointer routePath={route} />
             <div className="mt-4">
                 <Alphabet onLetterSelected={(e) => onSubmit(searchStringParams.STARTS_WITH + e, true, false)} />

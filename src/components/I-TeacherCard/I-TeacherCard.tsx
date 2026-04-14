@@ -2,6 +2,7 @@ import { Link } from '@/i18n/routing';
 import React from 'react';
 
 import Avatar from '@/components/Avatar/Avatar';
+import { cn } from '@/lib/utils';
 import { Lecturer } from '@/types/intellect';
 
 type Props = {
@@ -9,13 +10,11 @@ type Props = {
     className?: string;
 };
 
-const ITeacherCard: React.FC<Props> = ({ teacherInfo, className = '' }) => {
+const ITeacherCard: React.FC<Props> = ({ teacherInfo, className }) => {
     return (
-        <Link className="mx-auto w-fit" href={'/profile/' + teacherInfo.userIdentifier}>
-            <div className={'cursor-pointer max-w-160 ' + className}>
-                <Avatar img={teacherInfo.photo} />
-                <div className="text-semibold">{teacherInfo.fullName}</div>
-            </div>
+        <Link className={cn('block cursor-pointer', className)} href={'/profile/' + teacherInfo.userIdentifier}>
+            <Avatar img={teacherInfo.photo} alt={teacherInfo.fullName} />
+            <div className="text-semibold">{teacherInfo.fullName}</div>
         </Link>
     );
 };
