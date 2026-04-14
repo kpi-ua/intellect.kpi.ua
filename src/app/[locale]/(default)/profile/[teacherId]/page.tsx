@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { getTeacherByTeacherId } from '@/api/teacher';
-import { API_BASE_URL } from '@/api/index';
+import { API_BASE_URL } from '@/api';
 import SectionTitle from '@/components/common/SectionTitle';
 import { JobLabel } from '@/components/JobLabel/JobLabel';
 import Avatar from '@/components/Avatar/Avatar';
@@ -44,7 +44,7 @@ const generateMetaDescription = (teacher: Lecturer | null, t: any): string => {
 
 export async function generateMetadata({ params }: { params: Promise<{ teacherId: string; locale: string }> }): Promise<Metadata> {
     const { teacherId, locale } = await params;
-    const t = await getTranslations({ locale, namespace: 'profile' });
+    await getTranslations({ locale, namespace: 'profile' });
     const commonT = await getTranslations({ locale, namespace: 'global.metadata' });
 
     try {
