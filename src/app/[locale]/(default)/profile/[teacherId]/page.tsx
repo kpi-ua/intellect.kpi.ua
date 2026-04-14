@@ -94,7 +94,7 @@ export default async function TeacherProfilePage({ params }: { params: Promise<{
                     </BreadcrumbList>
                 </Breadcrumb>
                 <div className="grid grid-cols-[1fr] sm:grid-cols-[170px_1fr] gap-6 mt-6 justify-items-center sm:justify-items-start relative">
-                    <div>
+                    <div className="w-48 sm:w-full">
                         <Avatar img={teacher?.photo} />
                     </div>
                     <div className="w-full overflow-x-hidden">
