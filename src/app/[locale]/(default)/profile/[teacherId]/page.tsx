@@ -44,7 +44,6 @@ const generateMetaDescription = (teacher: Lecturer | null, t: any): string => {
 
 export async function generateMetadata({ params }: { params: Promise<{ teacherId: string; locale: string }> }): Promise<Metadata> {
     const { teacherId, locale } = await params;
-    await getTranslations({ locale, namespace: 'profile' });
     const commonT = await getTranslations({ locale, namespace: 'global.metadata' });
 
     try {
