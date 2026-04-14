@@ -12,7 +12,7 @@ const Footer: React.FC<Props> = ({ logoSrc }) => {
     const currentYear = new Date().getFullYear();
 
     return (
-        <footer className="bg-primary text-white text-sm">
+        <footer className="bg-primary text-white text-sm px-4">
             <div className="wrapper flex sm:flex-row sm:text-left text-center flex-col justify-between py-9 gap-9">
                 <Image className="max-w-120 mx-auto" src={logoSrc} alt="logo" />
                 <section>
