@@ -121,7 +121,7 @@ const SearchContent: React.FC = () => {
             return (
                 <SearchGrid className="mt-6">
                     {teachers.map((item, idx) => (
-                        <ITeacherCard className="justify-self-center" key={idx} teacherInfo={item} />
+                        <ITeacherCard key={idx} teacherInfo={item} />
                     ))}
                 </SearchGrid>
             );
