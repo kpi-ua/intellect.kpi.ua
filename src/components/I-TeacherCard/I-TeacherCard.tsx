@@ -11,11 +11,9 @@ type Props = {
 
 const ITeacherCard: React.FC<Props> = ({ teacherInfo, className = '' }) => {
     return (
-        <Link className="w-full" href={'/profile/' + teacherInfo.userIdentifier}>
-            <div className={'cursor-pointer max-w-160 ' + className}>
-                <Avatar img={teacherInfo.photo} alt={teacherInfo.fullName} />
-                <div className="text-semibold">{teacherInfo.fullName}</div>
-            </div>
+        <Link className={'block cursor-pointer ' + className} href={'/profile/' + teacherInfo.userIdentifier}>
+            <Avatar img={teacherInfo.photo} alt={teacherInfo.fullName} />
+            <div className="text-semibold">{teacherInfo.fullName}</div>
         </Link>
     );
 };
