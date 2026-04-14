@@ -11,7 +11,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         <>
             <div className="text-white header-wrapper">
                 <Header underlined={false} scheme="light" />
-                <div className="wrapper px-4">
+                <div className="wrapper">
                     <ISearchBlock />
                 </div>
             </div>

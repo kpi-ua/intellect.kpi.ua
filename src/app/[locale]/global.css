@@ -330,6 +330,8 @@ html {
   max-width: 1235px;
   width: 100%;
   margin: 0 auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .header-wrapper {

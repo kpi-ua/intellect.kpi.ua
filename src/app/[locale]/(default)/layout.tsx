@@ -8,7 +8,7 @@ export default function DefaultLayout({ children }: { children: React.ReactNode 
     return (
         <TooltipProvider>
             <Header scheme="dark" />
-            <div className="wrapper px-4">{children}</div>
+            <div className="wrapper">{children}</div>
         </TooltipProvider>
     );
 }
