@@ -27,7 +27,7 @@
         "@types/feather-icons": "4.29.3",
         "@types/node": "22.10.2",
         "@types/react": "19.1.8",
-        "@types/react-dom": "19.1.6",
+        "@types/react-dom": "19.2.3",
         "autoprefixer": "10.4.20",
         "axios": "1.13.2",
         "class-variance-authority": "0.7.1",
@@ -40,7 +40,7 @@
         "postcss": "8.5.0",
         "radix-ui": "1.4.3",
         "react": "19.1.0",
-        "react-dom": "19.1.0",
+        "react-dom": "19.2.5",
         "react-hook-form": "7.71.1",
         "shadcn": "4.1.2",
         "tailwind": "4.0.0",
@@ -76,6 +76,6 @@
     },
     "overrides": {
         "@types/react": "19.1.8",
-        "@types/react-dom": "19.1.6"
+        "@types/react-dom": "19.2.3"
     }
 }
