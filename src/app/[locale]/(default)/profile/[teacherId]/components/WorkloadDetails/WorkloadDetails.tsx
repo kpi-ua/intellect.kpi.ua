@@ -12,7 +12,6 @@ import {
     filterWorkloadsByPeriod,
     getDefaultDepartment,
     getDefaultYearFromGrouped,
-    getHighestSalaryLabel,
     groupWorkloadsByYearRange,
 } from './utils';
 import { StackedBarChart } from './StackedBarChart';
@@ -124,7 +123,7 @@ export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [] }) => {
                     <StackedBarChart
                         yearRange={selectedYear}
                         summary={computeWorkloadSummary(sections.main.workloads)}
-                        rate={getHighestSalaryLabel(sections.main.workloads)}
+                        appointmentAbbreviation="PA"
                     />
                 </div>
             )}
@@ -136,7 +135,7 @@ export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [] }) => {
                     <StackedBarChart
                         yearRange={selectedYear}
                         summary={computeWorkloadSummary(sections.mixed.workloads)}
-                        rate={getHighestSalaryLabel(sections.mixed.workloads)}
+                        appointmentAbbreviation="SA"
                     />
                 </div>
             )}
@@ -148,7 +147,7 @@ export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [] }) => {
                     <StackedBarChart
                         yearRange={selectedYear}
                         summary={computeWorkloadSummary(sections.hourly.workloads)}
-                        rate={getHighestSalaryLabel(sections.hourly.workloads)}
+                        appointmentAbbreviation="HA"
                         onlyEducational
                     />
                 </div>

@@ -8,14 +8,14 @@ import { useTranslations } from 'next-intl';
 
 interface Props {
     yearRange: string;
-    rate: string;
+    appointmentAbbreviation: string;
     summary: WorkloadSummary;
     onlyEducational?: boolean;
 }
 
 export const StackedBarChart = ({
     yearRange,
-    rate,
+    appointmentAbbreviation,
     summary,
     onlyEducational = false,
 }: Props) => {
@@ -29,7 +29,7 @@ export const StackedBarChart = ({
     return (
         <div className="mt-8 p-6 border rounded-xl border-text-neutral-900">
             <SectionTitle className="mb-4 uppercase text-primary">
-                RELEVANCE: {yearRange} ({rate})
+                RELEVANCE: {yearRange} ({appointmentAbbreviation})
             </SectionTitle>
 
             <div className="flex overflow-hidden rounded-md h-12">
