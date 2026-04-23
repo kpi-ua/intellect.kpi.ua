@@ -110,23 +110,6 @@ export const filterWorkloadsByPeriod = (
     return filtered;
 };
 
-export const getSalaryLabel = (salary: number) => {
-    if (salary === 1) {
-        return "1.0 PA"
-    }
-
-    if (salary === 0) {
-        return "HA"
-    }
-
-    return `${salary} SA`
-}
-
-export const getHighestSalaryLabel = (workloads: EvaluationWorkload[]): string => {
-    const highestSalary = workloads.toSorted((a, b) => b.salary - a.salary)[0].salary;
-    return getSalaryLabel(parseFloat(highestSalary.toFixed(2)));
-}
-
 export const computeWorkloadSummary = (workloads: EvaluationWorkload[]): WorkloadSummary => {
     const totals = workloads.reduce<WorkloadTotals>(
         (acc, workload) => ({
