@@ -125,22 +125,22 @@
                 "year": "Навч. рік",
                 "semester": "Семестр",
                 "subdivision": "Підрозділ",
-                "educational": "Навчальне",
-                "scientific": "Наукове",
-                "methodical": "Методичне",
-                "organizational": "Організаційне",
-                "other": "Інше",
+                "educational": "Навчальна",
+                "scientific": "Наукова",
+                "methodical": "Методична",
+                "organizational": "Організаційна",
+                "other": "Інші",
                 "total": "Всього",
                 "hourly": "пог.",
                 "department_prefix": "Кафедра",
                 "detail_title": "Деталізація навантаження"
             },
             "categories": {
-                "educational": "Навчальне",
-                "scientific": "Наукове",
-                "methodical": "Методичне",
-                "organizational": "Організаційне",
-                "other": "Інше"
+                "educational": "Навчальна",
+                "scientific": "Наукова",
+                "methodical": "Методична",
+                "organizational": "Організаційна",
+                "other": "Інші"
             },
             "employment_types": {
                 "Unknown": "Інформації немає",
