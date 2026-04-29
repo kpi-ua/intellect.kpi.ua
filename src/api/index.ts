@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosInstance } from 'axios';
 import { getLocale } from 'next-intl/server';
 import { DEFAULT_LOCALE, LOCALES } from '@/i18n/routing';
 
@@ -17,16 +17,28 @@ const getLocaleSafe = async () => {
     }
 };
 
+const attachLocale = (instance: AxiosInstance) => {
+    instance.interceptors.request.use(async (config) => {
+        const locale = await getLocaleSafe();
+        config.headers.set('Accept-Language', locale);
+        return config;
+    });
+};
+
 const Http = axios.create({
     baseURL: API_BASE_URL + '/intellect/',
 });
 
-Http.interceptors.request.use(async (config) => {
-    const locale = await getLocaleSafe();
-    config.headers.set('Accept-Language', locale);
-    return config;
+attachLocale(Http);
+Http.interceptors.response.use((res) => res.data);
+
+// Same baseURL and locale handling as Http, but without the response
+// interceptor — callers see the full AxiosResponse so they can read
+// pagination headers (X-Total-Count etc.).
+export const HttpRaw = axios.create({
+    baseURL: API_BASE_URL + '/intellect/',
 });
 
-Http.interceptors.response.use((res) => res.data);
+attachLocale(HttpRaw);
 
 export default Http;

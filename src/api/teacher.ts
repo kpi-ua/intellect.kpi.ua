@@ -1,10 +1,15 @@
 import { ApiResponse } from '@/types/ecampus';
-import Http from './index';
+import Http, { HttpRaw } from './index';
 
 import { parseSearchParams } from '@/utils';
 import { Rating, Lecturer, EvaluationWorkload } from '@/types/intellect';
 
-export const searchByInput = (input: string, currentPage: number): Promise<ApiResponse<Lecturer>> => {
+// Backend returns the page as a plain array and exposes the total row
+// count via the X-Total-Count header. Keep the pageSize the client uses
+// pinned here so pageCount math stays internally consistent.
+const SEARCH_PAGE_SIZE = 30;
+
+export const searchByInput = async (input: string, currentPage: number): Promise<ApiResponse<Lecturer>> => {
     const params = parseSearchParams(input);
     let searchString = '?';
 
@@ -14,7 +19,17 @@ export const searchByInput = (input: string, currentPage: number): Promise<ApiRe
         searchString += '&value=' + input;
     }
 
-    return Http.get('/v2/find' + searchString + `&pageNumber=${currentPage}`);
+    const response = await HttpRaw.get<Lecturer[]>(
+        '/v2/find' + searchString + `&pageNumber=${currentPage}&pageSize=${SEARCH_PAGE_SIZE}`,
+    );
+
+    const totalCount = parseInt(response.headers['x-total-count'] ?? '0', 10);
+    const pageCount = totalCount > 0 ? Math.ceil(totalCount / SEARCH_PAGE_SIZE) : 0;
+
+    return {
+        data: response.data,
+        paging: { pageNumber: currentPage, pageCount },
+    };
 };
 
 export const getTeacherByTeacherId = (teacherId: string): Promise<Lecturer> => {
