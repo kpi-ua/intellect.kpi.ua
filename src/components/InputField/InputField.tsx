@@ -110,7 +110,7 @@ const InputField: React.FC<Props> = ({
                         <CommandGroup>
                             {tipOptions.map((lecturer) => (
                                 <CommandItem
-                                    key={lecturer.id}
+                                    key={lecturer.userIdentifier}
                                     onSelect={() => handleTipSelect(lecturer.userIdentifier)}
                                     className="px-4 py-2 cursor-pointer hover:bg-neutral-50 aria-selected:bg-neutral-50"
                                 >

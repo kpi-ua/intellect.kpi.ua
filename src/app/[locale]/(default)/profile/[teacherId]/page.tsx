@@ -106,8 +106,8 @@ export default async function TeacherProfilePage({ params }: { params: Promise<{
                             </div>
                         ) : null}
                         <div className="flex justify-center gap-3 mt-5 overflow-x-auto sm:justify-start">
-                            {(teacher?.positions || []).map((item: Position) => (
-                                <JobLabel key={item.subdivision.id} position={item} />
+                            {(teacher?.positions || []).map((item: Position, idx: number) => (
+                                <JobLabel key={idx} position={item} />
                             ))}
                         </div>
                         <Tabs defaultValue="profile">
