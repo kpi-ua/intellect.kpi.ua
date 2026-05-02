@@ -16,31 +16,22 @@ const getLocaleSafe = async () => {
     }
 };
 
-type RequestOptions = Omit<RequestInit, 'method'> & { fullResponse?: boolean };
+export const apiFetch = async <T = unknown>(
+    url: string | URL,
+    options: RequestInit = {},
+): Promise<TypedResponse<T>> => {
+    const { headers, ...otherOptions } = options;
+    const locale = await getLocaleSafe();
 
-interface HttpResponse<T> {
-    data: T;
-    headers: Headers;
-    status: number;
-}
+    const input = new URL(url, API_BASE_URL + '/intellect/').href;
 
-async function get<T>(path: string, options: RequestOptions = {}): Promise<T | HttpResponse<T>> {
-    const { fullResponse, headers: initHeaders, ...rest } = options;
-    const headers = new Headers(initHeaders);
-    headers.set('Accept-Language', await getLocaleSafe());
+    const mergedHeaders = new Headers(headers);
+    if (!mergedHeaders.has('Accept')) mergedHeaders.set('Accept', 'application/json');
+    if (!mergedHeaders.has('Content-Type')) mergedHeaders.set('Content-Type', 'application/json');
+    mergedHeaders.set('Accept-Language', locale);
 
-    const url = /^https?:\/\//i.test(path) ? path : `${API_BASE_URL}/intellect/${path.replace(/^\//, '')}`;
-    const res = await fetch(url, { ...rest, headers });
-
-    if (!res.ok) throw new Error(`HTTP ${res.status} for GET ${path}`);
-
-    const data = (await res.json()) as T;
-    return fullResponse ? { data, headers: res.headers, status: res.status } : data;
-}
-
-const Http = { get } as {
-    get<T>(path: string, options: RequestOptions & { fullResponse: true }): Promise<HttpResponse<T>>;
-    get<T>(path: string, options?: RequestOptions): Promise<T>;
+    return fetch<T>(input, {
+        ...otherOptions,
+        headers: mergedHeaders,
+    });
 };
-
-export default Http;

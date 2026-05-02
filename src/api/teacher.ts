@@ -1,12 +1,9 @@
 import { ApiResponse } from '@/types/ecampus';
-import Http from './index';
+import { apiFetch } from './index';
 
 import { parseSearchParams } from '@/utils';
 import { Rating, Lecturer, EvaluationWorkload } from '@/types/intellect';
 
-// Backend returns the page as a plain array and exposes the total row
-// count via the X-Total-Count header. Keep the pageSize the client uses
-// pinned here so pageCount math stays internally consistent.
 const SEARCH_PAGE_SIZE = 30;
 
 export const searchByInput = async (input: string, currentPage: number): Promise<ApiResponse<Lecturer>> => {
@@ -19,28 +16,37 @@ export const searchByInput = async (input: string, currentPage: number): Promise
         searchString += '&value=' + input;
     }
 
-    const response = await Http.get<Lecturer[]>(
-        '/v2/find' + searchString + `&pageNumber=${currentPage}&pageSize=${SEARCH_PAGE_SIZE}`,
-        { fullResponse: true },
+    const response = await apiFetch<Lecturer[]>(
+        'v2/find' + searchString + `&pageNumber=${currentPage}&pageSize=${SEARCH_PAGE_SIZE}`,
     );
+    if (!response.ok) throw new Error(`${response.status} Error`);
 
     const totalCount = parseInt(response.headers.get('x-total-count') ?? '0', 10);
     const pageCount = totalCount > 0 ? Math.ceil(totalCount / SEARCH_PAGE_SIZE) : 0;
+    const data = await response.json();
 
     return {
-        data: response.data,
+        data,
         paging: { pageNumber: currentPage, pageCount },
     };
 };
 
-export const getTeacherByTeacherId = (teacherId: string): Promise<Lecturer> => {
-    return Http.get<Lecturer>(`/v2/profile/${teacherId}`);
+export const getTeacherByTeacherId = async (teacherId: string): Promise<Lecturer> => {
+    const response = await apiFetch<Lecturer>(`v2/profile/${teacherId}`);
+    if (!response.ok) throw new Error(`${response.status} Error`);
+    return response.json();
 };
 
-export const getRatings = (teacherId: string): Promise<Rating[]> => {
-    return Http.get<Rating[]>(`/v2/persons/${teacherId}/rating`);
+export const getRatings = async (teacherId: string): Promise<Rating[]> => {
+    const response = await apiFetch<Rating[]>(`v2/persons/${teacherId}/rating`);
+    if (!response.ok) throw new Error(`${response.status} Error`);
+    return response.json();
 };
 
-export const getEvaluationWorkloads = (userIdentifier: string): Promise<EvaluationWorkload[]> => {
-    return Http.get<EvaluationWorkload[]>(`/v2/persons/${userIdentifier}/evaluation-workloads`);
+export const getEvaluationWorkloads = async (userIdentifier: string): Promise<EvaluationWorkload[]> => {
+    const response = await apiFetch<EvaluationWorkload[]>(
+        `v2/persons/${userIdentifier}/evaluation-workloads`,
+    );
+    if (!response.ok) throw new Error(`${response.status} Error`);
+    return response.json();
 };
