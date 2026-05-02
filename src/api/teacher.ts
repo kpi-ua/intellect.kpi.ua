@@ -1,5 +1,5 @@
 import { ApiResponse } from '@/types/ecampus';
-import Http, { HttpRaw } from './index';
+import Http from './index';
 
 import { parseSearchParams } from '@/utils';
 import { Rating, Lecturer, EvaluationWorkload } from '@/types/intellect';
@@ -19,11 +19,12 @@ export const searchByInput = async (input: string, currentPage: number): Promise
         searchString += '&value=' + input;
     }
 
-    const response = await HttpRaw.get<Lecturer[]>(
+    const response = await Http.get<Lecturer[]>(
         '/v2/find' + searchString + `&pageNumber=${currentPage}&pageSize=${SEARCH_PAGE_SIZE}`,
+        { fullResponse: true },
     );
 
-    const totalCount = parseInt(response.headers['x-total-count'] ?? '0', 10);
+    const totalCount = parseInt(response.headers.get('x-total-count') ?? '0', 10);
     const pageCount = totalCount > 0 ? Math.ceil(totalCount / SEARCH_PAGE_SIZE) : 0;
 
     return {
@@ -33,13 +34,13 @@ export const searchByInput = async (input: string, currentPage: number): Promise
 };
 
 export const getTeacherByTeacherId = (teacherId: string): Promise<Lecturer> => {
-    return Http.get(`/v2/profile/${teacherId}`);
+    return Http.get<Lecturer>(`/v2/profile/${teacherId}`);
 };
 
 export const getRatings = (teacherId: string): Promise<Rating[]> => {
-    return Http.get(`/v2/persons/${teacherId}/rating`);
+    return Http.get<Rating[]>(`/v2/persons/${teacherId}/rating`);
 };
 
 export const getEvaluationWorkloads = (userIdentifier: string): Promise<EvaluationWorkload[]> => {
-    return Http.get(`/v2/persons/${userIdentifier}/evaluation-workloads`);
+    return Http.get<EvaluationWorkload[]>(`/v2/persons/${userIdentifier}/evaluation-workloads`);
 };

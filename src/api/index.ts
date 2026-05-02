@@ -1,4 +1,3 @@
-import axios, { AxiosInstance } from 'axios';
 import { getLocale } from 'next-intl/server';
 import { DEFAULT_LOCALE, LOCALES } from '@/i18n/routing';
 
@@ -17,28 +16,31 @@ const getLocaleSafe = async () => {
     }
 };
 
-const attachLocale = (instance: AxiosInstance) => {
-    instance.interceptors.request.use(async (config) => {
-        const locale = await getLocaleSafe();
-        config.headers.set('Accept-Language', locale);
-        return config;
-    });
+type RequestOptions = Omit<RequestInit, 'method'> & { fullResponse?: boolean };
+
+interface HttpResponse<T> {
+    data: T;
+    headers: Headers;
+    status: number;
+}
+
+async function get<T>(path: string, options: RequestOptions = {}): Promise<T | HttpResponse<T>> {
+    const { fullResponse, headers: initHeaders, ...rest } = options;
+    const headers = new Headers(initHeaders);
+    headers.set('Accept-Language', await getLocaleSafe());
+
+    const url = /^https?:\/\//i.test(path) ? path : `${API_BASE_URL}/intellect/${path.replace(/^\//, '')}`;
+    const res = await fetch(url, { ...rest, headers });
+
+    if (!res.ok) throw new Error(`HTTP ${res.status} for GET ${path}`);
+
+    const data = (await res.json()) as T;
+    return fullResponse ? { data, headers: res.headers, status: res.status } : data;
+}
+
+const Http = { get } as {
+    get<T>(path: string, options: RequestOptions & { fullResponse: true }): Promise<HttpResponse<T>>;
+    get<T>(path: string, options?: RequestOptions): Promise<T>;
 };
-
-const Http = axios.create({
-    baseURL: API_BASE_URL + '/intellect/',
-});
-
-attachLocale(Http);
-Http.interceptors.response.use((res) => res.data);
-
-// Same baseURL and locale handling as Http, but without the response
-// interceptor — callers see the full AxiosResponse so they can read
-// pagination headers (X-Total-Count etc.).
-export const HttpRaw = axios.create({
-    baseURL: API_BASE_URL + '/intellect/',
-});
-
-attachLocale(HttpRaw);
 
 export default Http;
