@@ -51,7 +51,7 @@
         "@babel/eslint-parser": "7.27.5",
         "@tailwindcss/postcss": "4.1.15",
         "@types/bootstrap": "^5.2.10",
-        "@typescript-eslint/eslint-plugin": "8.34.0",
+        "@typescript-eslint/eslint-plugin": "8.59.2",
         "@typescript-eslint/parser": "^8.34.0",
         "eslint": "^9.39.2",
         "eslint-config-next": "^15.5.9",
