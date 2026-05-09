@@ -5,6 +5,7 @@ import { formatYear } from './utils';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { WorkloadGroupType } from './useGroupedWorkloads';
 import { useTranslations } from 'next-intl';
+import { CircleQuestionMark } from 'lucide-react';
 
 interface Props {
     hideTitle?: boolean;
@@ -13,6 +14,8 @@ interface Props {
 }
 
 export const DataTable = ({ groupedWorkloads, hideTitle, variant = 'normative' }: Props) => {
+    console.log(groupedWorkloads);
+
     const t = useTranslations('profile.workload.table');
     const filterT = useTranslations('profile.workload.filters');
 
@@ -24,6 +27,30 @@ export const DataTable = ({ groupedWorkloads, hideTitle, variant = 'normative' }
     const renderValueCell = (value: number, isBold: boolean) => (
         <TableCell className={isBold ? "font-bold text-right" : "text-right"}>{value.toFixed(2)}</TableCell>
     );
+
+    const renderTotalCell = (value: number, isBold: boolean, salary: number, hourlyValue?: number) => {
+        const hasHourly = hourlyValue && hourlyValue > 0;
+        return (
+            <TableCell className={`whitespace-nowrap text-right ${isBold ? "font-bold" : ""}`}>
+                <div className={`inline-flex items-center gap-1 ${hasHourly ? "flex-col items-end" : ""}`}>
+                    <span className="inline-flex items-center gap-1">
+                        {value.toFixed(2)}
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <CircleQuestionMark className="inline text-neutral-400 cursor-help" width={16} height={16} />
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                <p>{t('employment_tooltip', { value: salary })}</p>
+                            </TooltipContent>
+                        </Tooltip>
+                    </span>
+                    {hasHourly && (
+                        <span className="font-medium text-sm text-neutral-500">+ {hourlyValue.toFixed(2)} {t('hourly')}</span>
+                    )}
+                </div>
+            </TableCell>
+        );
+    };
 
     const renderMixedCell = (primaryValue: number, isBold: boolean, hourlyValue?: number) => {
         if (!primaryValue && !hourlyValue) {
@@ -103,7 +130,7 @@ export const DataTable = ({ groupedWorkloads, hideTitle, variant = 'normative' }
                                     {variant === 'hourly' ? (
                                         <>
                                             {renderValueCell(workload.educational, isTotalsRow)}
-                                            {renderValueCell(workload.totalWorkload, isTotalsRow)}
+                                            {renderTotalCell(workload.totalWorkload, isTotalsRow, workload.salary)}
                                         </>
                                     ) : (
                                         <>
@@ -112,7 +139,7 @@ export const DataTable = ({ groupedWorkloads, hideTitle, variant = 'normative' }
                                             {renderValueCell(workload.methodical, isTotalsRow)}
                                             {renderValueCell(workload.organizational, isTotalsRow)}
                                             {renderValueCell(workload.other, isTotalsRow)}
-                                            {renderMixedCell(workload.totalWorkload, isTotalsRow, group.hourly?.totalWorkload)}
+                                            {renderTotalCell(workload.totalWorkload, isTotalsRow, workload.salary, group.hourly?.totalWorkload)}
                                         </>
                                     )}
                                 </TableRow>
