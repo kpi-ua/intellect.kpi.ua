@@ -25,7 +25,7 @@
         "@radix-ui/react-tooltip": "1.2.8",
         "@types/feather-icons": "4.29.3",
         "@types/node": "22.10.2",
-        "@types/react": "19.1.8",
+        "@types/react": "19.2.14",
         "@types/react-dom": "19.1.6",
         "autoprefixer": "10.4.20",
         "class-variance-authority": "0.7.1",
@@ -37,7 +37,7 @@
         "next-intl": "4.4.0",
         "postcss": "8.5.0",
         "radix-ui": "1.4.3",
-        "react": "19.1.0",
+        "react": "19.2.6",
         "react-dom": "19.1.0",
         "react-hook-form": "7.71.1",
         "shadcn": "4.1.2",
@@ -73,7 +73,7 @@
         "extends": "react-app"
     },
     "overrides": {
-        "@types/react": "19.1.8",
+        "@types/react": "19.2.14",
         "@types/react-dom": "19.1.6"
     }
 }
