@@ -39,7 +39,7 @@
         "radix-ui": "1.4.3",
         "react": "19.1.0",
         "react-dom": "19.1.0",
-        "react-hook-form": "7.71.1",
+        "react-hook-form": "7.76.1",
         "shadcn": "4.1.2",
         "tailwind": "4.0.0",
         "tailwind-merge": "^3.5.0",
