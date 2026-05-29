@@ -1,9 +1,9 @@
 import React from 'react';
 import SectionTitle from '@/components/common/SectionTitle';
 import { LegendItem } from './LegendItem';
-import { WORKLOAD_CATEGORIES } from './constants';
+import { WORKLOAD_CATEGORIES } from '../constants';
 import { BarSegment } from './BarSegment';
-import { WorkloadCategory, WorkloadSummary } from './types';
+import { WorkloadCategory, WorkloadSummary } from '../types';
 import { useTranslations } from 'next-intl';
 
 interface Props {

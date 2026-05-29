@@ -1,23 +1,18 @@
-import { EvaluationWorkload } from '@/types/intellect';
+import { EmploymentType, EvaluationWorkload, Position } from '@/types/intellect';
 import {
     WorkloadCategory,
     WorkloadSummary,
     WorkloadTotals,
 } from './types';
+import {
+    WorkloadGroupType
+} from '@/app/[locale]/(default)/profile/[teacherId]/components/WorkloadDetails/useGroupedWorkloads';
+import {
+    EMPLOYMENT_ABBREVIATION
+} from '@/app/[locale]/(default)/profile/[teacherId]/components/WorkloadDetails/constants';
 
 export const formatYear = (year: number): string => {
     return `${year}-${year + 1}`;
-};
-
-export const formatYearShort = (year: number): string => {
-    const start = year.toString().slice(-2);
-    const end = (year + 1).toString().slice(-2);
-    return `${start}/${end}`;
-};
-
-export const formatSemester = (semester: number): string => {
-    if (semester === 0) return 'Рік';
-    return `${semester} Семестр`;
 };
 
 export const getDefaultDepartment = (workloads: EvaluationWorkload[]): string => {
@@ -137,3 +132,35 @@ export const computeWorkloadSummary = (workloads: EvaluationWorkload[]): Workloa
         },
     };
 }
+
+/**
+ * Finds the employment abbreviation (PA/SA/HA) for a given subdivision bravoId
+ * by looking it up in the teacher's positions list.
+ */
+export const getEmploymentAbbreviation = (positions: Position[], bravoId: number | undefined): string => {
+    if (!bravoId) return '';
+    const match = positions.find((p) => p.subdivision?.bravoId === bravoId);
+    if (!match) return '';
+    return EMPLOYMENT_ABBREVIATION[match.employment] ?? '';
+};
+
+/**
+ * Extracts the subdivision bravoId from the first available workload in a grouped section.
+ */
+export const getSectionBravoId = (grouped: WorkloadGroupType[]): number | undefined => {
+    for (const g of grouped) {
+        const workload = g.normative ?? g.mixed ?? g.hourly;
+        if (workload?.subdivision?.bravoId) return workload.subdivision.bravoId;
+    }
+    return undefined;
+};
+
+/**
+ * Returns the EmploymentType enum key for a given subdivision bravoId,
+ * used to look up the full translated label via t('employment_types.{key}').
+ */
+export const getSectionEmploymentType = (positions: Position[], bravoId: number | undefined): EmploymentType => {
+    if (!bravoId) return EmploymentType.Unknown;
+    const match = positions.find((p) => p.subdivision?.bravoId === bravoId);
+    return match?.employment ?? EmploymentType.Unknown;
+};

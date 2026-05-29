@@ -2,7 +2,7 @@
 
 import React, { FC, useMemo, useState } from 'react';
 import SectionTitle from '@/components/common/SectionTitle';
-import { EvaluationWorkload, Rating } from '@/types/intellect';
+import { EmploymentType, EvaluationWorkload, Position, Rating } from '@/types/intellect';
 import { Filters } from './Filters';
 import { DataTable } from './DataTable';
 import { useGroupedWorkloads, WorkloadGroupType } from './useGroupedWorkloads';
@@ -12,17 +12,26 @@ import {
     filterWorkloadsByPeriod,
     getDefaultDepartment,
     getDefaultYearFromGrouped,
+    getEmploymentAbbreviation,
+    getSectionBravoId,
+    getSectionEmploymentType,
     groupWorkloadsByYearRange,
 } from './utils';
-import { StackedBarChart } from './StackedBarChart';
 import { useTranslations } from 'next-intl';
+import {
+    StackedBarChart
+} from '@/app/[locale]/(default)/profile/[teacherId]/components/WorkloadDetails/StackedBarChart/StackedBarChart';
 
 interface Props {
     workloads: EvaluationWorkload[];
     ratings?: Rating[];
+    positions: Position[];
 }
 
-export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [] }) => {
+
+
+
+export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [], positions }) => {
     const t = useTranslations('profile.workload');
     const workloadsByYearRange = groupWorkloadsByYearRange(workloads);
     const defaultYear = getDefaultYearFromGrouped(workloadsByYearRange || {});
@@ -118,36 +127,36 @@ export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [] }) => {
 
             {sections.main.grouped.length > 0 && (
                 <div className="mt-8">
-                    <SectionTitle className="mb-4 uppercase text-primary">{t('sections.pa')}</SectionTitle>
+                    <SectionTitle className="mb-4 uppercase text-primary">{t(`employment_types.${getSectionEmploymentType(positions, getSectionBravoId(sections.main.grouped))}`)}</SectionTitle>
                     <DataTable groupedWorkloads={sections.main.grouped} hideTitle />
                     <StackedBarChart
                         yearRange={selectedYear}
                         summary={computeWorkloadSummary(sections.main.workloads)}
-                        appointmentAbbreviation="PA"
+                        appointmentAbbreviation={getEmploymentAbbreviation(positions, getSectionBravoId(sections.main.grouped))}
                     />
                 </div>
             )}
 
             {sections.mixed.grouped.length > 0 && (
                 <div className="mt-8">
-                    <SectionTitle className="mb-4 uppercase text-primary">{t('sections.sa')}</SectionTitle>
+                    <SectionTitle className="mb-4 uppercase text-primary">{t(`employment_types.${getSectionEmploymentType(positions, getSectionBravoId(sections.mixed.grouped))}`)}</SectionTitle>
                     <DataTable groupedWorkloads={sections.mixed.grouped} hideTitle variant="mixed" />
                     <StackedBarChart
                         yearRange={selectedYear}
                         summary={computeWorkloadSummary(sections.mixed.workloads)}
-                        appointmentAbbreviation="SA"
+                        appointmentAbbreviation={getEmploymentAbbreviation(positions, getSectionBravoId(sections.mixed.grouped))}
                     />
                 </div>
             )}
 
             {sections.hourly.grouped.length > 0 && (
                 <div className="mt-8">
-                    <SectionTitle className="mb-4 uppercase text-primary">{t('sections.ha')}</SectionTitle>
+                    <SectionTitle className="mb-4 uppercase text-primary">{t(`employment_types.${getSectionEmploymentType(positions, getSectionBravoId(sections.hourly.grouped))}`)}</SectionTitle>
                     <DataTable groupedWorkloads={sections.hourly.grouped} hideTitle variant="hourly" />
                     <StackedBarChart
                         yearRange={selectedYear}
                         summary={computeWorkloadSummary(sections.hourly.workloads)}
-                        appointmentAbbreviation="HA"
+                        appointmentAbbreviation={getEmploymentAbbreviation(positions, getSectionBravoId(sections.hourly.grouped))}
                         onlyEducational
                     />
                 </div>

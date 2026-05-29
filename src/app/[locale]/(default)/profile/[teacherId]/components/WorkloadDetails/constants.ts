@@ -1,4 +1,5 @@
 import { WorkloadCategory } from './types';
+import { EmploymentType } from '@/types/intellect';
 
 export const WORKLOAD_CATEGORIES: Array<{
     key: WorkloadCategory;
@@ -11,3 +12,13 @@ export const WORKLOAD_CATEGORIES: Array<{
         { key: 'organizational', color: '#7BA3E0', label: 'Організаційна' },
         { key: 'other', color: '#B0C9F0', label: 'Інші' },
     ];
+
+
+export const EMPLOYMENT_ABBREVIATION: Record<EmploymentType, string> = {
+    [EmploymentType.FullTime]: 'PA',
+    [EmploymentType.PartTime]: 'SA',
+    [EmploymentType.PartTimeInternal]: 'SA',
+    [EmploymentType.PartTimeExternal]: 'SA',
+    [EmploymentType.HourlyPay]: 'HA',
+    [EmploymentType.Unknown]: '',
+};
