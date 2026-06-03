@@ -59,7 +59,7 @@
         "eslint-plugin-import": "2.32.0",
         "eslint-plugin-react": "^7.37.5",
         "prettier": "3.4.2",
-        "prettier-plugin-tailwindcss": "^0.7.1",
+        "prettier-plugin-tailwindcss": "^0.8.0",
         "typescript": "5"
     },
     "scripts": {
