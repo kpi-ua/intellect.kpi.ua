@@ -14,8 +14,6 @@ interface Props {
 }
 
 export const DataTable = ({ groupedWorkloads, hideTitle, variant = 'normative' }: Props) => {
-    console.log(groupedWorkloads);
-
     const t = useTranslations('profile.workload.table');
     const filterT = useTranslations('profile.workload.filters');
 
