@@ -126,7 +126,7 @@ export default async function TeacherProfilePage({ params }: { params: Promise<{
                                         </div>
                                     }
                                 >
-                                    <WorkloadContainer teacherId={teacherId} />
+                                    <WorkloadContainer positions={teacher.positions} teacherId={teacherId} />
                                 </Suspense>
                             </TabsContent>
                         </Tabs>
