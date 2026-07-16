@@ -58,18 +58,24 @@ export type Tab = {
     tips: boolean;
 };
 
+export type WorkloadSubdivision = Pick<Division, 'bravoId' | 'abbreviation' | 'name'>;
+
 export type EvaluationWorkload = {
     employeeId: string;
     fullName: string;
-    subdivision: Division;
+    subdivision: WorkloadSubdivision;
+    subdivisionAbbreviation: string;
     year: number;
     semester: number;
+    workOrgFormId: number;
+    employment: EmploymentType;
     salary: number;
     educational: number;
     scientific: number;
     methodical: number;
     organizational: number;
     other: number;
+    calculatedAt: string;
     totalHours: number;
     totalWorkload: number;
     educationalPercentage: number;
