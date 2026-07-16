@@ -22,6 +22,8 @@ export const useGroupedWorkloads = (workloads: EvaluationWorkload[], selectedPer
         };
 
         workloads.forEach((w) => {
+            if (w.semester === 0) return;
+
             const key = `${w.year}-${w.subdivision?.bravoId || 'no-sub'}`;
             if (!subgroups[key]) {
                 subgroups[key] = {
