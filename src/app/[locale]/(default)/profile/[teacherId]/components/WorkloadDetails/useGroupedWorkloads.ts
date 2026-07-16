@@ -57,6 +57,23 @@ export const useGroupedWorkloads = (workloads: EvaluationWorkload[], selectedPer
             }
         });
 
+        Object.values(subgroups).forEach((group) => {
+            const semesterGroups = Object.values(group.semesters);
+
+            (['normative', 'mixed', 'hourly'] as const).forEach((workloadType) => {
+                const total = group.total[workloadType];
+                if (!total) return;
+
+                const salaries = semesterGroups
+                    .map((semesterGroup) => semesterGroup[workloadType]?.salary)
+                    .filter((salary): salary is number => salary !== undefined);
+
+                if (salaries.length > 0) {
+                    total.salary = salaries.reduce((sum, salary) => sum + salary, 0) / salaries.length;
+                }
+            });
+        });
+
         const result: WorkloadGroupType[] = [];
 
         for (const key in subgroups) {
