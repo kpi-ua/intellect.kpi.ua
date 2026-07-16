@@ -7,6 +7,8 @@
             "author": "Igor Sikorsky NTUU KPI"
         },
         "not_found": "No results found",
+        "service_unavailable": "The service is temporarily unavailable. Please try again later.",
+        "try_again": "Try again",
         "back_to_main": "Main"
     },
     "header": {
@@ -102,6 +104,7 @@
             "details_button": "Workload Details",
             "archive_button": "Rating Archive (to 2024)",
             "no_data": "No data available",
+            "temporarily_unavailable": "Data is temporarily unavailable",
             "evaluation_period": "Evaluation Period",
             "update_info": "Data is updated once every 3 days",
             "sections": {
