@@ -136,7 +136,8 @@
                 "total": "Всього",
                 "hourly": "пог.",
                 "department_prefix": "Кафедра",
-                "detail_title": "Деталізація навантаження"
+                "detail_title": "Деталізація навантаження",
+                "employment_tooltip": "зайнятість – {value} шт.од."
             },
             "categories": {
                 "educational": "Навчальна",

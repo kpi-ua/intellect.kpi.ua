@@ -136,7 +136,8 @@
                 "total": "Total",
                 "hourly": "hr.",
                 "department_prefix": "Department",
-                "detail_title": "Workload Details"
+                "detail_title": "Workload Details",
+                "employment_tooltip": "employment – {value} units"
             },
             "categories": {
                 "educational": "Educational",

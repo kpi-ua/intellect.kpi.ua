@@ -22,6 +22,8 @@ export const useGroupedWorkloads = (workloads: EvaluationWorkload[], selectedPer
         };
 
         workloads.forEach((w) => {
+            if (w.semester === 0) return;
+
             const key = `${w.year}-${w.subdivision?.bravoId || 'no-sub'}`;
             if (!subgroups[key]) {
                 subgroups[key] = {
@@ -55,6 +57,23 @@ export const useGroupedWorkloads = (workloads: EvaluationWorkload[], selectedPer
                 if (!group.total.mixed) group.total.mixed = { ...w, semester: 0 };
                 else accumulate(group.total.mixed, w);
             }
+        });
+
+        Object.values(subgroups).forEach((group) => {
+            const semesterGroups = Object.values(group.semesters);
+
+            (['normative', 'mixed', 'hourly'] as const).forEach((workloadType) => {
+                const total = group.total[workloadType];
+                if (!total) return;
+
+                const salaries = semesterGroups
+                    .map((semesterGroup) => semesterGroup[workloadType]?.salary)
+                    .filter((salary): salary is number => salary !== undefined);
+
+                if (salaries.length > 0) {
+                    total.salary = salaries.reduce((sum, salary) => sum + salary, 0) / salaries.length;
+                }
+            });
         });
 
         const result: WorkloadGroupType[] = [];
