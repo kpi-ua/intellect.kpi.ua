@@ -134,17 +134,6 @@ export const computeWorkloadSummary = (workloads: EvaluationWorkload[]): Workloa
 }
 
 /**
- * Finds the employment abbreviation (PA/SA/HA) for a given subdivision bravoId
- * by looking it up in the teacher's positions list.
- */
-export const getEmploymentAbbreviation = (positions: Position[], bravoId: number | undefined): string => {
-    if (!bravoId) return '';
-    const match = positions.find((p) => p.subdivision?.bravoId === bravoId);
-    if (!match) return '';
-    return EMPLOYMENT_ABBREVIATION[match.employment] ?? '';
-};
-
-/**
  * Extracts the subdivision bravoId from the first available workload in a grouped section.
  */
 export const getSectionBravoId = (grouped: WorkloadGroupType[]): number | undefined => {
@@ -156,11 +145,31 @@ export const getSectionBravoId = (grouped: WorkloadGroupType[]): number | undefi
 };
 
 /**
- * Returns the EmploymentType enum key for a given subdivision bravoId,
- * used to look up the full translated label via t('employment_types.{key}').
+ * Returns the EmploymentType of a grouped section, used to look up the full
+ * translated label via t('employment_types.{key}').
+ *
+ * The value comes from the workload rows themselves, so a teacher with several
+ * employment records at the same subdivision gets the right label per section.
+ * Rows cached before the API exposed a usable employment value fall back to a
+ * lookup in the teacher's positions list by subdivision bravoId.
  */
-export const getSectionEmploymentType = (positions: Position[], bravoId: number | undefined): EmploymentType => {
+export const getSectionEmploymentType = (grouped: WorkloadGroupType[], positions: Position[]): EmploymentType => {
+    for (const g of grouped) {
+        const workload = g.normative ?? g.mixed ?? g.hourly;
+        if (workload && workload.employment && workload.employment !== EmploymentType.Unknown) {
+            return workload.employment;
+        }
+    }
+
+    const bravoId = getSectionBravoId(grouped);
     if (!bravoId) return EmploymentType.Unknown;
     const match = positions.find((p) => p.subdivision?.bravoId === bravoId);
     return match?.employment ?? EmploymentType.Unknown;
+};
+
+/**
+ * Returns the employment abbreviation (PA/SA/HA) of a grouped section.
+ */
+export const getEmploymentAbbreviation = (grouped: WorkloadGroupType[], positions: Position[]): string => {
+    return EMPLOYMENT_ABBREVIATION[getSectionEmploymentType(grouped, positions)] ?? '';
 };
