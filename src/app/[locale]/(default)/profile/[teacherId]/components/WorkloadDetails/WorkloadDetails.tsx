@@ -44,7 +44,7 @@ export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [], positions 
     const [selectedPeriod, setSelectedPeriod] = useState('0');
 
     const filteredWorkloads = useMemo(() => {
-        const currentWorkloads = workloadsByYearRange ? workloadsByYearRange[selectedYear] : [];
+        const currentWorkloads = workloadsByYearRange?.[selectedYear] ?? [];
         return filterWorkloadsByPeriod(currentWorkloads, selectedPeriod, selectedDepartment);
     }, [workloadsByYearRange, selectedPeriod, selectedYear, selectedDepartment]);
 
@@ -124,6 +124,10 @@ export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [], positions 
                 onDepartmentChange={setSelectedDepartment}
                 onPeriodChange={setSelectedPeriod}
             />
+
+            {filteredWorkloads.length === 0 && (
+                <SectionTitle className="mt-8 text-primary">{t('no_data')}</SectionTitle>
+            )}
 
             {sections.main.grouped.length > 0 && (
                 <div className="mt-8">
