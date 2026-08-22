@@ -64,4 +64,4 @@ Now you can open website locally at http://localhost:3000/
 
 ## License
 
-Starting from commit `4b2c90443657` / version `1.0.1` (`2026-08-22`), this project is licensed under the Mozilla Public License 2.0 (see [LICENSE](LICENSE)). Code contributed before that point remains available under the Apache License 2.0 (see [LICENSE-Apache-2.0](LICENSE-Apache-2.0)). The last commit under the previous license is tagged `apache-2.0-final`.
+Starting from commit `4b2c90443657` / version `1.0.1` (`2026-08-22`), this project is licensed under the Mozilla Public License 2.0 (see [LICENSE](LICENSE)). Code contributed before that point remains available under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0); the last commit distributed under those terms is tagged `apache-2.0-final`.
