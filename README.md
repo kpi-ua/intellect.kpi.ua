@@ -61,3 +61,7 @@ docker run --rm -it -p 3000:3000 -v $(pwd):/usr/src/app -v /usr/src/app/node_mod
 ```
 
 Now you can open website locally at http://localhost:3000/
+
+## License
+
+Starting from commit `4b2c90443657` / version `1.0.1` (`2026-08-22`), this project is licensed under the Mozilla Public License 2.0 (see [LICENSE](LICENSE)). Code contributed before that point remains available under the Apache License 2.0 (see [LICENSE-Apache-2.0](LICENSE-Apache-2.0)). The last commit under the previous license is tagged `apache-2.0-final`.
