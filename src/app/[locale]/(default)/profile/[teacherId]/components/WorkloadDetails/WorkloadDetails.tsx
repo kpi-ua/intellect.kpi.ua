@@ -13,7 +13,6 @@ import {
     getDefaultDepartment,
     getDefaultYearFromGrouped,
     getEmploymentAbbreviation,
-    getSectionBravoId,
     getSectionEmploymentType,
     groupWorkloadsByYearRange,
 } from './utils';
@@ -131,36 +130,36 @@ export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [], positions 
 
             {sections.main.grouped.length > 0 && (
                 <div className="mt-8">
-                    <SectionTitle className="mb-4 uppercase text-primary">{t(`employment_types.${getSectionEmploymentType(positions, getSectionBravoId(sections.main.grouped))}`)}</SectionTitle>
+                    <SectionTitle className="mb-4 uppercase text-primary">{t(`employment_types.${getSectionEmploymentType(sections.main.grouped, positions)}`)}</SectionTitle>
                     <DataTable groupedWorkloads={sections.main.grouped} hideTitle />
                     <StackedBarChart
                         yearRange={selectedYear}
                         summary={computeWorkloadSummary(sections.main.workloads)}
-                        appointmentAbbreviation={getEmploymentAbbreviation(positions, getSectionBravoId(sections.main.grouped))}
+                        appointmentAbbreviation={getEmploymentAbbreviation(sections.main.grouped, positions)}
                     />
                 </div>
             )}
 
             {sections.mixed.grouped.length > 0 && (
                 <div className="mt-8">
-                    <SectionTitle className="mb-4 uppercase text-primary">{t(`employment_types.${getSectionEmploymentType(positions, getSectionBravoId(sections.mixed.grouped))}`)}</SectionTitle>
+                    <SectionTitle className="mb-4 uppercase text-primary">{t(`employment_types.${getSectionEmploymentType(sections.mixed.grouped, positions)}`)}</SectionTitle>
                     <DataTable groupedWorkloads={sections.mixed.grouped} hideTitle variant="mixed" />
                     <StackedBarChart
                         yearRange={selectedYear}
                         summary={computeWorkloadSummary(sections.mixed.workloads)}
-                        appointmentAbbreviation={getEmploymentAbbreviation(positions, getSectionBravoId(sections.mixed.grouped))}
+                        appointmentAbbreviation={getEmploymentAbbreviation(sections.mixed.grouped, positions)}
                     />
                 </div>
             )}
 
             {sections.hourly.grouped.length > 0 && (
                 <div className="mt-8">
-                    <SectionTitle className="mb-4 uppercase text-primary">{t(`employment_types.${getSectionEmploymentType(positions, getSectionBravoId(sections.hourly.grouped))}`)}</SectionTitle>
+                    <SectionTitle className="mb-4 uppercase text-primary">{t(`employment_types.${getSectionEmploymentType(sections.hourly.grouped, positions)}`)}</SectionTitle>
                     <DataTable groupedWorkloads={sections.hourly.grouped} hideTitle variant="hourly" />
                     <StackedBarChart
                         yearRange={selectedYear}
                         summary={computeWorkloadSummary(sections.hourly.workloads)}
-                        appointmentAbbreviation={getEmploymentAbbreviation(positions, getSectionBravoId(sections.hourly.grouped))}
+                        appointmentAbbreviation={getEmploymentAbbreviation(sections.hourly.grouped, positions)}
                         onlyEducational
                     />
                 </div>

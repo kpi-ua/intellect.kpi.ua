@@ -1,7 +1,30 @@
 import { useMemo } from 'react';
-import { EvaluationWorkload } from '@/types/intellect';
+import { EmploymentType, EvaluationWorkload } from '@/types/intellect';
 
 export type WorkloadGroupType = { normative?: EvaluationWorkload; mixed?: EvaluationWorkload; hourly?: EvaluationWorkload };
+
+type WorkloadBucket = 'normative' | 'mixed' | 'hourly';
+
+/**
+ * Buckets a workload row by its employment form: primary appointment (normative),
+ * secondary appointment (mixed) or hourly. Rows cached before the API exposed a
+ * usable employment value fall back to the old salary-based heuristic.
+ */
+const getWorkloadBucket = (w: EvaluationWorkload): WorkloadBucket => {
+    switch (w.employment) {
+        case EmploymentType.FullTime:
+            return 'normative';
+        case EmploymentType.PartTime:
+        case EmploymentType.PartTimeInternal:
+        case EmploymentType.PartTimeExternal:
+            return 'mixed';
+        case EmploymentType.HourlyPay:
+            return 'hourly';
+        default:
+            if (w.salary === 0) return 'hourly';
+            return w.salary >= 1 ? 'normative' : 'mixed';
+    }
+};
 
 export const useGroupedWorkloads = (workloads: EvaluationWorkload[], selectedPeriod: string) => {
     return useMemo(() => {
@@ -38,25 +61,13 @@ export const useGroupedWorkloads = (workloads: EvaluationWorkload[], selectedPer
             if (!group.semesters[w.semester]) group.semesters[w.semester] = {};
             const semGroup = group.semesters[w.semester];
 
-            if (w.salary === 0) {
-                if (!semGroup.hourly) semGroup.hourly = { ...w };
-                else accumulate(semGroup.hourly, w);
+            const bucket = getWorkloadBucket(w);
 
-                if (!group.total.hourly) group.total.hourly = { ...w, semester: 0 };
-                else accumulate(group.total.hourly, w);
-            } else if (w.salary >= 1) {
-                if (!semGroup.normative) semGroup.normative = { ...w };
-                else accumulate(semGroup.normative, w);
+            if (!semGroup[bucket]) semGroup[bucket] = { ...w };
+            else accumulate(semGroup[bucket]!, w);
 
-                if (!group.total.normative) group.total.normative = { ...w, semester: 0 };
-                else accumulate(group.total.normative, w);
-            } else {
-                if (!semGroup.mixed) semGroup.mixed = { ...w };
-                else accumulate(semGroup.mixed, w);
-
-                if (!group.total.mixed) group.total.mixed = { ...w, semester: 0 };
-                else accumulate(group.total.mixed, w);
-            }
+            if (!group.total[bucket]) group.total[bucket] = { ...w, semester: 0 };
+            else accumulate(group.total[bucket]!, w);
         });
 
         Object.values(subgroups).forEach((group) => {
