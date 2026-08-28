@@ -135,7 +135,7 @@ export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [], positions 
                     <DataTable groupedWorkloads={sections.main.grouped} hideTitle />
                     <StackedBarChart
                         yearRange={selectedYear}
-                        summary={computeWorkloadSummary(sections.main.workloads)}
+                        summary={computeWorkloadSummary(filteredWorkloads.filter((workload) => workload.salary >= 1))}
                         appointmentAbbreviation={getEmploymentAbbreviation(positions, getSectionBravoId(sections.main.grouped))}
                     />
                 </div>
@@ -147,7 +147,7 @@ export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [], positions 
                     <DataTable groupedWorkloads={sections.mixed.grouped} hideTitle variant="mixed" />
                     <StackedBarChart
                         yearRange={selectedYear}
-                        summary={computeWorkloadSummary(sections.mixed.workloads)}
+                        summary={computeWorkloadSummary(filteredWorkloads.filter((workload) => workload.salary > 0 && workload.salary < 1))}
                         appointmentAbbreviation={getEmploymentAbbreviation(positions, getSectionBravoId(sections.mixed.grouped))}
                     />
                 </div>
@@ -159,7 +159,7 @@ export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [], positions 
                     <DataTable groupedWorkloads={sections.hourly.grouped} hideTitle variant="hourly" />
                     <StackedBarChart
                         yearRange={selectedYear}
-                        summary={computeWorkloadSummary(sections.hourly.workloads)}
+                        summary={computeWorkloadSummary(filteredWorkloads.filter((workload) => workload.salary === 0))}
                         appointmentAbbreviation={getEmploymentAbbreviation(positions, getSectionBravoId(sections.hourly.grouped))}
                         onlyEducational
                     />
