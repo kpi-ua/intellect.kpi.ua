@@ -1,7 +1,10 @@
 FROM node:22-alpine AS base
 
-# Install dependencies only when needed
-FROM base AS deps
+# Install dependencies only when needed.
+# deps/builder run natively on the build host ($BUILDPLATFORM) so that npm ci / yarn build
+# are not emulated under QEMU when producing linux/arm64 images; only the runner stage
+# is built per target platform.
+FROM --platform=$BUILDPLATFORM node:22-alpine AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
@@ -14,7 +17,7 @@ RUN \
   fi
 
 # Rebuild the source code only when needed
-FROM base AS builder
+FROM --platform=$BUILDPLATFORM node:22-alpine AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
