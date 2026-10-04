@@ -5,7 +5,7 @@ import SectionTitle from '@/components/common/SectionTitle';
 import { EmploymentType, EvaluationWorkload, Position, Rating } from '@/types/intellect';
 import { Filters } from './Filters';
 import { DataTable } from './DataTable';
-import { useGroupedWorkloads, WorkloadGroupType } from './useGroupedWorkloads';
+import { getWorkloadBucket, useGroupedWorkloads, WORKLOAD_BUCKET, WorkloadBucket } from './useGroupedWorkloads';
 import { Ratings } from '../Ratings';
 import {
     computeWorkloadSummary,
@@ -13,7 +13,6 @@ import {
     getDefaultDepartment,
     getDefaultYearFromGrouped,
     getEmploymentAbbreviation,
-    getSectionBravoId,
     getSectionEmploymentType,
     groupWorkloadsByYearRange,
 } from './utils';
@@ -55,21 +54,24 @@ export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [], positions 
         const mixed = allGroupedWorkloads.filter(g => g.mixed);
         const hourly = allGroupedWorkloads.filter(g => !g.normative && !g.mixed && g.hourly);
 
+        // Charts aggregate the raw rows of a section (grouped rows would double count the totals row).
+        const workloadsOf = (bucket: WorkloadBucket) => filteredWorkloads.filter((w) => getWorkloadBucket(w) === bucket);
+
         return {
             main: {
                 grouped: main,
-                workloads: main.flatMap((g: WorkloadGroupType) => [g.normative, g.hourly].filter(Boolean) as EvaluationWorkload[])
+                workloads: workloadsOf(WORKLOAD_BUCKET.normative)
             },
             mixed: {
                 grouped: mixed,
-                workloads: mixed.flatMap((g: WorkloadGroupType) => [g.mixed, g.hourly].filter(Boolean) as EvaluationWorkload[])
+                workloads: workloadsOf(WORKLOAD_BUCKET.mixed)
             },
             hourly: {
                 grouped: hourly,
-                workloads: hourly.flatMap((g: WorkloadGroupType) => [g.hourly].filter(Boolean) as EvaluationWorkload[])
+                workloads: workloadsOf(WORKLOAD_BUCKET.hourly)
             }
         };
-    }, [allGroupedWorkloads]);
+    }, [allGroupedWorkloads, filteredWorkloads]);
 
 
     if (showRatingsArchive) {
@@ -131,36 +133,36 @@ export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [], positions 
 
             {sections.main.grouped.length > 0 && (
                 <div className="mt-8">
-                    <SectionTitle className="mb-4 uppercase text-primary">{t(`employment_types.${getSectionEmploymentType(positions, getSectionBravoId(sections.main.grouped))}`)}</SectionTitle>
+                    <SectionTitle className="mb-4 uppercase text-primary">{t(`employment_types.${getSectionEmploymentType(sections.main.grouped, positions)}`)}</SectionTitle>
                     <DataTable groupedWorkloads={sections.main.grouped} hideTitle />
                     <StackedBarChart
                         yearRange={selectedYear}
-                        summary={computeWorkloadSummary(filteredWorkloads.filter((workload) => workload.salary >= 1))}
-                        appointmentAbbreviation={getEmploymentAbbreviation(positions, getSectionBravoId(sections.main.grouped))}
+                        summary={computeWorkloadSummary(sections.main.workloads)}
+                        appointmentAbbreviation={getEmploymentAbbreviation(sections.main.grouped, positions)}
                     />
                 </div>
             )}
 
             {sections.mixed.grouped.length > 0 && (
                 <div className="mt-8">
-                    <SectionTitle className="mb-4 uppercase text-primary">{t(`employment_types.${getSectionEmploymentType(positions, getSectionBravoId(sections.mixed.grouped))}`)}</SectionTitle>
+                    <SectionTitle className="mb-4 uppercase text-primary">{t(`employment_types.${getSectionEmploymentType(sections.mixed.grouped, positions)}`)}</SectionTitle>
                     <DataTable groupedWorkloads={sections.mixed.grouped} hideTitle variant="mixed" />
                     <StackedBarChart
                         yearRange={selectedYear}
-                        summary={computeWorkloadSummary(filteredWorkloads.filter((workload) => workload.salary > 0 && workload.salary < 1))}
-                        appointmentAbbreviation={getEmploymentAbbreviation(positions, getSectionBravoId(sections.mixed.grouped))}
+                        summary={computeWorkloadSummary(sections.mixed.workloads)}
+                        appointmentAbbreviation={getEmploymentAbbreviation(sections.mixed.grouped, positions)}
                     />
                 </div>
             )}
 
             {sections.hourly.grouped.length > 0 && (
                 <div className="mt-8">
-                    <SectionTitle className="mb-4 uppercase text-primary">{t(`employment_types.${getSectionEmploymentType(positions, getSectionBravoId(sections.hourly.grouped))}`)}</SectionTitle>
+                    <SectionTitle className="mb-4 uppercase text-primary">{t(`employment_types.${getSectionEmploymentType(sections.hourly.grouped, positions)}`)}</SectionTitle>
                     <DataTable groupedWorkloads={sections.hourly.grouped} hideTitle variant="hourly" />
                     <StackedBarChart
                         yearRange={selectedYear}
-                        summary={computeWorkloadSummary(filteredWorkloads.filter((workload) => workload.salary === 0))}
-                        appointmentAbbreviation={getEmploymentAbbreviation(positions, getSectionBravoId(sections.hourly.grouped))}
+                        summary={computeWorkloadSummary(sections.hourly.workloads)}
+                        appointmentAbbreviation={getEmploymentAbbreviation(sections.hourly.grouped, positions)}
                         onlyEducational
                     />
                 </div>

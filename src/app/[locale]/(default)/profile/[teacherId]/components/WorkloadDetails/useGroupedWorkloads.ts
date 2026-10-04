@@ -1,7 +1,36 @@
 import { useMemo } from 'react';
-import { EvaluationWorkload } from '@/types/intellect';
+import { EmploymentType, EvaluationWorkload } from '@/types/intellect';
 
-export type WorkloadGroupType = { normative?: EvaluationWorkload; mixed?: EvaluationWorkload; hourly?: EvaluationWorkload };
+export const WORKLOAD_BUCKET = {
+    normative: 'normative',
+    mixed: 'mixed',
+    hourly: 'hourly',
+} as const;
+
+export type WorkloadBucket = (typeof WORKLOAD_BUCKET)[keyof typeof WORKLOAD_BUCKET];
+
+export type WorkloadGroupType = Partial<Record<WorkloadBucket, EvaluationWorkload>>;
+
+/**
+ * Buckets a workload row by its employment form: primary appointment (normative),
+ * secondary appointment (mixed) or hourly. Rows cached before the API exposed a
+ * usable employment value fall back to the old salary-based heuristic.
+ */
+export const getWorkloadBucket = (w: EvaluationWorkload): WorkloadBucket => {
+    switch (w.employment) {
+        case EmploymentType.FullTime:
+            return WORKLOAD_BUCKET.normative;
+        case EmploymentType.PartTime:
+        case EmploymentType.PartTimeInternal:
+        case EmploymentType.PartTimeExternal:
+            return WORKLOAD_BUCKET.mixed;
+        case EmploymentType.HourlyPay:
+            return WORKLOAD_BUCKET.hourly;
+        default:
+            if (w.salary === 0) return WORKLOAD_BUCKET.hourly;
+            return w.salary >= 1 ? WORKLOAD_BUCKET.normative : WORKLOAD_BUCKET.mixed;
+    }
+};
 
 export const useGroupedWorkloads = (workloads: EvaluationWorkload[], selectedPeriod: string) => {
     return useMemo(() => {
@@ -38,31 +67,21 @@ export const useGroupedWorkloads = (workloads: EvaluationWorkload[], selectedPer
             if (!group.semesters[w.semester]) group.semesters[w.semester] = {};
             const semGroup = group.semesters[w.semester];
 
-            if (w.salary === 0) {
-                if (!semGroup.hourly) semGroup.hourly = { ...w };
-                else accumulate(semGroup.hourly, w);
+            const bucket = getWorkloadBucket(w);
 
-                if (!group.total.hourly) group.total.hourly = { ...w, semester: 0 };
-                else accumulate(group.total.hourly, w);
-            } else if (w.salary >= 1) {
-                if (!semGroup.normative) semGroup.normative = { ...w };
-                else accumulate(semGroup.normative, w);
+            const semesterWorkload = semGroup[bucket];
+            if (semesterWorkload) accumulate(semesterWorkload, w);
+            else semGroup[bucket] = { ...w };
 
-                if (!group.total.normative) group.total.normative = { ...w, semester: 0 };
-                else accumulate(group.total.normative, w);
-            } else {
-                if (!semGroup.mixed) semGroup.mixed = { ...w };
-                else accumulate(semGroup.mixed, w);
-
-                if (!group.total.mixed) group.total.mixed = { ...w, semester: 0 };
-                else accumulate(group.total.mixed, w);
-            }
+            const totalWorkload = group.total[bucket];
+            if (totalWorkload) accumulate(totalWorkload, w);
+            else group.total[bucket] = { ...w, semester: 0 };
         });
 
         Object.values(subgroups).forEach((group) => {
             const semesterGroups = Object.values(group.semesters);
 
-            (['normative', 'mixed', 'hourly'] as const).forEach((workloadType) => {
+            Object.values(WORKLOAD_BUCKET).forEach((workloadType) => {
                 const total = group.total[workloadType];
                 if (!total) return;
 
