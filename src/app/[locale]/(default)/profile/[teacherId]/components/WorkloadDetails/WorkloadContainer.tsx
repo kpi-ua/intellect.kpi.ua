@@ -21,9 +21,7 @@ export const WorkloadContainer: FC<Props> = async ({ teacherId, positions }) => 
 
         return (
             <div role="alert">
-                <SectionTitle className="mt-3 text-primary">
-                    {t('temporarily_unavailable')}
-                </SectionTitle>
+                <SectionTitle className="mt-3 text-primary">{t('temporarily_unavailable')}</SectionTitle>
             </div>
         );
     }

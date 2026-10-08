@@ -35,8 +35,8 @@ export enum EmploymentType {
     PartTime = 'PartTime',
     PartTimeInternal = 'PartTimeInternal',
     PartTimeExternal = 'PartTimeExternal',
-    HourlyPay = 'HourlyPay'
-};
+    HourlyPay = 'HourlyPay',
+}
 
 export type ExperienceType = 'profile' | 'rating';
 export type SearchMode = 'all' | 'persons' | 'alphabetic' | 'interests';
@@ -60,6 +60,15 @@ export type Tab = {
 
 export type WorkloadSubdivision = Pick<Division, 'bravoId' | 'abbreviation' | 'name'>;
 
+export type WorkloadCapCalculation = {
+    ruleCode: string;
+    rawHours: number;
+    creditedHours: number;
+    applicableLimit: number;
+    exceededHours: number;
+    isExceeded: boolean;
+};
+
 export type EvaluationWorkload = {
     employeeId: string;
     fullName: string;
@@ -72,6 +81,9 @@ export type EvaluationWorkload = {
     salary: number;
     educational: number;
     scientific: number;
+    scientificRestricted?: number;
+    scientificWorkCap?: WorkloadCapCalculation | null;
+    otherWorkCap?: WorkloadCapCalculation | null;
     methodical: number;
     organizational: number;
     other: number;

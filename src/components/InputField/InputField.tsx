@@ -7,14 +7,7 @@ import { Button } from '@/components/ui/button';
 import { searchStringParams } from '@/constants';
 import { debounce } from '@/utils';
 import { Lecturer } from '@/types/intellect';
-import {
-    Command,
-    CommandInput,
-    CommandList,
-    CommandEmpty,
-    CommandGroup,
-    CommandItem,
-} from '@/components/ui/command';
+import { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from '@/components/ui/command';
 import { searchByInput } from '@/api/teacher';
 import useClickOutside from '@/utils/hooks/useClickOutside';
 
@@ -25,12 +18,7 @@ interface Props {
     value?: string;
 }
 
-const InputField: React.FC<Props> = ({
-    onSubmit,
-    onTipClick,
-    placeholder = '',
-    value = '',
-}) => {
+const InputField: React.FC<Props> = ({ onSubmit, onTipClick, placeholder = '', value = '' }) => {
     const t = useTranslations('search');
     const [userInput, setUserInput] = useState(value);
     const [tipOptions, setTipOptions] = useState<Lecturer[]>([]);
@@ -48,7 +36,7 @@ const InputField: React.FC<Props> = ({
     const handleTips = async (value: string | undefined) => {
         if (value) {
             try {
-                const response = (await searchByInput(value, 1));
+                const response = await searchByInput(value, 1);
                 setTipOptions(response.data);
                 setIsTipsVisible(true);
             } catch (e) {
@@ -80,7 +68,6 @@ const InputField: React.FC<Props> = ({
         setIsTipsVisible(false);
         onSubmit?.(userInput);
     };
-
 
     return (
         <Command className="flex-1 overflow-visible bg-transparent h-fit" shouldFilter={false}>

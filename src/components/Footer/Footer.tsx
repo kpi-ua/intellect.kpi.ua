@@ -20,8 +20,7 @@ const Footer: React.FC<Props> = ({ logoSrc }) => {
                         {t('university')} &copy; 1998-{currentYear}
                     </p>
                     <p className="mt-2">
-                        {t('address_label')}:{' '}
-                        <a href="https://kpi.ua/location">{t('address')}</a>
+                        {t('address_label')}: <a href="https://kpi.ua/location">{t('address')}</a>
                     </p>
                 </section>
                 <section>
@@ -36,8 +35,7 @@ const Footer: React.FC<Props> = ({ logoSrc }) => {
                 </section>
                 <section>
                     <p>
-                        {t('usage_terms')}{' '}
-                        <a href="https://intellect.kpi.ua">intellect.kpi.ua</a>
+                        {t('usage_terms')} <a href="https://intellect.kpi.ua">intellect.kpi.ua</a>
                     </p>
                 </section>
             </div>

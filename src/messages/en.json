@@ -112,6 +112,13 @@
                 "sa": "SECONDARY APPOINTMENT (SA)",
                 "ha": "HOURLY APPOINTMENT (HA)"
             },
+            "scientific_minimum_warning": "Scientific work accounts for less than 30% of the total workload",
+            "caps": {
+                "indicator": "Limit applied",
+                "applied": "Verified: {raw} h. Credited: {credited} h. The annual reporting limit excludes {exceeded} h from credited totals. All source achievements remain verified and unchanged.",
+                "annual_note": "Semester rows show verified hours. Annual totals and charts show credited hours after applying the same reporting limits as K-7.",
+                "semester_note": "Semester values show verified hours. Reporting limits apply to the full academic year; select Year to see credited totals."
+            },
             "filters": {
                 "subdivision": "Subdivision",
                 "subdivision_placeholder": "Select subdivision",

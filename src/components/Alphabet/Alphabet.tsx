@@ -18,9 +18,7 @@ const ukIndexes = [
     [1070, 1071],
 ];
 
-const enIndexes = [
-    [65, 90],
-];
+const enIndexes = [[65, 90]];
 
 type Props = {
     onLetterSelected?: (a: string) => void;

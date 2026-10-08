@@ -27,7 +27,9 @@ const generateMetaDescription = (teacher: Lecturer | null, t: any): string => {
     }
 
     const credoOrEmpty = teacher.credo ? `"${teacher.credo}", ` : '';
-    const academicDegreeOrEmpty = teacher.academicDegree ? `${t(`profile.academic_degree.${teacher.academicDegree}`)}, ` : '';
+    const academicDegreeOrEmpty = teacher.academicDegree
+        ? `${t(`profile.academic_degree.${teacher.academicDegree}`)}, `
+        : '';
 
     const positionsOrEmpty =
         teacher.positions?.length && `${teacher.positions.map((p) => `${p.name}, ${p.subdivision.name}`)}, `;
@@ -42,7 +44,11 @@ const generateMetaDescription = (teacher: Lecturer | null, t: any): string => {
     return finalDescription;
 };
 
-export async function generateMetadata({ params }: { params: Promise<{ teacherId: string; locale: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+    params,
+}: {
+    params: Promise<{ teacherId: string; locale: string }>;
+}): Promise<Metadata> {
     const { teacherId, locale } = await params;
     const commonT = await getTranslations({ locale, namespace: 'global.metadata' });
 
@@ -58,10 +64,10 @@ export async function generateMetadata({ params }: { params: Promise<{ teacherId
                 description,
                 images: teacher?.userIdentifier
                     ? [
-                        {
-                            url: `${API_BASE_URL}/intellect/v2/persons/${teacher.userIdentifier}/page-preview`,
-                        },
-                    ]
+                          {
+                              url: `${API_BASE_URL}/intellect/v2/persons/${teacher.userIdentifier}/page-preview`,
+                          },
+                      ]
                     : [],
             },
         };
@@ -72,7 +78,11 @@ export async function generateMetadata({ params }: { params: Promise<{ teacherId
     }
 }
 
-export default async function TeacherProfilePage({ params }: { params: Promise<{ teacherId: string; locale: string }> }) {
+export default async function TeacherProfilePage({
+    params,
+}: {
+    params: Promise<{ teacherId: string; locale: string }>;
+}) {
     const { teacherId, locale } = await params;
     const t = await getTranslations({ locale, namespace: 'profile' });
 
@@ -134,8 +144,7 @@ export default async function TeacherProfilePage({ params }: { params: Promise<{
                 </div>
             </section>
         );
-
     } catch (error) {
-        notFound()
+        notFound();
     }
 }

@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { EmploymentType, EvaluationWorkload } from '@/types/intellect';
+import { getAnnualCapAdjustments } from './workloadCaps';
 
 export const WORKLOAD_BUCKET = {
     normative: 'normative',
@@ -9,7 +10,11 @@ export const WORKLOAD_BUCKET = {
 
 export type WorkloadBucket = (typeof WORKLOAD_BUCKET)[keyof typeof WORKLOAD_BUCKET];
 
-export type WorkloadGroupType = Partial<Record<WorkloadBucket, EvaluationWorkload>>;
+export type DisplayWorkload = EvaluationWorkload & {
+    rawScientific?: number;
+    rawOther?: number;
+};
+export type WorkloadGroupType = Partial<Record<WorkloadBucket, DisplayWorkload>>;
 
 /**
  * Buckets a workload row by its employment form: primary appointment (normative),
@@ -34,12 +39,15 @@ export const getWorkloadBucket = (w: EvaluationWorkload): WorkloadBucket => {
 
 export const useGroupedWorkloads = (workloads: EvaluationWorkload[], selectedPeriod: string) => {
     return useMemo(() => {
-        const subgroups: Record<string, {
-            year: number;
-            subdivision: EvaluationWorkload['subdivision'];
-            semesters: Record<number, WorkloadGroupType>;
-            total: WorkloadGroupType;
-        }> = {};
+        const subgroups: Record<
+            string,
+            {
+                year: number;
+                subdivision: EvaluationWorkload['subdivision'];
+                semesters: Record<number, WorkloadGroupType>;
+                total: WorkloadGroupType;
+            }
+        > = {};
 
         const accumulate = (target: EvaluationWorkload, source: EvaluationWorkload) => {
             target.educational += source.educational;
@@ -92,6 +100,20 @@ export const useGroupedWorkloads = (workloads: EvaluationWorkload[], selectedPer
                 if (salaries.length > 0) {
                     total.salary = salaries.reduce((sum, salary) => sum + salary, 0) / salaries.length;
                 }
+
+                const rows = workloads.filter(
+                    (w) =>
+                        w.semester > 0 &&
+                        w.year === group.year &&
+                        w.subdivision?.bravoId === group.subdivision?.bravoId &&
+                        getWorkloadBucket(w) === workloadType
+                );
+                const adjustments = getAnnualCapAdjustments(rows);
+                total.rawScientific = total.scientific;
+                total.rawOther = total.other;
+                total.scientific -= adjustments.scientific;
+                total.other -= adjustments.other;
+                total.totalWorkload -= adjustments.scientific + adjustments.other;
             });
         });
 
@@ -99,7 +121,9 @@ export const useGroupedWorkloads = (workloads: EvaluationWorkload[], selectedPer
 
         for (const key in subgroups) {
             const group = subgroups[key];
-            const semKeys = Object.keys(group.semesters).map(Number).sort((a, b) => a - b);
+            const semKeys = Object.keys(group.semesters)
+                .map(Number)
+                .sort((a, b) => a - b);
             semKeys.forEach((sem: number) => {
                 const sGroup = group.semesters[sem];
                 if (sGroup.normative) {

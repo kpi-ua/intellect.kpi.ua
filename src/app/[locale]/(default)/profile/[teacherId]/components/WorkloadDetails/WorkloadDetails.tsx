@@ -17,18 +17,13 @@ import {
     groupWorkloadsByYearRange,
 } from './utils';
 import { useTranslations } from 'next-intl';
-import {
-    StackedBarChart
-} from '@/app/[locale]/(default)/profile/[teacherId]/components/WorkloadDetails/StackedBarChart/StackedBarChart';
+import { StackedBarChart } from '@/app/[locale]/(default)/profile/[teacherId]/components/WorkloadDetails/StackedBarChart/StackedBarChart';
 
 interface Props {
     workloads: EvaluationWorkload[];
     ratings?: Rating[];
     positions: Position[];
 }
-
-
-
 
 export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [], positions }) => {
     const t = useTranslations('profile.workload');
@@ -50,29 +45,29 @@ export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [], positions 
     const allGroupedWorkloads = useGroupedWorkloads(filteredWorkloads, selectedPeriod);
 
     const sections = useMemo(() => {
-        const main = allGroupedWorkloads.filter(g => g.normative);
-        const mixed = allGroupedWorkloads.filter(g => g.mixed);
-        const hourly = allGroupedWorkloads.filter(g => !g.normative && !g.mixed && g.hourly);
+        const main = allGroupedWorkloads.filter((g) => g.normative);
+        const mixed = allGroupedWorkloads.filter((g) => g.mixed);
+        const hourly = allGroupedWorkloads.filter((g) => !g.normative && !g.mixed && g.hourly);
 
         // Charts aggregate the raw rows of a section (grouped rows would double count the totals row).
-        const workloadsOf = (bucket: WorkloadBucket) => filteredWorkloads.filter((w) => getWorkloadBucket(w) === bucket);
+        const workloadsOf = (bucket: WorkloadBucket) =>
+            filteredWorkloads.filter((w) => getWorkloadBucket(w) === bucket);
 
         return {
             main: {
                 grouped: main,
-                workloads: workloadsOf(WORKLOAD_BUCKET.normative)
+                workloads: workloadsOf(WORKLOAD_BUCKET.normative),
             },
             mixed: {
                 grouped: mixed,
-                workloads: workloadsOf(WORKLOAD_BUCKET.mixed)
+                workloads: workloadsOf(WORKLOAD_BUCKET.mixed),
             },
             hourly: {
                 grouped: hourly,
-                workloads: workloadsOf(WORKLOAD_BUCKET.hourly)
-            }
+                workloads: workloadsOf(WORKLOAD_BUCKET.hourly),
+            },
         };
     }, [allGroupedWorkloads, filteredWorkloads]);
-
 
     if (showRatingsArchive) {
         return (
@@ -126,6 +121,11 @@ export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [], positions 
                 onDepartmentChange={setSelectedDepartment}
                 onPeriodChange={setSelectedPeriod}
             />
+            {filteredWorkloads.length > 0 && (
+                <p className="mt-4 text-sm text-neutral-500">
+                    {t(selectedPeriod === '0' ? 'caps.annual_note' : 'caps.semester_note')}
+                </p>
+            )}
 
             {filteredWorkloads.length === 0 && (
                 <SectionTitle className="mt-8 text-primary">{t('no_data')}</SectionTitle>
@@ -133,11 +133,13 @@ export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [], positions 
 
             {sections.main.grouped.length > 0 && (
                 <div className="mt-8">
-                    <SectionTitle className="mb-4 uppercase text-primary">{t(`employment_types.${getSectionEmploymentType(sections.main.grouped, positions)}`)}</SectionTitle>
+                    <SectionTitle className="mb-4 uppercase text-primary">
+                        {t(`employment_types.${getSectionEmploymentType(sections.main.grouped, positions)}`)}
+                    </SectionTitle>
                     <DataTable groupedWorkloads={sections.main.grouped} hideTitle />
                     <StackedBarChart
                         yearRange={selectedYear}
-                        summary={computeWorkloadSummary(sections.main.workloads)}
+                        summary={computeWorkloadSummary(sections.main.workloads, selectedPeriod === '0')}
                         appointmentAbbreviation={getEmploymentAbbreviation(sections.main.grouped, positions)}
                     />
                 </div>
@@ -145,11 +147,13 @@ export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [], positions 
 
             {sections.mixed.grouped.length > 0 && (
                 <div className="mt-8">
-                    <SectionTitle className="mb-4 uppercase text-primary">{t(`employment_types.${getSectionEmploymentType(sections.mixed.grouped, positions)}`)}</SectionTitle>
+                    <SectionTitle className="mb-4 uppercase text-primary">
+                        {t(`employment_types.${getSectionEmploymentType(sections.mixed.grouped, positions)}`)}
+                    </SectionTitle>
                     <DataTable groupedWorkloads={sections.mixed.grouped} hideTitle variant="mixed" />
                     <StackedBarChart
                         yearRange={selectedYear}
-                        summary={computeWorkloadSummary(sections.mixed.workloads)}
+                        summary={computeWorkloadSummary(sections.mixed.workloads, selectedPeriod === '0')}
                         appointmentAbbreviation={getEmploymentAbbreviation(sections.mixed.grouped, positions)}
                     />
                 </div>
@@ -157,20 +161,20 @@ export const WorkloadDetails: FC<Props> = ({ workloads, ratings = [], positions 
 
             {sections.hourly.grouped.length > 0 && (
                 <div className="mt-8">
-                    <SectionTitle className="mb-4 uppercase text-primary">{t(`employment_types.${getSectionEmploymentType(sections.hourly.grouped, positions)}`)}</SectionTitle>
+                    <SectionTitle className="mb-4 uppercase text-primary">
+                        {t(`employment_types.${getSectionEmploymentType(sections.hourly.grouped, positions)}`)}
+                    </SectionTitle>
                     <DataTable groupedWorkloads={sections.hourly.grouped} hideTitle variant="hourly" />
                     <StackedBarChart
                         yearRange={selectedYear}
-                        summary={computeWorkloadSummary(sections.hourly.workloads)}
+                        summary={computeWorkloadSummary(sections.hourly.workloads, selectedPeriod === '0')}
                         appointmentAbbreviation={getEmploymentAbbreviation(sections.hourly.grouped, positions)}
                         onlyEducational
                     />
                 </div>
             )}
 
-            <div className="mt-8 text-sm text-neutral-500">
-                {t('update_info')}
-            </div>
+            <div className="mt-8 text-sm text-neutral-500">{t('update_info')}</div>
         </div>
     );
 };

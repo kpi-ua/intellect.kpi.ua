@@ -6,6 +6,8 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 import { WorkloadGroupType } from './useGroupedWorkloads';
 import { useTranslations } from 'next-intl';
 import { CircleQuestionMark } from 'lucide-react';
+import { CapIndicator } from './CapIndicator';
+import { ScientificWorkloadWarning } from './ScientificWorkloadWarning';
 
 interface Props {
     hideTitle?: boolean;
@@ -22,20 +24,28 @@ export const DataTable = ({ groupedWorkloads, hideTitle, variant = 'normative' }
         return `${semester} ${t('semester')}`;
     };
 
-    const renderValueCell = (value: number, isBold: boolean) => (
-        <TableCell className={isBold ? "font-bold text-right" : "text-right"}>{value.toFixed(2)}</TableCell>
+    const renderValueCell = (value: number, isBold: boolean, raw = value, warning?: React.ReactNode) => (
+        <TableCell className={isBold ? 'font-bold text-right' : 'text-right'}>
+            {value.toFixed(2)}
+            <CapIndicator raw={raw} credited={value} />
+            {warning}
+        </TableCell>
     );
 
     const renderTotalCell = (value: number, isBold: boolean, salary: number, hourlyValue?: number) => {
         const hasHourly = hourlyValue && hourlyValue > 0;
         return (
-            <TableCell className={`whitespace-nowrap text-right ${isBold ? "font-bold" : ""}`}>
-                <div className={`inline-flex items-center gap-1 ${hasHourly ? "flex-col items-end" : ""}`}>
+            <TableCell className={`whitespace-nowrap text-right ${isBold ? 'font-bold' : ''}`}>
+                <div className={`inline-flex items-center gap-1 ${hasHourly ? 'flex-col items-end' : ''}`}>
                     <span className="inline-flex items-center gap-1">
                         {value.toFixed(2)}
                         <Tooltip>
                             <TooltipTrigger asChild>
-                                <CircleQuestionMark className="inline text-neutral-400 cursor-help" width={16} height={16} />
+                                <CircleQuestionMark
+                                    className="inline text-neutral-400 cursor-help"
+                                    width={16}
+                                    height={16}
+                                />
                             </TooltipTrigger>
                             <TooltipContent>
                                 <p>{t('employment_tooltip', { value: salary })}</p>
@@ -43,7 +53,9 @@ export const DataTable = ({ groupedWorkloads, hideTitle, variant = 'normative' }
                         </Tooltip>
                     </span>
                     {hasHourly && (
-                        <span className="font-medium text-sm text-neutral-500">+ {hourlyValue.toFixed(2)} {t('hourly')}</span>
+                        <span className="font-medium text-sm text-neutral-500">
+                            + {hourlyValue.toFixed(2)} {t('hourly')}
+                        </span>
                     )}
                 </div>
             </TableCell>
@@ -52,18 +64,27 @@ export const DataTable = ({ groupedWorkloads, hideTitle, variant = 'normative' }
 
     const renderMixedCell = (primaryValue: number, isBold: boolean, hourlyValue?: number) => {
         if (!primaryValue && !hourlyValue) {
-            return <TableCell className={isBold ? "font-bold text-right" : "text-right"}>0.00</TableCell>;
+            return <TableCell className={isBold ? 'font-bold text-right' : 'text-right'}>0.00</TableCell>;
         }
 
         if (hourlyValue && hourlyValue > 0) {
             return (
-                <TableCell className={`whitespace-nowrap flex flex-col text-right ${isBold ? "font-bold" : "font-semibold"}`}>
-                    {(primaryValue || 0).toFixed(2)}<span className="font-medium text-sm text-neutral-500">+ {hourlyValue.toFixed(2)} {t('hourly')}</span>
+                <TableCell
+                    className={`whitespace-nowrap flex flex-col text-right ${isBold ? 'font-bold' : 'font-semibold'}`}
+                >
+                    {(primaryValue || 0).toFixed(2)}
+                    <span className="font-medium text-sm text-neutral-500">
+                        + {hourlyValue.toFixed(2)} {t('hourly')}
+                    </span>
                 </TableCell>
             );
         }
 
-        return <TableCell className={isBold ? "font-bold text-right" : "font-medium text-right"}>{(primaryValue || 0).toFixed(2)}</TableCell>;
+        return (
+            <TableCell className={isBold ? 'font-bold text-right' : 'font-medium text-right'}>
+                {(primaryValue || 0).toFixed(2)}
+            </TableCell>
+        );
     };
 
     const workloads = React.useMemo(() => {
@@ -71,15 +92,13 @@ export const DataTable = ({ groupedWorkloads, hideTitle, variant = 'normative' }
             .filter((g) => g[variant])
             .map((g) => ({
                 group: g,
-                workload: g[variant]
+                workload: g[variant],
             }));
     }, [groupedWorkloads, variant]);
 
     return (
         <>
-            {!hideTitle && (
-                <SectionTitle className="mb-4 uppercase text-primary">{t('detail_title')}</SectionTitle>
-            )}
+            {!hideTitle && <SectionTitle className="mb-4 uppercase text-primary">{t('detail_title')}</SectionTitle>}
             <div className="w-full overflow-x-auto">
                 <Table>
                     <TableHeader>
@@ -90,9 +109,15 @@ export const DataTable = ({ groupedWorkloads, hideTitle, variant = 'normative' }
                             <TableHead className="bg-[#1C396E] text-white text-right">{t('educational')}</TableHead>
                             {variant !== 'hourly' && (
                                 <>
-                                    <TableHead className="bg-[#2D5A9E] text-white text-right">{t('scientific')}</TableHead>
-                                    <TableHead className="bg-[#4A7AC7] text-white text-right">{t('methodical')}</TableHead>
-                                    <TableHead className="bg-[#7BA3E0] text-black text-right">{t('organizational')}</TableHead>
+                                    <TableHead className="bg-[#2D5A9E] text-white text-right">
+                                        {t('scientific')}
+                                    </TableHead>
+                                    <TableHead className="bg-[#4A7AC7] text-white text-right">
+                                        {t('methodical')}
+                                    </TableHead>
+                                    <TableHead className="bg-[#7BA3E0] text-black text-right">
+                                        {t('organizational')}
+                                    </TableHead>
                                     <TableHead className="bg-[#B0C9F0] text-black text-right">{t('other')}</TableHead>
                                 </>
                             )}
@@ -108,7 +133,7 @@ export const DataTable = ({ groupedWorkloads, hideTitle, variant = 'normative' }
                             return (
                                 <TableRow
                                     key={`${workload.year}-${workload.semester}-${workload.salary}-${workload.subdivision?.bravoId || idx}`}
-                                    className={isTotalsRow ? "bg-slate-50/80" : ""}
+                                    className={isTotalsRow ? 'bg-slate-50/80' : ''}
                                 >
                                     <TableCell>{formatYear(workload.year)}</TableCell>
                                     <TableCell>{formatSemesterLocal(workload.semester)}</TableCell>
@@ -132,12 +157,29 @@ export const DataTable = ({ groupedWorkloads, hideTitle, variant = 'normative' }
                                         </>
                                     ) : (
                                         <>
-                                            {renderMixedCell(workload.educational, isTotalsRow, group.hourly?.educational)}
-                                            {renderValueCell(workload.scientific, isTotalsRow)}
+                                            {renderMixedCell(
+                                                workload.educational,
+                                                isTotalsRow,
+                                                group.hourly?.educational
+                                            )}
+                                            {renderValueCell(
+                                                workload.scientific,
+                                                isTotalsRow,
+                                                workload.rawScientific,
+                                                <ScientificWorkloadWarning
+                                                    hours={workload.scientific}
+                                                    total={workload.totalWorkload}
+                                                />
+                                            )}
                                             {renderValueCell(workload.methodical, isTotalsRow)}
                                             {renderValueCell(workload.organizational, isTotalsRow)}
-                                            {renderValueCell(workload.other, isTotalsRow)}
-                                            {renderTotalCell(workload.totalWorkload, isTotalsRow, workload.salary, group.hourly?.totalWorkload)}
+                                            {renderValueCell(workload.other, isTotalsRow, workload.rawOther)}
+                                            {renderTotalCell(
+                                                workload.totalWorkload,
+                                                isTotalsRow,
+                                                workload.salary,
+                                                group.hourly?.totalWorkload
+                                            )}
                                         </>
                                     )}
                                 </TableRow>

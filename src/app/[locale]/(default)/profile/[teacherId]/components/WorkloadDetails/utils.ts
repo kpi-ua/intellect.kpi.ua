@@ -1,19 +1,14 @@
 import { EmploymentType, EvaluationWorkload, Position } from '@/types/intellect';
-import {
-    WorkloadCategory,
-    WorkloadSummary,
-    WorkloadTotals,
-} from './types';
-import {
-    WorkloadGroupType
-} from '@/app/[locale]/(default)/profile/[teacherId]/components/WorkloadDetails/useGroupedWorkloads';
-import {
-    EMPLOYMENT_ABBREVIATION
-} from '@/app/[locale]/(default)/profile/[teacherId]/components/WorkloadDetails/constants';
+import { getAnnualCapAdjustments } from './workloadCaps';
+import { WorkloadCategory, WorkloadSummary, WorkloadTotals } from './types';
+import { WorkloadGroupType } from '@/app/[locale]/(default)/profile/[teacherId]/components/WorkloadDetails/useGroupedWorkloads';
+import { EMPLOYMENT_ABBREVIATION } from '@/app/[locale]/(default)/profile/[teacherId]/components/WorkloadDetails/constants';
 
 export const formatYear = (year: number): string => {
     return `${year}-${year + 1}`;
 };
+
+export const isScientificBelowMinimum = (hours: number, total: number): boolean => total > 0 && hours < total * 0.3;
 
 export const getDefaultDepartment = (workloads: EvaluationWorkload[]): string => {
     if (workloads.length === 0) return 'all';
@@ -105,8 +100,9 @@ export const filterWorkloadsByPeriod = (
     return filtered;
 };
 
-export const computeWorkloadSummary = (workloads: EvaluationWorkload[]): WorkloadSummary => {
-    const totals = workloads.reduce<WorkloadTotals>(
+export const computeWorkloadSummary = (workloads: EvaluationWorkload[], annual = true): WorkloadSummary => {
+    const semesterRows = workloads.filter((workload) => workload.semester > 0);
+    const rawTotals = semesterRows.reduce<WorkloadTotals>(
         (acc, workload) => ({
             educational: acc.educational + workload.educational,
             scientific: acc.scientific + workload.scientific,
@@ -117,12 +113,20 @@ export const computeWorkloadSummary = (workloads: EvaluationWorkload[]): Workloa
         { educational: 0, scientific: 0, methodical: 0, organizational: 0, other: 0 }
     );
 
+    const adjustments = annual ? getAnnualCapAdjustments(semesterRows) : { scientific: 0, other: 0 };
+    const totals = {
+        ...rawTotals,
+        scientific: rawTotals.scientific - adjustments.scientific,
+        other: rawTotals.other - adjustments.other,
+    };
+
     const total = (Object.keys(totals) as WorkloadCategory[]).reduce((sum, key) => sum + totals[key], 0);
 
     const toPercent = (value: number) => (total > 0 ? (value / total) * 100 : 0);
 
     return {
         ...totals,
+        rawTotals,
         percentages: {
             educational: toPercent(totals.educational),
             scientific: toPercent(totals.scientific),
@@ -131,7 +135,7 @@ export const computeWorkloadSummary = (workloads: EvaluationWorkload[]): Workloa
             other: toPercent(totals.other),
         },
     };
-}
+};
 
 /**
  * Extracts the subdivision bravoId from the first available workload in a grouped section.

@@ -43,18 +43,15 @@ const ITeacherSearch: React.FC = () => {
         <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as SearchMode)}>
             <TabsList className="mb-3 flex flex-nowrap w-full gap-3 overflow-x-auto bg-transparent border-none min-w-0 scrollbar-hidden pb-1 md:pb-0 md:mb-[-1px]">
                 {tabs.map((tab) => (
-                    <TabSheetTrigger
-                        key={tab.type}
-                        value={tab.type}
-                        className="min-w-100 w-200"
-                    >
+                    <TabSheetTrigger key={tab.type} value={tab.type} className="min-w-100 w-200">
                         {tab.label}
                     </TabSheetTrigger>
                 ))}
             </TabsList>
             <div
                 className={
-                    'bg-white flex gap-3 h-100 items-center px-8 rounded-[4px] md:rounded-tl-none ' + styles['field-shadow']
+                    'bg-white flex gap-3 h-100 items-center px-8 rounded-[4px] md:rounded-tl-none ' +
+                    styles['field-shadow']
                 }
             >
                 <TabsContent value="persons" className="w-full">

@@ -15,9 +15,7 @@ const ISearchBlock: React.FC = async () => {
                         <br /> {t('subtitle').split(' ').slice(1).join(' ')}
                     </h2>
                 </div>
-                <p className="max-w-[500px] pt-4">
-                    {t('description')}
-                </p>
+                <p className="max-w-[500px] pt-4">{t('description')}</p>
                 <div className="mt-72 translate-y-50 text-black">
                     <ITeacherSearch />
                 </div>

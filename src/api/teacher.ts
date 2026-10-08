@@ -17,7 +17,7 @@ export const searchByInput = async (input: string, currentPage: number): Promise
     }
 
     const response = await apiFetch<Lecturer[]>(
-        'v2/find' + searchString + `&pageNumber=${currentPage}&pageSize=${SEARCH_PAGE_SIZE}`,
+        'v2/find' + searchString + `&pageNumber=${currentPage}&pageSize=${SEARCH_PAGE_SIZE}`
     );
     if (!response.ok) throw new Error(`${response.status} Error`);
 
@@ -44,9 +44,7 @@ export const getRatings = async (teacherId: string): Promise<Rating[]> => {
 };
 
 export const getEvaluationWorkloads = async (userIdentifier: string): Promise<EvaluationWorkload[]> => {
-    const response = await apiFetch<EvaluationWorkload[]>(
-        `v2/persons/${userIdentifier}/evaluation-workloads`,
-    );
+    const response = await apiFetch<EvaluationWorkload[]>(`v2/persons/${userIdentifier}/evaluation-workloads`);
     if (!response.ok) throw new Error(`${response.status} Error`);
     return response.json();
 };

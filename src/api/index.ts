@@ -18,7 +18,7 @@ const getLocaleSafe = async () => {
 
 export const apiFetch = async <T = unknown>(
     url: string | URL,
-    options: RequestInit = {},
+    options: RequestInit = {}
 ): Promise<TypedResponse<T>> => {
     const { headers, ...otherOptions } = options;
     const locale = await getLocaleSafe();

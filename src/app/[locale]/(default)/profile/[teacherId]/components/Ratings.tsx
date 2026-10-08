@@ -19,9 +19,7 @@ export const Ratings = ({ ratings }: RatingsProps) => {
     }
     return (
         <div className="relative justify-between gap-24 mt-4">
-            <p className="text-xs text-neutral-600">
-                {t('description')}
-            </p>
+            <p className="text-xs text-neutral-600">{t('description')}</p>
 
             <div className="w-full overflow-x-scroll">
                 <table className="-ml-6 -mr-6 border-separate whitespace-nowrap border-spacing-x-6 border-spacing-y-2">

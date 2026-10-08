@@ -37,8 +37,8 @@ const Header: React.FC<Props> = ({ scheme = 'dark', underlined = true }) => {
                 ? darkLogoEn
                 : darkLogoUk
             : locale === LOCALE.EN
-                ? lightLogoEn
-                : lightLogoUk;
+              ? lightLogoEn
+              : lightLogoUk;
 
     const navigation = (
         <nav className="flex flex-col xs:flex-row gap-10 xs:gap-5 text-4xl xs:text-base leading-none font-medium items-center">
@@ -81,9 +81,7 @@ const Header: React.FC<Props> = ({ scheme = 'dark', underlined = true }) => {
                             collapsed={burgerCollapsed}
                             scheme={scheme}
                         >
-                            <div className="flex flex-col items-center gap-10">
-                                {navigation}
-                            </div>
+                            <div className="flex flex-col items-center gap-10">{navigation}</div>
                         </Burger>
                     </div>
                 </div>

@@ -5,6 +5,7 @@ import { WORKLOAD_CATEGORIES } from '../constants';
 import { BarSegment } from './BarSegment';
 import { WorkloadCategory, WorkloadSummary } from '../types';
 import { useTranslations } from 'next-intl';
+import { CapIndicator } from '../CapIndicator';
 
 interface Props {
     yearRange: string;
@@ -13,12 +14,7 @@ interface Props {
     onlyEducational?: boolean;
 }
 
-export const StackedBarChart = ({
-    yearRange,
-    appointmentAbbreviation,
-    summary,
-    onlyEducational = false,
-}: Props) => {
+export const StackedBarChart = ({ yearRange, appointmentAbbreviation, summary, onlyEducational = false }: Props) => {
     const t = useTranslations('profile.workload');
     const catT = useTranslations('profile.workload.categories');
 
@@ -34,13 +30,25 @@ export const StackedBarChart = ({
 
             <div className="flex overflow-hidden rounded-md h-12">
                 {categories.map(({ key, color }) => (
-                    <BarSegment key={key} color={color} percentage={summary.percentages[key as WorkloadCategory]} hours={summary[key as WorkloadCategory]} />
+                    <BarSegment
+                        key={key}
+                        color={color}
+                        percentage={summary.percentages[key as WorkloadCategory]}
+                        hours={summary[key as WorkloadCategory]}
+                    />
                 ))}
             </div>
 
             <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-4">
                 {categories.map(({ key, color }) => (
-                    <LegendItem key={key} color={color} label={catT(key)} percentage={summary.percentages[key as WorkloadCategory]} />
+                    <div key={key}>
+                        <LegendItem
+                            color={color}
+                            label={catT(key)}
+                            percentage={summary.percentages[key as WorkloadCategory]}
+                        />
+                        <CapIndicator raw={summary.rawTotals[key]} credited={summary[key]} />
+                    </div>
                 ))}
             </div>
         </div>

@@ -13,12 +13,8 @@ export default async function About() {
         <InfoBlock sectionImg={aboutImg}>
             <article>
                 <SectionTitle>{t('title')}</SectionTitle>
-                <p className="mt-4">
-                    {t('description_1')}
-                </p>
-                <p className="mt-3">
-                    {t('description_2')}
-                </p>
+                <p className="mt-4">{t('description_1')}</p>
+                <p className="mt-3">{t('description_2')}</p>
             </article>
         </InfoBlock>
     );

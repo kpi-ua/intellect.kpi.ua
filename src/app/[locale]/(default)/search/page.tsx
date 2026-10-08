@@ -151,7 +151,8 @@ const SearchContent: React.FC = () => {
                     onSubmit={(e) => onSubmit(e, true, false)}
                     onTipClick={(v) => router.push(`/profile/${v}`)}
                     placeholder={t('placeholder')}
-                    value={inputValue} />
+                    value={inputValue}
+                />
             </div>
             <ShownContent />
             {teachers.length > 0 && pagingOptions && (
