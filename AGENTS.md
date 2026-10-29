@@ -11,7 +11,7 @@ the short form of the rules every pull request here follows. They override perso
 and skill defaults.
 
 - Jira project key `KBX` (https://kpiua.atlassian.net). Never invent a key — ask for one.
-- The default branch is `master`: branch off it and target it.
+- The default branch is `main`: branch off it and target it.
 - Branch: `KBX-<n>-<short-kebab-summary>`, e.g. `KBX-1312-university-dapper`. Flat names only — no `/` and
   no tool prefixes (`claude/`, `codex/`, `copilot/`, `cursor/`, `gemini/`). This holds for everyone, cloud
   agents included: a session that starts on a `claude/…` or `codex/…` branch moves the work to a `KBX-…`
