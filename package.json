@@ -33,15 +33,14 @@
         "cmdk": "1.1.1",
         "feather-icons": "4.29.2",
         "lucide-react": "0.563.0",
-        "next": "15.5.28",
-        "next-intl": "4.4.0",
+        "next": "15.5.29",
+        "next-intl": "4.15.1",
         "postcss": "8.5.23",
         "radix-ui": "1.4.3",
         "react": "19.1.0",
         "react-dom": "19.1.0",
         "react-hook-form": "7.71.1",
-        "shadcn": "4.1.2",
-        "tailwind": "4.0.0",
+        "shadcn": "4.23.0",
         "tailwind-merge": "^3.5.0",
         "tailwindcss": "4.1.15",
         "tailwindcss-animate": "1.0.7",
@@ -74,6 +73,9 @@
     },
     "overrides": {
         "@types/react": "19.1.8",
-        "@types/react-dom": "19.1.6"
+        "@types/react-dom": "19.1.6",
+        "next": {
+            "postcss": "$postcss"
+        }
     }
 }
