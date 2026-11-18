@@ -3,8 +3,11 @@ import { DEFAULT_LOCALE, LOCALES } from '@/i18n/routing';
 
 export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL!;
 
-// The public URL is inlined into the browser bundle at build time; the server reads its in-cluster address at run time.
-const getRequestBaseUrl = () => (typeof window === 'undefined' && process.env.CAMPUS_API_URL) || API_BASE_URL;
+// The server reads its in-cluster address at run time; the browser has no access to Campus API and goes through
+// this application's own /api/intellect routes.
+export const getCampusApiUrl = () => (process.env.CAMPUS_API_URL || API_BASE_URL).replace(/\/+$/, '');
+
+const getRequestBaseUrl = () => (typeof window === 'undefined' ? getCampusApiUrl() : window.location.origin + '/api');
 
 const getLocaleSafe = async () => {
     if (typeof window !== 'undefined') {
@@ -26,7 +29,7 @@ export const apiFetch = async <T = unknown>(
     const { headers, ...otherOptions } = options;
     const locale = await getLocaleSafe();
 
-    const input = new URL(url, getRequestBaseUrl().replace(/\/+$/, '') + '/intellect/').href;
+    const input = new URL(url, getRequestBaseUrl() + '/intellect/').href;
 
     const mergedHeaders = new Headers(headers);
     if (!mergedHeaders.has('Accept')) mergedHeaders.set('Accept', 'application/json');

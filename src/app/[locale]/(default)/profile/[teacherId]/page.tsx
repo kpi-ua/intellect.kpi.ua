@@ -1,7 +1,6 @@
 import React, { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { getTeacherByTeacherId } from '@/api/teacher';
-import { API_BASE_URL } from '@/api';
 import SectionTitle from '@/components/common/SectionTitle';
 import { JobLabel } from '@/components/JobLabel/JobLabel';
 import Avatar from '@/components/Avatar/Avatar';
@@ -59,7 +58,7 @@ export async function generateMetadata({ params }: { params: Promise<{ teacherId
                 images: teacher?.userIdentifier
                     ? [
                         {
-                            url: `${API_BASE_URL}/intellect/v2/persons/${teacher.userIdentifier}/page-preview`,
+                            url: `/api/intellect/v2/persons/${encodeURIComponent(teacher.userIdentifier)}/page-preview`,
                         },
                     ]
                     : [],
