@@ -2,7 +2,11 @@ import { getLocale } from 'next-intl/server';
 import { DEFAULT_LOCALE, LOCALES } from '@/i18n/routing';
 
 // Server-only. The browser reaches Campus API through this application's /api/intellect routes.
-export const CAMPUS_API_URL = process.env.CAMPUS_API_URL;
+export const getCampusApiUrl = () => {
+    const url = process.env.CAMPUS_API_URL;
+    if (!url) throw new Error('CAMPUS_API_URL is not set');
+    return url.replace(/\/+$/, '');
+};
 
 const getLocaleSafe = async () => {
     if (typeof window !== 'undefined') {
@@ -24,7 +28,7 @@ export const apiFetch = async <T = unknown>(
     const { headers, ...otherOptions } = options;
     const locale = await getLocaleSafe();
 
-    const baseUrl = typeof window === 'undefined' ? CAMPUS_API_URL : `${window.location.origin}/api`;
+    const baseUrl = typeof window === 'undefined' ? getCampusApiUrl() : `${window.location.origin}/api`;
     const input = new URL(url, `${baseUrl}/intellect/`).href;
 
     const mergedHeaders = new Headers(headers);

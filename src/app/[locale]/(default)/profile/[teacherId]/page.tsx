@@ -18,6 +18,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { WorkloadContainer } from './components/WorkloadDetails/WorkloadContainer';
 import { Loader } from 'lucide-react';
 import { notFound } from 'next/navigation';
+import { headers } from 'next/headers';
 import { getTranslations } from 'next-intl/server';
 
 const generateMetaDescription = (teacher: Lecturer | null, t: any): string => {
@@ -45,6 +46,11 @@ export async function generateMetadata({ params }: { params: Promise<{ teacherId
     const { teacherId, locale } = await params;
     const commonT = await getTranslations({ locale, namespace: 'global.metadata' });
 
+    // The preview image is served by this contour's own route, not by the production host in metadataBase.
+    const requestHeaders = await headers();
+    const host = requestHeaders.get('x-forwarded-host') ?? requestHeaders.get('host');
+    const origin = host ? `${requestHeaders.get('x-forwarded-proto') ?? 'https'}://${host}` : '';
+
     try {
         const teacher = await getTeacherByTeacherId(teacherId);
         const description = generateMetaDescription(teacher, await getTranslations({ locale }));
@@ -58,7 +64,7 @@ export async function generateMetadata({ params }: { params: Promise<{ teacherId
                 images: teacher?.userIdentifier
                     ? [
                         {
-                            url: `/api/intellect/v2/persons/${encodeURIComponent(teacher.userIdentifier)}/page-preview`,
+                            url: `${origin}/api/intellect/v2/persons/${encodeURIComponent(teacher.userIdentifier)}/page-preview`,
                         },
                     ]
                     : [],
