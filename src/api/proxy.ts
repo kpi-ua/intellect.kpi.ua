@@ -1,4 +1,4 @@
-import { getCampusApiUrl } from './index';
+import { CAMPUS_API_URL } from './index';
 
 const FORWARDED_RESPONSE_HEADERS = ['content-type', 'cache-control', 'x-total-count'];
 
@@ -9,7 +9,7 @@ export const proxyToCampusApi = async (request: Request, path: string): Promise<
     const acceptLanguage = request.headers.get('accept-language');
 
     try {
-        const response = await fetch(getCampusApiUrl() + path + new URL(request.url).search, {
+        const response = await fetch(CAMPUS_API_URL + path + new URL(request.url).search, {
             headers: acceptLanguage ? { 'Accept-Language': acceptLanguage } : {},
             cache: 'no-store',
         });
