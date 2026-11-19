@@ -64,7 +64,7 @@ export async function generateMetadata({ params }: { params: Promise<{ teacherId
                 images: teacher?.userIdentifier
                     ? [
                         {
-                            url: `${origin}/api/intellect/v2/persons/${encodeURIComponent(teacher.userIdentifier)}/page-preview`,
+                            url: `${origin}/api/persons/${encodeURIComponent(teacher.userIdentifier)}/page-preview`,
                         },
                     ]
                     : [],

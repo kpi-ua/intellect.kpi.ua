@@ -15,7 +15,7 @@ import {
     CommandGroup,
     CommandItem,
 } from '@/components/ui/command';
-import { searchByInput } from '@/api/teacher';
+import { searchTeachers } from '@/actions/teacher';
 import useClickOutside from '@/utils/hooks/useClickOutside';
 
 interface Props {
@@ -48,7 +48,7 @@ const InputField: React.FC<Props> = ({
     const handleTips = async (value: string | undefined) => {
         if (value) {
             try {
-                const response = (await searchByInput(value, 1));
+                const response = (await searchTeachers(value, 1));
                 setTipOptions(response.data);
                 setIsTipsVisible(true);
             } catch (e) {
