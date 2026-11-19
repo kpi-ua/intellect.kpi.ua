@@ -47,9 +47,18 @@ export const getEvaluationWorkloads = async (userIdentifier: string): Promise<Ev
 
 const PAGE_PREVIEW_TIMEOUT_MS = 10_000;
 
-export const getPagePreview = async (userIdentifier: string): Promise<Response> =>
-    apiFetch(`v2/persons/${encodeURIComponent(userIdentifier)}/page-preview`, {
-        headers: { Accept: 'image/*' },
-        redirect: 'manual',
-        signal: AbortSignal.timeout(PAGE_PREVIEW_TIMEOUT_MS),
-    });
+export const getPagePreview = async (userIdentifier: string): Promise<Response> => {
+    // The timeout covers waiting for the headers only, so a body passed on to the caller is not cut off.
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), PAGE_PREVIEW_TIMEOUT_MS);
+
+    try {
+        return await apiFetch(`v2/persons/${encodeURIComponent(userIdentifier)}/page-preview`, {
+            headers: { Accept: 'image/*' },
+            redirect: 'manual',
+            signal: controller.signal,
+        });
+    } finally {
+        clearTimeout(timeout);
+    }
+};
