@@ -7,18 +7,12 @@ import { Rating, Lecturer, EvaluationWorkload } from '@/types/intellect';
 const SEARCH_PAGE_SIZE = 30;
 
 export const searchByInput = async (input: string, currentPage: number): Promise<ApiResponse<Lecturer>> => {
-    const params = parseSearchParams(input);
-    let searchString = '?';
+    const { startsWith } = parseSearchParams(input);
+    const query = new URLSearchParams(startsWith ? { startsWith } : { value: input });
+    query.set('pageNumber', String(currentPage));
+    query.set('pageSize', String(SEARCH_PAGE_SIZE));
 
-    if (params.startsWith) {
-        searchString += '&startsWith=' + params.startsWith;
-    } else {
-        searchString += '&value=' + input;
-    }
-
-    const response = await apiFetch<Lecturer[]>(
-        'v2/find' + searchString + `&pageNumber=${currentPage}&pageSize=${SEARCH_PAGE_SIZE}`,
-    );
+    const response = await apiFetch<Lecturer[]>(`v2/find?${query}`);
     if (!response.ok) throw new Error(`${response.status} Error`);
 
     const totalCount = parseInt(response.headers.get('x-total-count') ?? '0', 10);
@@ -49,4 +43,22 @@ export const getEvaluationWorkloads = async (userIdentifier: string): Promise<Ev
     );
     if (!response.ok) throw new Error(`${response.status} Error`);
     return response.json();
+};
+
+const PAGE_PREVIEW_TIMEOUT_MS = 10_000;
+
+export const getPagePreview = async (userIdentifier: string): Promise<Response> => {
+    // The timeout covers waiting for the headers only, so a body passed on to the caller is not cut off.
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), PAGE_PREVIEW_TIMEOUT_MS);
+
+    try {
+        return await apiFetch(`v2/persons/${encodeURIComponent(userIdentifier)}/page-preview`, {
+            headers: { Accept: 'image/*' },
+            redirect: 'manual',
+            signal: controller.signal,
+        });
+    } finally {
+        clearTimeout(timeout);
+    }
 };

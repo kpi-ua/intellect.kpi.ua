@@ -11,14 +11,6 @@ const nextConfig = {
             { hostname: 'cdn.cloud.kpi.ua' },
         ],
     },
-    rewrites: async () => {
-        return [
-            {
-                source: '/sitemap',
-                destination: `${process.env.NEXT_PUBLIC_API_URL}/intellect/v2/sitemap`,
-            },
-        ];
-    },
 };
 
 module.exports = withNextIntl(nextConfig);

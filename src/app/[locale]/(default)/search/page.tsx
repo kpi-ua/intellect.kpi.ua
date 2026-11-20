@@ -12,7 +12,7 @@ import NotFoundIndicator from '@/components/ContentStubs/NotFoundIndicator';
 import SpinnerIndicator from '@/components/ContentStubs/SpinnerIndicator';
 import Pagination from '@/components/Pagination/Pagination';
 
-import { searchByInput } from '@/api/teacher';
+import { searchTeachers } from '@/actions/teacher';
 import { searchStringParams } from '@/constants';
 import useLinkRoute from '@/utils/hooks/useLinkRoute';
 import useRuntimeCache from '@/utils/hooks/useRuntimeCache';
@@ -74,7 +74,7 @@ const SearchContent: React.FC = () => {
     const fetchTeachers = async (page: number) => {
         try {
             setLoading(true);
-            const data = await searchByInput(searchValue, page);
+            const data = await searchTeachers(searchValue, page);
             setTeachers(data.data);
             setCache({ [page]: data.data });
             searchedValue.current = searchValue;
