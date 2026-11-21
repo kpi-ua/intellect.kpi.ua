@@ -310,6 +310,9 @@
 
 html {
   scroll-behavior: smooth;
+  /* Fills what Safari shows beyond the page: the overscroll and the room under its floating toolbar.
+     The body stays white over the page itself, so below the footer this continues the footer. */
+  background-color: var(--color-primary);
 }
 
 .main-layout-wrapper {
